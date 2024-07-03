@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>공지사항</title>
+<link rel="stylesheet" href="csscopy.css">
+<style type="text/css">
+	/* 전체 기본 설정*/
+	ul,ul>li{
+	    list-style: none;
+	}
+	table,tr,th,td{
+	    border: 1px solid black;
+	}
+	/*전체 화면*/
+	#content{
+	    width: 100%;
+	    position:relative;
+	    
+	}
+
+	/*왼쪽 사이드바 CSS*/
+	#content > .menu_bar{
+	    width: 10%;
+	    float: left;
+	    padding-top: 10px;
+	    padding-left: 5px;
+	    border-right: 1px solid black;
+	    margin-right: 8%;
+	}
+
+	.menu_bar > li{
+	    
+	}
+
+	/*오른쪽 View 화면*/
+	#content > .menu_board{
+	    width: 80%;
+	    margin: 0 auto;
+	}
+</style>
+</head>
+<body>
+    <div id="content">
+		<!-- 왼쪽 사이드바 -->
+		<div class="menu_bar">
+			<ul>
+                <li>공지사항</li>
+                <li>FAQ</li>
+            </ul>
+		</div>
+		
+		<!-- 오른쪽 View화면 -->
+		<div class="menu_board">
+			<!-- 공지사항 화면 -->
+			<div class="board">
+                <h2>공지사항</h2>
+				<table width="80%">
+					<tr>
+						<th>글 번호</th><th>제목</th><th>작성일자</th>
+					</tr>
+					<tr align="center" th:each="article : ${articleMap.articlesList}">
+					   	<td>글 번호</td>										
+					   	<td>글 제목</td>										
+					   	<td>글 작성일</td>										
+					</tr>				
+				</table>
+				
+				<!-- 하단 페이지 번호 -->
+				<div class="boardNo">
+					
+				</div>
+			</div>
+			
+			<!-- FAQ 화면 -->
+			<div class="FAQ">
+                
+            </div>
+		</div>
+	</div>
+</body>
+</html>
