@@ -1,0 +1,72 @@
+@charset "uft-8";
+body{
+    background-color: rgb(252, 252, 252);
+}
+
+span{
+    font-weight: bold;
+}
+/* 전체 기본 설정*/
+ul,ul>li{
+    list-style: none;
+}
+
+/*전체 화면*/
+#boardcontent{
+    width: 100%;
+}
+
+/*오른쪽 View 화면*/
+#boardcontent > .menu_board{
+    width: 60%;
+    margin: 0 auto;
+}
+.board>h2{
+    margin-top: 4%;
+    margin-bottom: 1%;
+    color: #ff6f61;
+}
+
+.board>p{
+    display: inline-block;
+    margin: 0;
+    color: #666;
+    margin-bottom: 2%;
+}
+
+.board>table{
+    table-layout: auto;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    border-collapse: collapse;
+    margin-top: 3%;
+}
+
+.board th{
+    color: #ff6f61;
+    border-bottom: 1px solid #ccc;
+    padding: 1%;
+
+}
+
+.board td{
+    border-bottom: 1px solid #ccc;
+    padding: 1%;
+}
+
+.board td:first-child{
+    width: 10%;
+    text-align: center;
+    font-weight: bold;
+    color: #ff6f61;
+}
+
+.board td:nth-child(2){
+    width: 45%;
+    text-align: left;
+}
+
+.board td:nth-child(3){
+    width: 10%;
+    text-align: center;
+}

@@ -4,8 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ</title>
+	<link rel="stylesheet" href="../../static/css/FAQ.css">
 </head>
 <body>
-    
+	<th:block layout:fragment="content">
+		<div id="FAQ_content">
+			<div class="FAQ_view">
+				<h1>FAQ</h1>
+				<p>도움이 필요하신가요?</p>
+				<!--문의 영역-->
+				<div class="ask">
+					<article class="askArea">
+						<div class="ask_info">
+							<h3>0000-0000</h3>
+							<div>
+								<section>
+									<p>예약•취소 문의</p>
+									<p>오전 9시 - 오후 6시</p>
+								</section>
+							</div>
+						</div>
+						<button>카카오 문의</button>
+					</article>
+				</div>
+				
+				<!--자주 묻는 질문-->
+				<div class="question">
+					<h2>자주 묻는 질문</h2>
+					<div class="accordion">
+						<input 	type="radio" name="accordion" id="answer1">
+						<label for="answer1"><span>Q.</span>	질문을 해볼까요<em></em></label>
+						<div>
+							<p>질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.</p>
+						</div>
+	
+						<input 	type="radio" name="accordion" id="answer2">
+						<label for="answer2"><span>Q.</span>	질문을 해볼까요2<em></em></label>
+						<div>
+							<p>질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.</p>
+						</div>
+	
+						<input 	type="radio" name="accordion" id="answer3">
+						<label for="answer3"><span>Q.</span>	질문을 해볼까요3<em></em></label>
+						<div>
+							<p>질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.</p>
+						</div>
+	
+						<input 	type="radio" name="accordion" id="answer4">
+						<label for="answer4"><span>Q.</span>	질문을 해볼까요4<em></em></label>
+						<div>
+							<p>질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.</p>
+						</div>
+						
+						<input 	type="radio" name="accordion" id="answer5">
+						<label for="answer5"><span>Q.</span>	질문을 해볼까요5<em></em></label>
+						<div>
+							<p>질문은 그만해주세요. 저도 제 머리가 터질 것 같거든요. 행복한 하루가 되세요.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
 </body>
 </html>
