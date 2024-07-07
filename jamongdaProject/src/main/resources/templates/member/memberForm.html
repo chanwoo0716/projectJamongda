@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원 가입</title>
+<link rel="stylesheet" th:href="@{/css/memberForm.css}" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!--<script type="text/javascript" th:src="@{/js/common.js}"></script>-->
+<script type="text/javascript" th:src="@{/js/memberForm.js}"></script>
+<script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<!--
+		
+	<div th:if="${successMessage}" class="alert alert-success">
+	    <p th:text="${successMessage}"></p>
+	</div>
+	<div th:if="${errorMessage}" class="alert alert-danger">
+	    <p th:text="${errorMessage}"></p>
+	</div>
+	-->
+	
+	<form name="frmMember" action="/member/insertMember.do" method="post">
+	        <table>
+	        <tr>
+	            <td><h2>회원가입</h2></td>
+	        </tr>
+	        <tr><td>이메일 <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호</button></td></tr>
+			<tr>
+			    <td>
+			        <input type="text" name="email" id="email" class="email" placeholder="이메일을 입력하세요" required>
+			        <button type="button" id="sendBtn" name="sendBtn" onclick="sendNumber()">인증번호 요청</button>
+			    </td>
+			</tr>
+			<tr>
+			    <td>
+			        <input type="text" name="number" id="number" placeholder="인증번호 입력" required>
+			        <button type="button" name="confirmBtn" id="confirmBtn" onclick="confirmNumber()">이메일 인증 확인</button>
+			        <input type="hidden" id="Confirm" name="Confirm">
+			    </td>
+			</tr>
+	        <tr><td>이름</td></tr>
+	        <tr><td>
+	            <input type="text" id="name" name="name" class="text" placeholder="이름을 입력하세요" required>
+	        </td></tr>
+	        <tr><td>비밀번호</td></tr>
+	        <tr>
+				<td>* 4~10자리 이내로 입력해주세요</td>
+			</tr>
+			<tr>
+				<td><input type="password" id="pwd" name="pwd" class="text" oninput="pwd_Chk();" required></td>
+			</tr>
+	        <tr><td>비밀번호 확인</td></tr>
+			<tr><td><span id="pwdChk_msg"></span></td></tr>
+	        <tr>
+				<td>
+					<input type="password" id="pwdChk" name="pwdChk" class="text" oninput="pwd_Chk();"required>
+				</td>
+			</tr>
+	        <tr><td>전화번호</td></tr>
+	        <tr><td><input type="tel" id="tel" name="tel" class="text" placeholder="예시) 01012345678" required
+							oninput="oninputTel(this)" maxlength="13"></td></tr>
+	        <tr><td>주소 <button type="button" class="findPostCode" onclick="findPostCode();">우편번호 찾기</button></td></tr>
+			<tr><td><input type="tel" name="postCode" id="postCode" maxlength="5" size="6" title="우편번호" class="text" placeholder="우편번호를 입력하세요"></td></tr>
+			<tr><td><input type="text" id="address1" name="address1" class="text" placeholder="주소를 입력하세요"></td></tr>
+			<tr><td><input type="text" id="address2" name="address2" class="text" placeholder="상세주소를 입력하세요"></td></tr>
+			<tr>
+			    <td><input type="hidden" id="address" name="address"></td>
+			</tr>
+			
+	        <tr><td>생년월일</td></tr>
+	        <tr><td><input type="text" id="birth" name="birth" class="text" placeholder="예시) 19990101"
+							oninput="oninputBirth(this)" maxlength="10"></td></tr>
+	        
+	        <tr><td><input type="submit" value="가입하기" id="submitBtn" class="submitBtn"></td></tr>
+	        </table>
+	    </form>
+</body>
+</html>

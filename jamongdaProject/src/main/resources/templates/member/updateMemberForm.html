@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원 정보 수정</title>
+<link rel="stylesheet" th:href="@{/css/updateMemberForm.css}" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!--<script src="js/common.js"></script>-->
+<script type="text/javascript" th:src="@{/js/updateMemberForm.js}"></script>
+</head>
+<body>
+	<form name="frmUpdateMember" action="/member/updateMember.do" method="post">
+	    <table>
+		    <tr>
+		        <td><h2>회원 정보 수정</h2></td>
+		    </tr>
+			
+		    <tr><td>이메일</td></tr>
+		    <tr>
+		        <td>
+					<input type="text" id="email" class="email" th:value="${member.email}" disabled>
+					<input type="hidden" name="email" id="email" th:value="${member.email}">
+		        </td>
+		    </tr>
+			
+		    <tr><td>이름</td></tr>
+		    <tr><td>
+		        <input type="text" id="name" name="name" class="text" th:value="${member.name}">
+		    </td></tr>
+			
+		    <tr><td>비밀번호 <button type="button" id="updatePwdBtn" onclick="updatePwd()">비밀번호 변경</button></td></tr>
+			<tr>
+				<td><input type="password" id="pwd" name="pwd" class="text" th:value="${member.pwd}"></td>
+			</tr>
+			<!--				
+		    <tr><td>비밀번호 확인</td></tr>
+			<tr><td><span id="pwdChk_msg"></span></td></tr>
+		    <tr>
+				<td>
+					<input type="password" id="pwdChk" name="pwdChk" class="text" required
+							oninput="pwdChk()" hidden>
+				</td>
+			</tr>
+			-->
+			
+		    <tr><td>전화번호</td></tr>
+		    <tr><td><input type="tel" id="tel" name="tel" class="text" required
+							oninput="oninputTel(this)" maxlength="13" th:value="${member.tel}"></td></tr>
+							
+			<tr><td>주소 <button type="button" class="findPostCode" onclick="findPostCode();" hidden>우편번호 찾기</button></td></tr>
+			<tr><td><input type="tel" name="postCode" id="postCode" maxlength="5" size="6" title="우편번호" class="text" hidden></td></tr>
+			
+			<tr><td><input type="text" id="address" name="address" class="text" th:value="${member.address}"></td></tr>
+		    <tr><td>생년월일</td></tr>
+		    <tr>
+				<td><input type="text" id="birth" name="birth" class="text"
+							oninput="oninputBirth(this)" maxlength="10" th:value="${member.birth}"></td>
+			</tr>
+		    
+		    <tr><td><input type="submit" value="수정" id="submitBtn" class="submitBtn"></td></tr>
+	    </table>
+	</form>
+</body>
+</html>

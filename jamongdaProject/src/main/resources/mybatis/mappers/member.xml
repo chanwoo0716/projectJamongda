@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jamongda.member.dao.MemberDAO">
+	<resultMap id="memResult" type="memberDTO">
+		<result property="email" column="email" />
+		<result property="name" column="name" />
+		<result property="pwd" column="pwd" />
+		<result property="tel" column="tel" />
+		<result property="address" column="address" />
+		<result property="birth" column="birth" />
+		<result property="regNumber" column="regNumber" />
+		<result property="regCheck" column="regCheck" />
+		<result property="joinDate" column="joinDate" />
+		<result property="role" column="role" />
+		<!--<result property="emailStatus" column="emailStatus" />-->
+	</resultMap>
+	
+	<sql id="inG"> <!--insert guest정보-->
+		insert into member (email, name, pwd, tel, address, birth, joinDate, role) values
+	</sql>
+	<sql id="inH"> <!--insert host정보-->
+		insert into member (email, name, pwd, tel, regNumber, regCheck, joinDate, role) values
+	</sql>
+	
+	<!-- 수정삭제 테스트를 위해 나중에 삭제할 예정 -->
+ 	<select id="selectAllMembersList" resultMap="memResult">
+ 		select * from member order by joinDate desc
+ 	</select>
+	
+	<insert id="insertMember" parameterType="memberDTO">
+		<include refid="inG" />
+		(#{email}, #{name}, #{pwd}, #{tel}, #{address}, #{birth}, sysdate(), 'guest')
+	</insert>
+	
+	<select id="findInfo" parameterType="String" resultType="memberDTO">
+		select * from member where email=#{email}
+	</select>
+	
+	<update id="updateEmailStatus">
+        UPDATE member SET emailStatus = #{emailStatus} WHERE email = #{email}
+    </update>
+	
+	<update id="updateMember" parameterType="memberDTO">
+		update member set pwd=#{pwd}, name=#{name}, tel=#{tel}, address=#{address}, birth=#{birth} where email=#{email}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from member where email=#{email}
+	</delete>
+
+	<insert id="insertMemberH" parameterType="memberDTO">
+		<include refid="inH" />
+		(#{email}, #{name}, #{pwd}, #{tel}, #{regNumber}, 'N', sysdate(), 'host')
+	</insert>
+	
+	<select id="findInfoH" parameterType="String" resultType="memberDTO">
+		select * from member where email=#{email}
+	</select>
+	
+	<update id="updateMemberH" parameterType="memberDTO">
+		update member set pwd=#{pwd}, name=#{name}, tel=#{tel} where email=#{email}
+	</update>
+	
+	<delete id="deleteMemberH" parameterType="String">
+		delete from member where email=#{email}
+	</delete>
+	
+</mapper>	
