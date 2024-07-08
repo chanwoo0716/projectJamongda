@@ -7,45 +7,48 @@ import org.springframework.stereotype.Component;
 @Component("boardDTO")
 public class BoardDTO {
 	private int boardId;
-	private String boardCategory;
-	private String boardTitle;
-	private String boardContent;
-	private Date boardWrite;
+	private String category;
+	private String title;
+	private String content;
+	private Date regDate;
 	
 	public int getBoardId() {
 		return boardId;
 	}
+	
 	public void setBoardId(int boardId) {
 		this.boardId = boardId;
 	}
 	
-	public String getBoardCategory() {
-		return boardCategory;
-	}
-	public void setBoardCategory(String boardCategory) {
-		this.boardCategory = boardCategory;
+	public String getCategory() {
+		return category;
 	}
 	
-	public String getBoardTitle() {
-		return boardTitle;
-	}
-	public void setBoardTitle(String boardTitle) {
-		this.boardTitle = boardTitle;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
-	public String getBoardContent() {
-		return boardContent;
-	}
-	public void setBoardContent(String boardContent) {
-		this.boardContent = boardContent;
+	public String getTitle() {
+		return title;
 	}
 	
-	public Date getBoardWrite() {
-		return boardWrite;
-	}
-	public void setBoardWrite(Date boardWrite) {
-		this.boardWrite = boardWrite;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
+	public String getContent() {
+		return content;
+	}
 	
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	public Date getRegDate() {
+		return regDate;
+	}
+	
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
 }

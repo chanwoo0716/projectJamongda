@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>글 수정하기:JAMONGDA</title>
+<link rel="stylesheet" th:href="@{/css/board.css}"/>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" th:src="@{/smartEditor/js/HuskyEZCreator.js}" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{/js/modBoardForm.js}"></script>
+</head>
+<body>
+	<th:block layout:fragment="content">
+		<div id="boardForm">
+			<h2>글 등록하기</h2>
+			<form id="smartEditor" action="/board/modBoard.do" method="post" name="ftmBoard">
+				<div class="top">
+					<!--카테고리 영역-->
+					<select name="category" id="category">
+						<option value="공지">공지</option>
+						<option value="이벤트">이벤트</option>
+						<option value="발표">발표</option>
+					</select>
+				
+					<!--제목 영역-->
+					<input type="text" name="title" class="title" required="" th:value="${board.title}" />
+				</div>
+				
+				<!--글쓰기 영역-->
+				<div id="smartEditor">
+					<textarea name="editorTxt" id="editorTxt"
+							rows="20" cols="115"
+							th:utext="${board.content}">
+					</textarea>
+				</div>
+				
+				<input type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
+				<input type="submit" value="수정하기"/>
+			</form>	
+		</div>
+	</th:block>
+</body>
+</html>

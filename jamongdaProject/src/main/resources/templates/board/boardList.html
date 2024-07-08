@@ -4,43 +4,9 @@
 	  layout:decorate="/layout/layout">
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
-<link rel="stylesheet" href="../../static/css/board.css">
-<style type="text/css">
-	/* 전체 기본 설정*/
-	ul,ul>li{
-	    list-style: none;
-	}
-	table,tr,th,td{
-	    border: 1px solid black;
-	}
-	/*전체 화면*/
-	#content{
-	    width: 100%;
-	    position:relative;
-	    
-	}
-
-	/*왼쪽 사이드바 CSS*/
-	#content > .menu_bar{
-	    width: 10%;
-	    float: left;
-	    padding-top: 10px;
-	    padding-left: 5px;
-	    border-right: 1px solid black;
-	    margin-right: 8%;
-	}
-
-	.menu_bar > li{
-	    
-	}
-
-	/*오른쪽 View 화면*/
-	#content > .menu_board{
-	    width: 80%;
-	    margin: 0 auto;
-	}
-</style>
+<title>공지사항:JAMONGDA</title>
+<link rel="stylesheet" th:href="@{/css/board.css}"/>
+<script type="text/javascript" th:src="@{/js/boardList.js}"></script>
 </head>
 <body>
 	<th:block layout:fragment="content">
@@ -50,30 +16,53 @@
 				<!-- 공지사항 화면 -->
 				<div class="board">
 					<h2>공지사항</h2>
-					<p><span>Jamongda</span>의 다양한 소식 등을 알려드립니다.</p>
+					<p><span>JAMONGDA</span>의 다양한 소식 등을 알려드립니다.</p>
 					<table>
-						<tr th:each="article : ${articleMap.articlesList}">
-							<td>이벤트</td>										
-							<td>박규림 가만히 있어 이자식아</td>									
-							<td>2024.07.04</td>										
-						</tr>	
-						<tr th:each="article : ${articleMap.articlesList}">
-							<td>공지</td>										
-							<td>조장 우리 잘할 수 있을까...?</td>										
-							<td>2024.07.04</td>										
-						</tr>
-						<tr th:each="article : ${articleMap.articlesList}">
-							<td>발표</td>										
-							<td>여기어때 월드투어 엘리트 플러스 전용 이벤트</td>										
-							<td>2024.07.04</td>										
+						<tr th:each="board : ${boardMap.boardList}">
+						   	<td th:text=${board.category}></td>
+							<td th:text=${board.boardId}></td>
+							<td><a th:href="@{/board/viewBoard.do(boardId=${board.boardId})}" th:text="${board.title}"></a></td>
+							<td th:text=${board.regDate}></td>										
 						</tr>
 					</table>
 					
-					<!-- 하단 페이지 번호 -->
-					<div class="boardNo">
+					<!-- 하단 페이지 번호
+					<div align="center" th:if="${boardMap.totBoards > 10}">        
+				        <div th:if="${boardMap.totBoards > 100}">
+				            <span th:each="num : ${#numbers.sequence(1, (boardMap.section > boardMap.totBoards / 100 ? (boardMap.totBoards % 100)/10 + 1 : 10))}">
+				               <span th:if="${boardMap.section > 1 and num == 1}">
+				                  <a th:href="@{/board/boardList.do(section=${boardMap.section - 1}, pageNum=${(boardMap.section - 1) * 10})}">prev</a>
+				               </span>
+				               <span th:if="${num == (boardMap.pageNum % 10 == 0 ? 10 : boardMap.pageNum % 10)}">
+				                  <a class="target" th:href="@{/board/boardList.do(section=${boardMap.section}, pageNum=${(boardMap.section - 1) * 10 + num})}" th:text="${(boardMap.section-1)*10+num}">}</a>
+				               </span>
+				               <span th:unless="${num == (boardMap.pageNum % 10 == 0 ? 10 : boardMap.pageNum % 10)}">   
+				                  <a classs="noLine" th:href="@{/board/boardList.do(section=${boardMap.section}, pageNum=${(boardMap.section - 1) * 10 + num})}"  th:text="${(boardMap.section-1)*10+num}"></a>
+				               </span>                  
+				               <span th:if="${num == 10}">
+				                  <a th:href="@{/board/boardList.do(section=${boardMap.section + 1}, pageNum=${boardMap.section * 10 + 1})}">next</a>
+				               </span>
+				            </span>
+			         	</div>	
 						
-					</div>
-				</div>
+						<div th:if="${boardMap.totBoards <= 100}">	
+							<span th:each="num : ${#numbers.sequence(1,(boardMap.totBoards/10+1))}">
+							<span th:if="${num==boardMap.pageNum}">
+								<a class="target" th:href="@{/board/boardList.do(section=${boardMap.section},pageNum=${num})}" th:text="${num}"></a>
+							</span>
+							<span th:unless="${num==boardMap.pageNum}">
+								<a class="noLine" th:href="@{/board/boardList.do(section=${boardMap.section},pageNum=${num})}" th:text="${num}"></a>
+							</span>					
+						</span>
+						</div>
+					</div>-->
+					<!--Admin이 아닐 경우 노출되지않는다.
+					<div th:if="${MemberDTO.admin_check=='Y'}">
+						
+					</div>-->
+				<p align="center" class="write">
+					<a th:href="|javascript:fn_boardForm('/board/boardForm.do')|">글쓰기</a>
+				</p>
 			</div>
 		</div>
 	</th:block>

@@ -34,6 +34,12 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5'
 	implementation 'commons-io:commons-io:2.16.1'
+	
+	
+	/*여기서부터 내가 넣은 라이브러리들*/
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'	//JPA와 관련된 종속성 포함
+	compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'	//Lombok: 코드 생성을 돕는 라이브러리(게터, 세터 생성자)
 }
 
 tasks.named('test') {

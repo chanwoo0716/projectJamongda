@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  	  layout:decorate="/layout/layout">>
+<head>
+<meta charset="UTF-8">
+<title>글 상세보기:JAMONGDA</title>
+<link rel="stylesheet" th:href="@{/css/board.css}"/>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" th:src="@{/smartEditor/js/HuskyEZCreator.js}" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{/js/viewBoard.js}" charset="utf-8"></script>
+</head>
+<body>
+	<th:block layout:fragment="content">
+		<div id="view_board">
+			<form name="ftmBoard" action="" method="post">
+				<a href="/board/boardList.do"><</a>
+				<p th:text="${board.category}" class="view_category"></p>
+				
+				<!--action은 메서드 처리-->
+				<div id="boardView">
+					<h2 th:text="${board.title}">게시글 제목</h2>
+					<p th:text="${board.regDate}">작성일</p>
+					<div th:utext="${board.content}" class="view_content"></div>
+				</div>
+				
+				<div class="view_btn">
+					<input type="button" value="수정하기" th:onclick="fn_modBoardForm('/board/modBoardForm')">
+					<input type="button" value="삭제하기" th:onclick="fn_romove_board('/board/removeBoard.do', [[${board.boardId}]])">
+				</div>
+			</form>
+		</div>
+	</th:block>
+</form>
+</body>
+</html>

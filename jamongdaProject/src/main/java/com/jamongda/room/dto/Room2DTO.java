@@ -1,5 +1,5 @@
 package com.jamongda.room.dto;
 
-public class RoomDTO {
+public class Room2DTO {
 
 }
