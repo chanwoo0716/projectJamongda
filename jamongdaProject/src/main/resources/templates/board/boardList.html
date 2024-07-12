@@ -19,47 +19,63 @@
 					<p><span>JAMONGDA</span>의 다양한 소식 등을 알려드립니다.</p>
 					<table>
 						<tr th:each="board : ${boardMap.boardList}">
-						   	<td th:text=${board.category}></td>
-							<td th:text=${board.boardId}></td>
-							<td><a th:href="@{/board/viewBoard.do(boardId=${board.boardId})}" th:text="${board.title}"></a></td>
-							<td th:text=${board.regDate}></td>										
+						   	<td th:text=${board.board_category}></td>
+							<td th:text=${board.board_id}></td>
+							<td><a th:href="@{/board/viewBoard.do(board_id=${board.board_id})}" th:text="${board.board_title}"></a></td>
+							<td th:text=${board.board_date}></td>										
 						</tr>
 					</table>
 					
-					<!-- 하단 페이지 번호
-					<div align="center" th:if="${boardMap.totBoards > 10}">        
-				        <div th:if="${boardMap.totBoards > 100}">
-				            <span th:each="num : ${#numbers.sequence(1, (boardMap.section > boardMap.totBoards / 100 ? (boardMap.totBoards % 100)/10 + 1 : 10))}">
-				               <span th:if="${boardMap.section > 1 and num == 1}">
-				                  <a th:href="@{/board/boardList.do(section=${boardMap.section - 1}, pageNum=${(boardMap.section - 1) * 10})}">prev</a>
-				               </span>
-				               <span th:if="${num == (boardMap.pageNum % 10 == 0 ? 10 : boardMap.pageNum % 10)}">
-				                  <a class="target" th:href="@{/board/boardList.do(section=${boardMap.section}, pageNum=${(boardMap.section - 1) * 10 + num})}" th:text="${(boardMap.section-1)*10+num}">}</a>
-				               </span>
-				               <span th:unless="${num == (boardMap.pageNum % 10 == 0 ? 10 : boardMap.pageNum % 10)}">   
-				                  <a classs="noLine" th:href="@{/board/boardList.do(section=${boardMap.section}, pageNum=${(boardMap.section - 1) * 10 + num})}"  th:text="${(boardMap.section-1)*10+num}"></a>
-				               </span>                  
-				               <span th:if="${num == 10}">
-				                  <a th:href="@{/board/boardList.do(section=${boardMap.section + 1}, pageNum=${boardMap.section * 10 + 1})}">next</a>
-				               </span>
-				            </span>
-			         	</div>	
-						
-						<div th:if="${boardMap.totBoards <= 100}">	
-							<span th:each="num : ${#numbers.sequence(1,(boardMap.totBoards/10+1))}">
+					<div id="list_paging" align="center" th:if="${boardMap.totBoards > 10}">
+					    <!-- 전체 글 수가 10개를 넘었을 경우 -->
+					    <div class="paging_each" th:with="totalPages=${(boardMap.totBoards / 10) + ((boardMap.totBoards % 10) == 0 ? 0 : 1)}, 
+					                  totalSections=${(totalPages / 10) + ((totalPages % 10) == 0 ? 0 : 1)}">
+					        
+					        <!-- 변수 값 확인 
+					        Section: <span th:text="${boardMap.section}"></span><br>
+					        PageNum: <span th:text="${boardMap.pageNum}"></span><br>
+					        Total Pages: <span th:text="${totalPages}"></span><br>
+					        Total Sections: <span th:text="${totalSections}"></span><br>-->
+
+					        <!-- 이전 세션으로 이동 -->
+					        <span th:if="${boardMap.section > 1}">
+					            <a th:href="@{/board/boardList.do(section=${boardMap.section - 1}, pageNum=${(boardMap.section - 1) * 10})}"><</a>
+					        </span>
+
+					        <!-- 페이지 번호 생성 -->
+					        <span th:each="num : ${#numbers.sequence(1, 10)}"
+					              th:if="${(boardMap.section - 1) * 10 + num <= totalPages}">
+					            <span th:if="${num == boardMap.pageNum}">
+					                <a class="target" th:href="@{/board/boardList.do(section=${boardMap.section}, pageNum=${num})}" th:text="${(boardMap.section - 1) * 10 + num}"></a>
+					            </span>
+					            <span th:unless="${num == boardMap.pageNum}">
+					                <a class="noLine" th:href="@{/board/boardList.do(section=${boardMap.section}, pageNum=${num})}" th:text="${(boardMap.section - 1) * 10 + num}"></a>
+					            </span>
+					        </span>
+
+					        <!-- 다음 세션으로 이동 -->
+					        <span th:if="${boardMap.section < totalSections}">
+					            <a th:href="@{/board/boardList.do(section=${boardMap.section + 1}, pageNum=1)}">></a>
+					        </span>
+					    </div>
+					</div>
+					
+				    <!-- 전체 글 수가 100개를 넘지 않을 경우 -->
+					<div id="list_paging" th:if="${boardMap.totBoards <= 100}">	
+						<span th:each="num : ${#numbers.sequence(1,(boardMap.totBoards/10+1))}">
 							<span th:if="${num==boardMap.pageNum}">
-								<a class="target" th:href="@{/board/boardList.do(section=${boardMap.section},pageNum=${num})}" th:text="${num}"></a>
+									<a class="target" th:href="@{/board/boardList.do(section=${boardMap.section},pageNum=${num})}" th:text="${num}"></a>
 							</span>
 							<span th:unless="${num==boardMap.pageNum}">
-								<a class="noLine" th:href="@{/board/boardList.do(section=${boardMap.section},pageNum=${num})}" th:text="${num}"></a>
+									<a class="noLine" th:href="@{/board/boardList.do(section=${boardMap.section},pageNum=${num})}" th:text="${num}"></a>
 							</span>					
 						</span>
-						</div>
-					</div>-->
-					<!--Admin이 아닐 경우 노출되지않는다.
-					<div th:if="${MemberDTO.admin_check=='Y'}">
-						
-					</div>-->
+					</div>
+				</div>
+				<!--Admin이 아닐 경우 노출되지않는다.
+				<div th:if="${MemberDTO.admin_check=='Y'}">
+					
+				</div>-->	
 				<p align="center" class="write">
 					<a th:href="|javascript:fn_boardForm('/board/boardForm.do')|">글쓰기</a>
 				</p>

@@ -1,5 +1,6 @@
 package com.jamongda.board.service;
 
+import java.io.Console;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +26,8 @@ public class BoardServiceImpl implements BoardService{
 		int section = pagingMap.get("section");
 		int pageNum = pagingMap.get("pageNum");
 		int count = (section-1)*100+(pageNum-1)*10;//글 전체 개수
-		
-		List<BoardDTO> boardList = boardDAO.selectAllboards();
+
+		List<BoardDTO> boardList = boardDAO.selectAllboards(count);
 		int totBoards = boardDAO.selectToBoards();
 		boardMap.put("boardList", boardList);
 		boardMap.put("totBoards", totBoards);
@@ -36,15 +37,15 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public int addBoard(BoardDTO boardDTO) throws DataAccessException {
-		int boardId = boardDAO.getNewBoardId();
-		boardDTO.setBoardId(boardId);
+		int board_id = boardDAO.getNewBoardId();
+		boardDTO.setBoard_id(board_id);
 		boardDAO.insertNewBoard(boardDTO);
-		return boardId;
+		return board_id;
 	}
 
 	@Override
-	public BoardDTO viewBoard(int boardId) throws DataAccessException {
-		BoardDTO boardDTO = boardDAO.selectBoard(boardId);
+	public BoardDTO viewBoard(int board_id) throws DataAccessException {
+		BoardDTO boardDTO = boardDAO.selectBoard(board_id);
 		
 		return boardDTO;
 	}
@@ -56,8 +57,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public void removeBoard(int boardId) throws DataAccessException {
-		boardDAO.deleteBoard(boardId);
+	public void removeBoard(int board_id) throws DataAccessException {
+		boardDAO.deleteBoard(board_id);
 		
 	}
 	

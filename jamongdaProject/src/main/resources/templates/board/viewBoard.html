@@ -15,18 +15,18 @@
 		<div id="view_board">
 			<form name="ftmBoard" action="" method="post">
 				<a href="/board/boardList.do"><</a>
-				<p th:text="${board.category}" class="view_category"></p>
+				<p th:text="${board.board_category}" class="view_category"></p>
 				
 				<!--action은 메서드 처리-->
 				<div id="boardView">
-					<h2 th:text="${board.title}">게시글 제목</h2>
-					<p th:text="${board.regDate}">작성일</p>
-					<div th:utext="${board.content}" class="view_content"></div>
+					<h2 th:text="${board.board_title}">게시글 제목</h2>
+					<p th:text="${board.board_date}">작성일</p>
+					<div th:utext="${board.board_content}" class="view_content"></div>
 				</div>
 				
 				<div class="view_btn">
 					<input type="button" value="수정하기" th:onclick="fn_modBoardForm('/board/modBoardForm')">
-					<input type="button" value="삭제하기" th:onclick="fn_romove_board('/board/removeBoard.do', [[${board.boardId}]])">
+					<input type="button" value="삭제하기" th:onclick="fn_romove_board('/board/removeBoard.do', [[${board.board_id}]])">
 				</div>
 			</form>
 		</div>

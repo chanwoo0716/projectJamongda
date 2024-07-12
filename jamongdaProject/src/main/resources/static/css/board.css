@@ -31,6 +31,7 @@ ul,ul>li{
 #boardcontent > .menu_board{
     width: 50%;
     margin: 0 auto;
+	position: relative;
 }
 .board>h2{
     margin-top: 4%;
@@ -56,9 +57,10 @@ ul,ul>li{
 	
 }
 
+
 .board td{
-    border-bottom: 1px solid #ccc;
-    padding: 1%;
+    border-bottom: 1px solid lightgray;
+    padding: 2%;
 }
 
 .board td:first-child{
@@ -89,16 +91,35 @@ ul,ul>li{
     text-align: center;
 }
 
-p.write{
-	width: 10%;
-	float: right;
-	margin-top: 2%;
+/*하단 페이징 영역*/
+#list_paging{
+	margin: 4% 0;
+	font-size: 1.1em;
 }
 
-p.write>a{
+#list_paging .noLine:hover{
+	color: lightgray;
+}
+
+#list_paging .target{
+	color: #ff6f61;
+	font-size: 1.3em;
+}
+
+.paging_each span{
+	margin: 0.5%;	
+}
+
+.write{
+	width: 10%;
+	position: absolute;
+	top: 95%;
+	right: 3%;
+}
+
+.write>a{
 	color: #ff6f61;
 	font-weight: bold;
-	float: right;
 }
 .board>p>a:hover{
 	text-shadow: rgb(237, 93, 75) 1px 0px 20px;
@@ -132,20 +153,20 @@ p.write>a{
 }
 
 .top>.title{
-	width: 60%;
+	width: 50%;
 	margin-top: 1.5%;
-	margin-right: 1%;
+	margin-right: 3%;
 	font-size: 1em;
 }
 
 /*smartEditor 영역*/
 form#smartEditor{
-	width: 90%;
+	width: 94%;
 	margin:0 auto;
 }
 
 div#smartEditor{
-	width: 80%;
+	width: 70%;
 	margin: 0 auto;
 }
 
@@ -159,7 +180,7 @@ div#smartEditor{
 	border: 0;
 	background-color: transparent;
 	color: #ff6f61;
-	font-size: 1.2em;
+	font-size: 1em;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -235,7 +256,7 @@ div#smartEditor{
 	border: 0;
 	background-color: transparent;
 	color: #ff6f61;
-	font-size: 1.2em;
+	font-size: 1em;
 	font-weight: bold;
 	cursor: pointer;
 	
@@ -245,5 +266,26 @@ div#smartEditor{
 }
 
 .view_btn > input:hover{
+	text-shadow: rgb(237, 93, 75) 1px 0px 20px;
+}
+
+/*modViewForm*/
+/*modViewForm*/
+/*modViewForm*/
+.modView_btn{
+	margin:2%;
+}
+
+.modView_btn>input{
+	border: 0;
+	background-color: transparent;
+	color: #ff6f61;
+	font-size: 1em;
+	font-weight: bold;
+	cursor: pointer;
+	margin-right: 3%;
+}
+
+.modView_btn > input:hover{
 	text-shadow: rgb(237, 93, 75) 1px 0px 20px;
 }

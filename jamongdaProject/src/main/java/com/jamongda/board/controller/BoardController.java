@@ -26,7 +26,7 @@ public interface BoardController {
 	public ModelAndView addBoard(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//상세글 메서드
-	public ModelAndView viewBoard(@RequestParam("boarId") int boardId,HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView viewBoard(@RequestParam("boar_id") int board_id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//수정폼으로 이동하는 메서드
 	public ModelAndView modBoardForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
@@ -35,5 +35,5 @@ public interface BoardController {
 	public ModelAndView modBoard(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//삭제 메서드
-	public ModelAndView removeBoard(@RequestParam("boarId") int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView removeBoard(@RequestParam("boar_id") int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

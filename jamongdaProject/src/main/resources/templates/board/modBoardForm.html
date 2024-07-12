@@ -24,19 +24,21 @@
 					</select>
 				
 					<!--제목 영역-->
-					<input type="text" name="title" class="title" required="" th:value="${board.title}" />
+					<input type="text" name="title" class="title" required="" th:value="${board.board_title}" />
 				</div>
 				
 				<!--글쓰기 영역-->
 				<div id="smartEditor">
 					<textarea name="editorTxt" id="editorTxt"
 							rows="20" cols="115"
-							th:utext="${board.content}">
+							th:utext="${board.board_content}">
 					</textarea>
 				</div>
 				
-				<input type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
-				<input type="submit" value="수정하기"/>
+				<div class="modView_btn">
+					<input type="button" value="리스트로 돌아가기" onclick="backToList(this.form)">
+					<input type="submit" value="수정하기"/>
+				</div>
 			</form>	
 		</div>
 	</th:block>

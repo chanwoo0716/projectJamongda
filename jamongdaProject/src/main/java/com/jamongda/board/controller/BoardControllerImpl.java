@@ -37,13 +37,13 @@ public class BoardControllerImpl implements BoardController{
 		_section = request.getParameter("section");//첫번째 섹션에
 		_pageNum = request.getParameter("pageNum");//한 페이지의 
 		int section = Integer.parseInt((_section==null)?"1":_section);
-		int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);	
-		
+		int pageNum = Integer.parseInt((_pageNum==null)?"1":_pageNum);
 		Map<String, Integer> pagingMap = new HashMap<String, Integer>();//<섹션 이름,섹션값>
+		
 		pagingMap.put("section", section);
 		pagingMap.put("pageNum", pageNum);
 		
-		Map boardMap = boardService.boardList(pagingMap);
+		Map<String, Object> boardMap = boardService.boardList(pagingMap);
 		boardMap.put("section", section);
 		boardMap.put("pageNum", pageNum);
 		
@@ -86,19 +86,19 @@ public class BoardControllerImpl implements BoardController{
 	    System.out.println("Content: " + content);
 	    
 		
-		boardDTO.setCategory(category);
-		boardDTO.setTitle(title);
-		boardDTO.setContent(content);
+		boardDTO.setBoard_category(category);
+		boardDTO.setBoard_title(title);
+		boardDTO.setBoard_content(content);
 		
-		int boardId = boardService.addBoard(boardDTO);
-		ModelAndView mav = new ModelAndView("redirect:/board/viewBoard.do?boardId=" + boardId);
+		int board_id = boardService.addBoard(boardDTO);
+		ModelAndView mav = new ModelAndView("redirect:/board/viewBoard.do?board_id=" + board_id);
 		return mav;
 	}
 
 	//board 상세글 보는 메서드
 	@Override
 	@GetMapping("/board/viewBoard.do")
-	public ModelAndView viewBoard(@RequestParam("boardId") int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView viewBoard(@RequestParam("board_id") int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		boardDTO=boardService.viewBoard(boardId);
 		
 		ModelAndView mav= new ModelAndView();
@@ -151,10 +151,10 @@ public class BoardControllerImpl implements BoardController{
 	@PostMapping("/board/modBoard.do")
 	public ModelAndView modBoard(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> boardeMap = new HashMap<String, Object>();
-		String boardId = (String) boardeMap.get("boardId");
+		String board_id = (String) boardeMap.get("board_id");
 		
-		String category = request.getParameter("category");
-		String title = request.getParameter("title");
+		String category = request.getParameter("board_category");
+		String title = request.getParameter("board_title");
 		String content = request.getParameter("editorTxt");
 		
 		System.out.println("Category: " + category);
@@ -162,9 +162,9 @@ public class BoardControllerImpl implements BoardController{
 	    System.out.println("Content: " + content);
 	    
 		
-		boardDTO.setCategory(category);
-		boardDTO.setTitle(title);
-		boardDTO.setContent(content);
+		boardDTO.setBoard_category(category);
+		boardDTO.setBoard_title(title);
+		boardDTO.setBoard_content(content);
 		
 		boardService.modBoard(boardDTO);
 		ModelAndView mav = new ModelAndView("redirect:/board/boardList.do");
@@ -174,9 +174,9 @@ public class BoardControllerImpl implements BoardController{
 	//board 상세글 삭제하는 메서드
 	@Override
 	@PostMapping("/board/removeBoard.do")
-	public ModelAndView removeBoard(@RequestParam("boardId") int boardId, HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView removeBoard(@RequestParam("board_id") int board_id, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		boardService.removeBoard(boardId);
+		boardService.removeBoard(board_id);
 		ModelAndView mav = new ModelAndView("redirect:/board/boardList.do");
 		return mav;
 	}
