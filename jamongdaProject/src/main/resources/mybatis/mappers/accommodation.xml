@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.jamongda.accommodation.dao.AccommodationDAO">	<!--@Mapper에 의해 서로 연동!-->
+ 	
+    <resultMap type="accommodationDTO" id="accResult">
+	    <result property="acc_id" column="acc_id"/>
+	    <result property="acc_name" column="acc_name"/>
+	    <result property="acc_type" column="acc_type"/>
+	    <result property="acc_area" column="acc_area"/>
+	    <result property="acc_tel" column="acc_tel"/>
+	    <result property="acc_address" column="acc_address"/>
+	    <result property="acc_info" column="acc_info"/>
+	    <result property="email" column="email"/>
+    </resultMap>
+    
+ 	<resultMap type="accommodationImageDTO" id="accImageResult">
+	 	<result property="acc_image_id" column="acc_image_id"/>
+	    <result property="acc_image" column="acc_image"/>
+	    <result property="acc_id" column="acc_id"/>
+ 	</resultMap>
+ 	
+ 	<resultMap type="roomDTO" id="roResult">
+	    <result property="ro_id" column="ro_id"/>
+	    <result property="ro_name" column="ro_name"/>
+	    <result property="ro_min" column="ro_min"/>
+	    <result property="ro_max" column="ro_max"/>
+	    <result property="ro_info" column="ro_info"/>
+	    <result property="ro_amenities" column="ro_amenities"/>
+	    <result property="ro_price" column="ro_price"/>
+	    <result property="ro_checkIn" column="ro_checkIn"/>
+	    <result property="ro_checkOut" column="ro_checkOut"/>
+	    <result property="acc_id" column="acc_id"/>
+    </resultMap>
+ 	
+ 	<resultMap type="roomImageDTO" id="roImageResult">
+	 	<result property="acc_image_id" column="acc_image_id"/>
+	    <result property="acc_image" column="acc_image"/>
+	    <result property="acc_id" column="acc_id"/>
+ 	</resultMap>
+ 	
+ 	
+ 	<!--숙소 고유 ID 생성(acc_id)-->
+    <select id="getNewAccId" resultType="int">
+       <![CDATA[
+          select IFNULL(max(acc_id), 0) + 1 from accommodation;
+       ]]>
+    </select>
+    
+    <!--숙소 정보 추가-->
+    <insert id="insertNewAcc" parameterType="java.util.Map">
+       <![CDATA[
+          insert into accommodation (acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email) values(#{acc_id},#{acc_name},#{acc_type},#{acc_area},#{acc_tel},#{acc_address},#{acc_info},#{email})
+       ]]>
+    </insert>
+    <!--숙소 이미지 추가(acc_image_id는 AI)-->
+	<insert id="insertNewAccImages" parameterType="java.util.Map">
+		insert into acc_image values
+		<foreach collection="accImageFileList" item="item" separator=",">
+			(#{item.acc_image_id}, #{item.acc_image}, #{acc_id})
+		</foreach>
+	</insert>
+	
+	<!--객실 고유 ID 생성(ro_id)-->
+    <select id="getNewRoId" resultType="int">
+       <![CDATA[
+          select IFNULL(max(ro_id), 0) + 1 from room;
+       ]]>              
+    </select>
+    
+    <!--객실 정보 추가-->
+    <insert id="insertNewRo" parameterType="com.jamongda.accommodation.dto.RoomDTO">
+       <![CDATA[
+          insert into room (ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id) values(#{ro_id},#{ro_name},#{ro_min},#{ro_max},#{ro_info},#{ro_amenities},#{ro_price},#{ro_checkIn},#{ro_checkOut},#{acc_id})
+       ]]>              
+    </insert>
+    <!--객실 이미지 추가(ro_image_id는 AI)-->
+	<insert id="insertNewRoImages" parameterType="java.util.List">
+		insert into room_image values
+		<foreach collection="roomImageDTOList" item="item" separator=",">
+			(#{item.ro_image_id}, #{item.ro_image}, #{item.ro_id})
+		</foreach>
+	</insert>
+	
+	<!-- regCheck가져오기 getRegCheck-->
+    <select id="getRegCheck" resultType="string">
+    	select regCheck from member where email=#{email}
+    </select>
+	<!-- 숙소 정보 가져오기 -->
+    <select id="selectAllAcc" resultMap="accResult" parameterType="String">
+	    <![CDATA[
+	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email from accommodation where email=#{email} order by acc_id DESC;
+	    ]]>
+    </select>
+	<!-- 객실 정보 가져오기 -->
+    <select id="selectAllRo" resultMap="roResult" parameterType="int">
+	    <![CDATA[
+	       select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id from room where acc_id=#{acc_id} order by ro_id DESC;
+	    ]]>
+    </select>
+    
+    <!-- 숙소 이미지 파일 이름 가져오기 -->
+    <select id="selectAccImages" resultMap="accImageResult" parameterType="String">
+	    <![CDATA[
+	        select acc_image_id, acc_image, acc_id 
+	        from acc_image 
+	        where acc_id in (select acc_id from accommodation where email=#{email})
+	    ]]>
+    </select>
+
+    <!-- 객실 이미지 파일 이름 가져오기 -->
+    <select id="selectRoImages" resultMap="roImageResult" parameterType="String">
+        <![CDATA[
+            select ro_image_id, ro_image, ro_id 
+            from room_image 
+            where ro_id in (select ro_id from room where acc_id in (select acc_id from accommodation where email=#{email}))
+        ]]>
+    </select>
+
+ </mapper>

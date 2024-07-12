@@ -7,9 +7,13 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
 </head>
 <body>
-	<!--header, footer는 고정, content는 변동되는 곳-->
+	<!--header, footer는 고정, sidebar는 필요할 때만 삽입, content는 변동되는 곳-->
 	<div id="container">
 		<header th:replace="layout/header :: header"></header>
+		<div id="sidebar" th:if="${sidebar != null}">
+		    <div th:replace="~{${sidebar} :: sidebar}"></div>
+		</div>
+		<div th:if="${sidebar == null}"></div>
 		<div id="content" layout:fragment="content"></div>
 		<footer th:replace="layout/footer :: footer"></footer>
 	</div>

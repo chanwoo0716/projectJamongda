@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>숙소/객실관리</title>
+<style>
+	.acc-summary {
+		margin: 20px auto; /* 상하 여백을 추가하여 가로 중앙 정렬 */
+		max-width: 800px; /* 최대 너비 설정 (필요에 따라 조정 가능) */
+		padding: 20px; /* 내부 여백 설정 */
+		box-sizing: border-box; /* 내부 여백과 테두리를 포함한 전체 너비 설정 */
+	}
+	.acc-box {
+		margin: 20px auto;
+	}
+	.acc-container {
+	    display: flex;
+	    flex-wrap: wrap;
+	    justify-content: center; /* 중앙 배치 */
+	}
+	.acc-box {
+	    padding: 10px;
+	    margin: 20px;
+	    cursor: pointer;
+	    background-color: #fffaf7;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	    display: flex; /* 플렉스 박스로 변경 */
+	    align-items: center;
+	}
+	.acc-box h3 {
+	    margin-top: 0;
+	}
+	.acc-details {
+	    display: none;
+	    margin-top: 20px;
+	    background-color: #fff;
+	    padding: 10px;
+	    border-top: 1px solid #ddd;
+	}
+	.acc-box img, .acc-details img {
+	    max-width: 100%;
+	}
+	.acc-thumbnail {
+	    flex: 1; /* 이미지 영역 확장 */
+	}
+	.acc-thumbnail>img{
+		width : 230px;
+		height : 150px;
+	}
+	.acc-info {
+		text-align : left;
+	    flex: 2; /* 정보 영역 확장 */
+	    padding-left: 10px;
+	}
+	.acc-info-name {
+		font-weight : bold;
+	}
+	
+	.acc-regCheck-ing {
+		padding-right : 10px;
+		font-style : italic;
+		color : #ccc;
+		font-weight : bold;
+	}
+	.acc-regCheck-complete {
+		padding-right : 10px;
+		color : #FF6F61;
+		font-weight : bold;
+	}
+	
+	.acc-image {
+		border: 3px solid #e8e8e8;
+		border-radius : 10px;
+		/*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+        display: flex;
+        flex-wrap: nowrap;
+		flex-flow: row wrap;
+        overflow-x: auto;
+		text-align : center;
+		justify-content: center;
+		/*
+		padding-top: 15px;
+		padding-bottom: 15px;
+		*/
+		padding : 20px 10px;
+    }
+    .acc-image img {
+		text-align : center;
+        margin-right: 10px;
+    }
+	.ro-image {
+		border: 3px solid #e8e8e8;
+		border-radius : 10px;
+		/*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+		display: flex;
+		flex-wrap: nowrap;
+		flex-flow: row wrap;
+		overflow-x: auto;
+		text-align : center;
+		justify-content: center;
+		/*
+		padding-top: 15px;
+		padding-bottom: 15px;
+		*/
+		padding : 5px 15px;
+	}
+	.ro-image img {
+		text-align : center;
+		margin-right: 10px;
+	}
+	/*
+	.section-header {
+	    font-size: 1.2rem;
+	    font-weight: bold;
+	    margin-bottom: 10px;
+	    border-top: 1px solid #ddd;
+	    padding-bottom: 5px;
+	    margin-top: 20px;
+	}
+	*/
+	.modAccRo input {
+		padding: 10px 20px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;	
+	}
+	.section-title {
+		border-top: 1px solid #fff;
+		font-size: 1.2rem; /* 제목의 글자 크기 */
+	    font-weight: bold; /* 제목의 글자 두께 */
+	    margin-bottom: 10px; /* 아래 여백 */
+	    padding-bottom: 5px; /* 아래쪽 내부 여백 */
+	    margin-top: 20px; /* 위쪽 여백 */
+	}
+	.section-header {
+		border-top: 1px solid #ddd;
+	}
+	
+</style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+	$(function () {
+	    $('[id^="acc-box-"]').each(function(index) {
+	        $(this).click(function(){
+	            $('#acc-details-' + index).slideToggle('normal');
+	        });
+	    });
+	});
+	
+
+	
+</script>
+</head>
+<body>
+    <div th:include="hostSidebar :: sidebar"></div>
+    <th:block layout:fragment="content">
+        <h2 align="center">숙소/객실관리</h2>
+		<!-- 등록된 숙소가 없는 경우 처리
+        <div th:if="${accRoMap.get('regCheck') == 'N'}">
+            <p>등록된 숙소가 없습니다.</p>
+        </div>
+		-->
+        <!-- 숙소 정보 및 객실 정보 출력 -->
+		<form action="/accommodation/modAccommodation.do" method="post" id="modAccommodation" name="modAccommodation" enctype="multipart/form-data">
+	        <div class="acc-summary">
+	            <div th:each="acc, accStat : ${accRoMap.get('accList')}">
+					<!-- 미리보기 영역 -->
+		            <div class="acc-box" th:id="'acc-box-' + ${accStat.index}">
+						<!-- 미리보기 이미지 -->
+						<div class="acc-thumbnail">
+							<img th:src="@{/accDownload.do(acc_id=${acc.acc_id}, acc_image=${accRoMap.get('accThumbnail').get(acc.acc_id)})}" alt="숙소 이미지">
+						</div>
+		                <!-- 미리보기 정보 -->
+		                <div class="acc-info">
+		                    <h3 class="acc-info-name" th:text="${acc.acc_name}"></h3>
+		                    <p class="acc-info-type" th:text="${acc.acc_type}"></p>
+		                    <p th:text="${acc.acc_address}"></p>
+		                </div>
+						<!-- 등록 여부 -->
+						<div>
+							<p class="acc-regCheck-ing" th:if="${accRoMap.get('regCheck') == 'N'}">미등록 숙소</p>
+							<p class="acc-regCheck-complete" th:if="${accRoMap.get('regCheck') == 'Y'}">등록 완료</p>
+						</div>
+		            </div>
+					
+	                <!-- 상세 정보 영역 -->
+	                <div class="acc-details" th:id="'acc-details-' + ${accStat.index}">
+						<!-- 숙소 이미지 출력 -->
+						<p class="section-title">숙소 정보</p>
+						<div class="acc-image">
+							<div th:each="accImage : ${accRoMap.get('accImageFileList')}"
+							     th:if="${accImage.acc_id == acc.acc_id}">
+							     <img th:src="@{/accDownload.do(acc_id=${accImage.acc_id}, acc_image=${accImage.acc_image})}" width="200" height="120">
+							</div>
+						</div>
+						<!-- 숙소 정보 출력 -->
+	                    <p>유형: <span th:text="${acc.acc_type}"></span></p>
+	                    <p>지역: <span th:text="${acc.acc_area}"></span></p>
+	                    <p>전화번호: <span th:text="${acc.acc_tel}"></span></p>
+	                    <p>주소: <span th:text="${acc.acc_address}"></span></p>
+	                    <p>설명: <span th:text="${acc.acc_info}"></span></p>
+	                    
+	                    <!-- 객실 정보 출력 -->
+						<div class="section-header">
+							<p class="section-title">객실 정보</p>
+		                    <div th:each="room : ${accRoMap.get('roList' + acc.acc_id)}">
+								<!-- 객실 이미지 출력 -->
+								<div class="ro-image">
+								    <div th:each="roImage : ${accRoMap.get('roImageFileList')}"
+								         th:if="${roImage.ro_id == room.ro_id}">
+								         <img th:src="@{/roDownload.do(ro_id=${roImage.ro_id}, ro_image=${roImage.ro_image})}" width="200" height="120"> 
+								    </div>
+								</div>
+								<!-- 객실 정보 출력 -->
+		                        <p>객실 이름: <span th:text="${room.ro_name}"></span></p>
+		                        <p>최소 인원: <span th:text="${room.ro_min}"></span></p>
+		                        <p>최대 인원: <span th:text="${room.ro_max}"></span></p>
+		                        <p>설명: <span th:text="${room.ro_info}"></span></p>
+		                        <p>편의시설: <span th:text="${room.ro_amenities}"></span></p>
+		                        <p>가격: <span th:text="${room.ro_price}"></span></p>
+		                        <p>체크인 시간: <span th:text="${room.ro_checkIn}"></span></p>
+		                        <p>체크아웃 시간: <span th:text="${room.ro_checkOut}"></span></p>
+		                    </div>
+						</div>
+						<!--수정하기/중단하기 영역-->
+						<div class="modSusAccRo">
+							<!--수정하기. 숙소/객실등록 화면으로 이동되고 데이터 다 입력되어있고 -->
+							<div class="modSusRo">
+								<p class="modSusMsg">오타를 발견하셨나요? 원하는 수정내용을 관리자에게 요청하세요.</p>
+								<input type="button" value="수정요청하기" onclick="">
+							</div>
+							<!--중단하기 *관리자쪽으로 매핑보냄. regCheck를 N으로-->
+							<div class="susAccRo">
+								<p class="modSusMsg">영업을 일시적으로 중단하고 싶으신가요? 관리자에게 요청하실 수 있습니다.</p>
+								<input type="button" value="중단하기">
+							</div>
+						</div>
+	                </div>	
+	            </div>
+	        </div>
+		</form>	
+    </th:block>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>숙소/객실 관리 상세보기</title>
+<style>
+	
+</style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+
+</script>
+</head>
+<body>
+	<div th:include="hostSidebar :: sidebar"></div>
+	<!--숙소/객실 관리에서 숙소 수정-->
+	<th:block layout:fragment="content">
+		<h2 align="center">숙소/객실관리</h2>
+			<!-- 숙소정보(accMap)처리 -->
+			<div th:if="${accRoMap.get('regCheck') == 'N'}">
+					<h4>숙소 정보</h4>
+			        <div th:each="acc, stat : ${accRoMap.get('accList')}">
+			            <div>
+			                <h3 th:text="${acc.acc_name}"></h3>
+			                <p>유형: <span th:text="${acc.acc_type}"></span></p>
+			                <p>지역: <span th:text="${acc.acc_area}"></span></p>
+			                <p>전화번호: <span th:text="${acc.acc_tel}"></span></p>
+			                <p>주소: <span th:text="${acc.acc_address}"></span></p>
+			                <p>설명: <span th:text="${acc.acc_info}"></span></p>
+			
+			                <div>
+			                    <h4>객실 정보</h4>
+			                    <div th:each="room : ${accRoMap.get('roList' + stat.index)}">
+			                        <p>객실 이름: <span th:text="${room.ro_name}"></span></p>
+			                        <p>최소 인원: <span th:text="${room.ro_min}"></span></p>
+			                        <p>최대 인원: <span th:text="${room.ro_max}"></span></p>
+			                        <p>설명: <span th:text="${room.ro_info}"></span></p>
+			                        <p>편의시설: <span th:text="${room.ro_amenities}"></span></p>
+			                        <p>가격: <span th:text="${room.ro_price}"></span></p>
+			                        <p>체크인 시간: <span th:text="${room.ro_checkIn}"></span></p>
+			                        <p>체크아웃 시간: <span th:text="${room.ro_checkOut}"></span></p>
+			                    </div>
+			                </div>
+			            </div>
+			   		</div>
+		       </div>
+		       <div th:if="${accRoMap.get('regCheck') == 'Y'}">
+		           <p>등록된 숙소가 없습니다.</p>
+		       </div>
+		   </div>
+	</th:block>
+</body>
+</html>

@@ -4,34 +4,20 @@
 	  layout:decorate="/layout/layout">
 <head>
 <meta charset="UTF-8">
-<title>자몽다 메인페이지 1조 화이팅^^</title>
+<title>자몽다 메인페이지(일반회원)</title>
 </head>
 <body>
 	<th:block layout:fragment="content">
-		<!--숙소검색영역-->
-		<div>
-			<p>검색하는 곳</p>
-		</div>
-		
-		<!--숙소카테고리영역-->
-		<div>
-			<!--인기숙소-->
-			<div>
-				인기숙소
+		<div th:if="${session.isLogOn==true and session.guest != null}">
+				<h1>로그인 했구나! 환영해!</h1>
+				<a th:href="@{/login/guestlogout.do}">로그아웃</a>
+				<a>마이페이지</a>
+				<a th:href="@{/member/listGuests.do}">회원관리하는 곳</a>
 			</div>
-			<!--국내인기여행지-->
-			<div>
-				국내인기여행지	
+			<div th:unless="${session.isLogOn==true and session.guest != null}">
+				<h1>안녕 친구야!</h1>
+				<a th:href="@{/login/guestloginForm.do}">로그인/회원가입</a>
 			</div>
-			<!--자몽다pick-->
-			<div>
-				자몽다pick
-			</div>
-			<!--최저가숙소-->
-			<div>
-				최저가숙소
-			</div>
-		</div>
 	</th:block>
 </body>
 </html>
