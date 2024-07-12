@@ -15,17 +15,10 @@ public class MemberDTO {
 	private String regCheck;
 	private String joinDate;
 	private String role;
-//	private boolean emailStatus;
 	
 	public MemberDTO() {
 	
 	}
-	
-//	public MemberDTO(String email) {
-//		this.email=email;
-//		this.emailStatus=false; //기본은 false 세팅
-//	}
-	
 	
 	public String getEmail() {
 		return email;
@@ -87,12 +80,6 @@ public class MemberDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
-//	public boolean isEmailStatus() {
-//		return emailStatus;
-//	}
-//	public void setEmailStatus(boolean emailStatus) {
-//		this.emailStatus = emailStatus;
-//	}
 	
 	
 }

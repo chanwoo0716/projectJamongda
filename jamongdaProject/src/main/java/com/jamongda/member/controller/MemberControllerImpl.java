@@ -1,42 +1,36 @@
 package com.jamongda.member.controller;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jamongda.member.dto.MemberDTO;
+import com.jamongda.member.service.MailSendService;
 import com.jamongda.member.service.MemberService;
+import com.jamongda.member.service.PhoneSendService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller("memberController")
 public class MemberControllerImpl implements MemberController {
-
+	@Autowired
+	private MailSendService mailSendService;
+	@Autowired
+	private PhoneSendService phoneSendService;
 	@Autowired
 	private MemberService memberService;
 	@Autowired
 	private MemberDTO memberDTO;
-
-	// 삭제예정
-	@Override
-	@GetMapping("/member/listMembers.do")
-	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		List membersList = memberService.listMembers();
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/member/listMembers");
-		mav.addObject("membersList", membersList);
-		return mav;
-	}
 
 	@Override
 	@GetMapping("/member/memberForm.do")
@@ -45,7 +39,48 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName("/member/memberForm");
 		return mav;
 	}
+	@Override
+	@GetMapping("/member/memberForm_host.do")
+	public ModelAndView memberFormH(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/memberForm_host");
+		return mav;
+	}
 
+	//이메일 중복확인
+	@GetMapping("/member/checkEmail")
+	@ResponseBody // (JSON데이터를 반환하기 위해)
+    public ResponseEntity<Boolean> checkEmail(@RequestParam("email") String email) {
+        boolean isEmailAvailable = memberService.isEmailAvailable(email);
+        return ResponseEntity.ok(isEmailAvailable);
+    }
+	
+	//이메일 인증
+	@GetMapping("/member/sendEmail")
+	@ResponseBody
+	public String sendEmail(@RequestParam("email") String email) {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		return mailSendService.joinEmail(email);
+	}
+	
+	//휴대폰 인증
+	@GetMapping("/member/sendSMS")
+	@ResponseBody
+	public String sendSMS(@RequestParam("tel") String tel) {
+	    Random rand = new Random();
+	    String numStr = "";
+	    for (int i = 0; i < 4; i++) {
+	        String ran = Integer.toString(rand.nextInt(10));
+	        numStr += ran;
+	    }
+
+	    System.out.println("수신자 번호 : " + tel);
+	    System.out.println("인증번호 : " + numStr);
+	    phoneSendService.certifiedPhoneNumber(tel, numStr); // 메서드 호출 시 파라미터 이름 수정
+	    return numStr;
+	}
+	
 	@Override
 	@PostMapping("/member/insertMember.do")
 	public ModelAndView insertMember(@ModelAttribute("memberDTO") MemberDTO memberDTO, HttpServletRequest request,
@@ -56,18 +91,6 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-//	@Override
-//	@PostMapping("/member/sendVerificationEmail")
-//	public void sendVerificationEmail(@RequestParam("email") String email, HttpServletRequest request,
-//			HttpServletResponse response) throws IOException {
-//		try {
-//			memberService.sendVerificationEmail(email);
-//			response.sendRedirect("/member/memberForm.do?successMessage=인증 이메일이 발송되었습니다.");
-//		} catch (RuntimeException e) {
-//			response.sendRedirect("/member/memberForm.do?errorMessage=" + e.getMessage());
-//		}
-//	}
-
 	@Override
 	@GetMapping("/member/updateMemberForm.do")
 	public ModelAndView updateMemberForm(@RequestParam("email") String email, HttpServletRequest request,
@@ -77,6 +100,16 @@ public class MemberControllerImpl implements MemberController {
 		mav.addObject("member", memberDTO);
 		return mav;
 	}
+	@Override
+	@GetMapping("/member/updateMemberForm_host.do")
+	public ModelAndView updateMemberFormH(@RequestParam("email") String email, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		memberDTO = memberService.findInfo(email);
+		ModelAndView mav = new ModelAndView("/member/updateMemberForm_host");
+		mav.addObject("member", memberDTO);
+		return mav;
+	}
+	
 
 	@Override
 	@PostMapping("/member/updateMember.do")
@@ -97,51 +130,5 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	@Override
-	@GetMapping("/member/memberForm_host.do")
-	public ModelAndView memberFormH(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/member/memberForm_host");
-		return mav;
-	}
-
-	@Override
-	@PostMapping("/member/insertMemberH.do")
-	public ModelAndView insertMemberH(MemberDTO memberDTO, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		request.setCharacterEncoding("utf-8");
-		memberService.insertMemberH(memberDTO);
-		ModelAndView mav = new ModelAndView("redirect:/main.do");
-		return mav;
-	}
-
-	@Override
-	@GetMapping("/member/updateMemberFormH.do")
-	public ModelAndView updateMemberFormH(@RequestParam("email") String email, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		memberDTO = memberService.findInfoH(email);
-		ModelAndView mav = new ModelAndView("/member/updateMemberForm");
-		mav.addObject("member", memberDTO);
-		return mav;
-	}
-
-	@Override
-	@PostMapping("/member/updateMemberH.do")
-	public ModelAndView updateMemberH(@ModelAttribute("memberDTO") MemberDTO memberDTO, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		request.setCharacterEncoding("utf-8");
-		memberService.updateMemberH(memberDTO);
-		ModelAndView mav = new ModelAndView("redirect:/main.do");
-		return mav;
-	}
-
-	@Override
-	@GetMapping("/member/deleteMemberH.do")
-	public ModelAndView deleteMemberH(@RequestParam("email") String email, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView("redirect:/main.do");
-		memberService.deleteMemberH(email);
-		return mav;
-	}
 
 }

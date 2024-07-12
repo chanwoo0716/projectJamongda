@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>사업자 회원 정보 수정</title>
+<link rel="stylesheet" th:href="@{/css/updateMemberForm_host.css}" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/updateMemberForm_host.js}"></script>
+</head>
+<body>
+	<th:block layout:fragment="content">
+		<form name="frmMember" action="/member/updateMember.do" method="post" onsubmit="return validateBtn()">
+	        <table>
+	        <tr>
+	            <td><h2>회원 정보 수정</h2></td>
+	        </tr>
+			<tr><td>이메일</td></tr>
+		    <tr>
+		        <td>
+					<input type="text" id="email" class="email" th:value="${member.email}" disabled>
+					<input type="hidden" name="email" id="email" th:value="${member.email}">
+		        </td>
+		    </tr>
+
+	        <tr><td>사업자등록번호</td></tr>
+	        <tr>
+				<td><input type="text" id="regNumber" name="regNumber" class="text" th:value="${member.regNumber}"
+							oninput="oninputRegNum(this)" maxlength="12" disabled>
+					<input type="hidden" name="regNumber" id="regNumber" th:value="${member.regNumber}">
+				</td>
+			</tr>
+			<tr><td>이름</td></tr>
+		    <tr><td>
+		        <input type="text" id="name" name="name" class="text" th:value="${member.name}">
+		    </td></tr>
+			
+			<tr><td>비밀번호 <button type="button" id="updatePwdBtn" onclick="updatePwd()">비밀번호 변경</button></td></tr>
+			<tr>
+				<td><input type="password" id="pwd" name="pwd" class="text" th:value="${member.pwd}" disabled
+						onmousedown="showPassword('pwd')" onmouseup="hidePassword('pwd')" onmouseout="hidePassword('pwd')"></td>
+			</tr>
+		    <tr><td id="pwdChk2" hidden>비밀번호 확인</td></tr>
+			<tr><td><span id="pwdChk_msg"></span></td></tr>
+		    <tr>
+				<td>
+					<input type="password" id="pwdChk" name="pwdChk" class="text" required
+							oninput="pwd_Chk()" hidden
+							onmousedown="showPassword('pwdChk')" onmouseup="hidePassword('pwdChk')" onmouseout="hidePassword('pwdChk')">
+				</td>
+			</tr>		
+			<tr>
+			    <td><button type="button" id="submitPwd" onclick="validatePwd()" hidden>변경하기</button>
+			    <button type="button" id="resetPwd" onclick="reset_Pwd()" hidden>변경취소</button></td>
+			</tr>
+			<tr>
+				<td>* 변경하기를 눌러야 변경된 비밀번호가 적용됩니다.</td>
+			</tr>
+			
+			<tr>
+			    <td>전화번호</td>
+			</tr>
+			<tr>
+			    <td>
+			        <input type="tel" id="tel" name="tel" class="text" required disabled
+			               oninput="oninputTel(this)" maxlength="13" th:value="${member.tel}">
+			    </td>
+			</tr>
+			
+	        <tr><td><input type="submit" value="수정" id="submitBtn" class="submitBtn"></td></tr>
+	        <td><a th:href="@{/member/listMembers.do}">수정 취소하고 목록으로 돌아가기</a></td>
+	        </table>
+		</form>
+	</th:block>
+</body>
+</html>

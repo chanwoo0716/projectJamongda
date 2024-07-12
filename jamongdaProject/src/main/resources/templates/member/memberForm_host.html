@@ -1,55 +1,93 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="/layout/layout">
 <head>
 <meta charset="UTF-8">
 <title>사업자 회원 가입</title>
 <link rel="stylesheet" th:href="@{/css/memberForm_host.css}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!--<script type="text/javascript" th:src="@{/js/common.js}"></script>-->
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
 <script type="text/javascript" th:src="@{/js/memberForm_host.js}"></script>
 <script th:src="@{//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js}"></script>
 </head>
 <body>
-	<form name="frmMember" action="/member/insertMemberH.do" method="post">
+	<th:block layout:fragment="content">
+	    <form name="frmMember" action="/member/insertMember.do" method="post" onsubmit="return validateForm();">
 	        <table>
-	        <tr>
-	            <td><h2>회원가입</h2></td>
-	        </tr>
-	        <tr><td>이메일 <button type="button" class="valEmail" onclick="valEmail();">이메일 인증</button></td></tr>
-	        <tr>
-	            <td>
-					<input type="text" name="email" id="email" class="email" placeholder="이메일을 입력하세요" required>
-	            </td>
-	        </tr>
-
-	        <tr><td>사업자등록번호 <button type="button" class="valRegNumber" onclick="valRegNumber();">사업자 인증</button></td></tr>
-	        <tr><td><input type="text" id="regNumber" name="regNumber" class="text" placeholder="예시) 1112233333"
-							oninput="oninputRegNum(this)" maxlength="12"></td></tr>
-	        <tr><td>이름</td></tr>
-	        <tr><td>
-	            <input type="text" id="name" name="name" class="text" placeholder="이름을 입력하세요" required>
-	        </td></tr>
-	        <tr><td>비밀번호</td></tr>
-	        <tr>
-				<td>* 4~10자리 이내로 입력해주세요</td>
-			</tr>
-			<tr>
-				<td><input type="password" id="pwd" name="pwd" class="text" oninput="pwd_Chk();" required></td>
-			</tr>
-	        <tr><td>비밀번호 확인</td></tr>
-			<tr><td><span id="pwdChk_msg"></span></td></tr>
-	        <tr>
-				<td>
-					<input type="password" id="pwdChk" name="pwdChk" class="text" oninput="pwd_Chk();"required>
+		        <tr>
+		            <td><h2>회원가입</h2></td>
+		        </tr>
+				 <tr><td>이메일 <button type="button" id="checkEmailBtn" onclick="checkEmail()">중복 확인</button></td></tr>
+				<tr>
+					<td>
+				    <input type="text" name="email_mem" id="email_mem" class="email_mem" placeholder="이메일을 입력하세요" required oninput="updateEmail()">
+				    @
+				    <select id="email_domain" name="email_domain" title="이메일 선택" class="email_domain" onchange="toggleCustomDomain(); updateEmail();">
+				        <option value="naver.com">naver.com</option>
+				        <option value="gmail.com">gmail.com</option>
+				        <option value="daum.net">daum.net</option>
+				        <option value="hanmail.net">hanmail.net</option>
+				        <option value="nate.com">nate.com</option>
+				        <option value="direct">직접입력</option> <!-- 직접 입력 옵션 추가 -->
+				    </select>
+				    <input type="text" id="custom_domain" name="custom_domain" placeholder="example.com" style="display:none;" oninput="updateEmail()">
+				    <span id="emailChk_msg"></span>
+				    <input type="hidden" id="email" name="email" value="">
+				   
+					<div class="input-group-addon">
+				   		<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
+					</div>
+				   	<div class="mail-check-box">
+						<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+					<div>
+				   		<span id="mail-check-warn"></span>
+					</div>
 				</td>
-			</tr>
-	        <tr><td>전화번호</td></tr>
-	        <tr><td><input type="tel" id="tel" name="tel" class="text" placeholder="예시) 하이픈(-)을 제외하고 입력해주세요" required
-							oninput="oninputTel(this)" maxlength="13"></td></tr>
-			
-	        
-	        <tr><td><input type="submit" value="가입하기" id="submitBtn" class="submitBtn"></td></tr>
+		
+		        <tr><td>사업자등록번호 <button type="button" class="valRegNumber" onclick="valRegNumber();">사업자 인증</button></td></tr>
+		        <tr><td><input type="text" id="regNumber" name="regNumber" class="text" placeholder="예시) 1112233333"
+		                            oninput="oninputRegNum(this)" maxlength="12"></td></tr>
+		        <tr><td>이름</td></tr>
+		        <tr><td>
+		            <input type="text" id="name" name="name" class="text" placeholder="이름을 입력하세요" required>
+		        </td></tr>
+		        <tr><td>비밀번호</td></tr>
+		        <tr>
+		            <td>* 4~10자리 이내로 입력해주세요</td>
+		        </tr>
+		        <tr>
+		            <td><input type="password" id="pwd" name="pwd" class="text" oninput="pwd_Chk();" required
+								onmousedown="showPassword('pwd')" onmouseup="hidePassword('pwd')" onmouseout="hidePassword('pwd')"></td>
+		        </tr>
+		        <tr><td>비밀번호 확인</td></tr>
+		        <tr><td><span id="pwdChk_msg"></span></td></tr>
+		        <tr>
+		            <td>
+		                <input type="password" id="pwdChk" name="pwdChk" class="text" oninput="pwd_Chk();"required
+								onmousedown="showPassword('pwdChk')" onmouseup="hidePassword('pwdChk')" onmouseout="hidePassword('pwdChk')">
+		            </td>
+		        </tr>
+				<tr>
+				    <td>전화번호</td>
+				</tr>
+				<tr>
+				    <td>
+				        <input type="tel" id="tel" name="tel" class="text" placeholder="예시) 01012345678" required
+				               oninput="oninputTel(this)" maxlength="13">
+				    </td>
+				</tr>
+				<tr>
+				    <td>
+				        <button type="button" class="phone-Check-Btn" id="phone-Check-Btn">본인인증</button>
+				        <input type="text" id="inputCertifiedNumber" class="text" placeholder="인증번호 입력" required>
+				        <button type="button" id="checkBtn">인증확인</button>
+				    </td>
+				</tr>
+		        
+		        <tr><td><input type="submit" value="가입하기" id="submitBtn" class="submitBtn" disabled></td></tr>
 	        </table>
 	    </form>
+	</th:block>
 </body>
 </html>

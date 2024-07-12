@@ -24,46 +24,41 @@
 		insert into member (email, name, pwd, tel, regNumber, regCheck, joinDate, role) values
 	</sql>
 	
-	<!-- 수정삭제 테스트를 위해 나중에 삭제할 예정 -->
- 	<select id="selectAllMembersList" resultMap="memResult">
- 		select * from member order by joinDate desc
- 	</select>
+	<select id="existsByEmail" resultType="boolean" parameterType="String">
+        select count(*) > 0 from member where email = #{email}
+    </select>
 	
 	<insert id="insertMember" parameterType="memberDTO">
-		<include refid="inG" />
-		(#{email}, #{name}, #{pwd}, #{tel}, #{address}, #{birth}, sysdate(), 'guest')
+	    insert into member (email, name, pwd, tel, 
+	    <if test="regNumber != null">
+	        regNumber, regCheck, joinDate, role
+	    </if>
+	    <if test="regNumber == null">
+	        address, birth, joinDate, role
+	    </if>)
+	    VALUES (#{email}, #{name}, #{pwd}, #{tel},
+	        <if test="regNumber != null">
+	            #{regNumber}, 'N', sysdate(), 'H'
+	        </if>
+	        <if test="regNumber == null">
+	            #{address}, #{birth}, sysdate(), 'G'
+	        </if>
+	    )
 	</insert>
 	
 	<select id="findInfo" parameterType="String" resultType="memberDTO">
 		select * from member where email=#{email}
 	</select>
 	
-	<update id="updateEmailStatus">
-        UPDATE member SET emailStatus = #{emailStatus} WHERE email = #{email}
-    </update>
-	
 	<update id="updateMember" parameterType="memberDTO">
-		update member set pwd=#{pwd}, name=#{name}, tel=#{tel}, address=#{address}, birth=#{birth} where email=#{email}
+		update member set pwd=#{pwd}, name=#{name}, tel=#{tel}
+	    <if test="regNumber == null">
+			 , address=#{address}, birth=#{birth}
+	    </if>
+	    where email=#{email}
 	</update>
 	
 	<delete id="deleteMember" parameterType="String">
-		delete from member where email=#{email}
-	</delete>
-
-	<insert id="insertMemberH" parameterType="memberDTO">
-		<include refid="inH" />
-		(#{email}, #{name}, #{pwd}, #{tel}, #{regNumber}, 'N', sysdate(), 'host')
-	</insert>
-	
-	<select id="findInfoH" parameterType="String" resultType="memberDTO">
-		select * from member where email=#{email}
-	</select>
-	
-	<update id="updateMemberH" parameterType="memberDTO">
-		update member set pwd=#{pwd}, name=#{name}, tel=#{tel} where email=#{email}
-	</update>
-	
-	<delete id="deleteMemberH" parameterType="String">
 		delete from member where email=#{email}
 	</delete>
 	
