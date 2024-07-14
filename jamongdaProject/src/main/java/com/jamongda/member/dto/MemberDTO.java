@@ -12,7 +12,6 @@ public class MemberDTO {
 	private String address;
 	private String birth;
 	private String regNumber;
-	private String regCheck;
 	private String joinDate;
 	private String role;
 	
@@ -61,12 +60,6 @@ public class MemberDTO {
 	}
 	public void setRegNumber(String regNumber) {
 		this.regNumber = regNumber;
-	}
-	public String getRegCheck() {
-		return regCheck;
-	}
-	public void setRegCheck(String regCheck) {
-		this.regCheck = regCheck;
 	}
 	public String getJoinDate() {
 		return joinDate;

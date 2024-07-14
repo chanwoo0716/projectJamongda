@@ -11,7 +11,6 @@
 		<result property="address" column="address" />
 		<result property="birth" column="birth" />
 		<result property="regNumber" column="regNumber" />
-		<result property="regCheck" column="regCheck" />
 		<result property="joinDate" column="joinDate" />
 		<result property="role" column="role" />
 		<!--<result property="emailStatus" column="emailStatus" />-->
@@ -21,7 +20,7 @@
 		insert into member (email, name, pwd, tel, address, birth, joinDate, role) values
 	</sql>
 	<sql id="inH"> <!--insert host정보-->
-		insert into member (email, name, pwd, tel, regNumber, regCheck, joinDate, role) values
+		insert into member (email, name, pwd, tel, regNumber, joinDate, role) values
 	</sql>
 	
 	<select id="existsByEmail" resultType="boolean" parameterType="String">
@@ -31,14 +30,14 @@
 	<insert id="insertMember" parameterType="memberDTO">
 	    insert into member (email, name, pwd, tel, 
 	    <if test="regNumber != null">
-	        regNumber, regCheck, joinDate, role
+	        regNumber, joinDate, role
 	    </if>
 	    <if test="regNumber == null">
 	        address, birth, joinDate, role
 	    </if>)
 	    VALUES (#{email}, #{name}, #{pwd}, #{tel},
 	        <if test="regNumber != null">
-	            #{regNumber}, 'N', sysdate(), 'H'
+	            #{regNumber}, sysdate(), 'H'
 	        </if>
 	        <if test="regNumber == null">
 	            #{address}, #{birth}, sysdate(), 'G'
