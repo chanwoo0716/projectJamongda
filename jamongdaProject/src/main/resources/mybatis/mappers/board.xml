@@ -61,7 +61,7 @@
  	<!--글 삭제하기-->
  	<delete id="deleteBoard" parameterType="int">
  		<![CDATA[ 
-			delete from board where boardId=#{board_id} 
+			delete from board where board_id=#{board_id} 
  		]]>
  	</delete>
  </mapper>

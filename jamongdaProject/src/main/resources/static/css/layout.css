@@ -1,13 +1,15 @@
 @charset "utf-8";
-#container {
-	width: 100%;
-	margin: 0 auto;
-	text-align: center;
+body{
+	margin:  0 auto;
 }
 header {
-	padding: 5px;
 	margin-bottom: 5px;
-	background-color: lightgreen;
+	padding:1%;
+	background-color:rgb(252, 252, 252);
+	border-bottom: 0.1em solid #FF6F61 ;
+}
+#header{
+	text-align: center;
 }
 
 #content {
@@ -19,5 +21,8 @@ header {
 footer {
 	clear: both;
 	padding: 5px;
-	background-color:#e5d85c; 
+	background-color:rgb(252, 252, 252);
+	text-align: center;
+	border-top: 0.1em solid #FF6F61 ;
 }
+

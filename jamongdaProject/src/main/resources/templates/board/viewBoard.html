@@ -25,8 +25,8 @@
 				</div>
 				
 				<div class="view_btn">
-					<input type="button" value="수정하기" th:onclick="fn_modBoardForm('/board/modBoardForm')">
-					<input type="button" value="삭제하기" th:onclick="fn_romove_board('/board/removeBoard.do', [[${board.board_id}]])">
+					<input type="button" value="수정하기" th:onclick="fn_modBoardForm(ftmBoard)">
+					<input type="button" value="삭제하기" th:onclick="fn_remove_board('/board/removeBoard.do', [[${board.board_id}]])">
 				</div>
 			</form>
 		</div>

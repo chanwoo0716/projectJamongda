@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자몽다메인</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header>
+        <div id="header_content" class="content_box">
+            <h1><a href="index.html">자몽다</a></h1>
+            <ul id="hd_nav">
+                <li><a href="loginForm.html">로그인/회원가입</a></li>
+                <li id="hamberger_nav">
+                    <a href="#">hamberger</a>
+                    <ul class="hide">
+                        <li><a href="#">숙소검색</a></li>
+                        <li><a href="#">마이페이지</a></li>
+                        <li><a href="#">리뷰</a></li>
+                        <li><a href="#">찜하기</a></li>
+                        <li><a href="#">포인트 확인</a></li>
+                    </ul>
+                </li>
+                
+            </ul>
+        </div>
+    </header>
+    <section id="search_section">
+        <div class="content_box" id="search_box">
+            <form action="#" method="get">
+                <input type="text" id="acc_name" name="acc_name" placeholder="여행지나 숙소를 검색하세요">
+                <input type="text" id="acc_area" name="acc_area" placeholder="지역">
+                <input type="text" id="acc_date" name="acc_date" placeholder="여행 기간"><!-- jquery-ui에 datepicker달기 -->
+                <input type="text" id="ro_max" name="ro_max" placeholder="최대 인원 수">
+                <input type="submit" value="검색">
+            </form>
+            
+        </div>
+    </section>
+    <section>
+        <div class="content_box" >
+            <div class="slide_box" id="famous_acc">
+                <h2>인기숙소</h2>
+                <ul class="slide_container">
+                    <li><a href="#">인기숙소1</a></li>
+                    <li><a href="#">인기숙소2</a></li>
+                    <li><a href="#">인기숙소3</a></li>
+                    <li><a href="#">인기숙소4</a></li>
+                    <li><a href="#">인기숙소5</a></li>
+                    <li><a href="#">인기숙소6</a></li>
+                    <li><a href="#">인기숙소7</a></li>
+                    <li><a href="#">인기숙소8</a></li>
+                </ul>
+                <div class="button-container">
+                    <div class="prev">
+                        <button>&#12296;</button>
+                    </div>
+                    <div class="next">
+                        <button>&#12297;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slide_box" id="korean_acc">
+                <h2>국내인기여행지</h2>
+                <ul class="slide_container">
+                    <li><a href="#">서울</a></li>
+                    <li><a href="#">강릉</a></li>
+                    <li><a href="#">제주도</a></li>
+                    <li><a href="#">속초</a></li>
+                    <li><a href="#">여수</a></li>
+                    <li><a href="#">부산</a></li>
+                    <li><a href="#">인천</a></li>
+                    <li><a href="#">가평</a></li>
+                </ul>
+                <div class="button-container">
+                    <div class="prev">
+                        <button>&#12296;</button>
+                    </div>
+                    <div class="next">
+                        <button>&#12297;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slide_box" id="pick_acc">
+                <h2>자몽다Pick</h2>
+                <ul class="slide_container">
+                    <li><a href="#">자몽다Pick1</a></li>
+                    <li><a href="#">자몽다Pick2</a></li>
+                    <li><a href="#">자몽다Pick3</a></li>
+                    <li><a href="#">자몽다Pick4</a></li>
+                    <li><a href="#">자몽다Pick5</a></li>
+                    <li><a href="#">자몽다Pick6</a></li>
+                    <li><a href="#">자몽다Pick7</a></li>
+                    <li><a href="#">자몽다Pick8</a></li>
+                </ul>
+                <div class="button-container">
+                    <div class="prev">
+                        <button>&#12296;</button>
+                    </div>
+                    <div class="next">
+                        <button>&#12297;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="slide_box" id="lowPrice_acc">
+                <h2>최저가 숙소</h2>
+                <ul class="slide_container">
+                    <li><a href="#">최저가 숙소1</a></li>
+                    <li><a href="#">최저가 숙소2</a></li>
+                    <li><a href="#">최저가 숙소3</a></li>
+                    <li><a href="#">최저가 숙소4</a></li>
+                    <li><a href="#">최저가 숙소5</a></li>
+                    <li><a href="#">최저가 숙소6</a></li>
+                    <li><a href="#">최저가 숙소7</a></li>
+                    <li><a href="#">최저가 숙소8</a></li>
+                </ul>
+                <div class="button-container">
+                    <div class="prev">
+                        <button>&#12296;</button>
+                    </div>
+                    <div class="next">
+                        <button>&#12297;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div id="footer_content" class="content_box">
+            <ul id="ft_nav">
+                <li id="help"><a href="#">고객센터</a>
+                    <ul class="hide">
+                        <li>FAQ</li>
+                        <li>문의</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

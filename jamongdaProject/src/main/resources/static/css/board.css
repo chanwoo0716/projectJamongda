@@ -28,24 +28,26 @@ ul,ul>li{
 }
 
 /*오른쪽 View 화면*/
-#boardcontent > .menu_board{
-    width: 50%;
+
+.board{
+	width: 50%;
     margin: 0 auto;
-	position: relative;
 }
 .board>h2{
     margin-top: 4%;
-    margin-bottom: 3%;
+    margin-bottom: 2%;
 	color: #ff6f61;
 	text-decoration: underline;
 	text-underline-offset: 8px;
+	text-align: center;
 }
 
 .board>p{
-    display: inline-block;
+
     margin: 0;
     color: #666;
     margin-bottom: 2%;
+	text-align: center;
 }
 
 .board>table{
@@ -93,8 +95,7 @@ ul,ul>li{
 
 /*하단 페이징 영역*/
 #list_paging{
-	margin: 4% 0;
-	font-size: 1.1em;
+	margin-top: 5%;
 }
 
 #list_paging .noLine:hover{
@@ -112,9 +113,7 @@ ul,ul>li{
 
 .write{
 	width: 10%;
-	position: absolute;
-	top: 95%;
-	right: 3%;
+	margin: 1% auto;
 }
 
 .write>a{
@@ -137,11 +136,13 @@ ul,ul>li{
 	text-decoration: underline;
 	text-underline-offset: 8px;
 	margin: 3% 0;
+	text-align: center;
 }
 /*카테고리, 제목 영역*/
 .top{
 	width: 100%;
 	margin: 2% 0;
+	text-align: center;
 }
 
 .top> #category{
@@ -154,7 +155,6 @@ ul,ul>li{
 
 .top>.title{
 	width: 50%;
-	margin-top: 1.5%;
 	margin-right: 3%;
 	font-size: 1em;
 }
@@ -171,11 +171,9 @@ div#smartEditor{
 }
 
 /*등록하기 버튼*/
-#smartEditor>input{
-	margin-top: 2%;
-	margin-right: 13%;
-	margin-bottom: 2%;
+.form_btn>input{
 	float: right;
+	margin: 3% 15% 3% 0;
 	
 	border: 0;
 	background-color: transparent;
@@ -185,7 +183,7 @@ div#smartEditor{
 	cursor: pointer;
 }
 
-#smartEditor>input:hover{
+.form_btn>input:hover{
 	text-shadow: rgb(237, 93, 75) 1px 0px 20px;
 }
 
@@ -274,6 +272,7 @@ div#smartEditor{
 /*modViewForm*/
 .modView_btn{
 	margin:2%;
+	text-align: center;
 }
 
 .modView_btn>input{

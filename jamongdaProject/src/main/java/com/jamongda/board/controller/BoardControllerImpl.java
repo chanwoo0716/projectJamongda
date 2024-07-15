@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -98,8 +99,8 @@ public class BoardControllerImpl implements BoardController{
 	//board 상세글 보는 메서드
 	@Override
 	@GetMapping("/board/viewBoard.do")
-	public ModelAndView viewBoard(@RequestParam("board_id") int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		boardDTO=boardService.viewBoard(boardId);
+	public ModelAndView viewBoard(@RequestParam("board_id") int board_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		boardDTO=boardService.viewBoard(board_id);
 		
 		ModelAndView mav= new ModelAndView();
 		mav.setViewName("/board/viewBoard");
@@ -173,7 +174,7 @@ public class BoardControllerImpl implements BoardController{
 	
 	//board 상세글 삭제하는 메서드
 	@Override
-	@PostMapping("/board/removeBoard.do")
+	@RequestMapping(value="/board/removeBoard.do", method=RequestMethod.POST)
 	public ModelAndView removeBoard(@RequestParam("board_id") int board_id, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		boardService.removeBoard(board_id);
