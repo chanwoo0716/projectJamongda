@@ -28,7 +28,7 @@ public class PhoneSendService {
         params.put("to", tel);
         params.put("from", fromNumber);
         params.put("type", "SMS");
-        params.put("text", "자몽다(JAMONGDA) 휴대폰인증 테스트 메시지 : 인증번호는 [" + cerNum + "] 입니다.");
+        params.put("text", "자몽다(JAMONGDA) 휴대폰인증 메시지 : 인증번호는 [" + cerNum + "] 입니다.");
         params.put("app_version", "test app 1.2");
 
         try {

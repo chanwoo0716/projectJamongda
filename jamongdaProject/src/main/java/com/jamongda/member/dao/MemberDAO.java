@@ -20,6 +20,8 @@ public interface MemberDAO {
 
 	public void deleteMember(String email) throws DataAccessException;
 	
-
-
+	public MemberDTO loginCheck(MemberDTO member) throws DataAccessException;
+	
+	public MemberDTO getMemberByEmail(String email) throws DataAccessException;
+	
 }

@@ -41,4 +41,16 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@Override
+	public MemberDTO loginG(MemberDTO member) throws DataAccessException {
+		return memberDAO.loginCheck(member);
+	}
+	@Override
+	public MemberDTO loginH(MemberDTO member) throws DataAccessException {
+		return memberDAO.loginCheck(member);
+	}
+    public MemberDTO getMemberByEmail(String email) throws DataAccessException {
+        return memberDAO.getMemberByEmail(email);
+    }
+
 }

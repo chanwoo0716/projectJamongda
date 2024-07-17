@@ -16,7 +16,6 @@
          </div>
          <div th:unless="${session.isLogOn==true and session.guest != null}">
             <h1>안녕 친구야!</h1>
-            <a th:href="@{/login/guestloginForm.do}">로그인/회원가입</a>
          </div>
    </th:block>
 </body>

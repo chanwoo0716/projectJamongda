@@ -161,7 +161,7 @@ function checkEmail() {
             emailChk_msg.className = "chkFail";
             document.getElementById("submitBtn").disabled = true;
             emailChecked = false; // 이메일 중복 확인 미완료 상태를 false로 유지
-            
+
         }
     });
 }

@@ -13,7 +13,6 @@
 		<result property="regNumber" column="regNumber" />
 		<result property="joinDate" column="joinDate" />
 		<result property="role" column="role" />
-		<!--<result property="emailStatus" column="emailStatus" />-->
 	</resultMap>
 	
 	<sql id="inG"> <!--insert guest정보-->
@@ -61,4 +60,10 @@
 		delete from member where email=#{email}
 	</delete>
 	
+	<select id="loginCheck" parameterType="memberDTO" resultType="memberDTO">
+ 		select * from member where email=#{email} and pwd=#{pwd}
+ 	</select>
+	<select id="getMemberByEmail" parameterType="String" resultType="memberDTO">
+	    select * from member where email=#{email}
+	</select>
 </mapper>	
