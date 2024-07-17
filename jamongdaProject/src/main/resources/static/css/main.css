@@ -1,103 +1,49 @@
 @charset "UTF-8";
-body,ul,li,a,h1,h2,h3{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    color: inherit;
-}
-button{
-    background-color: transparent;
-    border: none;
-}
-.content_box{
-    margin: 0 auto;
-    width: 1280px;
-}
-header{
-    background-color: #ff6f61;
-}
-.hide{
-    display: none;
-}
-#header_content{
-    height: 100px;
-    line-height: 100px;
-}
-#header_content>h1{
-    float: left;
-    height: inherit;
-    line-height: inherit;
-}
-#header_content>#hd_nav{
-    float: right;
-}
-#header_content>#hd_nav>li{
-    float: left;
-    margin-left: 20px;
+html,
+body {
+  position: relative;
+  height: 100%;
 }
 
+body {
+  background: rgb(252, 252, 252);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+/*전체 영역*/
+#main_content{
+	width: 90%;
+	margin: 0 auto;
+}
+/*content 영역*/
+
+/*검색 영역*/
 #search_section{
-    background-color: gold;
+	width: 80%;
+    background-color: #FF6F61;
+	border-radius: 10px;
+	margin: 0 auto;
 }
 #search_box{
-    padding-top: 100px;
-    padding-bottom: 50px;
+    padding: 10% 5%;
+	margin: 0 auto;
 }
 #search_box>form{
-    width: 930px;
+    width: 80%;
+	text-align: center;
     margin: 0 auto;
 }
-.slide_box{
-    position: relative;
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
 
-.slide_container>li{
-    width: 130px;
-    height: 130px;
-    border-radius: 10px;
-    background-color: lightblue;
-    display: inline-block;
-    margin: 10px;
-    text-align: center;
-    line-height: 130px;
-    
-}
-.slide_container>li:first-child{
-    margin-left: 40px;
-}
-.slide_container>li>a{
-    display: inline-block;
-    width: inherit;
-    height: inherit;
-}
 
-.button-container{
-    position: absolute;
-    top: 50%;
-}
-.prev,.next{
-    position: absolute;
-}
-.prev button,.next button{
-    cursor: pointer;
-}
-.prev{
-    left: 0;
-}
-.next{
-    left: 1280px;
-}
+/*swiper 영역*/
+.slider {overflow: hidden;position: relative;max-width: 950px;margin: 50px auto 0;}
+.slider .inner {overflow: hidden;margin: 0 60px;}
+.slide_list > li {width: 40%;height: 150px;background: #8ab4f8;font-size: 20px;line-height: 150px;text-align: center;}
 
-footer{
-    background-color: lightgray;
-}
-#footer_content{
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
-#help{
-    float: right;
-}
+.slider .btn {position: absolute;top: 60%;width: 35px;height: 35px;background:url('../images/main_arrow.png') center center no-repeat;background-size: cover;text-indent: -999em;cursor: pointer;}
+.slider .btn.btn_prev {left: 0;transform: rotateY(180deg) translate(0,-50%);}
+.slider .btn.btn_next {right:0;transform: translate(0,-50%);}
