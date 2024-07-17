@@ -34,8 +34,8 @@ public interface AccommodationDAO {
 	public void insertNewRoImages(@Param("roomImageDTOList") List<RoomImageDTO> roomImageDTOList) throws DataAccessException;
 	
 	// regCheck 가져오기(숙소등록여부)
-	public String getRegCheck(String email) throws DataAccessException;
-	// 숙소 정보 가져오기
+	//public String getRegCheck(String email) throws DataAccessException;
+	// 숙소 정보 가져오기(regCheck포함)
 	public List<AccommodationDTO> selectAllAcc(@Param("email") String email) throws DataAccessException;
 	// 객실 정보 가져오기
 	public List<RoomDTO> selectAllRo(int acc_id) throws DataAccessException;

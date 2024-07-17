@@ -51,10 +51,11 @@ public class AccommodationControllerImpl implements AccommodationController {
 		MemberDTO memberDTO=(MemberDTO)session.getAttribute("email");
 		String email=memberDTO.getEmail();
 		*/
+		//email이 admin이 아닐 시 main.do로 가게 하기?
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/accommodation/regAccommodation");
-		mav.addObject("sidebar", "accommodation/hostSidebar");
+		mav.addObject("hostSidebar", "accommodation/hostSidebar");
 		return mav;
 	}
 	// 숙소/객실관리 페이지로 이동 (*숙소/객실/regCheck/숙소대표이미지 정보 보여줘야함)
@@ -70,16 +71,24 @@ public class AccommodationControllerImpl implements AccommodationController {
 		*/
 	    // *임시 이메일 테스트용
 	    String email = "guro@shillastay.com";
+	    // *임시 이메일 테스트용2(관리자에게 이메일 보내는 기능에 쓸 이메일임. 원래는 로그인한 사업자 이메일로 쓰셈)
+	    String email2 = "chanwoo6195@naver.com";
 		
-		//*숙소,객실,regCheck,숙소대표이미지 정보 담는 Map(이미지 포함!)
+		//*숙소(regCheck도 포함),객실,숙소대표이미지 정보 담는 Map(이미지 포함!)
 		Map accRoMap = accommodationService.listAccRo(email);
+		
+		//로그인한 사업자 이메일 세팅
+		accRoMap.put("email", email);
+		
+		//로그인한 사업자 이메일 세팅2
+		accRoMap.put("email2", email2);
 		
 		//accRoMap확인
 		System.out.println("manageAccommodation.do의 accRoMap: " + accRoMap);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/accommodation/manageAccommodation");
-		mav.addObject("sidebar", "accommodation/hostSidebar");
+		mav.addObject("hostSidebar", "accommodation/hostSidebar");
 		mav.addObject("accRoMap", accRoMap);
 		return mav;
 	}
@@ -102,6 +111,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 		mav.addObject("sidebar", "accommodation/hostSidebar");
 		return mav;
 	}
+	
 	// 숙소/객실등록에서 "등록하기" 눌렀을 때
 	@Override
 	@PostMapping("/accommodation/addAccommodation.do")
@@ -124,8 +134,8 @@ public class AccommodationControllerImpl implements AccommodationController {
 		//사업자만 여기로 오게 될 거다. 그거는 로그인에서 처리함
 	    /*
 		HttpSession session = multipartRequest.getSession();
-		MemberDTO memberDTO=(MemberDTO)session.getAttribute("email");
-		String email=memberDTO.getEmail();
+		LoginDTO loginDTO=(LoginDTO)session.getAttribute("email");
+		String email=loginDTO.getEmail();
 		accMap.put("email", email);	// *accMap에 email넣어야함(accommodation테이블,member테이블) 
 		*/
 	    // *임시 이메일 테스트용

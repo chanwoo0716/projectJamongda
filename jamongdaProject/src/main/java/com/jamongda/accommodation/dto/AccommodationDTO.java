@@ -14,6 +14,9 @@ public class AccommodationDTO {
 	private String acc_info;	//숙소 정보
 	private String email;		//회원 이메일(*사업자는 쿼리문에서 roll='사업자' 조건걸어줘야함)
 	
+	private String regCheck;	//숙소등록여부(N,Y,C)
+	private String rejectReason;	//숙소등록취소 사유
+
 	public int getAcc_id() {
 		return acc_id;
 	}
@@ -61,6 +64,19 @@ public class AccommodationDTO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getRegCheck() {
+		return regCheck;
+	}
+	public void setRegCheck(String regCheck) {
+		this.regCheck = regCheck;
+	}
+	
+	public String getRejectReason() {
+		return rejectReason;
+	}
+	public void setRejectReason(String rejectReason) {
+		this.rejectReason = rejectReason;
 	}
 	
 }

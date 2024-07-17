@@ -17,7 +17,7 @@ import com.jamongda.accommodation.dto.RoomImageDTO;
 
 @Service("accommodationService")
 public class AccommodationServiceImpl implements AccommodationService{
-
+	
 	@Autowired
 	private AccommodationDAO accDAO;
 	
@@ -116,10 +116,10 @@ public class AccommodationServiceImpl implements AccommodationService{
 		Map accRoMap = new HashMap();
 		
 		// regCheck 가져오기(숙소등록여부)
-		String regCheck = accDAO.getRegCheck(email);
-		accRoMap.put("regCheck", regCheck);
+		//String regCheck = accDAO.getRegCheck(email);
+		//accRoMap.put("regCheck", regCheck);
 		
-		// 숙소 가져오기 (한 사업자가 여러개 숙소 등록할 수 있으니 List로 받음)
+		// 숙소 가져오기(regCheck포함) (한 사업자가 여러개 숙소 등록할 수 있으니 List로 받음)
 		List<AccommodationDTO> accList = accDAO.selectAllAcc(email);
 		accRoMap.put("accList", accList);
 		

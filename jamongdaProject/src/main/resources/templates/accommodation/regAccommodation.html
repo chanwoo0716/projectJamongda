@@ -217,10 +217,10 @@
             alert("숙소당 최소 한개의 객실을 등록해주세요.");
         }
     }
-
+	
 	//객실 등록 이미지 추가
     function fn_room_addFile(roomCount) {
-        if (roomCounts[roomCount - 1] < 5) {
+        if (roomCounts[roomCount - 1] < 6) {
             $('#room_file' + roomCount).append(
                 '<div id="roomFileDiv' + roomCount + '_' + roomCounts[roomCount - 1] + '">' +
                 '<input type="file" name="ro_image' + roomCount + '_' + roomCounts[roomCount - 1] + '">' +

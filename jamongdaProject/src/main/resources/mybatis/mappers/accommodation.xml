@@ -84,13 +84,16 @@
 	</insert>
 	
 	<!-- regCheck가져오기 getRegCheck-->
+	<!--
     <select id="getRegCheck" resultType="string">
     	select regCheck from member where email=#{email}
     </select>
+    -->
+    
 	<!-- 숙소 정보 가져오기 -->
     <select id="selectAllAcc" resultMap="accResult" parameterType="String">
 	    <![CDATA[
-	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email from accommodation where email=#{email} order by acc_id DESC;
+	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck, rejectReason from accommodation where email=#{email} order by acc_id DESC;
 	    ]]>
     </select>
 	<!-- 객실 정보 가져오기 -->
