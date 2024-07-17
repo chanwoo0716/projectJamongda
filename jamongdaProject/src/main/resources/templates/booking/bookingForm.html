@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>예약 및 결제</title>
+<link rel="stylesheet" th:href="@{/css/bookingForm.css}" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/bookingForm.js}"></script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+		<h2>예약 확인 및 결제</h2>
+		<div class="booking-container">
+		    <form name="frmBooking" action="/booking/insertBooking.do" method="post" class="form-section">
+		        <!--
+				<div hidden>
+		            <label for="bo_number">예약번호:</label>
+		            <input type="text" id="bo_number" name="bo_number">
+		        </div>
+				-->
+				<div>
+		            <div>
+			            <span>숙소 이름</span>
+		                <span>객실 이름</span>
+		            </div>
+					<div>
+					    <label for="bo_checkIn">체크인</label>
+					    <span></span>
+					    <span></span>
+					</div>
+					<div>
+					    <label for="bo_checkOut">체크아웃</label>
+					    <span></span>
+					    <span></span>
+					</div>
+					<div>
+					    <p>기준 ?인 / 최대 ?인</p>
+					</div>
+		        </div>
+				<div>
+		            <label for="memInfo">예약자 정보</label>
+					<p><span id="guestName" th:text="${guest.name}"></span> / <span id="guestTel" th:text="${guest.tel}"></span>
+				</div>
+		        <div>
+					<label for="memInfo">이용자 정보</label>
+					<input type="checkbox" id="eqaulMemInfo">예약자 정보와 동일</div>
+		            <label for="bo_name">이용자 이름:</label>
+		            <input type="text" id="bo_name" name="bo_name" placeholder="예시) 홍길동" required>
+		            <label for="bo_tel">이용자 전화번호:</label>
+		            <input type="tel" id="bo_tel" name="bo_tel" placeholder="예시) 01012345678" maxlength="13" required>
+		        </div>		        
+		        <div>
+		            <h3>결제 정보</h3>
+		            <div>
+		                <strong>객실 가격 (1박):</strong>
+		                <span>\ 70,000원</span>
+		            </div>
+		            <div>
+		                <strong>총 결제 금액:</strong>
+		                <span>\ 70,000원</span>
+		            </div>
+		            <div>
+		                <button id="payBtn">결제하기</button>
+		                <button type="submit" id="bookingBtn">예약하기</input>
+		            </div>
+		        </div>
+		    </form>
+		</div>
+    </th:block>
+	<!--
+    <th:block layout:fragment="content">
+		<h2>예약 확인 및 결제</h2>
+		<div class="booking-container">
+		    <form name="frmBooking" action="/booking" method="post" class="form-section">
+		        <div hidden>
+		            <label for="bo_number">예약번호:</label>
+		            <input type="text" id="bo_number" name="bo_number">
+		        </div>
+				
+				<div>
+		            <div>
+			            <span th:text="${acc.acc_name}">숙소 이름</span>
+		                <span th:text="${room.ro_name}">객실 이름</span>
+		            </div>
+					<div>
+					    <label for="bo_checkIn">체크인</label>
+					    <span th:text="${bo_checkIn}"></span>
+					    <span th:text="${room.ro_checkIn}"></span>
+					</div>
+					<div>
+					    <label for="bo_checkOut">체크아웃</label>
+					    <span th:text=${bo_checkOut}></span>
+					    <span th:text="${room.ro_checkOut}"></span>
+					</div>
+					<div>
+					    <p>기준 <span th:text="${room.ro_min} + '인 / 최대 ' + ${room.ro_max} + '인'"></span></p>
+					</div>
+		        </div>
+				<div>
+		            <label for="memInfo">예약자 정보</label>
+					<p><span th:text="${guest.name}"></span> / <span th:text="${guest.tel}"></span>
+				</div>
+		        <div hidden>
+		            <label for="name">예약자 이름:</label>
+		            <input type="text" id="email" name="email">
+		            <label for="tel">예약자 전화번호:</label>
+		            <input type="tel" id="tel" name="tel">
+		        </div>
+		        <div>
+					<label for="memInfo">이용자 정보</label>
+					<input type="checkbox" >예약자 정보와 동일</div>
+		            <label for="bo_name">이용자 이름:</label>
+		            <input type="text" id="bo_name" name="bo_name" required>    
+		            <label for="bo_tel">이용자 전화번호:</label>
+		            <input type="tel" id="bo_tel" name="bo_tel" required>
+		        </div>		        
+		        <div>
+		            <h3>결제 정보</h3>
+		            <div>
+		                <strong>객실 가격 (1박):</strong>
+		                <span>\ 70,000원</span>
+		            </div>
+		            <div>
+		                <strong>총 결제 금액:</strong>
+		                <span>\ 70,000원</span>
+		            </div>
+		            <div>
+		                <button id="payBtn">결제하기</button>
+		            </div>
+		        </div>
+		    </form>
+		</div>
+    </th:block>
+	-->
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>예약 완료</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+		<div>
+			<h1>SUCCESS!!</h1>
+			<p>예약 번호 : <span th:value="${bo_number}"></span></p>
+		</div>
+    </th:block>
+</body>
+</html>

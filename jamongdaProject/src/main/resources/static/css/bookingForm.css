@@ -1,0 +1,5 @@
+@charset "utf-8";
+label, span {
+    display: block;
+    margin: 5px 0;
+}
