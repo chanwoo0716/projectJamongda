@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자몽다 검색조회페이지</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/detailSearch.css}" />
+<script>
+	document.addEventListener('DOMContentLoaded', (event) => {
+	    // 모든 togglePopupButton 요소를 선택
+	    const togglePopupButtons = document.querySelectorAll('[id^="togglePopup-"]');
+	    togglePopupButtons.forEach(button => {
+	        const roomId = button.id.split('-')[1]; // room ID 추출
+	        const popup = document.getElementById(`popup-${roomId}`);
+	        const closePopupButton = document.getElementById(`closePopup-${roomId}`);
+
+	        // 팝업 열기/닫기 함수
+	        function togglePopup() {
+	            if (popup.style.display === 'none' || popup.style.display === '') {
+	                popup.style.display = 'flex'; // 팝업 열기
+	            } else {
+	                popup.style.display = 'none'; // 팝업 닫기
+	            }
+	        }
+
+	        // 이벤트 리스너 추가
+	        button.addEventListener('click', (event) => {
+	            event.preventDefault(); // 기본 동작 방지
+	            togglePopup();
+	        });
+	        closePopupButton.addEventListener('click', togglePopup);
+
+	        // 팝업 외부 클릭 시 닫기
+	        popup.addEventListener('click', (event) => {
+	            if (event.target === popup) {
+	                togglePopup();
+	            }
+	        });
+	    });
+		
+		// 예약 버튼 클릭 이벤트 리스너 추가
+		const reservationButtons = document.querySelectorAll('.res_button button');
+		reservationButtons.forEach(button => {
+		    button.addEventListener('click', (event) => {
+		        event.preventDefault();
+
+		        const roomId = button.getAttribute('data-room-id');
+		        const accId = button.getAttribute('data-acc-id');
+		        const checkIn = document.getElementById('bo_checkIn').value;
+		        const checkOut = document.getElementById('bo_checkOut').value;
+
+		        // URL 구성
+		        const url = `/booking/bookingForm.do?aid=${accId}&rid=${roomId}&ci=${checkIn}&co=${checkOut}`;
+		        window.location.href = url;
+		    });
+		});
+		
+	});
+</script>
+<style>
+	/* 팝업 창 스타일 */
+	.popup {
+	    display: none; /* 기본적으로 숨김 */
+	    position: fixed; /* 고정 위치 */
+	    left: 0;
+	    top: 0;
+	    width: 100%;
+	    height: 100%;
+	    background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+	    justify-content: center;
+	    align-items: center;
+	}
+
+	.popup-content {
+	    background-color: #fff;
+	    padding: 20px;
+	    border-radius: 5px;
+	    text-align: center;
+	    width: 300px;
+	    margin: auto;
+	}
+
+	.close {
+	    position: absolute;
+	    top: 10px;
+	    right: 20px;
+	    font-size: 20px;
+	    cursor: pointer;
+	}
+	.room-info-list {
+	    list-style-type: none; /* 기본 리스트 스타일 제거 */
+	    padding: 0;
+	}
+
+	.room-info-list li {
+	    margin-bottom: 10px; /* 항목 간의 간격 조정 */
+	}
+
+	.room-info-list li span {
+	    margin-right: 20px; /* 스팬 요소 간의 간격 조정 */
+	}
+</style>
+</head>
+<body>
+   <th:block layout:fragment="content">
+   <section class="sct1">
+      <div class="wrapper sct1_wrap">   
+          <div class="search_wrap">
+             <form th:action="@{/search/selectSearch.do}" method="get">
+                <input type="text" placeholder="숙소이름" name="acc_name">
+                <input type="text" placeholder="지역" name="acc_area">
+                <!-- 지역이 나오면 검색조회페이지로 숙소이름이 나오면 검색상세페이지로 리다이렉트 -->
+                <input type="date" >부터
+                <input type="date" >까지
+                <input type="number" placeholder="기준인원수">
+                <!-- 인원수 -->
+                <input type="submit" id="submit" class="search_submit" value="검색">
+              </form>
+           </div>
+                  
+       </div>
+    </section>
+	
+	<!--숙소 이미지 영역-->
+    <section class="acc_images">
+        <div class="acc_imagebox wrapper">				     
+            <div class="img" th:each="accImage : ${detailAccRoMap.get('accImageFileList')}"><img th:src="@{/accDownload.do(acc_id=${accImage.acc_id}, acc_image=${accImage.acc_image})}" ></div>
+        </div>
+    </section>
+	
+    <section class="wrapper contents_flexbox">
+		<!--리뷰, 숙소 및 객실 정보-->
+        <section class="acc_content">
+            <div class="content_box" th:each="acc : ${detailAccRoMap.get('accList')}">
+                <div class="acc_title">
+                    <h2 th:text="${acc.acc_name}"></h2>
+                </div>
+				
+				<!--리뷰영역-->
+                <div class="review">
+                    <a href="#review">리뷰보기</a>
+                    <div class="review_text_box">
+                        <div class="text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione et soluta sunt laudantium quasi quos vitae numquam itaque, ea nemo. Nostrum voluptatibus doloremque maxime amet nam saepe dolorum minima quia.
+                        </div>
+                        <div class="user_name">user_name</div>
+                        <div class="user_date">2024.07.17</div>
+                    </div>
+
+                </div>
+				<!--리뷰영역종료-->
+				
+				<!--객실영역-->
+				<div th:with="acc_id=${detailAccRoMap.accList[0].acc_id}">
+				<div class="roomList" th:each="room : ${detailAccRoMap['roList' + acc_id]}">
+                <!--<div class="roomList" th:each="room : ${detailAccRoMap.get('roList' + acc.acc_id)}">-->
+                    <h3>객실선택</h3>
+                    <div class="room_box">
+						<!--객실 이미지(썸네일)-->
+                        <div class="room_image">
+							<a href="#" onclick="">
+								<img th:src="@{/roDownload.do(ro_id=${room.ro_id}, ro_image=${detailAccRoMap.get('roThumbnail').get(room.ro_id)})}" width="224px", height="126px" alt="객실 대표 이미지">
+							<a>
+						</div>
+						<!--객실 정보-->
+                        <div class="room_contents">
+                            <div class="contente_box1">
+                                <div class="room_title"><h2 th:text=${room.ro_name}></h2></div>
+								
+                                <div class="room_more"><a href="#" id="togglePopup-[[${room.ro_id}]]">상세정보</a></div>
+								
+                            </div>
+                            <div class="contente_box2">
+                                <div class="ro_check">
+                                    입실 <p th:text=${room.ro_checkIn}></p>
+                                    퇴실 <p th:text=${room.ro_checkOut}></p>
+                                </div>
+                                <div class="ro_res">
+                                    <div class="room_price" th:text=${room.ro_price}></div>원
+                                    <div class="res_button">
+                                         <button type="button" data-room-id="[[${room.ro_id}]]" data-acc-id="[[${acc.acc_id}]]">객실 예약</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contente_box3">
+                                <div class="room_info">
+                                    <h3>객실정보</h3>
+                                    기준<p th:text=${room.ro_min}></p>인
+									최대<p th:text=${room.ro_max}></p>인
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<!--객실 팝업창 영역-->
+					<div id="popup-[[${room.ro_id}]]" class="popup" style="display: none;">
+					    <div class="popup-content">
+					        <h2 th:text="${room.ro_name}"></h2>
+					        <span id="closePopup-[[${room.ro_id}]]" class="close">&times;</span>
+					        <h3>객실정보</h3>
+					        <ul class="room-info-list">
+					            <li>◎ 체크인<span th:text="${room.ro_checkIn}"></span>-체크아웃<span th:text="${room.ro_checkOut}"></span></li>
+					            <li>◎ <span th:text="${room.ro_min}"></span>인 기준 최대<span th:text="${room.ro_max}"></span>인</li>
+					        </ul>
+					        <h3>추가 정보</h3>
+					        <ul>
+					            <li>◎ <span th:text="${room.ro_info}"></span></li>
+					        </ul>
+					        <h3>편의 시설</h3>
+					        <ul>
+					            <li>◎ <span th:text="${room.ro_amenities}"></span></li>
+					        </ul>
+					    </div>
+					</div>
+					<!--객실 팝업창 영역 종료-->
+
+                </div>
+				<!--객실영역종료-->
+				
+                <div class="use_caution">
+					<h2>숙소 소개</h2>
+					<p th:text=${acc.acc_info}></p>
+					
+					<h2>숙소 이용 정보</h2>
+
+                    <h2>판매자정보</h2>
+                    <ul>
+                        이메일 <li th:text="${acc.email}"></li>
+                        주소<li th:text="${acc.acc_address}"></li>
+                        전화번호 <li th:text="${acc.acc_tel}"></li>
+                        대표자명 <li></li>
+						사업자 번호 <li></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+		<!--리뷰, 숙소 및 객실 정보 종료-->
+		
+        <aside>
+            <div class="aside_map">
+                <div class="map_box2">지도보기</div>
+            </div>
+        </aside>     
+    </section>
+
+    <section class="map">
+        <div class="map_box wrapper">
+            <h3>위치</h3>
+        </div>
+    </section>
+
+    <section>
+        <div class="review_box wrapper" id="review">
+            <div class="review_user">
+                <div class="user_image"></div>
+                <div class="user_id"></div>
+            </div>
+            <div class="review_content">
+                <div class="review_imagesbox">
+
+                </div>
+                <div class="review_text">광안리에 가면 언제나 센트럴베이 호텔에 가는 것 같습니다.</div>
+                <div class="review_more"><a href="#">더보기</a></div>
+            </div>
+            <div class="pagination">
+                <ul>
+                    <li>prev</li>
+                    <li>1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>next</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    </th:block>
+
+</body>
+</html>

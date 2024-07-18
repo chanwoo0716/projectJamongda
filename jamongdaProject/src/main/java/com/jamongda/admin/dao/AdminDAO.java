@@ -78,7 +78,7 @@ public interface AdminDAO {
 	//회원정보삭제
 	public void delMember(String email) throws DataAccessException;
 	
-	
+	//등록된 숙소 수정
 	
 	
 }

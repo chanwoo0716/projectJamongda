@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>숙소등록요청</title>
 <style>
+	.admin-h2 {
+		display: inline-block;
+	}
 	.acc-summary {
 		margin: 20px auto; /* 상하 여백을 추가하여 가로 중앙 정렬 */
 		max-width: 800px; /* 최대 너비 설정 (필요에 따라 조정 가능) */
@@ -304,7 +307,7 @@
 </head>
 <body>
     <th:block layout:fragment="content">
-        <h2 align="center">숙소등록요청</h2>
+        <h2 align="center" class="admin-h2">숙소등록요청</h2>
 		<!-- 숙소등록요청이 없을 경우 처리 -->
         <div th:if="${regN_accRoMap.get('accList') == null}">
             <p>숙소등록요청이 없습니다.</p>
@@ -355,7 +358,7 @@
 						<div class="section-header">
 							<p class="section-title">객실 정보</p>
 		                    <div th:each="room : ${regN_accRoMap.get('roList' + acc.acc_id)}">
-								<!-- 객실 이미지 출력 -->
+								<!-- 객실 이미지 -->
 								<div class="ro-image">
 								    <div th:each="roImage : ${regN_accRoMap.get('roImageFileList')}"
 								         th:if="${roImage.ro_id == room.ro_id}">
