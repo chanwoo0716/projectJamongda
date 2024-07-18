@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="/layout/layout">
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="/layout/layout">
 <head>
 <meta charset="UTF-8">
-<title>자몽다 메인페이지 1조 화이팅^^</title>
+<title>자몽다 메인페이지(일반회원)</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/mainSearch.css}" />
 </head>
 <body>
-	<th:block layout:fragment="content">
-		<!--숙소검색영역-->
-		<div>
-			<p>검색하는 곳</p>
-		</div>
-		
-		<!--숙소카테고리영역-->
-		<div>
-			<!--인기숙소-->
-			<div>
-				인기숙소
-			</div>
-			<!--국내인기여행지-->
-			<div>
-				국내인기여행지	
-			</div>
-			<!--자몽다pick-->
-			<div>
-				자몽다pick
-			</div>
-			<!--최저가숙소-->
-			<div>
-				최저가숙소
-			</div>
-		</div>
-	</th:block>
+   <th:block layout:fragment="content">
+      <div th:if="${session.isLogOn==true and session.guest != null}">
+            <h1>로그인 했구나! 환영해!</h1>
+            <a th:href="@{/login/guestlogout.do}">로그아웃</a>
+            <a>마이페이지</a>
+            <a th:href="@{/member/listGuests.do}">회원관리하는 곳</a>
+         </div>
+         <div th:unless="${session.isLogOn==true and session.guest != null}">
+            <h1>안녕 친구야!</h1>
+            <a th:href="@{/login/guestloginForm.do}">로그인/회원가입</a>
+         </div>
+		 
+		 <section class="sct1 bg_parent">
+		         <div class="wrapper  sct1_wrap">
+		             <div class="search_wrap">
+		                 <form th:action="@{/search/selectSearch.do}" method="get">
+		                     <input type="text" placeholder="숙소이름" name="acc_name">
+		                     <input type="text" placeholder="지역" name="acc_area">
+		                     <!-- 지역이 나오면 검색조회페이지로 숙소이름이 나오면 검색상세페이지로 리다이렉트 -->
+		                     <input type="date" >부터
+		                     <input type="date" >까지
+		                     <input type="number" placeholder="기준인원수">
+		                     <!-- 인원수 -->
+		                     <input type="submit" id="submit" class="search_submit" value="검색">
+		                 </form>
+		             </div>
+					 <div class="backgrounImage_wrap"></div>
+		         </div>
+		     </section>
+   </th:block>
 </body>
 </html>

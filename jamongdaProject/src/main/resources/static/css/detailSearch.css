@@ -1,0 +1,177 @@
+@charset "utf-8";
+*{
+            margin: 0;
+            box-sizing: border-box;
+        }
+        ul,li{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        button{
+            background-color: transparent;
+            border: none;
+        }
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .wrapper{
+            width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .hidden{
+            display: none;
+        }
+        .header_wrap{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            
+        }
+        .navInfobox{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .navInfobox>ul{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .navInfobox>ul>li{
+            margin-left: 20px;
+        }
+        .mainmenu{
+            position: relative;
+        }
+        .mainmenu>button{
+            cursor: pointer;
+        }
+        .submenu{
+            position: absolute;
+            width: 100px;
+            height: 150px;
+            background-color: #fff;
+            top: 40px;
+            left: -60px;
+            border-radius: 10px;
+            padding: 10px;
+            z-index: 3;
+        }
+        .sct1_wrap{
+            padding: 30px 0;
+        }
+        .search_wrap{
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100%;
+        }
+        .search_wrap input{
+            height: 48px;
+            border-radius: 10px;
+            margin: 0 10px;
+        }
+        .search_submit{
+            display: inline-block;
+            background-color: #f6f6f6;
+            height: 48px;
+            border-radius: 10px;
+            border: 1px solid #000;
+        }
+        .bg_parent{
+            position: relative;
+            height: 100%;
+        }
+        .backgrounImage_wrap{
+            position: absolute;
+            width: 100%;
+            height: 440px;
+            background-image: url(./images/bg1.jpg);
+            background-position: center;
+            background-size: 100% 100%;
+            top: 0;
+            left: 0;
+        }
+      .acc_content{
+         text-align: left;
+      }
+        .acc_imagebox,.map_box{
+            /*height: 512px;*/
+            border: 1px solid blue;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .acc_imagebox>.img{
+            width: 33%;
+            height: 100%;
+            border: 1px solid aquamarine;
+            border-radius: 20px;
+        }
+        .contents_flexbox{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .acc_content .content_box{
+            width: 792px;
+        }
+        .aside_map{
+            width: 340px;
+        }
+        .map_box2{
+            height: 135px;
+            border: 1px solid blue;
+            border-radius: 10px;
+        }
+        .room_box{
+            border: 1px solid blue;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 308px;
+            padding: 24px;
+        }
+        .room_image{
+            border: 1px solid blue;
+            border-radius: 10px;
+            width: 224px;   /*이미지 영역 크기 수정*/
+            height: 126px;
+        }
+        .room_contents{
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            width: 500px;
+        }
+        .roomList .contente_box1{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .roomList .contente_box2{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .res_button>button{
+            background-color: blue;
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+        }
+      .pagination ul{
+                  display: flex;
+                  justify-content: center;
+              }
+              .pagination ul li{
+                  padding: 0 10px;
+              }
