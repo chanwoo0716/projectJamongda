@@ -5,6 +5,39 @@
 <head>
 <meta charset="UTF-8">
 <title>자몽다 메인페이지(일반회원)</title>
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/mainSearch.css}" />
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+   <!-- 달력라이브러리 소스 -->
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+   <!-- 달력라이브러리 제이쿼리 -->
+   <script>
+      $(function() {
+          $('input[name="datetimes"]').daterangepicker({
+              timePicker: false,
+              startDate: moment().startOf('day'),
+              endDate: moment().startOf('day').add(32, 'hour'),
+              locale: {
+                  format: 'YYYY-MM-DD'
+              }
+          }, function(start, end, label) {
+              console.log("Start Date: " + start.format('YYYY-MM-DD'));
+              console.log("End Date: " + end.format('YYYY-MM-DD'));
+              $('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
+              $('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
+          });
+
+          // 초기 값 설정 (필요시)
+          var initialStartDate = $('input[name="datetimes"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
+          var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
+          $('input[name="checkIn"]').val(initialStartDate);
+          $('input[name="checkOut"]').val(initialEndDate);
+      });
+   </script>
+
 </head>
 <body>
    <th:block layout:fragment="content">
@@ -16,7 +49,30 @@
          </div>
          <div th:unless="${session.isLogOn==true and session.guest != null}">
             <h1>안녕 친구야!</h1>
+
+            <a th:href="@{/login/guestloginForm.do}">로그인/회원가입</a>
          </div>
+       
+       <section class="sct1 bg_parent">
+               <div class="wrapper  sct1_wrap">
+                   <div class="search_wrap">
+                       <form th:action="@{/search/selectSearch.do}" method="get">
+                           <input type="search" placeholder="숙소이름" name="aname">
+                           <input type="search" placeholder="지역" name="area">
+                           <!-- 지역이 나오면 검색조회페이지로 숙소이름이 나오면 검색상세페이지로 리다이렉트 -->
+                           <input type="text" name="datetimes" required>
+                           <!-- 인원수 -->
+						   <input type="hidden" name="checkIn">
+						   <input type="hidden" name="checkOut">
+						   <!--<input type="hidden" name="regCheck" value="Y">-->
+                           <input type="submit" id="submit" class="search_submit" value="검색">
+						   
+                       </form>
+                   </div>
+                <div class="backgrounImage_wrap"></div>
+               </div>
+           </section>
+
    </th:block>
 </body>
 </html>
