@@ -33,38 +33,51 @@ public class SearchControllerImpl implements SearchController{
 	@GetMapping("/search/selectSearch.do")
 	public ModelAndView listSearch(
 			@ModelAttribute("acc") AccommodationDTO acc,
-			@RequestParam(value = "acc_name", required = false) String acc_name,
-			@RequestParam(value = "acc_area", required = false) String acc_area,
-//			@RequestParam(value = "bo_checkIn", required = false) String bo_checkIn,
-//			@RequestParam(value = "bo_checkOut", required = false) String bo_checkOut,
+			@RequestParam(value = "aname", required = false) String acc_name,
+			@RequestParam(value = "area", required = false) String acc_area,
+			@RequestParam(value = "datetimes", required = false) String datetimes,
+			@RequestParam(value = "checkIn", required = false) String bo_checkIn,
+			@RequestParam(value = "checkOut", required = false) String bo_checkOut,
 			HttpServletRequest request, 
 			HttpServletResponse response) throws Exception {
+		
+		
+		
 		List accList=searchService.selectAll();		// 숙소 전체 리스트
+
 		List accListsrch=searchService.search(acc);	// 숙소 검색 리스트(이름,지역)
+		
 		//List accImageList=searchService.searchImage(acc);	//숙소 검색 이미지 리스트(이름,지역) (1개만 가져옴)
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("/search/selectSearch");
 		mav.addObject("accList",accList);
 		mav.addObject("accListsrch",accListsrch);
+		mav.addObject("bo_checkIn",bo_checkIn);
+		mav.addObject("bo_checkOut",bo_checkOut);
 		//mav.addObject("accImageList",accImageList);
 		return mav;
 	}
 	
-	 @Override
+	@Override
 	   @RequestMapping(value="/search/detailSearch.do", method=RequestMethod.GET)
 	   public ModelAndView detail(
-	       @RequestParam("acc_id") int acc_id,
-	         @RequestParam(value = "bo_checkIn", required = false) String bo_checkIn,
-	         @RequestParam(value = "bo_checkOut", required = false) String bo_checkOut,
-	         HttpServletRequest request,HttpServletResponse response) throws Exception{
-	      
-	      //acc_id인 숙소+객실 상세 페이지
+	          @RequestParam("aid") int acc_id,
+	          @RequestParam(value = "datetimes", required = false) String datetimes,
+	            @RequestParam(value = "checkIn", required = false) String bo_checkIn,
+	            @RequestParam(value = "checkOut", required = false) String bo_checkOut,
+	         HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+	      //acc_id인 숙소 및 객실들
 	      Map detailAccRoMap = searchService.detailAccRo(acc_id);
 	      
-	      //체크인, 체크아웃 날짜 담기
+	   // 대표자명, 사업자번호 추가
+	        Map<String, Object> hostInfo = searchService.getHostInfo(acc_id);
+	        detailAccRoMap.put("name", hostInfo.get("name"));
+	        detailAccRoMap.put("regNumber", hostInfo.get("regNumber"));
+	      
 	      detailAccRoMap.put("acc_id", acc_id);
 	      detailAccRoMap.put("bo_checkIn", bo_checkIn);
-	      detailAccRoMap.put("bo_checkIn", bo_checkOut);
+	      detailAccRoMap.put("bo_checkOut", bo_checkOut);
 	      
 	      ModelAndView mav=new ModelAndView();
 	      mav.addObject("detailAccRoMap", detailAccRoMap);

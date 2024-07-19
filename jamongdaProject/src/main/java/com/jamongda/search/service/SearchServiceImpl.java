@@ -107,5 +107,12 @@ public class SearchServiceImpl implements SearchService{
 	      return detailAccRoMap;
 
 	   }
+	   
+	   
+	// 대표자명, 사업자번호 추가
+	   @Override
+	   public Map<String, Object> getHostInfo(int acc_id) throws Exception {
+	      return searchDAO.selectHostInfo(acc_id);
+	   }
 	
 }

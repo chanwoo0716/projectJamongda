@@ -7,8 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자몽다 검색조회페이지</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/selectSearch.css}" />
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src="https://kit.fontawesome.com/e9b58f4b27.js" crossorigin="anonymous"></script>
 	<script th:src="@{/js/acc.js}"></script>
+	<!-- 제이쿼리 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5354954af6e88697339f521682aaf397"></script>
+	<!-- 달력라이브러리 소스 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	
+	<!--카카오 지도 API-->
+	
+	
+	
+	<script>
+		$(function() {
+		          $('input[name="datetimes"]').daterangepicker({
+		              timePicker: false,
+		              startDate: moment().startOf('day'),
+		              endDate: moment().startOf('day').add(32, 'hour'),
+		              locale: {
+		                  format: 'YYYY-MM-DD'
+		              }
+		          }, function(start, end, label) {
+		              console.log("Start Date: " + start.format('YYYY-MM-DD'));
+		              console.log("End Date: " + end.format('YYYY-MM-DD'));
+		          });
+		      });
+	</script>
 </head>
 <body>
 	<th:block layout:fragment="content">
@@ -17,14 +45,16 @@
 		    <div class="search_wrap">
 			    <form th:action="@{/search/selectSearch.do}" method="get" name="frmSelect">
 					<input type="hidden" name="action" value="searchAcc">
-			       <input type="text" placeholder="숙소이름" name="acc_name">
-			       <input type="text" placeholder="지역" name="acc_area">
+			       <input type="search" placeholder="숙소이름" name="acc_name">
+			       <input type="search" placeholder="지역" name="acc_area">
 			       <!-- 지역이 나오면 검색조회페이지로 숙소이름이 나오면 검색상세페이지로 리다이렉트 -->
-			       <input type="date" name="bo_checkIn">부터
-			       <input type="date" name="bo_checkOut">까지
+			       <input type="text" name="datetimes" required>
 			       <input type="number" placeholder="기준인원수">
 			       <!-- 인원수 -->
 			       <input type="submit" id="submit" class="search_submit" value="검색">
+				   <!-- 체크인, 체크아웃 -->
+				   <input type="hidden" name="bo_checkIn" th:value="${bo_checkIn}">
+				   <input type="hidden" name="bo_checkOut" th:value="${bo_checkOut}">
 			     </form>
 			  </div>
 						
@@ -33,7 +63,7 @@
     <div class="wrapper contents_wrap">
         <aside>
             <section id="kakao_map">
-				<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5d2ebc3769eda258f89dbd34ce81f5c3"></script>
+				
 					<script>
 						var mapContainer = document.getElementById('kakao_map'), // 지도를 표시할 div 
 						    mapOption = { 
@@ -54,7 +84,7 @@
 						// 마커가 지도 위에 표시되도록 설정합니다
 						marker.setMap(map);
 
-						var iwContent = '<div style="padding:5px;">숙소 길찾기 <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+						var iwContent = '<div style="padding:5px;">Hello World! <br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 						    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
 
 						// 인포윈도우를 생성합니다
@@ -87,6 +117,7 @@
 				</form>-->
 				<form th:action="@{/search/selectSearch.do}" method="get" name="frmRadio">
 					<input type="hidden" name="action" value="searchRadio">
+					<input type="radio" name="acc_type" value="전체" onchange="this.form.submit()"><span>전체</span><br>
 						<input type="radio" name="acc_type" value="모뎉" onchange="this.form.submit()"><span>모텔</span><br>
 						<input type="radio" name="acc_type" value="호텔/리조트" onchange="this.form.submit()"><span>호텔/리조트</span><br>
 						<input type="radio" name="acc_type" value="펜션" onchange="this.form.submit()"><span>펜션</span><br>
@@ -104,7 +135,7 @@
                     </div>
                     <div class="separator">-</div>
                     <div class="field">
-                        <span>Min</span>
+                        <span>Max</span>
                         <input type="number" class="input-max" value="500000">
                     </div>
                 </div>
@@ -151,15 +182,17 @@
                     <div class="acc_info">
                         <div class="box1">
                             <div class="acc_title">
+								<p><a th:href="@{/search/detailSearch.do(aid=${acc.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}" th:text="${acc.acc_type}"></a></p>
+								<h2><a th:href="@{/search/detailSearch.do(aid=${acc.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}" th:text="${acc.acc_name}"></a></h2>
+
+								<!--
                                 <p><a th:href="@{/search/detailSearch.do(acc_id=${acc.acc_id})}" th:text=${acc.acc_type}></a></p>
                                 <h2><a th:href="@{/search/detailSearch.do(acc_id=${acc.acc_id})}" th:text=${acc.acc_name}> </a></h2>
-                            </div>
-                            <div class="acc_zzim">
-                                <button><i class="fa-regular fa-heart"></i>찜하기</button>
+								-->
                             </div>
                         </div>
                         <div class="box2">
-                            <div class="acc_price"><a th:href="@{/search/detailSearch.do(acc_id=${acc.acc_id})}"><span>가격</span><span class="price_font_big">100,000원</span></a></div>
+                            <div class="acc_price"><a th:href="@{/search/detailSearch.do(aid=${acc.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}"><span>가격</span><span class="price_font_big">100,000원</span></a></div>
                         </div>
                     </div>
                 </div>

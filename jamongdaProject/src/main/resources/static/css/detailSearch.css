@@ -101,19 +101,73 @@
       .acc_content{
          text-align: left;
       }
+	  .acc_title{
+		margin-bottom: 20px;
+	  }
         .acc_imagebox,.map_box{
-            /*height: 512px;*/
-            border: 1px solid blue;
+            height: 430px;
             display: flex;
             flex-direction: row;
             justify-content: space-around;
         }
+		.acc_imagebox5{
+			height: 430px;
+			border: 1px solid blue;
+			/*display: flex;*/
+			display: none;
+		}
+		.flex1{
+			width: 50%;
+			height: 100%;
+		}
+		.flex2,.flex3{
+			width: 50%;
+			height: 50%;
+			margin-left:10px;
+			flex-direction: row;
+			
+		}
+		.acc_imagebox5 .img{
+			width: 100%;
+			height: 100%;
+			margin-right: 10px;
+			
+		}
+		.flex2 .img:first-child,.flex3 .img:first-child{
+			padding-bottom: 10px;
+		}
+		.acc_imagebox5 .img>img{
+			width: 100%;
+			height: 100%;
+			border-radius: 20px;
+		}
+		.acc_imagebox5>.img:first-child{
+			width: 590px;
+		}
         .acc_imagebox>.img{
             width: 33%;
-            height: 100%;
-            border: 1px solid aquamarine;
+            height: 390px;
             border-radius: 20px;
+			
         }
+		
+		.acc_imagebox5>.img{
+			width:20%;
+			height: 390px;
+			border-radius: 20px;
+			
+		}
+		
+		.acc_imagebox>.img>img{
+			width: 100%;
+			height: 100%;
+			border-radius: 20px;
+		}
+		.acc_imagebox5>.img>img{
+			width: 100%;
+			height: 100%;
+			border-radius: 20px;
+		}		
         .contents_flexbox{
             display: flex;
             flex-direction: row;
@@ -122,12 +176,19 @@
         .acc_content .content_box{
             width: 792px;
         }
+		.review{
+			margin-bottom: 40px;
+		}
+		.review>a{
+			font-weight: 700;
+			margin-bottom: 10px;
+			display: block;
+		}
         .aside_map{
             width: 340px;
         }
         .map_box2{
             height: 135px;
-            border: 1px solid blue;
             border-radius: 10px;
         }
         .room_box{
@@ -140,17 +201,22 @@
             padding: 24px;
         }
         .room_image{
-            border: 1px solid blue;
             border-radius: 10px;
             width: 224px;   /*이미지 영역 크기 수정*/
             height: 126px;
         }
+		.room_image img{
+			border-radius: 10px;
+		}
         .room_contents{
             display: flex;
             flex-direction: column;
             border-radius: 10px;
             width: 500px;
         }
+		.roomList{
+			margin-top: 20px;
+		}
         .roomList .contente_box1{
             display: flex;
             justify-content: space-between;
@@ -161,14 +227,74 @@
             justify-content: space-between;
             margin-bottom: 20px;
         }
+		.room_price{
+			display: inline;
+			font-size: 2em;
+		}
         .res_button>button{
             background-color: blue;
             color: #fff;
             border-radius: 10px;
             padding: 10px;
             cursor: pointer;
+			float: right;
         }
+		.room_info strong{
+			color: #555;
+			font-size: 0.7em;
+		}
+		.room_info p{
+			display: inline;
+			margin-left: 15px;
+		}
+		.use_caution{
+			margin: 20px 0;
+		}
+		.use_caution>div{
+			margin: 20px 0;
+		}
+		.review_box{
+			display: flex;
+			flex-wrap: wrap;
+			padding-top: 30px;
+			padding-bottom: 30px;
+			border-bottom: 1px solid #ddd;
+		}
+		.review_title{
+			width: 1200px;
+			padding: 10px 0;
+			border-bottom: 1px solid #ddd;
+		}
+		.review_user{
+			width: 30%;
+			display: flex;
+		}
+		.review_content{
+			width: 70%;
+		}
+		.user_image{
+			background-color: aqua;
+			width: 45px;
+			height: 45px;
+			border-radius: 50%;
+			margin-right: 20px;
+		}
+		.review_imagesbox{
+			display: flex;		}
+		.review_image{
+			border: 1px solid aquamarine;
+			width: 200px;
+			height: 200px;
+			border-radius: 20px;
+			margin-right: 20px;
+			margin-bottom: 20px;
+		}
+		.pagination{
+			width: 1200px;
+			padding: 10px 0;
+		}
       .pagination ul{
+				  width: 100%;
                   display: flex;
                   justify-content: center;
               }
