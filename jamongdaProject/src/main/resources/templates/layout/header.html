@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <!--로고, 알림, 마이페이지, 로그인/회원가입-->
+   <header th:fragment="header">
+      <table width="100%">
+         <tr>
+            <!--로고-->
+            <td>
+               <a th:href="@{/main.do}">
+                  <img th:src="@{/images/jamong.png}" alt="" width="100">
+               </a>
+            </td>
+            
+            <!--알림-->
+            <td>
+               <a href="#">
+                  <img th:src="@{/images/alarm.png}" alt="" width="50">
+               </a>
+            </td>
+            
+            <!--마이페이지(로그인했을 때만 노출)-->
+            <!--회원-->
+            <td th:if="${session.isLogOn==true and session.guest != null}">
+               <h3 th:text="${session.guest.name} + '님'"></h3>
+               <a th:href="@{/mypage/mypage.do}">마이페이지</a>
+            </td>
+            <!--사업자-->
+            <td th:if="${session.isLogOn==true and session.host != null}">
+               <h3 th:text="${session.host.name} + '님'"></h3>
+               <a th:href="@{/mypage/mypage.do}">마이페이지</a>
+            </td>
+            
+            <!--로그인/회원가입, 로그아웃-->
+            <!--로그인 했을 때-->
+            <td th:if="${session.isLogOn==true and session.guest != null}">
+               <h3 th:text="${session.guest.name} + '님'"></h3>
+               <a th:href="@{/member/logout.do}">로그아웃</a>
+            </td>
+            <!--로그인 안했을 때-->
+            <td th:unless="${session.isLogOn==true and session.guest != null}">
+               <a th:href="@{/member/loginForm_guest.do}">로그인/회원가입</a>
+            </td>
+         </tr>
+      </table>
+   </header>
+</html>

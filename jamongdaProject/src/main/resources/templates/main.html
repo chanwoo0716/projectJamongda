@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>자몽다 메인페이지(일반회원)</title>
+
 <link rel="stylesheet" type="text/css" th:href="@{/css/mainSearch.css}" />
 <!-- 제이쿼리 -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
@@ -36,6 +37,7 @@
           $('input[name="checkOut"]').val(initialEndDate);
       });
    </script>
+
 </head>
 <body>
    <th:block layout:fragment="content">
@@ -47,6 +49,7 @@
          </div>
          <div th:unless="${session.isLogOn==true and session.guest != null}">
             <h1>안녕 친구야!</h1>
+
             <a th:href="@{/login/guestloginForm.do}">로그인/회원가입</a>
          </div>
        
@@ -69,6 +72,7 @@
                 <div class="backgrounImage_wrap"></div>
                </div>
            </section>
+
    </th:block>
 </body>
 </html>
