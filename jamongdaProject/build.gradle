@@ -1,41 +1,63 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.3.1'
-	id 'io.spring.dependency-management' version '1.1.5'
+   id 'java'
+   id 'org.springframework.boot' version '3.3.1'
+   id 'io.spring.dependency-management' version '1.1.5'
 }
 
 group = 'com.jamongda'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
+   toolchain {
+      languageVersion = JavaLanguageVersion.of(17)
+   }
 }
 
 repositories {
-	mavenCentral()
+   mavenCentral()
 }
 
 dependencies {
-	/*JSP이용시 필요
-	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	implementation 'jakarta.servlet:jakarta.servlet-api'
-	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
-	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
-	*/
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-	runtimeOnly 'com.mysql:mysql-connector-j:8.0.33'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5'
-	implementation 'commons-io:commons-io:2.16.1'
+   /*JSP이용시 필요
+   implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+   implementation 'jakarta.servlet:jakarta.servlet-api'
+   implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+   implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+   */
+   implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+   implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+   implementation 'org.springframework.boot:spring-boot-starter-web'
+   implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+   runtimeOnly 'com.mysql:mysql-connector-j:8.0.33'
+   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+   testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+   testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+   implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5'
+   implementation 'commons-io:commons-io:2.16.1'
+    /* 규림 추가 (이메일, 휴대폰인증)*/
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'jakarta.mail:jakarta.mail-api:2.0.1'
+    implementation 'com.sun.mail:jakarta.mail:2.0.1'
+    implementation 'net.nurigo:sdk:4.2.7'
+    implementation fileTree(dir: 'lib', include: ['*.jar'])
+    /* 단비 추가 */
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.11.0'
+    /* 원지 추가 */
+   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'   //JPA와 관련된 종속성 포함
+   compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'   //Lombok: 코드 생성을 돕는 라이브러리(게터, 세터 생성자)
+}
+/*규림 추가*/
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-parameters'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+   useJUnitPlatform()
+}
+/*단비 추가*/
+configurations.all{
+   exclude group: 'commons-logging', module: 'commons-logging'
 }

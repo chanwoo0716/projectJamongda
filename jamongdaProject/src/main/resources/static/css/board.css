@@ -1,0 +1,303 @@
+@charset "uft-8";
+html,
+body {
+  position: relative;
+  min-width: 1250px;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+body {
+  background: rgb(252, 252, 252);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+a{
+	text-decoration: none;
+	text-decoration-line: none;	
+}
+
+a:link{text-decoration: none;}
+a:visited, a:active{color: black;}
+a:-webkit-any-link{color: black;}
+
+span{
+    font-weight: bold;
+}
+/* 전체 기본 설정*/
+ul,ul>li{
+    list-style: none;
+}
+
+
+/*boardListd*/
+/*전체 화면*/
+#boardcontent{
+    width: 100%;
+}
+
+/*오른쪽 View 화면*/
+
+.board{
+	width: 50%;
+    margin: 0 auto;
+}
+.board>h2{
+    margin-top: 4%;
+    margin-bottom: 2%;
+	color: #ff6f61;
+	text-decoration: underline;
+	text-underline-offset: 8px;
+	text-align: center;
+}
+
+.board>p{
+
+    margin: 0;
+    color: #666;
+    margin-bottom: 2%;
+	text-align: center;
+}
+
+.board>table{
+    table-layout: auto;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    border-collapse: collapse;
+    margin-top: 3%;
+	
+}
+
+
+.board td{
+    border-bottom: 1px solid lightgray;
+    padding: 2%;
+}
+
+.board td:first-child{
+    width: 10%;
+    text-align: center;
+    font-weight: bold;
+    color: #ff6f61;
+	
+}
+
+.board td:nth-child(2){
+    display: none;
+	color: black;
+}
+
+.board td:nth-child(3){
+    width: 45%;
+    text-align: left;
+	padding-left: 3%;
+}
+
+.board td>a:hover{
+	color: #666;
+}
+
+.board td:nth-child(4){
+    width: 10%;
+    text-align: center;
+}
+
+/*하단 페이징 영역*/
+#list_paging{
+	margin-top: 5%;
+}
+
+#list_paging .noLine:hover{
+	color: lightgray;
+}
+
+#list_paging .target{
+	color: #ff6f61;
+	font-size: 1.3em;
+}
+
+.paging_each span{
+	margin: 0.5%;	
+}
+
+.write{
+	width: 10%;
+	margin: 1% auto;
+}
+
+.write>a{
+	color: #ff6f61;
+	font-weight: bold;
+}
+.board>p>a:hover{
+	text-shadow: rgb(237, 93, 75) 1px 0px 20px;
+}
+/*boardForm css 영역*/
+/*boardForm css 영역*/
+/*boardForm css 영역*/
+#boardForm{
+	width: 80%;
+	margin: 0 auto;
+}
+	
+#boardForm>h2{
+	color: #ff6f61;
+	text-decoration: underline;
+	text-underline-offset: 8px;
+	margin: 3% 0;
+	text-align: center;
+}
+/*카테고리, 제목 영역*/
+.top{
+	width: 100%;
+	margin: 2% 0;
+	text-align: center;
+}
+
+.top> #category{
+	margin-right: 1.5%;
+	width: 7%;
+	text-align: center;
+	font-size: 1.1em;
+	height: 30%;
+}
+
+.top>.title{
+	width: 50%;
+	margin-right: 3%;
+	font-size: 1em;
+}
+
+/*smartEditor 영역*/
+form#smartEditor{
+	width: 94%;
+	margin:0 auto;
+}
+
+div#smartEditor{
+	width: 70%;
+	margin: 0 auto;
+}
+
+/*등록하기 버튼*/
+.form_btn>input{
+	float: right;
+	margin: 3% 15% 3% 0;
+	
+	border: 0;
+	background-color: transparent;
+	color: #ff6f61;
+	font-size: 1em;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.form_btn>input:hover{
+	text-shadow: rgb(237, 93, 75) 1px 0px 20px;
+}
+
+
+/*viewBoard css 영역*/
+/*viewBoard css 영역*/
+/*viewBoard css 영역*/
+
+#view_board{
+	width: 60%;
+	margin:0 auto;
+	text-align: left;
+	
+}
+
+
+#view_board a{
+	float: left;
+	font-weight: bold;
+	font-size: 2.8em;
+	color: #ff6f61;
+	opacity: 0.8;
+	margin-top: 3%;
+	margin-left: 10%;
+}
+
+#view_board .view_category{
+	display: inline-block;
+	color: white;
+	font-weight: bold;
+	background-color: #ff6f61;
+	width: 8%;
+	text-align: center;
+	border-radius: 10px;
+	margin-top: 10%;
+	margin-left: 5%;
+}
+
+#view_board #boardView{
+	width: 70%;
+	margin-left: 20%;
+}
+
+#boardView>h2{
+	font-size: 2.1em;
+	margin:3% 0 0 0;
+}
+
+#boardView>p{
+	margin-top: 0.5%;
+	font-size: 0.8em;
+	color: #666;
+}
+
+#boardView .view_content{
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	margin:2% 0;
+	padding: 5% 0;
+}
+
+.view_btn{
+	margin-top: 2%;
+	margin-right: 10%;
+}
+
+.view_btn > input{
+	border: 0;
+	background-color: transparent;
+	color: #ff6f61;
+	font-size: 1em;
+	font-weight: bold;
+	cursor: pointer;
+	
+	float: right;
+	margin-bottom: 2%;
+	margin-right: 1%;
+}
+
+.view_btn > input:hover{
+	text-shadow: rgb(237, 93, 75) 1px 0px 20px;
+}
+
+/*modViewForm*/
+/*modViewForm*/
+/*modViewForm*/
+.modView_btn{
+	margin:2%;
+	text-align: center;
+}
+
+.modView_btn>input{
+	border: 0;
+	background-color: transparent;
+	color: #ff6f61;
+	font-size: 1em;
+	font-weight: bold;
+	cursor: pointer;
+	margin-right: 3%;
+}
+
+.modView_btn > input:hover{
+	text-shadow: rgb(237, 93, 75) 1px 0px 20px;
+}

@@ -10,11 +10,11 @@ import jakarta.servlet.http.HttpServletResponse;
 @Controller
 public class HomeController {
 
-	@GetMapping("/main.do")
+	@GetMapping("/index.do")
 	public ModelAndView main(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/main");
+		mav.setViewName("/index");
 		return mav;
 	}
 }
