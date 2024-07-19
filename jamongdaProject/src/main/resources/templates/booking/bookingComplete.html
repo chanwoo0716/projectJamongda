@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>예약 완료</title>
+<link rel="stylesheet" th:href="@{/css/bookingComplete.css}" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/bookingComplete.js}"></script>
+<!-- 결제일자 받아서 요일 출력하기 위함 -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var payDate = /*[[${booking.payDate}]]*/ 'defaultDate'; // 타임리프 변수를 JavaScript 변수에 할당
+    /*]]>*/
+</script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+		<div class="completed-container">
+			<h1>예약이 완료되었습니다.</h1>
+			<div class="boNumber-section">
+				<strong> 예약 번호 : <span th:text="${bo_number}"></span></strong>
+			</div>
+			<div class="section">
+				<strong>예약 정보</strong>
+			    <p>acc_name</p>
+			    <p>ro_name</p>
+			    <p th:text="${booking.bo_checkIn} + ' ~ ' + ${booking.bo_checkOut}"></p>
+			    <p>체크인 ro_checkIn | ro_checkOut</p>
+			    <p>기준 ro_min 인 / 최대 ro_max 인</p>
+			</div>
+			
+			<div class="section">
+				<strong>이용자 정보</strong>
+				<p>이름  bo_name</p>
+				<p>전화번호  bo_tel</p>
+			</div>
+			
+			<div class="section">
+				<strong>결제 금액</strong>
+			    <span th:text="${booking.bo_price}"></span> 원
+				<br>
+			    <span class="payDateDay" th:text="${booking.payDate}" ></span>
+			</div>			
+			<a href="/main.do">홈으로 돌아가기</a>
+		</div>
+    </th:block>
+	<!--
+    <th:block layout:fragment="content">
+		<div class="completed-container">
+			<h1>예약이 완료되었습니다.</h1>
+			<p>예약 번호 : <span th:text="${bo_number}"></span></p>
+			<ul>
+			    <li><span th:text="${숙소이름}"></span></li>
+			    <li><span th:text="${객실이름}"></span></li>
+			    <li><strong>체크인 : </strong><span th:text="${체크인날짜 요일 체크인시간}"></span></li>
+			    <li><strong>체크아웃 : </strong><span th:text="${체크아웃날짜 요일 체크아웃시간}"></span></li>
+			    <li><strong>결제 금액:</strong> \\ <span th:text="'\\ ' + ${bo_price} + '원'"></span></li>
+			</ul>
+		</div>
+    </th:block>
+	-->
+</body>
+</html>

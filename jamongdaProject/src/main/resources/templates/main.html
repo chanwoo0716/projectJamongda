@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>자몽다 메인페이지(일반회원)</title>
+</head>
+<body>
+   <th:block layout:fragment="content">
+      <div th:if="${session.isLogOn==true and session.guest != null}">
+            <h1>로그인 했구나! 환영해!</h1>
+            <a th:href="@{/login/guestlogout.do}">로그아웃</a>
+            <a>마이페이지</a>
+            <a th:href="@{/member/listGuests.do}">회원관리하는 곳</a>
+         </div>
+         <div th:unless="${session.isLogOn==true and session.guest != null}">
+            <h1>안녕 친구야!</h1>
+         </div>
+   </th:block>
+</body>
+</html>
