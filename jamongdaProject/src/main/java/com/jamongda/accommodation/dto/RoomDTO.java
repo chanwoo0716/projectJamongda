@@ -76,5 +76,4 @@ public class RoomDTO {
 	public void setAcc_id(int acc_id) {
 		this.acc_id = acc_id;
 	}
-
 }
