@@ -6,14 +6,14 @@
       <table id="header" width="100%">
          <tr>
 			<!--알림-->
-            <td width="5%">
+            <td width="30%">
                <a href="#">
                   <img th:src="@{/images/alarm.png}" alt="notice" width="30">
                </a>
             </td>
 			
             <!--로고-->
-            <td width="90%">
+            <td width="40%">
                <a th:href="@{/main.do}">
                   <img th:src="@{/images/JAMONGDA_logo.png}" alt="logo" width="200">
                </a>
@@ -21,25 +21,23 @@
             
             <!--마이페이지(로그인했을 때만 노출)-->
             <!--회원-->
-            <td th:if="${session.isLogOn==true and session.guest != null}" width="5%">
-               <h3 th:text="${session.guest.gu_name} + '님'"></h3>
-               <a th:href="@{/mypage/mypage.do}">마이페이지</a>
+            <td th:if="${session.isLogOn==true and session.guest != null}" width="30%">
+               <h3 th:text="${session.guest.gu_name} + '님'"><a th:href="@{/mypage/mypage.do}">마이페이지</a></h3>
             </td>
             <!--사업자-->
-            <td th:if="${session.isLogOn==true and session.host != null}" width="5%">
-               <h3 th:text="${session.host.ho_name} + '님'"></h3>
-               <a th:href="@{/mypage/mypage.do}">마이페이지</a>
+            <td th:if="${session.isLogOn==true and session.host != null}" width="30%">
+			   <h3 th:text="${session.host.ho_name} + '님'"><a th:href="@{/mypage/mypage.do}">마이페이지</a></h3>
             </td>
             
             <!--로그인/회원가입, 로그아웃-->
             <!--로그인 했을 때-->
-            <td th:if="${session.isLogOn==true and session.guest != null}" width="5%">
+            <td th:if="${session.isLogOn==true and session.guest != null}" width="30%">
                <h3 th:text="${session.guest.gu_name} + '님'"></h3>
                <a th:href="@{/login/logout.do}">로그아웃</a>
             </td>
             <!--로그인 안했을 때-->
-            <td th:unless="${session.isLogOn==true and session.guest != null}" width="5%">
-               <a th:href="@{/login/loginForm.do}">로그인</a>
+            <td th:unless="${session.isLogOn==true and session.guest != null}" width="30%">
+               <a th:href="@{/login/loginForm.do}">로그인 / 회원가입</a>
             </td>
          </tr>
       </table>

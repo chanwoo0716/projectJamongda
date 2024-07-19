@@ -1,5 +1,5 @@
 $(window).on('load', function () {
-    slider();  
+    slider();
 })
 
 function slider(){
@@ -54,3 +54,18 @@ function slider(){
         }
     });
 }
+
+// 달력 라이브러리 JS
+$(function() {
+    $('input[name="datetimes"]').daterangepicker({
+        timePicker: false,
+        startDate: moment().startOf('day'),
+        endDate: moment().startOf('day').add(32, 'hour'),
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
+    }, function(start, end, label) {
+        console.log("Start Date: " + start.format('YYYY-MM-DD'));
+        console.log("End Date: " + end.format('YYYY-MM-DD'));
+    });
+});

@@ -2,7 +2,9 @@
 html,
 body {
   position: relative;
-  height: 100%;
+  min-width: 1250px;
+  max-width: 1920px;
+  margin: 0 auto;
 }
 
 body {
@@ -10,40 +12,214 @@ body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #000;
-  margin: 0;
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+/* 전체 영역 */
+#main_content {
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 검색 영역 */
+#search_section {
+  width: 100%;
+  display: table;
+  height: 250px;
+  position: relative;
+}
+
+.main_banner {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.main_banner>img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+#search_box {
+  width: 100%;
+}
+
+#search_box>form {
+  position: absolute;
+  width: 70%;
+  height: 3%;
+  margin: 0 auto;
+  top: 65%;
+  left: 13%;
+  background-color: rgba(256, 256, 256, 0.6);
+  padding: 3%;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+}
+
+/* 숙소 검색 영역 */
+.inputWrap {
+  position: relative;
+  width: 30%;
+
+}
+
+#acc_name {
+  padding-right: 5%;
+  padding-left: 18%;
+  height: 70px;
+  background-color: rgba(256, 256, 256, 0.8);
+  border: none;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+/* 돋보기 아이콘 */
+.fa-search {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+  font-size: 1.4em;
+}
+
+/*지역 영역*/
+.location{
+	position: relative;
+	width: 30%;
+}
+
+.fa-location-dot{
+	position: absolute;
+	width: 5%;
+	top: 35%;
+	left: 5%;
+	font-size: 1.4em;
+}
+
+#acc_area{
+	height: 70px;
+	border: none;
+	background-color: rgba(256, 256, 256, 0.8);
+	font-size: 1.4em;
+	font-weight: bold;
+	color: black;
+	padding-right: 5%;
+    padding-left: 18%;
+}
+
+/* 날짜 영역 */
+/*input 달력 기본설정 없애기*/
+input[type=date]::-webkit-datetime-edit-text {
+    -webkit-appearance: none;
+    display: none;
+}
+input[type=date]::-webkit-datetime-edit-month-field{
+    -webkit-appearance: none;
+    display: none;
+}
+input[type=date]::-webkit-datetime-edit-day-field {
+    -webkit-appearance: none;
+    display: none;
+}
+input[type=date]::-webkit-datetime-edit-year-field {
+    -webkit-appearance: none;
+    display: none;
+}
+/*아이콘 없애기*/
+input[type="date"]::-webkit-calendar-picker-indicator{
+	display: none;
+}
+
+.search_In{
+	position: relative;
+	margin-right: 15%;
+}
+
+#bo_checkIn{
+	height: 70px;
+	border: none;
+	background-color: rgba(256, 256, 256, 0.8);
+	font-size: 1.4em;
+	font-weight: bold;
+	color: black;
+	padding: 0 30%;
+}
+
+.fa-calendar-days{
+	position: absolute;
+	top: 35%;
+	left: 10%;
+	font-size: 1.4em;
+}
+
+/* 검색 버튼 */
+#search_btn {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  border: none;
   padding: 0;
+  margin-left: 2%;
+  font-size: 1.4em;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  height: 50px;
 }
 
-/*전체 영역*/
-#main_content{
-	width: 90%;
-	margin: 0 auto;
+/*국내 인기 여행지 영역*/
+.swiper-slide img{
+	width: 153px;
+	height: 150px;
 }
-/*content 영역*/
-
-/*검색 영역*/
-#search_section{
-	width: 80%;
-    background-color: #FF6F61;
-	border-radius: 10px;
-	margin: 0 auto;
-}
-#search_box{
-    padding: 10% 5%;
-	margin: 0 auto;
-}
-#search_box>form{
-    width: 80%;
-	text-align: center;
-    margin: 0 auto;
+.swiper-slide p{
+	width: 50%;
+	height: 10%;
+	
 }
 
+/* swiper 영역 */
+.slider {
+  overflow: hidden;
+  position: relative;
+  max-width: 950px;
+  margin: 50px auto 0;
+}
 
-/*swiper 영역*/
-.slider {overflow: hidden;position: relative;max-width: 950px;margin: 50px auto 0;}
-.slider .inner {overflow: hidden;margin: 0 60px;}
-.slide_list > li {width: 40%;height: 150px;background: #8ab4f8;font-size: 20px;line-height: 150px;text-align: center;}
+.slider .inner {
+  overflow: hidden;
+  margin: 0 60px;
+}
 
-.slider .btn {position: absolute;top: 60%;width: 35px;height: 35px;background:url('../images/main_arrow.png') center center no-repeat;background-size: cover;text-indent: -999em;cursor: pointer;}
-.slider .btn.btn_prev {left: 0;transform: rotateY(180deg) translate(0,-50%);}
-.slider .btn.btn_next {right:0;transform: translate(0,-50%);}
+.slide_list > li {
+  width: 40%;
+  height: 150px;
+  background: #ff6f61;
+  font-size: 20px;
+  line-height: 150px;
+  text-align: center;
+}
+
+.slider .btn {
+  position: absolute;
+  top: 60%;
+  width: 35px;
+  height: 35px;
+  background: url('../images/main_arrow.png') center center no-repeat;
+  background-size: cover;
+  text-indent: -999em;
+  cursor: pointer;
+}
+
+.slider .btn.btn_prev {
+  left: 0;
+  transform: rotateY(180deg) translate(0, -50%);
+}
+
+.slider .btn.btn_next {
+  right: 0;
+  transform: translate(0, -50%);
+}
