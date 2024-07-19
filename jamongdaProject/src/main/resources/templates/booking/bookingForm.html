@@ -9,125 +9,103 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" th:src="@{/js/common.js}"></script>
 <script type="text/javascript" th:src="@{/js/bookingForm.js}"></script>
+<!-- 포트원 결제 -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<!-- 포트원 결제 -->
 </head>
 <body>
     <th:block layout:fragment="content">
-		<h2>예약 확인 및 결제</h2>
-		<div class="booking-container">
-		    <form name="frmBooking" action="/booking/insertBooking.do" method="post" class="form-section">
-				<div>
+        <div class="booking-container">
+            <h2>예약 확인 및 결제</h2>
+		    <form name="frmBooking" method="post" class="form-section">
+                <div class="section">
+                    <div class="section-header">숙소</div>
 		            <div>
-			            <span>숙소 이름</span>
-		                <span>객실 이름</span>
+			            <strong>데이나이스 호텔 대천</strong><br>
+		                <span>스탠다드 더블(오션뷰)</span>
 		            </div>
+                    <br>
+                    <div class="checkin-checkout">
+                        <div>
+                            <label for="bo_checkIn">체크인</label>
+                            <span id="bo_checkIn" th:text="${bo_checkIn}">2024.07.18 (목) 15:00</span>
+                        </div>
+                        <div>
+                            <label for="bo_checkOut">체크아웃</label>
+                            <span id="bo_checkOut" th:text="${bo_checkOut}">2024.07.19 (금) 11:00</span>
+                        </div>
+                    </div>
+                    <br>
 					<div>
-					    <label for="bo_checkIn">체크인</label>
-					    <span></span>
-					    <span></span>
+					    <p>기준 2명 / 최대 2명</p>
 					</div>
-					<div>
-					    <label for="bo_checkOut">체크아웃</label>
-					    <span></span>
-					    <span></span>
-					</div>
-					<div>
-					    <p>기준 ?인 / 최대 ?인</p>
-					</div>
+
 		        </div>
-				<div>
-		            <label for="memInfo">예약자 정보</label>
-					<p><span id="guestName" th:text="${guest.name}"></span> / <span id="guestTel" th:text="${guest.tel}"></span>
+				<div class="section">
+                    <div class="section-header">예약자 정보</div>
+                    <p>
+                        <span id="guestName" th:text="${guest.name}"></span> / <span id="guestTel" th:text="${guest.tel}"></span>
+                    </p>
 				</div>
-		        <div>
-					<label for="memInfo">이용자 정보</label>
-					<input type="checkbox" id="eqaulMemInfo">예약자 정보와 동일</div>
-		            <label for="bo_name">이용자 이름:</label>
+		        <div class="section">
+                    <div class="section-header">이용자 정보</div>
+					<p>
+                        <input type="checkbox" id="equalMemInfo" class="check-btn">
+                        <label for="equalMemInfo">예약자 정보와 동일</label>
+                    </p>
+		            <label for="bo_name">이름</label>
 		            <input type="text" id="bo_name" name="bo_name" placeholder="예시) 홍길동" required>
-		            <label for="bo_tel">이용자 전화번호:</label>
+		            <label for="bo_tel">전화번호</label>
 		            <input type="tel" id="bo_tel" name="bo_tel" placeholder="예시) 01012345678" maxlength="13" required>
 		        </div>		        
-		        <div>
-		            <h3>결제 정보</h3>
-		            <div>
-		                <strong>객실 가격 (1박):</strong>
-		                <span>\ 70,000원</span>
+		        <div class="section">
+                    <div class="section-header">결제 정보</div>
+                    <div class="boNotice-section">
+						<ul>
+							<li class="boNotice-title">현장결제
+                                <div class="boNotice-content">추가인원 비용 등의 현장결제 발생 상품을 확인하세요.</div>
+                            </li>
+                            <li class="boNotice-title">취소불가 및 수수료
+                                <div class="boNotice-content">취소 및 환불규정에 따라 취소불가, 수수료가 발생할 수 있습니다.</div>
+                            </li>
+                            <li class="boNotice-title">미성년자 및 법정대리인 필수
+                                <div class="boNotice-content">미성년자는 법정대리인 동행없이 투숙이 불가능합니다.</div>
+                            </li>
+						</ul>
+					</div>
+		            <div class="payInfo-section">
+                        <label for="memInfo">객실 가격(1박)</label>
+		                <span>\ 130,000원</span>
 		            </div>
 		            <div>
 		                <strong>총 결제 금액:</strong>
-		                <span>\ 70,000원</span>
+		                <span>\ 130,000원</span>
 		            </div>
-		            <div>
-		                <button id="payBtn">결제하기</button>
-		                <button type="submit" id="bookingBtn">예약하기</input>
-		            </div>
+                    <div class="checkbox-group">
+                        <p>
+                            <input type="checkbox" id="allAgree-btn" class="check-btn">
+                            <label for="allAgree-btn">약관 전체 동의</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="agree-btn1" class="check-btn">
+                            <label for="agree-btn1">[필수] 만 14세 이상 이용 동의</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="agree-btn2" class="check-btn">
+                            <label for="agree-btn2">[필수] 개인정보 수집 및 이용</label>
+                        </p>
+                        <p>
+                            <input type="checkbox" id="agree-btn3" class="check-btn">
+                            <label for="agree-btn3">[필수] 개인정보 제 3자 제공</label>
+                        </p>
+						<p> * 취소 및 환불규정에 동의할 경우 결제를 진행해주세요 </p>
+                    </div>
 		        </div>
+		        <button type="button" id="payBtn">결제하기</button>
 		    </form>
-		</div>
+        </div>
     </th:block>
-	<!--
-    <th:block layout:fragment="content">
-		<h2>예약 확인 및 결제</h2>
-		<div class="booking-container">
-		    <form name="frmBooking" action="/booking" method="post" class="form-section">
-		        <div hidden>
-		            <label for="bo_number">예약번호:</label>
-		            <input type="text" id="bo_number" name="bo_number">
-		        </div>
-				
-				<div>
-		            <div>
-			            <span th:text="${acc.acc_name}">숙소 이름</span>
-		                <span th:text="${room.ro_name}">객실 이름</span>
-		            </div>
-					<div>
-					    <label for="bo_checkIn">체크인</label>
-					    <span th:text="${bo_checkIn}"></span>
-					    <span th:text="${room.ro_checkIn}"></span>
-					</div>
-					<div>
-					    <label for="bo_checkOut">체크아웃</label>
-					    <span th:text=${bo_checkOut}></span>
-					    <span th:text="${room.ro_checkOut}"></span>
-					</div>
-					<div>
-					    <p>기준 <span th:text="${room.ro_min} + '인 / 최대 ' + ${room.ro_max} + '인'"></span></p>
-					</div>
-		        </div>
-				<div>
-		            <label for="memInfo">예약자 정보</label>
-					<p><span th:text="${guest.name}"></span> / <span th:text="${guest.tel}"></span>
-				</div>
-		        <div hidden>
-		            <label for="name">예약자 이름:</label>
-		            <input type="text" id="email" name="email">
-		            <label for="tel">예약자 전화번호:</label>
-		            <input type="tel" id="tel" name="tel">
-		        </div>
-		        <div>
-					<label for="memInfo">이용자 정보</label>
-					<input type="checkbox" >예약자 정보와 동일</div>
-		            <label for="bo_name">이용자 이름:</label>
-		            <input type="text" id="bo_name" name="bo_name" required>    
-		            <label for="bo_tel">이용자 전화번호:</label>
-		            <input type="tel" id="bo_tel" name="bo_tel" required>
-		        </div>		        
-		        <div>
-		            <h3>결제 정보</h3>
-		            <div>
-		                <strong>객실 가격 (1박):</strong>
-		                <span>\ 70,000원</span>
-		            </div>
-		            <div>
-		                <strong>총 결제 금액:</strong>
-		                <span>\ 70,000원</span>
-		            </div>
-		            <div>
-		                <button id="payBtn">결제하기</button>
-		            </div>
-		        </div>
-		    </form>
-		</div>
-    </th:block>
-	-->
 </body>
 </html>

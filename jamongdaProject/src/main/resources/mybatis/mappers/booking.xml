@@ -16,10 +16,15 @@
 	</resultMap>
 	
 	<insert id="insertBoInfo" parameterType="bookingDTO">
-		insert into booking (bo_number, bo_name, bo_tel) values(#{bo_number}, #{bo_name}, #{bo_tel})
+		insert into booking (bo_number, bo_name, bo_tel, payDate, bo_payment, bo_price) 
+		values(#{bo_number}, #{bo_name}, #{bo_tel}, #{payDate}, #{bo_payment}, #{bo_price})
 	</insert>
 	
 	<select id="isExistNumber" resultType="boolean" parameterType="Long">
 		select count(*) > 0 from booking where bo_number = #{bo_number} 
+	</select>
+	
+	<select id="showBoInfo" resultType="bookingDTO" parameterType="Long">
+		select * from booking where bo_number = #{bo_number}
 	</select>
 </mapper>

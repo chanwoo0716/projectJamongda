@@ -14,4 +14,7 @@ public interface BookingDAO {
 	
 	// 예약번호 중복 확인
 	public boolean isExistNumber(Long bo_number)throws DataAccessException;
+	
+	// 
+	public BookingDTO showBoInfo(Long bo_number) throws DataAccessException;
 }
