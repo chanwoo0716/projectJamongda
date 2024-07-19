@@ -22,24 +22,24 @@
             <!--마이페이지(로그인했을 때만 노출)-->
             <!--회원-->
             <td th:if="${session.isLogOn==true and session.guest != null}">
-               <h3 th:text="${session.guest.gu_name} + '님'"></h3>
+               <h3 th:text="${session.guest.name} + '님'"></h3>
                <a th:href="@{/mypage/mypage.do}">마이페이지</a>
             </td>
             <!--사업자-->
             <td th:if="${session.isLogOn==true and session.host != null}">
-               <h3 th:text="${session.host.ho_name} + '님'"></h3>
+               <h3 th:text="${session.host.name} + '님'"></h3>
                <a th:href="@{/mypage/mypage.do}">마이페이지</a>
             </td>
             
             <!--로그인/회원가입, 로그아웃-->
             <!--로그인 했을 때-->
             <td th:if="${session.isLogOn==true and session.guest != null}">
-               <h3 th:text="${session.guest.gu_name} + '님'"></h3>
-               <a th:href="@{/login/logout.do}">로그아웃</a>
+               <h3 th:text="${session.guest.name} + '님'"></h3>
+               <a th:href="@{/member/logout.do}">로그아웃</a>
             </td>
             <!--로그인 안했을 때-->
             <td th:unless="${session.isLogOn==true and session.guest != null}">
-               <a th:href="@{/login/loginForm.do}">로그인/회원가입</a>
+               <a th:href="@{/member/loginForm_guest.do}">로그인/회원가입</a>
             </td>
          </tr>
       </table>

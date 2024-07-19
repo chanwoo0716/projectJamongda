@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jamongda.member.dao.MemberDAO">
+	<resultMap id="memResult" type="memberDTO">
+		<result property="email" column="email" />
+		<result property="name" column="name" />
+		<result property="pwd" column="pwd" />
+		<result property="tel" column="tel" />
+		<result property="address" column="address" />
+		<result property="birth" column="birth" />
+		<result property="regNumber" column="regNumber" />
+		<result property="joinDate" column="joinDate" />
+		<result property="role" column="role" />
+	</resultMap>
+	
+	<sql id="inG"> <!--insert guest정보-->
+		insert into member (email, name, pwd, tel, address, birth, joinDate, role) values
+	</sql>
+	<sql id="inH"> <!--insert host정보-->
+		insert into member (email, name, pwd, tel, regNumber, joinDate, role) values
+	</sql>
+	
+	<select id="existsByEmail" resultType="boolean" parameterType="String">
+        select count(*) > 0 from member where email = #{email}
+    </select>
+	
+	<insert id="insertMember" parameterType="memberDTO">
+	    insert into member (email, name, pwd, tel, 
+	    <if test="regNumber != null">
+	        regNumber, joinDate, role
+	    </if>
+	    <if test="regNumber == null">
+	        address, birth, joinDate, role
+	    </if>)
+	    VALUES (#{email}, #{name}, #{pwd}, #{tel},
+	        <if test="regNumber != null">
+	            #{regNumber}, sysdate(), 'H'
+	        </if>
+	        <if test="regNumber == null">
+	            #{address}, #{birth}, sysdate(), 'G'
+	        </if>
+	    )
+	</insert>
+	
+	<select id="findInfo" parameterType="String" resultType="memberDTO">
+		select * from member where email=#{email}
+	</select>
+	
+	<update id="updateMember" parameterType="memberDTO">
+		update member set pwd=#{pwd}, name=#{name}, tel=#{tel}
+	    <if test="regNumber == null">
+			 , address=#{address}, birth=#{birth}
+	    </if>
+	    where email=#{email}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from member where email=#{email}
+	</delete>
+	
+	<select id="loginCheck" parameterType="memberDTO" resultType="memberDTO">
+ 		select * from member where email=#{email} and pwd=#{pwd}
+ 	</select>
+	<select id="getMemberByEmail" parameterType="String" resultType="memberDTO">
+	    select * from member where email=#{email}
+	</select>
+</mapper>	

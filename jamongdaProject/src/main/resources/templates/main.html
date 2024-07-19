@@ -1,23 +1,136 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="/layout/layout">
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="/layout/layout">
 <head>
-<meta charset="UTF-8">
-<title>자몽다 메인페이지(일반회원)</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JAMONGDA : 메인</title>
+	<script th:src="@{https://code.jquery.com/jquery-3.4.1.js}"></script>
+	<script type="text/javascript" th:src="@{/js/main.js}"></script>
+	<link rel="stylesheet" th:href="@{/css/main.css}"/>
+	<!--Font Awsome 아이콘-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+	<!-- 달력 라이브러리 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<!-- 달력라이브러리 소스 -->
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+   	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css}" />
+	<script th:src="@{https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js}"></script>
+	
 </head>
 <body>
 	<th:block layout:fragment="content">
-		<div th:if="${session.isLogOn==true and session.guest != null}">
-				<h1>로그인 했구나! 환영해!</h1>
-				<a th:href="@{/login/guestlogout.do}">로그아웃</a>
-				<a>마이페이지</a>
-				<a th:href="@{/member/listGuests.do}">회원관리하는 곳</a>
-			</div>
-			<div th:unless="${session.isLogOn==true and session.guest != null}">
-				<h1>안녕 친구야!</h1>
-				<a th:href="@{/login/guestloginForm.do}">로그인/회원가입</a>
-			</div>
+		<div id="main_content">
+			<section id="search_section">
+				<div class="main_banner">
+					<img src="/images/main_image.jpg" alt="">
+				</div>
+		        <div class="content_box" id="search_box">
+		            <form action="#" method="get">
+						<!--숙소-->
+						<div class="inputWrap">
+							<i class="fas fa-search" aria-hidden="true"></i>
+			                <input type="search" id="acc_name" name="acc_name" placeholder="숙소를 검색하세요">
+						</div>
+						
+						<!--지역-->
+						<div class="location">
+							<i class="fas fa-location-dot"></i>
+							<input type="search" id="acc_area" name="acc_area" placeholder="지역을 검색하세요.">
+						</div>
+						
+						<!--날짜 영역-->
+						<div class="search_In">
+							<i class="fas fa-calendar-days"></i>
+							<input type="text" id="bo_checkIn" name="datetimes">
+						</div>
+		                <input type="submit" value="검색" id="search_btn">
+		            </form>
+		        </div>
+		    </section>
+		  <!-- 첫번째 슬라이드 -->
+		  <div class="slider">
+	          <h2>자몽다's PICK</h2>
+	          <div class="inner">
+	              <ul class="swiper-wrapper slide_list">
+	                  <li class="swiper-slide">slider1</li>
+	                  <li class="swiper-slide">slider2</li>
+	                  <li class="swiper-slide">slider3</li>
+	                  <li class="swiper-slide">slider4</li>
+	                  <li class="swiper-slide">slider5</li>
+	                  <li class="swiper-slide">slider6</li>
+	                  <li class="swiper-slide">slider7</li>
+	                  <li class="swiper-slide">slider8</li>
+	              </ul>
+	          </div>
+	          <span class="btn btn_prev">이전</span>
+	          <span class="btn btn_next">다음</span>
+	      </div>
+	
+	      <!-- 두번째 슬라이드 -->
+	      <div class="slider">
+	          <h2>국내 인기 여행지</h2>
+	          <div class="inner">
+	              <ul class="swiper-wrapper slide_list">
+	                  <li class="swiper-slide">
+						<img src="/images/area/jejudo.jpg" alt="제주도">
+					  </li>
+	                  <li class="swiper-slide">slider2</li>
+	                  <li class="swiper-slide">slider3</li>
+	                  <li class="swiper-slide">slider4</li>
+	                  <li class="swiper-slide">slider5</li>
+	                  <li class="swiper-slide">slider6</li>
+	                  <li class="swiper-slide">slider7</li>
+	                  <li class="swiper-slide">slider8</li>
+	              </ul>
+	          </div>
+	          <span class="btn btn_prev">이전</span>
+	          <span class="btn btn_next">다음</span>
+	      </div>
+	
+	
+	      <!-- 세번째 슬라이드 -->
+	      <div class="slider">
+	          <h2>인기숙소</h2>
+	          <div class="inner">
+	              <ul class="swiper-wrapper slide_list">
+	                  <li class="swiper-slide">slider1</li>
+	                  <li class="swiper-slide">slider2</li>
+	                  <li class="swiper-slide">slider3</li>
+	                  <li class="swiper-slide">slider4</li>
+	                  <li class="swiper-slide">slider5</li>
+	                  <li class="swiper-slide">slider6</li>
+	                  <li class="swiper-slide">slider7</li>
+	                  <li class="swiper-slide">slider8</li>
+	              </ul>
+	          </div>
+	          <span class="btn btn_prev">이전</span>
+	          <span class="btn btn_next">다음</span>
+	      </div>
+	
+	      <!--네번째 슬라이드-->
+	      <div class="slider">
+	          <h2>최저가 숙소</h2>
+	          <div class="inner">
+	              <ul class="swiper-wrapper slide_list">
+	                  <li class="swiper-slide">slider1</li>
+	                  <li class="swiper-slide">slider2</li>
+	                  <li class="swiper-slide">slider3</li>
+	                  <li class="swiper-slide">slider4</li>
+	                  <li class="swiper-slide">slider5</li>
+	                  <li class="swiper-slide">slider6</li>
+	                  <li class="swiper-slide">slider7</li>
+	                  <li class="swiper-slide">slider8</li>
+	              </ul>
+	          </div>
+	          <span class="btn btn_prev">이전</span>
+	          <span class="btn btn_next">다음</span>
+	      </div>
+		</div>
 	</th:block>
 </body>
 </html>

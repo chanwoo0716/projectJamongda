@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jamongda.booking.dao.BookingDAO">
+	<resultMap id="bookingResult" type="bookingDTO">
+		<result property="bo_number" column="bo_number" />
+		<result property="bo_name" column="bo_name" />
+		<result property="bo_tel" column="bo_tel" />
+		<result property="bo_checkIn" column="bo_checkIn" />
+		<result property="bo_checkOut" column="bo_checkOut" />
+		<result property="payDate" column="payDate" />
+		<result property="bo_payment" column="bo_payment" />
+		<result property="bo_price" column="bo_price" />
+		<result property="ro_id" column="ro_id" />
+		<result property="email" column="email" />
+	</resultMap>
+	
+	<insert id="insertBoInfo" parameterType="bookingDTO">
+		insert into booking (bo_number, bo_name, bo_tel, payDate, bo_payment, bo_price) 
+		values(#{bo_number}, #{bo_name}, #{bo_tel}, #{payDate}, #{bo_payment}, #{bo_price})
+	</insert>
+	
+	<select id="isExistNumber" resultType="boolean" parameterType="Long">
+		select count(*) > 0 from booking where bo_number = #{bo_number} 
+	</select>
+	
+	<select id="showBoInfo" resultType="bookingDTO" parameterType="Long">
+		select * from booking where bo_number = #{bo_number}
+	</select>
+</mapper>
