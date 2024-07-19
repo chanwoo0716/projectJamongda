@@ -30,7 +30,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 	
 	private static String ACCOMMODATION_IMAGE_REPO="D:\\Hwang\\FileuploadAcc";
 	private static String ROOM_IMAGE_REPO="D:\\Hwang\\FileuploadRo";
-
+	
 	@Autowired
 	private AccommodationService accommodationService;
 	
@@ -71,7 +71,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 		*/
 	    // *임시 이메일 테스트용
 	    String email = "guro@shillastay.com";
-	    // *임시 이메일 테스트용2(관리자에게 이메일 보내는 기능에 쓸 이메일임. 원래는 로그인한 사업자 이메일로 쓰셈)
+	    // *임시 이메일 테스트용(관리자에게 이메일 보내는 기능에 쓸 이메일. 원래는 로그인한 사업자 이메일로 써야하지만 도용하는 것 같아서 보류)
 	    String email2 = "chanwoo6195@naver.com";
 		
 		//*숙소(regCheck도 포함),객실,숙소대표이미지 정보 담는 Map(이미지 포함!)
@@ -134,8 +134,8 @@ public class AccommodationControllerImpl implements AccommodationController {
 		//사업자만 여기로 오게 될 거다. 그거는 로그인에서 처리함
 	    /*
 		HttpSession session = multipartRequest.getSession();
-		LoginDTO loginDTO=(LoginDTO)session.getAttribute("email");
-		String email=loginDTO.getEmail();
+		MemberDTO memberDTO=(MemberDTO)session.getAttribute("email");
+		String email=memberDTO.getEmail();
 		accMap.put("email", email);	// *accMap에 email넣어야함(accommodation테이블,member테이블) 
 		*/
 	    // *임시 이메일 테스트용
@@ -279,20 +279,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 	    return mav;
 	    
 	}
-	
-	// 숙소/객실 수정하기 -> 숙소/객실관리에서 수정하기 눌렀을 때 
-	@Override
-	@PostMapping("/accommodation/modAccommodation.do")
-	public ModelAndView modAccommodation(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
-			throws Exception {
-		
-		return null;
-	}
-	
-	
-	
-	
-	
+
 	//숙소 이미지 파일 업로드 메서드
 	private List<String> accMultiFileUpload(MultipartHttpServletRequest multipartRequest) throws Exception {
 		List<String> accFileList = new ArrayList<String>();

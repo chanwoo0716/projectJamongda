@@ -28,29 +28,32 @@ public class SearchControllerImpl implements SearchController{
    @Autowired
    private SearchService searchService;
    
-   //@RequestParam("acc_id") int acc_id,
-   
-   @Override
-   @RequestMapping(value="/search/detailSearch.do", method=RequestMethod.GET)
-   public ModelAndView detail(
-		 @RequestParam("acc_id") int acc_id,
-         @RequestParam(value = "bo_checkIn", required = false) String bo_checkIn,
-         @RequestParam(value = "bo_checkOut", required = false) String bo_checkOut,
-         HttpServletRequest request,HttpServletResponse response) throws Exception{
-	   
-	   //acc_id인 숙소+객실 상세 페이지
-	   Map detailAccRoMap = searchService.detailAccRo(acc_id);
-	   
-	   //체크인, 체크아웃 날짜 담기
+	@Override
+	@RequestMapping(value="/search/detailSearch.do", method=RequestMethod.GET)
+	public ModelAndView detail(
+			 @RequestParam("acc_id") int acc_id,
+	         @RequestParam(value = "bo_checkIn", required = false) String bo_checkIn,
+	         @RequestParam(value = "bo_checkOut", required = false) String bo_checkOut,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		//acc_id인 숙소 및 객실들
+		Map detailAccRoMap = searchService.detailAccRo(acc_id);
+		
+        // 대표자명, 사업자번호 추가
+        Map<String, Object> hostInfo = searchService.getHostInfo(acc_id);
+        detailAccRoMap.put("name", hostInfo.get("name"));
+        detailAccRoMap.put("regNumber", hostInfo.get("regNumber"));
+		
+		
 	   detailAccRoMap.put("acc_id", acc_id);
 	   detailAccRoMap.put("bo_checkIn", bo_checkIn);
-	   detailAccRoMap.put("bo_checkIn", bo_checkOut);
+	   detailAccRoMap.put("bo_checkOut", bo_checkOut);
 	   
       ModelAndView mav=new ModelAndView();
       mav.addObject("detailAccRoMap", detailAccRoMap);
       mav.setViewName("/search/detailSearch");
       return mav;
-   }
+	}
    
    
    

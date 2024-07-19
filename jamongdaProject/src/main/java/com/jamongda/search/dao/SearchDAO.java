@@ -1,6 +1,7 @@
 package com.jamongda.search.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
@@ -23,4 +24,7 @@ public interface SearchDAO {
 	public List<AccommodationImageDTO> selectAccImages(int acc_id) throws DataAccessException;
 	// acc_id에 해당하는  객실 이미지 가져오기
 	public List<RoomImageDTO> selectRoImages(int acc_id) throws DataAccessException;
+	
+	// 대표자명, 사업자번호 추가
+	public Map<String, Object> selectHostInfo(int acc_id) throws Exception;
 }

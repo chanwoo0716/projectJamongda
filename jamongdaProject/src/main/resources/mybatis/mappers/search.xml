@@ -103,8 +103,13 @@
         ]]>
     </select>
     
-    
-    
+    <!-- 대표자명, 사업자번호 가져오기 -->
+    <select id="selectHostInfo" resultType="map" parameterType="int">
+        SELECT m.name, m.regNumber
+        FROM member m
+        JOIN accommodation a ON m.email = a.email
+        WHERE a.acc_id = #{acc_id}
+    </select>
     
     
     

@@ -38,11 +38,23 @@ public class SearchServiceImpl implements SearchService {
 	        roLists.add(rooms);  // 로컬 리스트에 추가
 	        detailAccRoMap.put("roList" + acc.getAcc_id(), rooms);  // 맵에 추가
 	        
-	        // rooms 리스트의 내용을 개별 필드 값으로 출력
+	        System.out.println("detailAccRoMap: " + detailAccRoMap.get("roList" + acc.getAcc_id()));
+	        
+	        /* 객실 정보 넘어오는지 보고싶을 때 주석 풀어
 	        for (RoomDTO room : rooms) {
-	            System.out.println("Room ID: " + room.getRo_id() + ", Room Name: " + room.getRo_name() + ", Room Price: " + room.getRo_price());
-	            // 필요한 다른 필드도 출력 가능
+	            System.out.println("Room ID: " + room.getRo_id());
+	            System.out.println("Room Name: " + room.getRo_name());
+	            System.out.println("Room Min Capacity: " + room.getRo_min());
+	            System.out.println("Room Max Capacity: " + room.getRo_max());
+	            System.out.println("Room Info: " + room.getRo_info());
+	            System.out.println("Room Amenities: " + room.getRo_amenities());
+	            System.out.println("Room Price: " + room.getRo_price());
+	            System.out.println("Room Check-In: " + room.getRo_checkIn());
+	            System.out.println("Room Check-Out: " + room.getRo_checkOut());
+	            System.out.println("Accommodation ID: " + room.getAcc_id());
+	            System.out.println("-----------------------------");  // 구분선 추가
 	        }
+	        */
 	    }
 
 	    // acc_id에 해당하는 숙소 이미지 가져오기
@@ -68,6 +80,12 @@ public class SearchServiceImpl implements SearchService {
 	    detailAccRoMap.put("roThumbnail", roThumbnail);
 		return detailAccRoMap;
 
+	}
+
+	// 대표자명, 사업자번호 추가
+	@Override
+	public Map<String, Object> getHostInfo(int acc_id) throws Exception {
+		return searchDAO.selectHostInfo(acc_id);
 	}
 
 }

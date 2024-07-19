@@ -23,8 +23,6 @@ public interface AccommodationController {
 	
 	// 숙소/객실 등록하기(regAccommodation.html에서 "등록"눌렀을 때 DB에 insert 수행 후 manageAccommodation.html로..)
 	public ModelAndView addAccommodation(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
-	
-	// 숙소/객실 수정하기(manageAccommodation.html에서 "수정 요청하기"눌렀을 때.
-	public ModelAndView modAccommodation(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
+
 	
 }
