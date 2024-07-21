@@ -94,7 +94,7 @@ public class MemberControllerImpl implements MemberController {
 	}
 
 	@Override
-	@GetMapping("/member/updateMemberForm.do")
+	@PostMapping("/member/updateMemberForm.do")
 	public ModelAndView updateMemberForm(@RequestParam("email") String email, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		memberDTO = memberService.findInfo(email);
@@ -102,6 +102,7 @@ public class MemberControllerImpl implements MemberController {
 		mav.addObject("member", memberDTO);
 		return mav;
 	}
+	
 	@Override
 	@GetMapping("/member/updateMemberForm_host.do")
 	public ModelAndView updateMemberFormH(@RequestParam("email") String email, HttpServletRequest request,
@@ -111,7 +112,6 @@ public class MemberControllerImpl implements MemberController {
 		mav.addObject("member", memberDTO);
 		return mav;
 	}
-	
 
 	@Override
 	@PostMapping("/member/updateMember.do")
