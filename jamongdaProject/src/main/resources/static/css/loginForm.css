@@ -1,0 +1,113 @@
+@charset "utf-8";
+/* 공통 스타일 */
+html,
+body {
+  position: relative;
+  min-width: 1250px;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+body {
+  background: rgb(252, 252, 252);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0 auto;
+  padding: 0 auto;
+}
+
+#guest_login_area,#host_login_area{
+	height: 450px;
+	border-top: 0.1em solid rgb(255, 111, 97);
+	padding-top: 9%;
+}
+
+.login-links {
+    margin-bottom: 1%;
+}
+
+.login-links a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.login-links a.selected {
+    background-color: #FF6F61;
+    color: #fff;
+}
+
+.login-form {
+    width: 20%;
+	height: 200px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.login-form table {
+    width: 100%;
+}
+
+.login-form table tr {
+    margin-bottom: 10px;
+}
+
+.login-form table td {
+    padding: 5px;
+}
+
+.txt {
+    color: red;
+}
+
+.submit_block {
+    margin-top: 10%;
+    text-align: center;
+}
+
+.submit_block input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #FF6F61;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.submit_block input[type="submit"]:active {
+    background-color: rgb(214, 111, 97);
+}
+
+.submit_block a {
+    margin-left: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.submit_block a:hover {
+    text-decoration: underline;
+}
+
+/* 입력 박스 스타일 */
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: calc(100% - 12px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    border-color: #333;
+}

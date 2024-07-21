@@ -1,0 +1,157 @@
+.acc-h2 {
+      display : inline-block;
+      text-align:left;
+   }
+legend {
+   /*display : none;*/
+   font-weight: bold;
+   position: absolute;
+   left: -9999px;
+}
+#formArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 수직 정렬을 중앙으로 설정 */
+    gap: 20px; /* 요소 사이의 간격 추가 */
+   width: 50%;
+   margin: 0 auto;
+   padding-left: 50px;
+   float: right;
+   position : relative;
+   top: 30px;
+   right: 150px;
+}
+.acc-h2 {
+    margin-right: 20px; /* h2와 div 사이에 여유 공간 추가 */
+}
+
+.accRoForm {
+    width: 100%; /* div의 너비를 100%로 설정 */
+}
+
+
+/* 사이드바 스타일
+#sidebar {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+*/
+/* 콘텐츠 영역 스타일 */
+#accFormArea {
+   border-top: 1px solid #FF6F61;
+   
+}
+
+#accRegArea {
+    /*width: 500px;*/
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+   margin: 0 auto;
+}
+
+fieldset {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+label {
+    /*display: block;*/
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 25px;
+   margin-top : 25px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.regAcc {
+   text-align: center;
+   padding-top : 30px;
+   
+}
+
+.regAcc input {
+   display: inline-block;
+   width:150px;
+   height:75px;
+    padding: 15x 30px;
+    border: none;
+    background-color: #116EDB;
+    color: white;
+   font-weight : bold;
+    border-radius: 6px;
+    cursor: pointer;
+   margin-left: 10px;
+   font-size: 20px; /* 글자 크기 설정 */
+   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
+   transition: background-color 0.1s ease; /* 배경색 전환 효과 */
+}
+
+.regAcc input:hover {
+    background-color: #0056b3;
+}
+/*
+#content {
+   margin : 20px auto;
+}
+*/
+.accRoForm {
+   margin : 20px auto;
+   max-width : 700px;
+   padding : 20px;
+   box-sizing : border-box;
+   text-align : center;
+}
+
+#accRegArea p {
+    border-bottom: 2px dotted #ccc; /* 아래쪽 경계선 추가 */
+    padding-bottom: 30px; /* 선과 텍스트 사이의 여백 추가 */
+    margin-bottom: 20px; /* 다음 요소와의 여백 추가 */
+   padding-top: 15px;
+   
+}
+
+/* 마지막 p 태그의 경계선을 제거 */
+.last_p {
+    border-bottom: none;
+}
+
+label {
+    margin-bottom: 5px; /* 아래쪽 여백을 10px로 설정 */
+    display: block; /* label을 블록 요소로 설정하여 여백 적용 */
+}
+
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 요소 사이의 간격 추가 */
+   justify-content: center;
+   text-align : center;
+}
+
+.radio-group label {
+    display: inline-flex;
+    align-items: center;
+}
+
+.radio-group input[type="radio"] {
+    margin-right: 0px; /* 라디오 버튼과 레이블 사이의 간격 추가 */
+   margin : 10px;
+}

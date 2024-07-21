@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <!--로고, 알림, 마이페이지, 로그인/회원가입-->
+   <header th:fragment="header">
+      <table id="header" width="100%">
+         <tr>
+         <!--알림-->
+            <td width="20%">
+               <a href="#">
+                  <img th:src="@{/images/alarm.png}" alt="notice" width="30">
+               </a>
+            </td>
+         <!--로고-->
+         <td width="40%">
+            <a th:if="${session.isLogOn == true and session.host != null}" th:href="@{/accommodation/regAccommodation.do}">
+               <img th:src="@{/images/JAMONGDA_logo.png}" alt="logo" width="200">
+            </a>
+            <a th:if="${session.isLogOn == true and session.admin != null}" th:href="@{/admin/mainAdmin.do}">
+               <img th:src="@{/images/JAMONGDA_logo.png}" alt="logo" width="200">
+            </a>
+            <a th:if="${session.isLogOn == false or (session.isLogOn == true and session.guest != null) or (session.isLogOn == true and session.admin == null and session.host == null)}" th:href="@{/main.do}">
+               <img th:src="@{/images/JAMONGDA_logo.png}" alt="logo" width="200">
+            </a>
+            <a th:unless="${session.isLogOn == true}" th:href="@{/main.do}">
+               <img th:src="@{/images/JAMONGDA_logo.png}" alt="logo" width="200">
+            </a>
+         </td>
+         
+            <!--마이페이지(로그인했을 때만 노출)-->
+            <!--회원-->
+            <td th:if="${session.isLogOn==true and session.guest != null}" width="20%">
+               <!--<h3 th:text="${session.guest.name} + '님'"></h3>-->
+            <a th:href="@{/mypage/mypage.do}">마이페이지</a>
+            </td>   
+         
+         <!--로그인/회원가입, 로그아웃-->
+         <td width="20%">
+            <!--로그인 했을 때-->
+            <div th:if="${session.isLogOn == true and session.guest != null}">
+               <h3 th:text="${session.guest.name} + '님'"></h3>
+               <a th:href="@{/member/logout.do}">로그아웃</a>
+            </div>
+            <div th:if="${session.isLogOn == true and session.host != null}">
+               <h3 th:text="${session.host.name} + '님'"></h3>
+               <a th:href="@{/member/logout.do}">로그아웃</a>
+            </div>
+            <div th:if="${session.isLogOn == true and session.admin != null}">
+               <h3 th:text="${session.admin.name} + '님'"></h3>
+               <a th:href="@{/member/logout.do}">로그아웃</a>
+            </div>
+            <!--로그인 안했을 때-->
+            <div th:unless="${session.isLogOn}">
+               <a th:href="@{/member/loginForm_guest.do}">로그인 / 회원가입</a>
+            </div>
+         </td>
+
+         </tr>
+      </table>
+   </header>
+</html>
