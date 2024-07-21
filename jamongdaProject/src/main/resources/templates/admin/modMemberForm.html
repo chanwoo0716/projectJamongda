@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>회원정보 수정하기</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/modMemberForm.css}" />
+</head>
+<body>
+	<th:block layout:fragment="content">
+	<div class="container">
+		<form name="frmMember" action="/admin/updateMember.do" method="post">
+			<table>
+				<tr>
+					<th colspan="2">회원정보 수정창</th>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td><input type="text" th:value="${member.email}" disabled></td> <!-- ★disabled는 submit으로 안넘어간다! -->
+					<input type="hidden" name="email" th:value="${member.email}">
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="password" name="pwd" th:value="${member.pwd}" required></td>
+				</tr>
+				<tr>
+					<td>이름</td>
+					<td><input type="text" name="name" th:value="${member.name}" required></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td><input type="text" name="tel" th:value="${member.tel}" required></td>
+				</tr>
+				<tr>
+					<td>주소</td>
+					<td><input type="text" name="address" th:value="${member.address}" required></td>
+				</tr>
+				<tr>
+					<td>생년월일</td>
+					<td><input type="text" name="birth" th:value="${member.birth}" required></td>
+				</tr>
+				<tr>
+					<td>사업자 등록번호</td>
+					<td><input type="text" name="regNumber" th:value="${member.regNumber}" disabled></td>
+				</tr>
+				<tr>
+					<td>가입일자</td>
+					<td><input type="text" name="joinDate" th:value="${member.joinDate}" disabled></td>
+				</tr>
+			</table>
+			<input type="submit" value="수정하기">
+			<input type="reset" value="다시입력">
+		</form>
+	</div>
+	</th:block>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>숙소등록요청</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/regManageAccommodation.css}" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+   $(function () {
+       $('[id^="acc-box-"]').each(function(index) {
+           $(this).click(function(){
+               $('#acc-details-' + index).slideToggle('normal');
+           });
+       });
+   });
+   
+   //사이드바 선택된 곳 색 적용
+   document.addEventListener('DOMContentLoaded', function() {
+       const links = document.querySelectorAll('#adminSidebar a');
+
+       links.forEach(link => {
+           link.addEventListener('click', function() {
+               links.forEach(link => link.classList.remove('active'));
+               this.classList.add('active');
+           });
+
+           // 현재 URL이 링크의 href와 일치하는 경우 active 클래스 추가
+           if (window.location.href.includes(link.href)) {
+               link.classList.add('active');
+           }
+       });
+   });
+   
+   
+   //숙소 승인
+    function approveAcc(acc_id) {
+        if (confirm("숙소 등록을 승인하시겠습니까?")) {
+            let form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/admin/approveAccList.do");
+
+            let hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "acc_id");
+            hiddenField.setAttribute("value", acc_id);
+            form.appendChild(hiddenField);
+
+            document.body.appendChild(form);
+            form.submit();
+         
+         alert("숙소 등록을 승인하셨습니다.");
+        }
+    }
+   /*
+   //숙소 거부
+   function rejectAcc(acc_id) {
+       if (confirm("숙소 등록을 거부하시겠습니까?")) {
+            let form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/admin/rejectAccList.do");
+
+            let hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", "acc_id");
+            hiddenField.setAttribute("value", acc_id);
+            form.appendChild(hiddenField);
+
+            document.body.appendChild(form);
+            form.submit();
+         
+           alert("숙소 등록이 거부되었습니다.");
+       }
+   }
+   */
+   //거부하기 누를 시 취소사유 선택하기
+   function showRejectReason(acc_id) {
+         // 거부 사유 선택 창 표시
+         let reasonDiv = document.getElementById('reject-reason-' + acc_id);
+         if (reasonDiv) {
+            reasonDiv.style.display = 'block';
+         }
+      }
+   
+   //취소사유 선택 후 거부하기 결정
+   function submitReject(acc_id) {
+      let reasonDiv = document.getElementById('reject-reason-' + acc_id);
+      let reasonSelect = reasonDiv.querySelector('select[name="reject_reason"]');
+      let rejectReason = reasonSelect.value;
+
+      if (rejectReason) {
+         if (confirm("숙소 등록을 거부하시겠습니까?")) {
+            let form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "/admin/rejectAccList.do");
+
+            let hiddenFieldId = document.createElement("input");
+            hiddenFieldId.setAttribute("type", "hidden");
+            hiddenFieldId.setAttribute("name", "acc_id");
+            hiddenFieldId.setAttribute("value", acc_id);
+            form.appendChild(hiddenFieldId);
+
+            let hiddenFieldReason = document.createElement("input");
+            hiddenFieldReason.setAttribute("type", "hidden");
+            hiddenFieldReason.setAttribute("name", "reject_reason");
+            hiddenFieldReason.setAttribute("value", rejectReason);
+            form.appendChild(hiddenFieldReason);
+
+            document.body.appendChild(form);
+            form.submit();
+
+            alert("숙소 등록이 거부되었습니다.");
+         }
+      } else {
+         alert("거부 사유를 선택해주세요.");
+      }
+   }
+   
+</script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <!-- 숙소등록요청 관리 -->
+      <form action="/admin/modAccommodation.do" method="post" id="modAccommodation" name="modAccommodation" enctype="multipart/form-data">
+           <div class="acc-summary">
+				<!-- 숙소등록요청이 없을 경우 처리 -->
+				<div th:if="${regN_accRoMap.get('accList').size() == 0}">
+					<div id="nullAccListBox">
+				    	<p id="nullAccList">숙소등록요청이 없습니다.</p>
+						<button id="nullAccListBtn" type="button" th:onclick="'location.href=\'' + @{/admin/mainAdmin.do} + '\''">홈으로</button>
+					</div>
+				</div>
+				<!-- 숙소등록요청이 있을 경우 처리-->
+				<div th:if="${regN_accRoMap.get('accList').size() > 0}">
+               <div th:each="acc, accStat : ${regN_accRoMap.get('accList')}">
+               	  <!-- 미리보기 영역 -->
+                  <div class="acc-box" th:id="'acc-box-' + ${accStat.index}">
+	                  <!-- 미리보기 이미지 -->
+	                  <div class="acc-thumbnail">
+	                     <img th:src="@{/accDownload.do(acc_id=${acc.acc_id}, acc_image=${regN_accRoMap.get('accThumbnail').get(acc.acc_id)})}" alt="숙소 이미지">
+	                  </div>
+	                      <!-- 미리보기 정보 -->
+	                      <div class="acc-info">
+	                          <h3 class="acc-info-name" th:text="${acc.acc_name}"></h3>
+	                          <p class="acc-info-type" th:text="${acc.acc_type}"></p>
+	                          <p th:text="${acc.acc_address}"></p>
+	                      </div>
+	                  <!-- 등록 요청 사업자 이메일 -->
+	                  <div id="host-email-area">
+	                     <p class="host-email">사업자 이메일</p>
+	                     <p class="host-email-info" th:text="${acc.email}"></p>
+	                  </div>
+	                  </div>
+	               
+	                   <!-- 상세 정보 영역 -->
+	                   <div class="acc-details" th:id="'acc-details-' + ${accStat.index}">
+	                  <!-- 숙소 이미지 출력 -->
+	                  <p class="section-title">숙소 정보</p>
+	                  <div class="acc-image">
+	                     <div th:each="accImage : ${regN_accRoMap.get('accImageFileList')}"
+	                          th:if="${accImage.acc_id == acc.acc_id}">
+	                          <img th:src="@{/accDownload.do(acc_id=${accImage.acc_id}, acc_image=${accImage.acc_image})}" width="200" height="120">
+	                     </div>
+	                  </div>
+	                  
+	                  <!-- 숙소 정보 출력 -->
+	                       <p>유형 <span th:text="${acc.acc_type}"></span></p>
+	                       <p>지역 <span th:text="${acc.acc_area}"></span></p>
+	                       <p>전화번호 <span th:text="${acc.acc_tel}"></span></p>
+	                       <p>주소 <span th:text="${acc.acc_address}"></span></p>
+	                       <p>설명 <span th:text="${acc.acc_info}"></span></p>
+	                       
+	                       <!-- 객실 정보 출력 -->
+	                  <div class="section-header">
+	                     <p class="section-title">객실 정보</p>
+	                          <div th:each="room : ${regN_accRoMap.get('roList' + acc.acc_id)}">
+	                        <!-- 객실 이미지 -->
+	                        <div class="ro-image">
+	                            <div th:each="roImage : ${regN_accRoMap.get('roImageFileList')}"
+	                                 th:if="${roImage.ro_id == room.ro_id}">
+	                                 <img th:src="@{/roDownload.do(ro_id=${roImage.ro_id}, ro_image=${roImage.ro_image})}" width="200" height="120"> 
+	                            </div>
+	                        </div>
+	                        <!-- 객실 정보 출력 -->
+	                              <p>객실 이름 <span th:text="${room.ro_name}"></span></p>
+	                              <p>최소 인원 <span th:text="${room.ro_min}"></span></p>
+	                              <p>최대 인원 <span th:text="${room.ro_max}"></span></p>
+	                              <p>설명 <span th:text="${room.ro_info}"></span></p>
+	                              <p>편의시설 <span th:text="${room.ro_amenities}"></span></p>
+	                              <p>가격 <span th:text="${room.ro_price}"></span></p>
+	                              <p>체크인 시간 <span th:text="${room.ro_checkIn}"></span></p>
+	                              <p>체크아웃 시간 <span th:text="${room.ro_checkOut}"></span></p>
+	                          </div>
+	                  </div>
+	                  
+	                  <!--등록 승인/거부 영역-->
+	                  <div class="modSusAccRo">
+	                     <div class="approve">
+	                        <input type="button" value="승인하기" th:onclick="'approveAcc(' + ${acc.acc_id} + ')'">
+	                        <input type="button" value="거부하기" th:onclick="'showRejectReason(' + ${acc.acc_id} + ')'">
+	                     </div>
+	                  </div>
+	                  <!-- 거부 사유 선택 영역 -->
+	                  <div class="reject-reason" th:id="'reject-reason-' + ${acc.acc_id}" style="display:none;">
+	                     <label for="reject_reason">거부 사유:</label>
+	                     <select name="reject_reason">
+	                        <option value="">사유를 선택하세요</option>
+	                        <option value="사진 및 정보의 부정확성">부족한 정보 제공</option>
+	                        <option value="사진 및 정보의 부정확성">사진 및 정보의 부정확성</option>
+	                        <option value="시설 및 서비스 불량">시설 및 서비스 불량</option>
+	                        <option value="고객 리뷰에서 반복적인 불만 접수">고객 리뷰에서 반복적인 불만 접수</option>
+	                     </select>
+	                     <input type="button" value="거부 사유 제출" th:onclick="'submitReject(' + ${acc.acc_id} + ')'">
+	                  </div>
+                   </div>
+				 </div>
+               </div>
+           </div>
+      </form>
+    </th:block>
+</body>
+</html>

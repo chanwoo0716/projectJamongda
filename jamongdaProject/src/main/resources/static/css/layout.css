@@ -1,0 +1,125 @@
+@charset "utf-8";
+/*전체 영역*/
+html,
+body {
+  position: relative;
+ 	max-width: 1200px;
+  	max-height: 100%;
+}
+
+body {
+  background: rgb(252, 252, 252);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+
+/*header 영역*/
+header {
+	margin-bottom: 5px;
+	padding:1%;
+	background-color:rgb(252, 252, 252);
+}
+#header{
+	text-align: center;
+}
+
+#content {
+	width : 75%;
+	padding : 5px;
+	margin-right: 5px;
+	float: right;
+}
+
+/*footer 영역*/
+footer {
+	height: 100%;
+	clear: both;
+	background-color:rgb(252, 252, 252);
+	text-align: center;
+	border-top: 0.1em solid rgb(255, 111, 97) ;
+	font-size: 1em;	
+	margin-top: 3%;
+}
+
+#footer_info{
+	margin: 0 auto;
+	width: 55%;
+}
+
+.footer_jamongda{
+	float: left;
+	text-align: left;
+}
+
+.jamongda_info>h3{
+	margin-top:2%;
+	margin-bottom: 0;
+}
+.jamongda_info>p{
+	margin: 2% 0;
+}
+
+.user_info > p{
+	float: left;
+	margin-right: 2%;
+}
+
+.user_info>p:nth-child(2){
+	font-weight: bold;
+}
+
+.user_info>p>a:hover{
+	color: #ccc;
+}
+
+.user_info>p>a{
+	text-decoration-line: underline;
+}
+
+.footer_support{
+	text-align: right;
+}
+
+.footer_support>.support_info{
+	display: inline-block;
+}
+
+.support_info>h3{
+	margin-top:5.5%;
+	margin-bottom: 0;
+}
+
+.support_info>p{
+	margin: 5% 0;
+}
+
+.support_btn>button{
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: rgba(255, 111, 97, 0.5);
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+	border-radius: 10px;
+	padding: 1%;
+	margin-top: 1.5%;
+}
+
+.support_btn>button:first-child{
+	margin-right: 1%;
+}
+
+.support_btn>button:active{
+	color: #ccc;
+}

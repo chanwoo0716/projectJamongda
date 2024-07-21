@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>숙소/객실 등록</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/regAccommodation.css}" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+   //사이드바 선택된 곳 색 적용
+   document.addEventListener('DOMContentLoaded', function() {
+       const links = document.querySelectorAll('#hostSidebar a');
+
+       links.forEach(link => {
+           link.addEventListener('click', function() {
+               links.forEach(link => link.classList.remove('active'));
+               this.classList.add('active');
+           });
+
+           // 현재 URL이 링크의 href와 일치하는 경우 active 클래스 추가
+           if (window.location.href.includes(link.href)) {
+               link.classList.add('active');
+           }
+       });
+   });
+   
+    // 숙소 전화번호 '-' 자동 추가
+    function oninputTel(target) {
+        let value = target.value.replace(/[^0-9]/g, ''); // 숫자 이외의 문자 제거
+
+        if (value.length === 10) {
+            // 0123456789 -> 01-2345-6789 형식으로 변환
+            target.value = value.replace(/(\d{2})(\d{4})(\d{4})/, "$1-$2-$3");
+        } else if (value.length === 8) {
+            // 12341234 -> 1234-1234 형식으로 변환
+            target.value = value.replace(/(\d{4})(\d{4})/, "$1-$2");
+        } else if (value.length === 9) {
+            // 0212341234 -> 02-1234-1234 형식으로 변환
+            target.value = value.replace(/(\d{2})(\d{3})(\d{4})/, "$1-$2-$3");
+        } else {
+            // 그 외의 경우는 입력값 그대로 출력
+            target.value = value;
+        }
+    }
+
+    //숙소 등록 이미지 추가
+    let accCount = 1;
+    function fn_accommodation_addFile() {
+        if(accCount < 6) {
+            $('#accommodation_file').append(
+                '<div id="accommodationFileDiv' + accCount + '">' +
+                '<input type="file" name="acc_image' + accCount + '">' +
+                '<button type="button" onclick="fn_accommodation_removeFile(' + accCount + ')">X</button>' +
+                '<br>' +
+                '</div>'
+            );
+            accCount++;
+        } else {
+            alert("숙소 이미지는 최대 5장까지 등록하실 수 있습니다.");
+        }
+    }
+    
+   //숙소 등록 이미지 취소
+    function fn_accommodation_removeFile(id) {
+        $('#accommodationFileDiv' + id).remove();
+        accCount--;
+    }
+
+   // 객실 추가 (객실 추가 버튼 클릭 시 실행되는 함수)
+    let roomFieldsetCount = 1;
+    let roomCounts = [1]; // 각 객실에 대한 이미지 카운트를 저장하는 배열
+
+    function addRoomFieldset() {
+        if (roomFieldsetCount < 5) {
+            roomFieldsetCount++;
+            roomCounts.push(1);
+
+            // 새로운 필드셋 추가
+            let newFieldset = document.createElement('fieldset');
+            newFieldset.id = 'roomFieldset' + roomFieldsetCount;
+
+            // 필드셋 내용 복사
+            newFieldset.innerHTML = `
+                <h2>객실 등록</h2>
+                <legend>객실 등록 폼</legend>
+                <p>
+                    <label for="ro_name${roomFieldsetCount}">객실 이름</label>
+                    <input type="text" id="ro_name${roomFieldsetCount}" name="ro_name${roomFieldsetCount}" required placeholder="객실 이름을 입력해주세요.">
+                </p>
+                <p>
+                    <label for="ro_min${roomFieldsetCount}">기준 수용 인원</label>
+                    <input type="number" id="ro_min${roomFieldsetCount}" name="ro_min${roomFieldsetCount}" required>
+                </p>
+                <p>
+                    <label for="ro_max${roomFieldsetCount}">최대 수용 인원</label>
+                    <input type="number" id="ro_max${roomFieldsetCount}" name="ro_max${roomFieldsetCount}" required>
+                </p>
+            <p>
+                <label for="ro_info${roomFieldsetCount}">객실 소개</label>
+                <textarea rows="10" cols="50" id="ro_info${roomFieldsetCount}" name="ro_info${roomFieldsetCount}" maxlength="4000" required placeholder="객실 상세 설명..."></textarea>
+            </p>
+                <p>
+                    <label for="ro_amenities${roomFieldsetCount}">편의시설</label>
+                    <input type="text" id="ro_amenities${roomFieldsetCount}" name="ro_amenities${roomFieldsetCount}" required placeholder="TV, 에어컨, 냉장고, 헤어드라이기...">
+                </p>
+                <p>
+                    <label for="ro_image${roomFieldsetCount}">객실 이미지 등록</label>
+               <br>
+                    <input type="button" id="ro_image${roomFieldsetCount}" value="파일추가" onclick="fn_room_addFile(${roomFieldsetCount})">
+                    <div id="room_file${roomFieldsetCount}"></div>
+                </p>
+                <p>
+                    <label for="ro_price${roomFieldsetCount}">객실 가격</label>
+                    <input type="number" id="ro_price${roomFieldsetCount}" name="ro_price${roomFieldsetCount}" required>
+                </p>
+                <p>
+                    <label for="ro_checkIn${roomFieldsetCount}">입실 시간</label>
+                    <input type="text" id="ro_checkIn${roomFieldsetCount}" name="ro_checkIn${roomFieldsetCount}" required placeholder="15:00">
+                    <label for="ro_checkOut${roomFieldsetCount}">퇴실 시간</label>
+                    <input type="text" id="ro_checkOut${roomFieldsetCount}" name="ro_checkOut${roomFieldsetCount}" required placeholder="12:00">
+                </p>
+                <p>
+                    <button type="button" onclick="addRoomFieldset()">객실 추가</button>
+                    <button type="button" onclick="removeRoomFieldset(${roomFieldsetCount})">삭제</button>
+                </p>
+            `;
+
+            document.getElementById('accRegArea').appendChild(newFieldset);
+        } else {
+            alert("객실은 최대 5개까지 등록하실 수 있습니다.");
+        }
+    }
+
+   // 객실 추가 취소(객실 필드셋 삭제 버튼 클릭 시 실행되는 함수)
+    function removeRoomFieldset(roomCount) {
+        if (roomFieldsetCount > 1) {
+            document.getElementById('roomFieldset' + roomFieldsetCount).remove();
+            roomCounts.pop();
+            roomFieldsetCount--;
+        } else {
+            alert("숙소당 최소 한개의 객실을 등록해주세요.");
+        }
+    }
+   
+   //객실 등록 이미지 추가
+    function fn_room_addFile(roomCount) {
+        if (roomCounts[roomCount - 1] < 6) {
+            $('#room_file' + roomCount).append(
+                '<div id="roomFileDiv' + roomCount + '_' + roomCounts[roomCount - 1] + '">' +
+                '<input type="file" name="ro_image' + roomCount + '_' + roomCounts[roomCount - 1] + '">' +
+                '<button type="button" onclick="fn_room_removeFile(' + roomCount + ', ' + roomCounts[roomCount - 1] + ')">X</button>' +
+                '<br>' +
+                '</div>'
+            );
+            roomCounts[roomCount - 1]++;
+        } else {
+            alert("객실당 이미지는 최대 5장까지 등록하실 수 있습니다.");
+        }
+    }
+
+   //객실 등록 이미지 취소
+    function fn_room_removeFile(roomCount, id) {
+        $('#roomFileDiv' + roomCount + '_' + id).remove();
+        roomCounts[roomCount - 1]--;
+    }
+
+   //등록 요청
+    function submitForm() {
+        // 숙소 필수 입력 필드 확인
+        let acc_name = document.getElementById('acc_name').value.trim();
+        let acc_area = document.getElementById('acc_area').value.trim();
+        let acc_tel = document.getElementById('acc_tel').value.trim();
+        let acc_address = document.getElementById('acc_address').value.trim();
+        let acc_info = document.getElementById('acc_info').value.trim();
+
+        // 숙소 필수 입력 필드가 비어있는지 확인
+        if (!acc_name || !acc_area || !acc_tel || !acc_address || !acc_info) {
+            alert("숙소 정보를 모두 기입해주세요.");
+            return;
+        }
+
+        // 숙소 이미지 필수 입력 확인
+        let acc_image_count = $('#accommodation_file input[type="file"]').length;
+        if (acc_image_count === 0) {
+            alert("숙소 이미지를 등록해주세요.");
+            return;
+        }
+
+        // 객실 필수 입력 필드 확인
+        for (let i = 1; i <= roomFieldsetCount; i++) {
+            let ro_name = document.getElementById('ro_name' + i).value.trim();
+            let ro_min = document.getElementById('ro_min' + i).value.trim();
+            let ro_max = document.getElementById('ro_max' + i).value.trim();
+         let ro_info = document.getElementById('ro_info' + i).value.trim();
+            let ro_amenities = document.getElementById('ro_amenities' + i).value.trim();
+            let ro_price = document.getElementById('ro_price' + i).value.trim();
+            let ro_checkIn = document.getElementById('ro_checkIn' + i).value.trim();
+            let ro_checkOut = document.getElementById('ro_checkOut' + i).value.trim();
+
+            // 객실 필수 입력 필드가 비어있는지 확인
+            if (!ro_name || !ro_min || !ro_max || !ro_amenities || !ro_info || !ro_price || !ro_checkIn || !ro_checkOut) {
+                alert("객실 정보를 모두 기입해주세요.");
+                return;
+            }
+
+            // 객실 이미지 필수 입력 확인
+            let ro_image_count = $('#room_file' + i + ' input[type="file"]').length;
+            if (ro_image_count === 0) {
+                alert("객실 이미지를 등록해주세요.");
+                return;
+            }
+        }
+
+       // 확인 메시지 후 폼 제출
+       if (confirm("관리자의 승인 후 숙소 등록이 가능합니다.                                  숙소등록을 요청하시겠습니까?")) {
+           document.getElementById('regAccommodation').submit();
+       }
+    }
+
+   //다시 입력
+   function resetForm() {
+   if (confirm("다시 입력하시겠습니까?")) {
+      document.getElementById('regAccommodation').reset();
+      $('#accommodation_file').empty();
+      $('#room_file').empty();
+      accCount = 1;
+      roomCount = 1;
+      }
+   }
+</script>
+</head>
+<body>
+   <!-- 사이드바 영역 -->
+   <!--<div id="sidebar" th:include="hostSidebar :: sidebar"></div>-->
+   <!-- 숙소/객실 등록 영역 -->
+   <th:block layout:fragment="content">
+      <!--숙소/객실 등록폼-->
+      <div id="formArea">
+      
+         <div class="accRoForm">
+            <form action="/accommodation/addAccommodation.do" method="post" id="regAccommodation" name="regAccommodation" enctype="multipart/form-data">
+               <!-- "등록" 누르면 숙소/객실 관리 화면으로 이동(addAcc로 가고 listAcc.html로 보내야 함) -->
+               <section id="accRegArea">                  
+                  <!-- 숙소 등록 -->
+                      <fieldset>
+                     <h2>숙소 등록</h2>
+                          <legend>숙소 등록 폼</legend>
+                          <p>
+                              <label for="acc_name">숙소 이름</label>
+                              <input type="text" id="acc_name" name="acc_name" required placeholder="숙소 이름을 입력해주세요.">
+                          </p>
+                          <p class="radio-group">
+                              
+                        <label for="hotelResort">호텔/리조트</label>
+                         <input type="radio" id="hotelResort" name="acc_type" value="호텔/리조트" checked>
+                         <label for="motel">모텔</label>
+                         <input type="radio" id="motel" name="acc_type" value="모텔">
+                         <label for="pension">펜션</label>
+                         <input type="radio" id="pension" name="acc_type" value="펜션">
+                         <label for="glamping">글램핑</label>
+                         <input type="radio" id="glamping" name="acc_type" value="글램핑">
+                          </p>
+                     <p>
+                              <label for="acc_area">숙소 지역</label>
+                              <input type="text" id="acc_area" name="acc_area" required placeholder="지역명을 입력해주세요.">
+                          </p>
+                     <p>
+                         <label for="acc_tel">숙소 전화번호</label>
+                        <br>
+                         <input type="tel" oninput="oninputTel(this)" id="acc_tel" name="acc_tel" required placeholder="전화번호를 입력해주세요.">
+                     </p>
+                          <p>
+                              <label for="acc_address" class="labelAddress">숙소 주소</label>
+                              <input type="text" id="acc_address" name="acc_address" maxlength="100" size="60" required placeholder="입력 예)서울시 강남구 서초동 11">
+                          </p>
+                     <p>
+                        <label for="acc_info">숙소 소개</label>
+                        <textarea rows="10" cols="50" id="acc_info" name="acc_info" maxlength="4000" required placeholder="숙소 상세 설명..."></textarea>
+                     </p>
+                     <p class="last_p">
+                        <label for="acc_image">숙소 이미지 등록</label>
+                        <br>
+                        <input type="button" id="acc_image" value="파일추가" onclick="fn_accommodation_addFile()">
+                        <div id="accommodation_file"></div>
+                     </p>
+                      </fieldset>
+                  
+                  <!-- 기본 객실 등록 -->
+                      <fieldset id="roomFieldset1">
+                     <h2>객실 등록</h2>
+                          <legend>객실 등록 폼</legend>
+                          <p>
+                              <label for="ro_name">객실 이름</label>
+                              <input type="text" id="ro_name1" name="ro_name1" required placeholder="객실 이름을 입력해주세요.">
+                          </p>
+                     <p>
+                              <label for="ro_min">기준 수용 인원</label>
+                              <input type="number" id="ro_min1" name="ro_min1" required>
+                          </p>
+                     <p>
+                             <label for="ro_max">최대 수용 인원</label>
+                             <input type="number" id="ro_max1" name="ro_max1" required>
+                         </p>
+                     <p>
+                        <label for="ro_info">객실 소개</label>
+                        <textarea rows="10" cols="50" id="ro_info1" name="ro_info1" maxlength="4000" required placeholder="객실 상세 설명..."></textarea>
+                     </p>
+                     <p>
+                         <label for="ro_amenities">편의시설</label>
+                         <input type="text" id="ro_amenities1" name="ro_amenities1" required placeholder="TV, 에어컨, 냉장고, 헤어드라이기...">
+                     </p>
+                     <p>
+                        <label for="ro_image">객실 이미지 등록</label>
+                        <br>
+                        <input type="button" id="ro_image1" value="파일추가" onclick="fn_room_addFile(1)">
+                        <div id="room_file1"></div>
+                     </p>
+                     <p>
+                        <label for="ro_price">객실 가격</label>
+                        <input type="number" id="ro_price1" name="ro_price1" required>
+                     </p>
+                     <p>
+                         <label for="ro_checkIn">입실 시간</label>
+                         <input type="text" id="ro_checkIn1" name="ro_checkIn1" required placeholder="15:00">
+                        <label for="ro_checkOut">퇴실 시간</label>
+                         <input type="text" id="ro_checkOut1" name="ro_checkOut1" required placeholder="12:00">
+                     </p>
+                     <p>
+                         <button type="button" onclick="addRoomFieldset()">객실 추가</button>
+                         <button type="button" onclick="removeRoomFieldset(1)">삭제</button>
+                     </p>
+                      </fieldset>
+                 </section>
+               <div class="regAcc">
+                   <input type="button" value="등록요청" onclick="submitForm()">
+                   <input type="button" value="다시 입력" onclick="resetForm()">
+               </div>
+            </form>
+         </div>
+      <!--숙소/객실 등록폼 종료-->
+      </div>
+   </th:block>
+</body>
+</html>

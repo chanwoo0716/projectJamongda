@@ -1,0 +1,276 @@
+@charset "UTF-8";
+form{
+   position : relative;
+   top: -290px;
+}
+
+.acc-summary {
+   width : 70%;
+   display : flex;
+   flex-direction: column;
+   margin: 20px auto;
+   max-width: 800px;
+   min-width: 800px;
+   padding: 20px;
+   box-sizing: border-box;
+   top: 0; /* 상단에 위치 */
+   right: 0; /* 오른쪽에 위치 */
+   float: right;
+}
+
+.admin-h2 {
+   display: inline-block;
+}
+.acc-summary {
+   margin: 20px auto; /* 상하 여백을 추가하여 가로 중앙 정렬 */
+   max-width: 800px; /* 최대 너비 설정 (필요에 따라 조정 가능) */
+   padding: 20px; /* 내부 여백 설정 */
+   box-sizing: border-box; /* 내부 여백과 테두리를 포함한 전체 너비 설정 */
+}
+.acc-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* 중앙 배치 */
+}
+.acc-box {
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #fffaf7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.acc-box:hover {
+    transform: scale(1.02); /* 마우스 호버 시 5% 확대 */
+}
+
+.acc-box h3 {
+    margin-top: 0;
+}
+.acc-details {
+    display: none;
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+.acc-box img, .acc-details img {
+    max-width: 100%;
+}
+.acc-thumbnail {
+    flex: 1; /* 이미지 영역 확장 */
+}
+.acc-thumbnail>img{
+   width : 230px;
+   height : 150px;
+}
+.acc-info {
+   text-align : left;
+    flex: 2; /* 정보 영역 확장 */
+    padding-left: 10px;
+}
+.acc-info-name {
+   font-weight : bold;
+}
+
+.host-email {
+   padding-right : 10px;
+   color : black;
+   font-weight : bold;
+   
+}
+.host-email-info {
+   padding-right : 10px;
+   color : #FF6F61;
+   font-weight : bold;
+}
+
+.acc-image {
+   border: 3px solid #e8e8e8;
+   border-radius : 10px;
+   /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+     display: flex;
+     flex-wrap: nowrap;
+   flex-flow: row wrap;
+     overflow-x: auto;
+   text-align : center;
+   justify-content: center;
+   /*
+   padding-top: 15px;
+   padding-bottom: 15px;
+   */
+   padding : 20px 10px;
+ }
+ .acc-image img {
+   text-align : center;
+     margin-right: 10px;
+ }
+.ro-image {
+   border: 3px solid #e8e8e8;
+   border-radius : 10px;
+   /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+   display: flex;
+   flex-wrap: nowrap;
+   flex-flow: row wrap;
+   overflow-x: auto;
+   text-align : center;
+   justify-content: center;
+   /*
+   padding-top: 15px;
+   padding-bottom: 15px;
+   */
+   padding : 5px 15px;
+}
+.ro-image img {
+   text-align : center;
+   margin-right: 10px;
+}
+/*
+.section-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-top: 1px solid #ddd;
+    padding-bottom: 5px;
+    margin-top: 20px;
+}
+*/
+.modAccRo input {
+   padding: 10px 20px;
+     border: none;
+     background-color: #007bff;
+     color: white;
+     border-radius: 4px;
+     cursor: pointer;   
+}
+.section-title {
+   border-top: 1px solid #fff;
+   font-size: 1.2rem; /* 제목의 글자 크기 */
+    font-weight: bold; /* 제목의 글자 두께 */
+    margin-bottom: 10px; /* 아래 여백 */
+    padding-bottom: 5px; /* 아래쪽 내부 여백 */
+    margin-top: 20px; /* 위쪽 여백 */
+}
+.section-header {
+   border-top: 1px solid #ddd;
+}
+#searchEmail {
+   text-align: center;
+}
+
+
+.acc-details p {
+    margin: 10px 0; /* 각 항목 사이의 여백 추가 */
+    font-size: 1.1em; /* 글자 크기 조정 */
+    line-height: 1.5; /* 줄 간격 조정 */
+   font-weight: bold;
+   padding-left : 25px; 
+}
+
+.acc-details p input {
+    /*display: block; /* 블록 요소로 설정하여 줄바꿈 효과 */
+    margin-top: 5px; /* 항목 이름과 값 사이의 여백 추가 */
+   font-weight: normal;
+}
+
+.acc-details p input:first-child {
+    /*font-weight: bold; /* 항목 이름을 볼드체로 설정 */
+    color: #333; /* 색상 설정 */
+}
+
+.acc-details p input:last-child {
+    color: #555; /* 항목 값의 색상 설정 */
+}
+
+.acc-details .section-title {
+    background-color: #f8f8f8; /* 제목 배경색 설정 */
+    padding: 10px; /* 내부 여백 설정 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    border-bottom: 2px solid #ddd; /* 아래쪽 테두리 설정 */
+    margin-bottom: 15px; /* 아래 여백 설정 */
+}
+
+.acc-details .section-header {
+    border-bottom: 1px solid #ddd; /* 아래쪽 테두리 설정 */
+    margin-top: 20px; /* 위쪽 여백 설정 */
+    margin-bottom: 10px; /* 아래 여백 설정 */
+    padding-bottom: 5px; /* 아래쪽 내부 여백 설정 */
+}
+
+.acc-details .ro-image {
+    margin-top: 10px; /* 위쪽 여백 설정 */
+}
+
+.acc-details .acc-rejectReason {
+    background-color: #ffebe6; /* 배경색 설정 */
+    padding: 10px; /* 내부 여백 설정 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    border: 1px solid #ff6f61; /* 테두리 색상 설정 */
+    margin-bottom: 15px; /* 아래 여백 설정 */
+}
+
+.acc-details .modSusAccRo {
+    background-color: #f0f8ff; /* 배경색 설정 */
+    padding: 10px; /* 내부 여백 설정 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    border: 1px solid #007bff; /* 테두리 색상 설정 */
+    margin-top: 15px; /* 위쪽 여백 설정 */
+   text-align: center;
+}
+
+#button_modify {
+   display: none;
+}
+
+.modAccInfo {
+    width: 80%; /* 입력란 너비를 80%로 설정 */
+    margin: 0 10px; /* 가운데 정렬 및 아래쪽 여백 추가 */
+    padding: 10px; /* 내부 여백 설정 */
+    border: 1px solid #ddd; /* 테두리 설정 */
+    border-radius: 5px; /* 모서리를 둥글게 설정 */
+    box-sizing: border-box; /* 테두리와 내부 여백을 포함한 전체 너비 설정 */
+    display: block; /* 블록 요소로 설정하여 줄바꿈 효과 */
+}
+
+#host-email-area {
+   padding-left: 10px;
+   font-size: 0.9em;
+   padding-bottom: 70px;
+}
+
+/*숙소등록이 없을 경우*/
+#nullAccListBox {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 0px solid #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #fff;
+   border-radius: 15px;
+   
+   position: relative;
+   top: 100px;
+}
+
+#nullAccList {
+    font-size: 1.2em;
+   font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#nullAccListBtn {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#nullAccListBtn:hover {
+    background-color: #0056b3;
+}

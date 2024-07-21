@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.jamongda.search.dao.SearchDAO">
+ 
+    <resultMap type="AccommodationDTO" id="accResult">
+       <result property="acc_id" column="acc_id"/>
+       <result property="acc_name" column="acc_name"/>
+       <result property="acc_area" column="acc_area"/> 
+       <result property="acc_type" column="acc_type"/>
+       <result property="acc_tel" column="acc_tel"/>
+       <result property="acc_address" column="acc_address"/>
+       <result property="acc_info" column="acc_info"/>
+       <result property="email" column="email"/>
+       <result property="regCheck" column="regCheck"/>
+       <result property="rejectReason" column="rejectReason"/>
+    </resultMap>
+    
+    <resultMap type="accommodationImageDTO" id="accImageResult">
+       <result property="acc_image_id" column="acc_image_id"/>
+       <result property="acc_image" column="acc_image"/>
+       <result property="acc_id" column="acc_id"/>
+    </resultMap>
+    
+    <resultMap type="roomDTO" id="roResult">
+       <result property="ro_id" column="ro_id"/>
+       <result property="ro_name" column="ro_name"/>
+       <result property="ro_min" column="ro_min"/>
+       <result property="ro_max" column="ro_max"/>
+       <result property="ro_info" column="ro_info"/>
+       <result property="ro_amenities" column="ro_amenities"/>
+       <result property="ro_price" column="ro_price"/>
+       <result property="ro_checkIn" column="ro_checkIn"/>
+       <result property="ro_checkOut" column="ro_checkOut"/>
+       <result property="acc_id" column="acc_id"/>
+    </resultMap>
+
+    <resultMap type="roomImageDTO" id="roImageResult">
+       <result property="acc_image_id" column="acc_image_id"/>
+       <result property="acc_image" column="acc_image"/>
+       <result property="acc_id" column="acc_id"/>
+    </resultMap>
+    
+
+    
+    
+    <select id="selectAllAccsList" resultMap="accResult">
+        select * from accommodation
+    </select>
+    <!--<select id="searchAccList" parameterType="AccommodationDTO" resultMap="accResult">
+       select * from accommodation
+       <where>
+          <choose>
+             <when test="acc_area != '' and acc_area != null">
+                acc_area like concat('%', #{acc_area}, '%')
+             </when>
+             <when test="acc_name != '' and acc_name != null">
+                acc_name like concat('%', #{acc_name}, '%')
+             </when>
+             
+          </choose>
+       </where>
+    </select>-->
+    <!--2024-07-20수정-->
+    <select id="searchAccList" parameterType="AccommodationDTO" resultMap="accResult">
+       SELECT * 
+    FROM accommodation
+    WHERE regCheck LIKE CONCAT('%', 'Y', '%')
+      AND acc_area LIKE CONCAT('%', #{acc_area}, '%')
+      AND acc_name LIKE CONCAT('%', #{acc_name}, '%')
+    </select>
+    
+    <select id="searchAccImageList" parameterType="AccommodationDTO" resultMap="accResult">
+       SELECT * 
+    FROM accommodation
+    WHERE regCheck LIKE CONCAT('%', 'Y', '%')
+      AND acc_area LIKE CONCAT('%', #{acc_area}, '%')
+      AND acc_name LIKE CONCAT('%', #{acc_name}, '%')
+    </select>
+    
+    <select id="searchAccType" parameterType="AccommodationDTO" resultMap="accResult">
+       SELECT * 
+    FROM accommodation
+    WHERE regCheck LIKE CONCAT('%', 'Y', '%')
+    AND acc_type LIKE CONCAT('%', #{acc_type}, '%')
+    </select>
+    <!--2024-07-20수정완료-->
+    
+    <select id="selectAccId" resultType="AccommodationDTO" parameterType="int">
+       <![CDATA[
+          select * from accommodation where acc_id=#{acc_id}
+       ]]>
+    </select>
+    
+    
+    
+    <!--단비쿤한테 전해야할 xml-->
+    
+    
+   <!-- acc_id에 해당하는 숙소 가져오기 -->
+    <select id="selectAcc" resultMap="accResult" parameterType="int">
+       <![CDATA[
+          select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck from accommodation where acc_id=#{acc_id};
+       ]]>
+    </select> 
+   <!-- acc_id에 해당하는 객실 정보 가져오기 -->
+    <select id="selectRo" resultMap="roResult" parameterType="int">
+       <![CDATA[
+          select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id from room where acc_id=#{acc_id} order by ro_id DESC;
+       ]]>
+    </select>
+    <!-- acc_id에 해당하는 숙소 이미지 파일 이름 가져오기 -->
+    <select id="selectAccImages" resultMap="accImageResult" parameterType="int">
+       <![CDATA[
+           select acc_image_id, acc_image, acc_id 
+           from acc_image 
+           where acc_id in (select acc_id from accommodation where acc_id=#{acc_id})
+       ]]>
+    </select>
+    <!-- acc_id에 해당하는 객실 이미지 파일 이름 가져오기 -->
+    <select id="selectRoImages" resultMap="roImageResult" parameterType="int">
+        <![CDATA[
+            select ro_image_id, ro_image, ro_id 
+            from room_image 
+            where ro_id in (select ro_id from room where acc_id in (select acc_id from accommodation where acc_id=#{acc_id}))
+        ]]>
+    </select>
+    
+    <!-- 대표자명, 사업자번호 가져오기 -->
+    <select id="selectHostInfo" resultType="map" parameterType="int">
+        SELECT m.name, m.regNumber
+        FROM member m
+        JOIN accommodation a ON m.email = a.email
+        WHERE a.acc_id = #{acc_id}
+    </select>
+    
+    <!-- 최소가 가격 가져오기-->
+    <select id="roomMinPrice" resultType="map" parameterType="int">
+       SELECT a.acc_id, MIN(r.ro_price) AS min_price
+      FROM accommodation AS a
+      JOIN room AS r ON a.acc_id = r.acc_id
+      GROUP BY a.acc_id;
+    </select> 
+ </mapper>

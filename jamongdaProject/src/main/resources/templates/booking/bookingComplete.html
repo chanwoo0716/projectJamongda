@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>예약 완료</title>
+<link rel="stylesheet" th:href="@{/css/bookingComplete.css}" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/bookingComplete.js}"></script>
+<!-- 요일 출력하기 위함 -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var checkInDate = /*[[${booking.bo_checkIn}]]*/ 'defaultDate'; // 타임리프 변수를 JavaScript 변수에 할당
+    var checkOutDate = /*[[${booking.bo_checkOut}]]*/ 'defaultDate'; // 타임리프 변수를 JavaScript 변수에 할당
+    var payDate = /*[[${booking.payDate}]]*/ 'defaultDate'; // 타임리프 변수를 JavaScript 변수에 할당
+    /*]]>*/
+</script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+		<div class="completed-container">
+			<h1>예약이 완료되었습니다.</h1>
+			<div class="boNumber-section">
+				<strong> 예약 번호 : <span th:text="${bo_number}"></span></strong>
+			</div>
+			<div class="section">
+				<strong>예약 정보</strong>
+			    <p th:text="${acc_name}"></p>
+			    <p th:text="${room.ro_name}"></p>
+			    <p id="checkInDateDay" th:text="${booking.bo_checkIn}"></p>
+			    <p id="checkOutDateDay" th:text="${booking.bo_checkOut}"></p>
+				<p id="checkTime" th:text="'입실' + ${room.ro_checkIn} + ' / 퇴실' + ${room.ro_checkOut}"></p>
+			</div>
+			
+			<div class="section">
+				<strong>이용자 정보</strong>
+				<p th:text="${booking.bo_name}"></p>
+				<p th:text="${booking.bo_tel}"></p>
+			</div>
+			
+			<div class="section">
+				<strong>결제 내역</strong>
+			    <p th:text="'결제금액 : ' + ${booking.bo_price} + '원'"></p>
+			    <p id="payDateDay" th:text="'결제일자 : ' + ${booking.payDate}" ></p>
+			</div>			
+			<a href="/main.do">홈으로 돌아가기</a>
+		</div>
+    </th:block>
+	<!--
+    <th:block layout:fragment="content">
+		<div class="completed-container">
+			<h1>예약이 완료되었습니다.</h1>
+			<p>예약 번호 : <span th:text="${bo_number}"></span></p>
+			<ul>
+			    <li><span th:text="${숙소이름}"></span></li>
+			    <li><span th:text="${객실이름}"></span></li>
+			    <li><strong>체크인 : </strong><span th:text="${체크인날짜 요일 체크인시간}"></span></li>
+			    <li><strong>체크아웃 : </strong><span th:text="${체크아웃날짜 요일 체크아웃시간}"></span></li>
+			    <li><strong>결제 금액:</strong> \\ <span th:text="'\\ ' + ${bo_price} + '원'"></span></li>
+			</ul>
+		</div>
+    </th:block>
+	-->
+</body>
+</html>

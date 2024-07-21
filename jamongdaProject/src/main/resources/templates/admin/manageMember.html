@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>회원정보</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/manageMember.css}" />
+<style>
+    h2 {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .table-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        overflow-x: auto;
+        margin: 20px auto;
+    }
+
+    .filter-container {
+        margin-bottom: 20px;
+    }
+
+    .table-style {
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 1200px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .th-style, .td-style {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+        white-space: nowrap;
+    }
+	
+    .th-style {
+        background-color: #FF6F61;
+        color: white;
+    }
+
+    .tr-style:hover {
+        background-color: #f1f1f1;
+    }
+
+    .modDelMember:hover {
+        text-decoration: underline;
+    }
+	
+    .role-A {
+        background-color: #f2fbff;
+    }
+
+    .role-H {
+        background-color: #fffaf7;
+    }
+</style>
+<script>
+    function filterTable() {
+        let filter = document.getElementById("roleFilter").value;
+        let rows = document.querySelectorAll(".member-row");
+
+        rows.forEach(function(row) {
+            if (filter === "ALL" || row.classList.contains("role-" + filter)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    }
+</script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <h2>회원정보</h2>
+        <div class="table-container">
+			<form action="/admin/searchMember.do" method="get" id="searchEmail" name="searchEmail">
+	            <div class="filter-container">
+	                <label for="roleFilter">회원구분 필터:</label>
+	                <select id="roleFilter" onchange="filterTable()">
+	                    <option value="ALL">전체</option>
+	                    <option value="G">일반회원</option>
+	                    <option value="H">사업자</option>
+	                    <option value="A">관리자</option>
+	                </select>
+					<input type="text" id="searchEmail" placeholder="이메일 검색" name="searchEmail">
+					<input type="submit" value="검색">
+	            </div>
+			</form>
+			
+            <table class="table-style">
+                <thead>
+                    <tr class="tr-style">
+                        <th class="th-style">회원구분</th>
+                        <th class="th-style">이메일</th>
+                        <th class="th-style">비밀번호</th>
+                        <th class="th-style">이름</th>
+                        <th class="th-style">전화번호</th>
+                        <th class="th-style">주소</th>
+                        <th class="th-style">생년월일</th>
+                        <th class="th-style">사업자 등록번호</th>
+                        <th class="th-style">가입일자</th>
+                        <th class="th-style">수정</th>
+                        <th class="th-style">삭제</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="member : ${membersList}" th:class="'member-row role-' + ${member.role}">
+                        <td class="td-style" th:switch="${member.role}">
+                            <span th:case="'A'" class="role-A">관리자</span>
+                            <span th:case="'H'" class="role-H">사업자</span>
+                            <span th:case="'G'" class="role-G">일반회원</span>
+                        </td>
+                        <td th:text="${member.email}" class="td-style"></td>
+                        <td th:text="${member.pwd}" class="td-style"></td>
+                        <td th:text="${member.name}" class="td-style"></td>
+                        <td th:text="${member.tel}" class="td-style"></td>
+                        <td th:text="${member.address}" class="td-style"></td>
+                        <td th:text="${member.birth}" class="td-style"></td>
+                        <td th:text="${member.regNumber}" class="td-style"></td>
+                        <td th:text="${member.joinDate}" class="td-style"></td>
+                        <td><a th:href="@{/admin/modMember.do(email=${member.email})}" class="td-style modDelMember">수정</a></td>
+                        <td><a th:href="@{/admin/delMember.do(email=${member.email})}" class="td-style modDelMember">삭제</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </th:block>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>숙소/객실관리</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/manageAccommodation.css}" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+	//사이드바 선택된 곳 색 적용
+	document.addEventListener('DOMContentLoaded', function() {
+	    const links = document.querySelectorAll('#hostSidebar a');
+
+	    links.forEach(link => {
+	        link.addEventListener('click', function() {
+	            links.forEach(link => link.classList.remove('active'));
+	            this.classList.add('active');
+	        });
+
+	        // 현재 URL이 링크의 href와 일치하는 경우 active 클래스 추가
+	        if (window.location.href.includes(link.href)) {
+	            link.classList.add('active');
+	        }
+	    });
+	});
+
+
+	// EmailJS 초기화
+	(function(){
+	   emailjs.init("komJjnfgpGlqsRIt2"); // Public Key
+	})();
+
+	$(function () {
+	    $('[id^="acc-box-"]').each(function(index) {
+	        $(this).click(function(){
+	            $('#acc-details-' + index).slideToggle('normal');
+	        });
+	    });
+
+	    // 수정 요청하기 버튼 클릭 이벤트
+	    $('.modSusRo input[type="button"]').click(function() {
+	        var accName = $(this).closest('.acc-details').prev('.acc-box').data('acc-name');
+	        $('#popupAccName').text(accName);
+	        $('#emailPopup').fadeIn('normal');
+	    });
+	});
+
+	// 팝업창 닫기
+	function closePopup() {
+	    $('#emailPopup').fadeOut('normal');
+	}
+
+	//이메일 보내기(이미지는 구현 안됌)
+	function sendEmail() {
+	    var emailContent = $('#emailContent').val();
+	    //var emailImage = $('#emailImage')[0].files[0];
+	    var email = $('[name="email"]').text();
+	    var popupAccName = $('#popupAccName').text();
+
+	    if (!emailContent.trim()) {
+	        alert('수정 내용을 입력해주세요.');
+	        return;
+	    }
+
+	    var templateParams = {
+	        emailContent: emailContent,
+	      //emailImage: emailImage,
+	        email: email,
+	        popupAccName: popupAccName,
+	    };
+
+	    emailjs.send('service_q5dwk8i', 'template_866wene', templateParams, 'komJjnfgpGlqsRIt2')
+	        .then(function(response) {
+	            alert('수정 요청이 성공적으로 전송되었습니다.');
+	            closePopup();
+	        }, function(error) {
+	            alert('수정 요청 전송에 실패하였습니다. 다시 시도해주세요.');
+	        });
+	}
+</script>
+</head>
+<body>
+    <!--<div th:include="hostSidebar :: sidebar"></div>-->
+    <th:block layout:fragment="content">
+      <!-- 등록된 숙소가 없는 경우 처리. -->
+        <div th:if="${accRoMap.get('accList') == null}" class="acc-summary">
+            <p>등록된 숙소가 없습니다.</p>
+        </div>
+        <!-- 숙소 정보 및 객실 정보 출력 -->
+        <div class="acc-summary">
+            <div th:each="acc, accStat : ${accRoMap.get('accList')}">
+            <!-- 미리보기 영역 -->
+               <div class="acc-box" th:id="'acc-box-' + ${accStat.index}" th:data-acc-name="${acc.acc_name}">
+               <!-- 미리보기 이미지 -->
+               <div class="acc-thumbnail">
+                  <img th:src="@{/accDownload.do(acc_id=${acc.acc_id}, acc_image=${accRoMap.get('accThumbnail').get(acc.acc_id)})}" alt="숙소 이미지">
+               </div>
+                   <!-- 미리보기 정보 -->
+                   <div class="acc-info">
+                       <h3 class="acc-info-name" th:text="${acc.acc_name}"></h3>
+                       <p class="acc-info-type" th:text="${acc.acc_type}"></p>
+                       <p th:text="${acc.acc_address}"></p>
+                   </div>
+               <!-- 등록 여부 -->
+               <div>
+                  <p class="acc-regCheck-N" th:if="${acc.regCheck == 'N'}">미등록 숙소</p>
+                  <p class="acc-regCheck-Y" th:if="${acc.regCheck == 'Y'}">등록 완료</p>
+                  <p class="acc-regCheck-C" th:if="${acc.regCheck == 'C'}">등록 거부</p>
+                  
+               </div>
+               </div>
+            
+                <!-- 상세 정보 영역 -->
+                <div class="acc-details" th:id="'acc-details-' + ${accStat.index}">
+               <p class="acc-rejectReason" th:if="${acc.regCheck == 'C'} and ${acc.rejectReason != null}" th:text="'거부 사유: ' + ${acc.rejectReason}"></p>
+               <!-- 숙소 이미지 출력 -->
+               <p class="section-title">숙소 정보</p>
+               <div class="acc-image">
+                  <div th:each="accImage : ${accRoMap.get('accImageFileList')}"
+                       th:if="${accImage.acc_id == acc.acc_id}">
+                       <img th:src="@{/accDownload.do(acc_id=${accImage.acc_id}, acc_image=${accImage.acc_image})}" width="200" height="120">
+                  </div>
+               </div>
+               
+               <!-- 숙소 정보 출력 -->
+                    <p>유형 <span th:text="${acc.acc_type}"></span></p>
+                    <p>지역 <span th:text="${acc.acc_area}"></span></p>
+                    <p>전화번호 <span th:text="${acc.acc_tel}"></span></p>
+                    <p>주소 <span th:text="${acc.acc_address}"></span></p>
+                    <p>설명 <span th:text="${acc.acc_info}"></span></p>
+                    
+                    <!-- 객실 정보 출력 -->
+               <div class="section-header">
+                  <p class="section-title">객실 정보</p>
+                       <div th:each="room : ${accRoMap.get('roList' + acc.acc_id)}">
+                     <!-- 객실 이미지 출력 -->
+                     <div class="ro-image">
+                         <div th:each="roImage : ${accRoMap.get('roImageFileList')}"
+                              th:if="${roImage.ro_id == room.ro_id}">
+                              <img th:src="@{/roDownload.do(ro_id=${roImage.ro_id}, ro_image=${roImage.ro_image})}" width="200" height="120"> 
+                         </div>
+                     </div>
+                     <!-- 객실 정보 출력 -->
+                           <p>객실 이름 <span th:text="${room.ro_name}"></span></p>
+                           <p>최소 인원 <span th:text="${room.ro_min}"></span></p>
+                           <p>최대 인원 <span th:text="${room.ro_max}"></span></p>
+                           <p>설명 <span th:text="${room.ro_info}"></span></p>
+                           <p>편의시설 <span th:text="${room.ro_amenities}"></span></p>
+                           <p>가격 <span th:text="${room.ro_price}"></span></p>
+                           <p>체크인 시간 <span th:text="${room.ro_checkIn}"></span></p>
+                           <p>체크아웃 시간 <span th:text="${room.ro_checkOut}"></span></p>
+                       </div>
+               </div>
+               
+               <!-- 수정 요청 영역(등록된 숙소만 노출되도록 함) -->
+               <div class="modSusAccRo" th:if="${acc.regCheck == 'Y'}">
+                  <!-- 수정 요청 -->
+                  <div class="modSusRo">
+                     <p class="modSusMsg">내용을 변경하고싶으신가요? 원하는 수정사항을 관리자에게 요청하세요.</p>
+                     <input type="button" value="수정요청하기">
+                  </div>
+               </div>
+                </div>
+            <!--상세 정보 영역 종료-->
+            </div>
+        </div>
+      
+      <!-- 이메일 팝업창 -->
+      <div id="emailPopup" name="emailPopup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background-color:#FDFDFD; padding:30px; box-shadow:0 4px 8px rgba(0, 0, 0, 0.1); width:520px; height:550px; overflow-y:auto;">
+          <h3>
+              <span id="popupAccName" name="popupAccName" class="modAccName"></span> 수정 요청
+          </h3>
+          <form id="emailForm" enctype="multipart/form-data">
+              <label for="emailContent">숙소 및 객실의 원하시는 수정내용을 적어주세요.</label>
+              <p>관리자의 검토 후 수정이 반영됩니다.</p>
+            <p>보내는 이 : <span th:text="${accRoMap.email}" name="email"></span><p>
+              <textarea id="emailContent" name="emailContent" rows="6" cols="40" style="resize:none; width:90%; height:260px; overflow-y:auto; font-size:1.1em; padding:10px;" spellcheck="false"></textarea>
+              <br><br>
+              <button type="button" onclick="sendEmail()">보내기</button>
+              <button type="button" onclick="closePopup()">닫기</button>
+          </form>
+      </div>
+
+    </th:block>
+</body>
+</html>

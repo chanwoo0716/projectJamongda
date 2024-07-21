@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>글 작성하기:JAMONGDA</title>
+<link rel="stylesheet" th:href="@{/css/board.css}"/>
+<script src="/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" th:src="@{/smartEditor/js/HuskyEZCreator.js}" charset="utf-8"></script>
+<script th:src="@{/js/boardForm.js}"></script>
+</head>
+<body>
+	<th:block layout:fragment="content">
+		<div id="boardForm">
+			<h2>글 등록하기</h2>
+			<form id="smartEditor" action="/board/addBoard.do" method="post">
+				<div class="top">
+					<!--카테고리 영역-->
+					<select name="category" id="category">
+						<option value="공지">공지</option>
+						<option value="이벤트">이벤트</option>
+						<option value="발표">발표</option>
+					</select>
+				
+					<!--제목 영역-->
+					<input type="text" name="title" class="title" placeholder="제목을 입력하세요." required="" />
+				</div>
+				
+				<!--글쓰기 영역-->
+				<div id="smartEditor">
+					<textarea name="editorTxt" id="editorTxt"
+							rows="20" cols="105"
+							placeholder="내용을 입력해주세요."
+							required="">
+					</textarea>
+				</div>
+				
+				<div class="form_btn">
+					<input type="submit" value="등록하기"/>
+				</div>
+			</form>	
+		</div>
+	</th:block>
+</body>
+</html>
