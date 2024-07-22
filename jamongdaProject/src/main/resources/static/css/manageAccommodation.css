@@ -1,20 +1,20 @@
-/*
-#AccContent {
-   border-top: 1px solid #FF6F61;
+@charset "UTF-8";
+html,
+body {
+  position: relative;
+  min-width: 1250px;
+  max-width: 1920px;
+  margin: 0 auto;
 }
-*/
-/*
-.acc-summary {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-   width: 70%;
-   margin: 0 auto;
-   margin-right: 50px;
-   float: right;
+
+body {
+  background: rgb(252, 252, 252);
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0 auto;
+  padding: 0 auto;
 }
-*/
 .acc-h2 {
     margin-right: 20px; /* h2와 div 사이에 여유 공간 추가 */
    text-align:left;
@@ -35,6 +35,10 @@
    padding: 20px;
    box-sizing: border-box;
    float: right;
+   position : relative;
+   right: 250px;
+   top: 30px;
+   
 }
 
 .acc-box {
