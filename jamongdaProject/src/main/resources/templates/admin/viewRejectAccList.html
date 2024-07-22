@@ -100,11 +100,12 @@
                      </div>
                   </div>
                   <!-- 숙소 정보 출력 -->
-                       <p>유형 <span th:text="${acc.acc_type}"></span></p>
-                       <p>지역 <span th:text="${acc.acc_area}"></span></p>
-                       <p>전화번호 <span th:text="${acc.acc_tel}"></span></p>
-                       <p>주소 <span th:text="${acc.acc_address}"></span></p>
-                       <p>설명 <span th:text="${acc.acc_info}"></span></p>
+				  <p>숙소 이름 <input type="text" th:value="${acc.acc_name}" class="modAccInfo" disabled></p>
+                   <p>유형 <span th:text="${acc.acc_type}"></span></p>
+                   <p>지역 <span th:text="${acc.acc_area}"></span></p>
+                   <p>전화번호 <span th:text="${acc.acc_tel}"></span></p>
+                   <p>주소 <span th:text="${acc.acc_address}"></span></p>
+                   <p>설명 <span th:text="${acc.acc_info}"></span></p>
                        
                        <!-- 객실 정보 출력 -->
                   <div class="section-header">

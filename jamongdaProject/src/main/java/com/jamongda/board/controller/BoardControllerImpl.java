@@ -50,6 +50,7 @@ public class BoardControllerImpl implements BoardController{
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/boardList");
+		mav.addObject("boardSidebar", "board/boardSidebar");
 		mav.addObject("boardMap", boardMap);
 		return mav;
 	}
@@ -60,6 +61,7 @@ public class BoardControllerImpl implements BoardController{
 	public ModelAndView boardForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/boardForm");
+		mav.addObject("boardSidebar", "board/boardSidebar");
 		return mav;
 	}	
 	
@@ -69,6 +71,7 @@ public class BoardControllerImpl implements BoardController{
 	public ModelAndView FAQ(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/FAQ");
+		mav.addObject("boardSidebar", "board/boardSidebar");
 		return mav;
 	}
 	
@@ -104,6 +107,7 @@ public class BoardControllerImpl implements BoardController{
 		
 		ModelAndView mav= new ModelAndView();
 		mav.setViewName("/board/viewBoard");
+		mav.addObject("boardSidebar", "board/boardSidebar");
 		mav.addObject("board",boardDTO);
 		return mav;
 	}
@@ -142,6 +146,7 @@ public class BoardControllerImpl implements BoardController{
 		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/board/modBoardForm");
+		mav.addObject("boardSidebar", "board/boardSidebar");
 		mav.addObject("board",boardDTO);
 		return mav;
 	}

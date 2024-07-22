@@ -17,11 +17,11 @@ public interface SearchService {
    public List searchType(AccommodationDTO acc) throws DataAccessException;
    //2024-07-20수정완료
    
-   public List searchImage(AccommodationDTO acc) throws DataAccessException;
-   
    public AccommodationDTO detailSearch(int acc_id) throws DataAccessException;
    
    public AccommodationDTO radio(AccommodationDTO acc) throws DataAccessException;
+   
+   public List rangePrice(String accArea, String accName,int minPrice, int maxPrice) throws DataAccessException;
    
    //숙소상세보기
    public Map detailAccRo(int acc_id) throws DataAccessException;
@@ -30,7 +30,5 @@ public interface SearchService {
    
    // 대표자명, 사업자번호 추가
       public Map<String, Object> getHostInfo(int acc_id) throws Exception;
-      
-      //최저가 가격
-      public Map<String, Object> getRoPrice(int acc_id) throws Exception;
+
 }

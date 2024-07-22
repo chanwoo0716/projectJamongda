@@ -21,13 +21,13 @@ public interface SearchDAO {
    public List searchAccType(AccommodationDTO acc) throws DataAccessException;
    //2024-07-20수정완료
    
-   public List searchAccImageList(AccommodationDTO acc) throws DataAccessException;
-   
    public AccommodationDTO selectAccId(int acc_id) throws DataAccessException;
    
    public AccommodationDTO selectRadio(AccommodationDTO acc) throws DataAccessException;
    
    public List searchImage(AccommodationDTO acc) throws DataAccessException;
+   
+   public List<SearchDTO> searchPriceRange(Map<String, Object> params) throws DataAccessException;
    
     // acc_id에 해당하는 숙소 가져오기
     public List<AccommodationDTO> selectAcc(int acc_id) throws DataAccessException;
@@ -40,8 +40,5 @@ public interface SearchDAO {
     
    // 대표자명, 사업자번호 추가
       public Map<String, Object> selectHostInfo(int acc_id) throws Exception;
-      
-      //최저가 가격 추가
-      public Map<String, Object> roomMinPrice(int acc_id) throws Exception;
     
 }

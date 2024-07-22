@@ -62,6 +62,10 @@
 
           $('#form1').on('submit', function(event) {
               // 로컬 저장소에 저장된 데이터를 클리어하지 않도록 주의
+           var acc_name = document.getElementById('acc_name').value;
+           var acc_area = document.getElementById('acc_area').value;
+           localStorage.setItem('acc_name',acc_name);
+           localStorage.setItem('acc_area',acc_area);
               localStorage.setItem('startDate', $('#bo_checkIn').data('daterangepicker').startDate.format('YYYY-MM-DD'));
               localStorage.setItem('endDate', $('#bo_checkIn').data('daterangepicker').endDate.format('YYYY-MM-DD'));
           });
@@ -73,7 +77,22 @@
           $('input[name="checkOut"]').val(initialEndDate);
       });
  
-      
+      /* 시도1
+       const form1 = document.getElementById('form1');
+       const checkRange = document.getElementById('checkRange');
+       
+       form1.addEventListener('submit',function(e){
+          e.preventDefault();
+          
+          const checkRangeValue = checkRange.value;
+          
+          localStorage.setItem('checkRange', checkRangeValue);
+          
+          form1.action="/search/selectSearch.do";
+          form1.method="get";
+       });
+       
+       */
    </script>
    
 </head>
@@ -114,157 +133,157 @@
           </section>
          
         <!-- 첫번째 슬라이드 -->
-        <div class="slider">
-             <h2>자몽다's PICK</h2>
-             <div class="inner">
-                 <ul class="swiper-wrapper slide_list">
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-               </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-               </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-               </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-               </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                 </ul>
-             </div>
-             <span class="btn btn_prev">이전</span>
-             <span class="btn btn_next">다음</span>
-         </div>
-   
-         <!-- 두번째 슬라이드 -->
-         <div class="slider">
-             <h2>국내 인기 여행지</h2>
-             <div class="inner">
-                 <ul class="swiper-wrapper slide_list">
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                    </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-               </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-               </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-               </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>                  
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>                  
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>                  
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>                  
-                </li>
-                 </ul>
-             </div>
-             <span class="btn btn_prev">이전</span>
-             <span class="btn btn_next">다음</span>
-         </div>
-   
-           <!--세번째 슬라이드-->
-         <div class="slider">
-             <h2>최저가 숙소</h2>
-             <div class="inner">
-                 <ul class="swiper-wrapper slide_list">
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                     <li class="swiper-slide">
-                  <a th:href="@{/search/selectSearch.do}">
-                     <img src="/images/area/jejudo.jpg" alt="제주도">
-                  </a>
-                </li>
-                 </ul>
-             </div>
-             <span class="btn btn_prev">이전</span>
-             <span class="btn btn_next">다음</span>
-         </div>
+                <div class="slider">
+                     <h2>자몽다's PICK</h2>
+                     <div class="inner">
+                         <ul class="swiper-wrapper slide_list">
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                       </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                       </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                       </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                       </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                         </ul>
+                     </div>
+                     <span class="btn btn_prev">이전</span>
+                     <span class="btn btn_next">다음</span>
+                 </div>
+           
+                 <!-- 두번째 슬라이드 -->
+                 <div class="slider">
+                     <h2>국내 인기 여행지</h2>
+                     <div class="inner">
+                         <ul class="swiper-wrapper slide_list">
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                            </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                       </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                       </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                       </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>                  
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>                  
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>                  
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>                  
+                        </li>
+                         </ul>
+                     </div>
+                     <span class="btn btn_prev">이전</span>
+                     <span class="btn btn_next">다음</span>
+                 </div>
+           
+                   <!--세번째 슬라이드-->
+                 <div class="slider">
+                     <h2>최저가 숙소</h2>
+                     <div class="inner">
+                         <ul class="swiper-wrapper slide_list">
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                             <li class="swiper-slide">
+                          <a th:href="@{/search/selectSearch.do}">
+                             <img src="/images/area/jejudo.jpg" alt="제주도">
+                          </a>
+                        </li>
+                         </ul>
+                     </div>
+                     <span class="btn btn_prev">이전</span>
+                     <span class="btn btn_next">다음</span>
+                 </div>
       </div>
    </th:block>
 </body>

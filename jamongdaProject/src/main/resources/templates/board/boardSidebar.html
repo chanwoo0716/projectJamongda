@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <div id="sidebar" th:fragment="sidebar">
-        <h3><a th:href="#">공지사항</a></h3>
-        <h3><a th:href="#">FAQ</a></h3>
+    <div th:fragment="sidebar">
+        <h3><a th:href="@{/board/boardList.do}">공지사항</a></h3>
+        <h3><a th:href="@{/board/FAQ.do}">FAQ</a></h3>
     </div>
 </html>
