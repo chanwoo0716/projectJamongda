@@ -8,17 +8,39 @@
     <title>자몽다 검색조회페이지</title>
    <link rel="stylesheet" type="text/css" th:href="@{/css/selectSearch.css}" />
    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <style>
+      .filter-form label {
+                  display: block;
+                  margin-bottom: 10px;
+              }
+              .filter-form #price-slider {
+                  margin-top: 20px;
+              }
+              .filter-form input[type="number"] {
+                  width: 100%;
+                  padding: 8px;
+                  border: 1px solid #ccc;
+                  border-radius: 4px;
+                  box-sizing: border-box;
+              }
+              .filter-form button {
+                  display: none; /* 서브밋 버튼 숨기기 */
+              }
+      .pagination{
+         margin:0 auto;
+      }      
+    </style>
     <script src="https://kit.fontawesome.com/e9b58f4b27.js" crossorigin="anonymous"></script>
    <script th:src="@{/js/acc.js}"></script>
    <!-- 제이쿼리 -->
    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-   <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5354954af6e88697339f521682aaf397"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
    <!-- 달력라이브러리 소스 -->
    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
    
-   <!--카카오 지도 API-->
    
    
    
@@ -65,9 +87,25 @@
             $('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
             $('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
         });
+      var acc_name = localStorage.getItem('acc_name');
+      var acc_area = localStorage.getItem('acc_area');
+          if (acc_name) {
+              document.getElementById('acc_name').value = acc_name;
+          } else {
+              document.getElementById('acc_name').value = '';
+          }
+         if (acc_area) {
+             document.getElementById('acc_area').value = acc_area;
+         } else {
+             document.getElementById('acc_area').value = '';
+         }         
         
         $('#form2').on('submit', function(event) {
             // 로컬 저장소에 저장된 데이터를 클리어하지 않도록 주의
+         var acc_name = document.getElementById('acc_name').value;
+         var acc_area = document.getElementById('acc_area').value;
+         localStorage.setItem('acc_name',acc_name);
+         localStorage.setItem('acc_area',acc_area);         
             localStorage.setItem('startDate', $('#bo_checkIn').data('daterangepicker').startDate.format('YYYY-MM-DD'));
             localStorage.setItem('endDate', $('#bo_checkIn').data('daterangepicker').endDate.format('YYYY-MM-DD'));
         });
@@ -79,8 +117,6 @@
         var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
         $('input[name="checkIn"]').val(initialStartDate);
         $('input[name="checkOut"]').val(initialEndDate);
-    });
-           
            //출처:https://sub0709.tistory.com/94
            //$(":radio[name='acc_type']").radioSelect(radioVal);
            
@@ -89,6 +125,47 @@
       
       document.getElementById('checkRange').val()=checkRange;
       */
+      $("#price-slider").slider({
+             range: true,
+             min: 0,
+             max: 1000000, // 최대 가격 설정 (500000 단위)
+             step: 10000, // 슬라이더 단계 (50000 단위)
+             values: [10000, 50000], // 초기 범위 설정
+             slide: function(event, ui) {
+                 $("#minPrice").val(ui.values[0]);
+                 $("#maxPrice").val(ui.values[1]);
+             },
+             stop: function(event, ui) {
+                 // 반올림하여 입력란에 설정
+                 var minPriceRounded = Math.round(ui.values[0] / 50000) * 50000;
+                 var maxPriceRounded = Math.round(ui.values[1] / 50000) * 50000;
+                 $("#minPrice").val(minPriceRounded);
+                 $("#maxPrice").val(maxPriceRounded);
+                 
+                 // 데이터가 변경될 때 자동으로 폼을 서브밋
+                 $("#filterForm").submit();
+             }
+         });
+         
+         // 텍스트 입력란과 슬라이더 상호작용
+         $("#minPrice, #maxPrice").on("input", function() {
+             var minPrice = parseInt($("#minPrice").val());
+             var maxPrice = parseInt($("#maxPrice").val());
+             
+             // 입력 값이 유효할 경우 슬라이더 위치 업데이트
+             if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+                 $("#price-slider").slider("values", [minPrice, maxPrice]);
+             }
+             
+             // 데이터가 변경될 때 자동으로 폼을 서브밋
+             $("#filterForm").submit();
+         });
+         
+         // 초기값 설정
+         $("#minPrice").val($("#price-slider").slider("values", 0));
+         $("#maxPrice").val($("#price-slider").slider("values", 1));
+      
+      });
    </script>
 </head>
 <body>
@@ -98,8 +175,8 @@
           <div class="search_wrap">
              <form th:action="@{/search/selectSearch.do}" method="get" name="frmSelect" id="form2">
                <input type="hidden" name="action" value="searchAcc">
-                <input type="search" placeholder="숙소이름" name="acc_name">
-                <input type="search" placeholder="지역" name="acc_area">
+                <input type="search" placeholder="숙소이름" name="acc_name" id="acc_name">
+                <input type="search" placeholder="지역" name="acc_area" id="acc_area">
                 <!-- 지역이 나오면 검색조회페이지로 숙소이름이 나오면 검색상세페이지로 리다이렉트 -->
                 <input type="text" name="datetimes" required id="bo_checkIn">
                 <!--<input type="number" placeholder="기준인원수">-->
@@ -115,8 +192,8 @@
     </section>
     <div class="wrapper contents_wrap">
         <aside>
-           <!--  
-           혹시 몰라서 주석하는 쪽으로 처리했습니다. 2024-07-21
+            
+           <!-- 혹시 몰라서 주석하는 쪽으로 처리했습니다. 2024-07-21
             <section id="kakao_map">
             
                <script>
@@ -184,9 +261,10 @@
             </form>
 
             </section>
-            <section id="price_filter" class="wrapper">
+         <!-- 출처:https://www.youtube.com/watch?v=FShnKqPXknI -->
+            <!--<section id="price_filter" class="wrapper">
                 <h2>가격</h2>
-                <!-- 출처:https://www.youtube.com/watch?v=FShnKqPXknI -->
+                
                 <div class="price-input">
                     <div class="field">
                         <span>Max</span>
@@ -202,15 +280,33 @@
                 </div>
                 <span>0원 ~ 500,000원 이상</span>
             </section>
+         <div class="filter-form">
+             <h2>가격</h2>
+             <form id="filterForm" th:action="@{/search/selectPrice.do}" method="GET">
+                 <label for="minPrice">최저가</label>
+                 <input type="number" id="minPrice" name="minPrice" placeholder="Enter minimum price" required>
+                 
+                 <label for="maxPrice">최고가</label>
+                 <input type="number" id="maxPrice" name="maxPrice" placeholder="Enter maximum price" required>
+                 
+                 <div id="price-slider"></div>
+             </form>
+         </div>-->
         </aside>
+      
+         
+         
+      
         <section class="sct2">
-            <div class="sct2_head" >
+           <!-- <div class="sct2_head" >
                 <h2>숙소리스트</h2>
                 <select class="sort">
-                    <option selected>최저가순</option>
-                    <option>최신순</option>
+                    <option selected>전체</option>
+               <option>자몽다's Pick!</option>
+                    <option>최저가순</option>
+                    
                 </select>
-            </div>
+            </div>-->
             <div class="acc_list">
             <!--<table border="1" align="center" width="700">
                      <tr align="center" bgcolor="lightgreen">
@@ -228,9 +324,9 @@
                   </table>-->
                 <div class="acc_box" th:each="acc : ${accListsrch}">
                
-                    <div class="acc_image" >
+                    <div class="acc_image">
                   
-                        <img src="../../../images/acc1.jpg" alt="">
+                        <img th:src="@{/accDownload.do(acc_id=${acc.acc_id}, acc_image=${acc.acc_image})}" th:alt="${acc.acc_id}">
                     </div>
                     <div class="acc_info">
                         <div class="box1">
@@ -245,7 +341,8 @@
                             </div>
                         </div>
                         <div class="box2">
-                            <div class="acc_price"><a th:href="@{/search/detailSearch.do(aid=${acc.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}"><span>가격</span><span class="price_font_big">100,000원</span></a></div>
+                            <div class="acc_price"><a th:href="@{/search/detailSearch.do(aid=${acc.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}">
+                        <span>가격</span><span class="price_font_big" th:text="${acc.ro_price}"></span><span>원</span></a></div>
                         </div>
                     </div>
                 </div>
@@ -255,7 +352,7 @@
                            
                                 <div class="acc_image">
                               
-                                     <img src="../../../images/acc1.jpg" alt="">
+                                    <img th:src="@{/accDownload.do(acc_id=${acc_t.acc_id}, acc_image=${acc_t.acc_image})}" th:alt="${acc_t.acc_id}">
                                 </div>
                                 <div class="acc_info">
                                     <div class="box1">
@@ -270,21 +367,38 @@
                                         </div>
                                     </div>
                                     <div class="box2">
-                                        <div class="acc_price"><a th:href="@{/search/detailSearch.do(aid=${acc_t.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}"><span>가격</span><span class="price_font_big">100,000원</span></a></div>
+                                        <div class="acc_price"><a th:href="@{/search/detailSearch.do(aid=${acc_t.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}">
+                                    <span>가격</span><span class="price_font_big" th:text="${acc_t.ro_price}"></span><span>원</span></a></div>
                                     </div>
                                 </div>
                             </div>
-                        
-                                             
+                        <!--<div class="acc_box" th:each="acc_p : ${accRangePrice}">
+                                       
+                                            <div class="acc_image">
+                                          
+                                                <img th:src="@{/accDownload.do(acc_id=${acc_p.acc_id}, acc_image=${acc_p.acc_image})}" th:alt="${acc_p.acc_id}">
+                                            </div>
+                                            <div class="acc_info">
+                                                <div class="box1">
+                                                    <div class="acc_title">
+                                                <p><a th:href="@{/search/detailSearch.do(aid=${acc_p.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}" th:text="${acc_p.acc_type}"></a></p>
+                                                <h2><a th:href="@{/search/detailSearch.do(aid=${acc_p.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}" th:text="${acc_p.acc_name}"></a></h2>
+
+                                                
+                                                        <p><a th:href="@{/search/detailSearch.do(acc_id=${acc.acc_id})}" th:text=${acc.acc_type}></a></p>
+                                                        <h2><a th:href="@{/search/detailSearch.do(acc_id=${acc.acc_id})}" th:text=${acc.acc_name}> </a></h2>
+                                                
+                                                    </div>
+                                                </div>
+                                                <div class="box2">
+                                                    <div class="acc_price"><a th:href="@{/search/detailSearch.do(aid=${acc_p.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}">
+                                                <span>가격</span><span class="price_font_big" th:text="${acc_p.ro_price}"></span><span>원</span></a></div>
+                                                </div>
+                                            </div>
+                                        </div>                        
             <div class="pagination">
-                <ul>
-                    <li>prev</li>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>next</li>
-                </ul>
-            </div>
+                <a href="#">더보기</a>
+            </div>-->
         </section>
     </div>
     </th:block>

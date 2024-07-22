@@ -105,8 +105,18 @@
    function fn_enable(obj) {
       document.getElementById("button_modify").style.display="block";
       document.getElementById("modAcc").style.display="none";
-      document.getElementById("id_title").disabled=false;      // disabled 속성 제거
-      document.getElementById("id_content").disabled=false;   // disabled 속성 제거
+	  
+	  document.querySelectorAll(".acc_name").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".acc_tel").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".acc_info").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".ro_name").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".ro_min").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".ro_max").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".ro_info").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".ro_amenities").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".ro_price").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".ro_checkIn").forEach(el => el.disabled=false);
+	  document.querySelectorAll(".ro_checkOut").forEach(el => el.disabled=false);
       
       let imgName = document.querySelectorAll(".id_imgFile");
       if(imgName != null) {   //이미지가 있을 경우에만.
@@ -121,8 +131,11 @@
       obj.method="get";
       obj.submit();
    }
-   
-   
+   //수정반영하기->update수행하러 컨트롤러로 가야한다.
+   function fn_modify_accommodation(obj) {
+   	obj.action="/board/modArticle.do";
+   	obj.submit();
+   }
 </script>
 </head>
 <body>
@@ -185,14 +198,14 @@
 	                     </div>
 	                  </div>
 	                  <!-- 숙소 정보 출력 -->
-	                       <p>유형 <input type="text" th:value="${acc.acc_type}" class="modAccInfo" disabled></p>
-	                       <p>지역 <input type="text" th:value="${acc.acc_area}" class="modAccInfo" disabled></p>
-	                       <p>전화번호 <input type="text" th:value="${acc.acc_tel}" class="modAccInfo" disabled></p>
-	                       <p>주소 <input type="text" th:value="${acc.acc_address}" class="modAccInfo" disabled></p>
-	                       <!--<p>설명 <input type="text" th:value="${acc.acc_info}" class="modAccInfo" disabled></p>-->
-	                  <p>설명 <textarea rows="5" cols="50" maxlength="4000" style="resize:none;" spellcheck="false" th:text="${acc.acc_info}" class="modAccInfo" disabled></textarea><p>
+					  <p>숙소 이름 <input type="text" th:value="${acc.acc_name}" class="modAccInfo acc_name" disabled></p>
+                       <p>유형 <input type="text" th:value="${acc.acc_type}" class="modAccInfo" disabled></p>
+                       <p>지역 <input type="text" th:value="${acc.acc_area}" class="modAccInfo" disabled></p>
+                       <p>전화번호 <input type="text" th:value="${acc.acc_tel}" class="modAccInfo acc_tel" disabled></p>
+                       <p>주소 <input type="text" th:value="${acc.acc_address}" class="modAccInfo" disabled></p>
+                  	   <p>설명 <textarea rows="5" cols="50" maxlength="4000" style="resize:none;" spellcheck="false" th:text="${acc.acc_info}" class="modAccInfo acc_info" disabled></textarea><p>
 	                       
-	                       <!-- 객실 정보 출력 -->
+                       <!-- 객실 정보 출력 -->
 	                  <div class="section-header">
 	                     <p class="section-title">객실 정보</p>
 	                          <div th:each="room : ${regY_accRoMap.get('roList' + acc.acc_id)}">
@@ -204,15 +217,14 @@
 	                            </div>
 	                        </div>
 	                        <!-- 객실 정보 출력 -->
-	                              <p>객실 이름 <input type="text" th:value="${room.ro_name}" class="modAccInfo" disabled></p>
-	                              <p>최소 인원 <input type="number" th:value="${room.ro_min}" class="modAccInfo" disabled></p>
-	                              <p>최대 인원 <input type="number" th:value="${room.ro_max}" class="modAccInfo" disabled></p>
-	                              <!--<p>설명 <input type="text" th:value="${room.ro_info}" class="modAccInfo" disabled></p>-->
-	                        <p>설명 <textarea rows="5" cols="50" maxlength="4000" style="resize:none;" spellcheck="false" th:text="${room.ro_info}" class="modAccInfo" disabled></textarea><p>
-	                              <p>편의시설 <input type="text" th:value="${room.ro_amenities}" class="modAccInfo" disabled></p>
-	                              <p>가격 <input type="number" th:value="${room.ro_price}" class="modAccInfo" disabled></p>
-	                              <p>체크인 시간 <input type="text" th:value="${room.ro_checkIn}" class="modAccInfo" disabled></p>
-	                              <p>체크아웃 시간 <input type="text" th:value="${room.ro_checkOut}" class="modAccInfo" disabled></p>
+	                              <p>객실 이름 <input type="text" th:value="${room.ro_name}" class="modAccInfo ro_name" disabled></p>
+	                              <p>최소 인원 <input type="number" th:value="${room.ro_min}" class="modAccInfo ro_min" disabled></p>
+	                              <p>최대 인원 <input type="number" th:value="${room.ro_max}" class="modAccInfo ro_max" disabled></p>
+	                        <p>설명 <textarea rows="5" cols="50" maxlength="4000" style="resize:none;" spellcheck="false" th:text="${room.ro_info}" class="modAccInfo ro_info" disabled></textarea><p>
+	                              <p>편의시설 <input type="text" th:value="${room.ro_amenities}" class="modAccInfo ro_amenities" disabled></p>
+	                              <p>가격 <input type="number" th:value="${room.ro_price}" class="modAccInfo ro_price" disabled></p>
+	                              <p>체크인 시간 <input type="text" th:value="${room.ro_checkIn}" class="modAccInfo ro_checkIn" disabled></p>
+	                              <p>체크아웃 시간 <input type="text" th:value="${room.ro_checkOut}" class="modAccInfo ro_checkOut" disabled></p>
 	                        <br>
 	                        <br>
 	                          </div>
@@ -242,7 +254,7 @@
 	                     </div>
 	                     <!--수정하기 누를시 나타나는 버튼-->
 	                     <div id="button_modify">
-	                        <input type="button" value="수정반영하기" onclick="fn_modify_article(modAccommodation)">
+	                        <input type="button" value="수정반영하기" onclick="fn_modify_accommodation(modAccommodation)">
 	                        <input type="button" value="취소" onclick="toList(modAccommodation)">
 	                     </div>
 	                  </div>

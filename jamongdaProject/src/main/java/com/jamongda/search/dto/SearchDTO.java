@@ -6,62 +6,124 @@ import org.springframework.stereotype.Component;
 
 @Component("searchDTO")
 public class SearchDTO {
-	private String acc_area;
-	private String acc_name;
-	private Date acc_checkIn;
-	private Date acc_checkOut;
-	private int acc_person;
-	private int acc_id;
-	
-	public SearchDTO() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public SearchDTO(String acc_area,String acc_name, Date acc_checkIn,Date acc_checkOut,int acc_person,int acc_id) {
-		this.acc_area=acc_area;
-		this.acc_name=acc_name;
-		this.acc_checkIn=acc_checkIn;
-		this.acc_checkOut=acc_checkOut;
-		this.acc_person=acc_person;
-		this.acc_id=acc_id;
-	}
-	
-	public String getAcc_area() {
-		return acc_area;
-	}
-	public void setAcc_area(String acc_area) {
-		this.acc_area = acc_area;
-	}
-	public String getAcc_name() {
-		return acc_name;
-	}
-	public void setAcc_name(String acc_name) {
-		this.acc_name = acc_name;
-	}
-	public Date getAcc_checkIn() {
-		return acc_checkIn;
-	}
-	public void setAcc_checkIn(Date acc_checkIn) {
-		this.acc_checkIn = acc_checkIn;
-	}
-	public Date getAcc_checkOut() {
-		return acc_checkOut;
-	}
-	public void setAcc_checkOut(Date acc_checkOut) {
-		this.acc_checkOut = acc_checkOut;
-	}
-	public int getAcc_person() {
-		return acc_person;
-	}
-	public void setAcc_person(int acc_person) {
-		this.acc_person = acc_person;
-	}
-	public int getAcc_id() {
-		return acc_id;
-	}
-	public void setAcc_id(int acc_id) {
-		this.acc_id = acc_id;
-	}
-	
-	
+   private int acc_id;         //숙소 고유 id(PK), (*articleNo랑 같음)
+   private String acc_name;   //숙소 이름
+   private String acc_type;   //숙소 유형
+   private String acc_area;   //숙소 지역
+   private String acc_tel;      //숙소 전화번호
+   private String acc_address;   //숙소 주소
+   private String acc_info;   //숙소 정보
+   private String email;      //회원 이메일(*사업자는 쿼리문에서 roll='사업자' 조건걸어줘야함)
+   
+   private String regCheck;   //숙소등록여부(N,Y,C)
+   private String rejectReason;   //숙소등록취소 사유
+   
+   private String acc_image;
+   private int ro_price;
+   
+   public SearchDTO() {
+      // TODO Auto-generated constructor stub
+   }
+
+   public int getAcc_id() {
+      return acc_id;
+   }
+
+   public void setAcc_id(int acc_id) {
+      this.acc_id = acc_id;
+   }
+
+   public String getAcc_name() {
+      return acc_name;
+   }
+
+   public void setAcc_name(String acc_name) {
+      this.acc_name = acc_name;
+   }
+
+   public String getAcc_type() {
+      return acc_type;
+   }
+
+   public void setAcc_type(String acc_type) {
+      this.acc_type = acc_type;
+   }
+
+   public String getAcc_area() {
+      return acc_area;
+   }
+
+   public void setAcc_area(String acc_area) {
+      this.acc_area = acc_area;
+   }
+
+   public String getAcc_tel() {
+      return acc_tel;
+   }
+
+   public void setAcc_tel(String acc_tel) {
+      this.acc_tel = acc_tel;
+   }
+
+   public String getAcc_address() {
+      return acc_address;
+   }
+
+   public void setAcc_address(String acc_address) {
+      this.acc_address = acc_address;
+   }
+
+   public String getAcc_info() {
+      return acc_info;
+   }
+
+   public void setAcc_info(String acc_info) {
+      this.acc_info = acc_info;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
+   }
+
+   public String getRegCheck() {
+      return regCheck;
+   }
+
+   public void setRegCheck(String regCheck) {
+      this.regCheck = regCheck;
+   }
+
+   public String getRejectReason() {
+      return rejectReason;
+   }
+
+   public void setRejectReason(String rejectReason) {
+      this.rejectReason = rejectReason;
+   }
+
+   public String getAcc_image() {
+      return acc_image;
+   }
+
+   public void setAcc_image(String acc_image) {
+      this.acc_image = acc_image;
+   }
+
+   public int getRo_price() {
+      return ro_price;
+   }
+
+   public void setRo_price(int ro_price) {
+      this.ro_price = ro_price;
+   }
+
+   
+   
+   
+   
+   
 }

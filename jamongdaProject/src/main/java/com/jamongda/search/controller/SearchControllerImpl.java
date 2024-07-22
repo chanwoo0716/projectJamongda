@@ -47,17 +47,13 @@ public class SearchControllerImpl implements SearchController{
 
       List accListsrch=searchService.search(acc);   // 숙소 검색 리스트(이름,지역)
       
-      List accImageList=searchService.searchImage(acc);
-      
       //List accImageList=searchService.searchImage(acc);   //숙소 검색 이미지 리스트(이름,지역) (1개만 가져옴)
       ModelAndView mav=new ModelAndView();
       mav.setViewName("/search/selectSearch");
       mav.addObject("accList",accList);
       mav.addObject("accListsrch",accListsrch);
-      mav.addObject("accImageList",accImageList);
       mav.addObject("bo_checkIn",bo_checkIn);
       mav.addObject("bo_checkOut",bo_checkOut);
-      
       //mav.addObject("accImageList",accImageList);
       return mav;
    }
@@ -88,6 +84,41 @@ public class SearchControllerImpl implements SearchController{
       mav.setViewName("/search/selectSearch");
       mav.addObject("accList",accList);
       mav.addObject("accListType",accListType);
+      mav.addObject("bo_checkIn",bo_checkIn);
+      mav.addObject("bo_checkOut",bo_checkOut);
+      //mav.addObject("accImageList",accImageList);
+      return mav;
+   }
+   
+   @Override
+   @GetMapping("/search/selectPrice.do")
+   public ModelAndView listPrice(
+         @ModelAttribute("acc") AccommodationDTO acc,
+         @RequestParam(value = "aname", required = false) String acc_name,
+         @RequestParam(value = "area", required = false) String acc_area,
+         @RequestParam(value = "datetimes", required = false) String datetimes,
+         @RequestParam(value = "checkIn", required = false) String bo_checkIn,
+         @RequestParam(value = "checkOut", required = false) String bo_checkOut,
+         @RequestParam(value = "acc_type", required = false) String acc_type,
+         @RequestParam(value = "minPrice", required = false) int minPrice,
+         @RequestParam(value = "maxPrice", required = false) int maxPrice,
+         HttpServletRequest request, 
+         HttpServletResponse response) throws Exception {
+      
+      
+      
+      List accList=searchService.selectAll();      // 숙소 전체 리스트
+
+      List accListsrch=searchService.search(acc);   // 숙소 검색 리스트(이름,지역)
+      
+      List accListType=searchService.searchType(acc);// 숙소 검색 리스트(타입)
+      
+      List accRangePrice=searchService.rangePrice(acc_name,acc_area,minPrice,maxPrice);
+      
+      //List accImageList=searchService.searchImage(acc);   //숙소 검색 이미지 리스트(이름,지역) (1개만 가져옴)
+      ModelAndView mav=new ModelAndView();
+      mav.setViewName("/search/selectSearch");
+      mav.addObject("accListsrch",accListsrch);
       mav.addObject("bo_checkIn",bo_checkIn);
       mav.addObject("bo_checkOut",bo_checkOut);
       //mav.addObject("accImageList",accImageList);

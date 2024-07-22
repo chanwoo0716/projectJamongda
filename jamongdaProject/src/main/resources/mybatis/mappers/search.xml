@@ -42,7 +42,20 @@
        <result property="acc_id" column="acc_id"/>
     </resultMap>
     
-
+   <resultMap type="SearchDTO" id="searchResult">
+       <result property="acc_id" column="acc_id"/>
+       <result property="acc_name" column="acc_name"/>
+       <result property="acc_area" column="acc_area"/> 
+       <result property="acc_type" column="acc_type"/>
+       <result property="acc_tel" column="acc_tel"/>
+       <result property="acc_address" column="acc_address"/>
+       <result property="acc_info" column="acc_info"/>
+       <result property="email" column="email"/>
+       <result property="regCheck" column="regCheck"/>
+       <result property="rejectReason" column="rejectReason"/>
+       <result property="acc_image" column="acc_image"/>
+       <result property="ro_price" column="ro_price"/>
+    </resultMap>
     
     
     <select id="selectAllAccsList" resultMap="accResult">
@@ -63,29 +76,89 @@
        </where>
     </select>-->
     <!--2024-07-20수정-->
-    <select id="searchAccList" parameterType="AccommodationDTO" resultMap="accResult">
-       SELECT * 
-    FROM accommodation
+    <select id="searchAccList" parameterType="SearchDTO" resultMap="searchResult">
+       <!--SELECT * 
+    FROM jamongda.accommodation
     WHERE regCheck LIKE CONCAT('%', 'Y', '%')
       AND acc_area LIKE CONCAT('%', #{acc_area}, '%')
-      AND acc_name LIKE CONCAT('%', #{acc_name}, '%')
+      AND acc_name LIKE CONCAT('%', #{acc_name}, '%')-->
+      <![CDATA[
+      SELECT a.*, ai.acc_image, r.ro_price
+      FROM accommodation a
+      LEFT JOIN (
+          SELECT ai1.acc_id, ai1.acc_image
+          FROM acc_image ai1
+          JOIN (
+              SELECT acc_id, MIN(acc_image) AS acc_image
+              FROM acc_image
+              GROUP BY acc_id
+          ) ai2 ON ai1.acc_id = ai2.acc_id AND ai1.acc_image = ai2.acc_image
+      ) ai ON a.acc_id = ai.acc_id
+      LEFT JOIN (
+          SELECT r1.acc_id, MIN(r1.ro_price) AS ro_price
+          FROM room r1
+          GROUP BY r1.acc_id
+      ) r ON a.acc_id = r.acc_id
+            WHERE regCheck LIKE CONCAT('%', 'Y', '%')
+            AND acc_area LIKE CONCAT('%', #{acc_area}, '%')
+               AND acc_name LIKE CONCAT('%', #{acc_name}, '%')
+               
+          ]]>
     </select>
     
-    <select id="searchAccImageList" parameterType="AccommodationDTO" resultMap="accResult">
-       SELECT * 
-    FROM accommodation
+    <select id="searchAccType" parameterType="SearchDTO" resultMap="searchResult">
+       <!--SELECT * 
+    FROM jamongda.accommodation
     WHERE regCheck LIKE CONCAT('%', 'Y', '%')
-      AND acc_area LIKE CONCAT('%', #{acc_area}, '%')
-      AND acc_name LIKE CONCAT('%', #{acc_name}, '%')
-    </select>
-    
-    <select id="searchAccType" parameterType="AccommodationDTO" resultMap="accResult">
-       SELECT * 
-    FROM accommodation
-    WHERE regCheck LIKE CONCAT('%', 'Y', '%')
-    AND acc_type LIKE CONCAT('%', #{acc_type}, '%')
+    AND acc_type LIKE CONCAT('%', #{acc_type}, '%')-->
+    <![CDATA[
+      SELECT a.*, ai.acc_image, r.ro_price
+      FROM accommodation a
+      LEFT JOIN (
+          SELECT ai1.acc_id, ai1.acc_image
+          FROM acc_image ai1
+          JOIN (
+              SELECT acc_id, MIN(acc_image) AS acc_image
+              FROM acc_image
+              GROUP BY acc_id
+          ) ai2 ON ai1.acc_id = ai2.acc_id AND ai1.acc_image = ai2.acc_image
+      ) ai ON a.acc_id = ai.acc_id
+      LEFT JOIN (
+          SELECT r1.acc_id, MIN(r1.ro_price) AS ro_price
+          FROM room r1
+          GROUP BY r1.acc_id
+      ) r ON a.acc_id = r.acc_id
+      WHERE regCheck LIKE CONCAT('%', 'Y', '%')
+      AND acc_type LIKE CONCAT('%', #{acc_type}, '%')
+      ]]>
     </select>
     <!--2024-07-20수정완료-->
+    
+    <select id="searchPriceRange" parameterType="Map" resultType="SearchDTO">
+       <![CDATA[
+      SELECT a.*, ai.acc_image, r.ro_price
+      FROM accommodation a
+      LEFT JOIN (
+          SELECT ai1.acc_id, ai1.acc_image
+          FROM acc_image ai1
+          JOIN (
+              SELECT acc_id, MIN(acc_image) AS acc_image
+              FROM acc_image
+              GROUP BY acc_id
+          ) ai2 ON ai1.acc_id = ai2.acc_id AND ai1.acc_image = ai2.acc_image
+      ) ai ON a.acc_id = ai.acc_id
+      LEFT JOIN (
+          SELECT r1.acc_id, MIN(r1.ro_price) AS ro_price
+          FROM room r1
+          GROUP BY r1.acc_id
+      ) r ON a.acc_id = r.acc_id
+            WHERE regCheck LIKE CONCAT('%', 'Y', '%')
+            AND acc_area LIKE CONCAT('%', #{acc_area}, '%')
+               AND acc_name LIKE CONCAT('%', #{acc_name}, '%')
+               AND ro_price BETWEEN #{minPrice} AND #{maxPrice}
+          ]]>
+    
+    </select>
     
     <select id="selectAccId" resultType="AccommodationDTO" parameterType="int">
        <![CDATA[
@@ -134,12 +207,4 @@
         JOIN accommodation a ON m.email = a.email
         WHERE a.acc_id = #{acc_id}
     </select>
-    
-    <!-- 최소가 가격 가져오기-->
-    <select id="roomMinPrice" resultType="map" parameterType="int">
-       SELECT a.acc_id, MIN(r.ro_price) AS min_price
-      FROM accommodation AS a
-      JOIN room AS r ON a.acc_id = r.acc_id
-      GROUP BY a.acc_id;
-    </select> 
  </mapper>
