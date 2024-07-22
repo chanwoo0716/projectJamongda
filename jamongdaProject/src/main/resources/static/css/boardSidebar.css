@@ -15,10 +15,9 @@ body {
   margin: 0 auto;
   padding: 0 auto;
 }
-
-#adminSidebar {
+#boardSidebar {
    position : relative;
-   top: 50px;
+   top: -260px;
    left: 50px;
    display: inline-block;
     width: 220px; /* 사이드바의 너비 */
@@ -27,18 +26,18 @@ body {
     border-radius: 15px; /* 모서리를 둥글게 */
     margin: 20px; /* 외부 여백 */
 }
-#adminSidebar h3 {
+#boardSidebar h3 {
     margin: 20px 0; /* 제목 사이의 여백 */
     font-size: 1.2em; /* 글자 크기 */
     text-align: center; /* 텍스트 가운데 정렬 */
    border-bottom : 1px solid #dedede;
    padding-bottom: 20px; /* 아래쪽 여백 */
 }
-#adminSidebar h3:last-child {
+#boardSidebar h3:last-child {
     border-bottom: none; /* 마지막 h3의 border-bottom 제거 */
    padding-bottom: 0;
 }
-#adminSidebar a {
+#boardSidebar a {
     text-decoration: none; /* 링크 밑줄 제거 */
     color: #333333; /* 링크 색상 */
     display: block; /* 블록 요소로 설정 */
@@ -46,14 +45,14 @@ body {
     border-radius: 4px; /* 링크의 모서리를 둥글게 */
     transition: background-color 0.1s ease; /* 배경색 전환 효과 */
 }
-#adminSidebar a:visited{
+#boardSidebar a:visited{
    color: #333333;
 }
 /*
-#adminSidebar a:hover {
+#boardSidebar a:hover {
    color: #1273E4;
 }
 */
-#adminSidebar a.active {
+#boardSidebar a.active {
     color: #1273E4; /* 클릭된 앵커의 색상 */
 }

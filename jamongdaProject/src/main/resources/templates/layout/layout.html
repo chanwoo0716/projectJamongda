@@ -7,10 +7,16 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/adminSidebar.css}" />
 <link rel="stylesheet" type="text/css" th:href="@{/css/hostSidebar.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/css/boardSidebar.css}" />
 </head>
 <body>
    <div id="container">
       <header th:replace="layout/header :: header"></header>
+	  <div id="content" layout:fragment="content"></div>
+	  <div id="boardSidebar" th:if="${boardSidebar != null}">
+	      <div th:replace="~{${boardSidebar} :: sidebar}"></div>
+	  </div>
+	  <div th:if="${boardSidebar == null}"></div>
       <div id="adminSidebar" th:if="${adminSidebar != null}">
           <div th:replace="~{${adminSidebar} :: sidebar}"></div>
       </div>
@@ -19,8 +25,7 @@
           <div th:replace="~{${hostSidebar} :: sidebar}"></div>
       </div>
       <div th:if="${hostSidebar == null}"></div>
-      <div id="content" layout:fragment="content"></div>
-      <footer th:replace="layout/footer :: footer"></footer>
+	  <footer th:replace="layout/footer :: footer"></footer>
    </div>
 </body>
 </html>

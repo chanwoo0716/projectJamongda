@@ -38,12 +38,6 @@ public class SearchServiceImpl implements SearchService{
    }
    
    @Override
-   public List searchImage(AccommodationDTO acc) throws DataAccessException {
-      List accImageList=searchDAO.searchAccImageList(acc);
-      return accImageList;
-   }
-   
-   @Override
    public List searchType(AccommodationDTO acc) throws DataAccessException {
       List accListType=searchDAO.searchAccType(acc);
       return accListType;
@@ -69,6 +63,16 @@ public class SearchServiceImpl implements SearchService{
       return accImageList;
    }
    */
+   @Override
+   public List rangePrice(String acc_area, String acc_name,int minPrice, int maxPrice) throws DataAccessException{
+      Map<String, Object> params = new HashMap<>();
+      params.put("acc_area", acc_area);
+       params.put("acc_name", acc_name);
+        params.put("minPrice", minPrice);
+        params.put("maxPrice", maxPrice);
+        List accRangePrice=searchDAO.searchPriceRange(params);
+        return accRangePrice;
+   }
    
    //숙소상세보기
       @Override
@@ -125,10 +129,5 @@ public class SearchServiceImpl implements SearchService{
       public Map<String, Object> getHostInfo(int acc_id) throws Exception {
          return searchDAO.selectHostInfo(acc_id);
       }
-      
-      
-      @Override
-      public Map<String, Object> getRoPrice(int acc_id) throws Exception {
-         return searchDAO.roomMinPrice(acc_id);
-      }  
+   
 }
