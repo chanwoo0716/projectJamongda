@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>JAMONGDA : Coming Soon</title>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/comingSoon.css}" />
+	<style>
+		html, body {
+		    height: 100%;
+		    margin: 0;
+		    font-family: Arial, sans-serif;
+		}
+
+		#coming_soon {
+		    display: flex;
+		    flex-direction: column;
+		    justify-content: center;
+		    align-items: center;
+		    height: 100vh; /* Viewport height */
+		    background-color: #f0f0f0;
+		    text-align: center;
+		}
+
+		.coming_article {
+		    background-color: #fff;
+		    padding: 40px;
+		    border-radius: 10px;
+		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		    max-width: 600px;
+		    width: 100%;
+		}
+
+		h1 {
+		    font-size: 3em; 
+		    margin: 0.5em 0;
+		    color: #ff6F61;
+		}
+
+		p {
+		    font-size: 1.2em;
+		    color: #666;
+		    margin: 0.5em 0;
+		}
+
+		.home_btn {		
+		    color: #666;
+		    border: none;
+		    padding: 15px 30px;
+		    font-size: 1.2em;
+		    cursor: pointer;
+		    margin-top: 1em;
+		}
+		
+		.home_btn:hover{
+			color: #FF6F61;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="coming_soon">
+		<img th:src="@{/images/JAMONGDA_logo.png}" alt="logo" width="200">
+		<div class="comming_article">
+			<h1>Coming Soon</h1>
+			<p>죄송합니다. 오픈 예정 홈페이지 입니다</p>
+			<p>홈으로 이동 부탁드립니다:)</p>
+			<button type="button" class="home_btn" onclick="location.href='main.do'">홈으로 이동하기</button>
+		</div>
+	</div>
+</body>
+
+</html>
