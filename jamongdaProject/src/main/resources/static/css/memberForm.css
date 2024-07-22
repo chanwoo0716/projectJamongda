@@ -19,6 +19,8 @@ form{
 	border-top:0.1em solid rgb(255, 111, 97) ;
 	padding-top: 3%;
 }
+
+/*회원가입 영역*/
 .form-container {
     width: 30%;
     margin: auto;
@@ -33,11 +35,6 @@ h2 {
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 5%;
-    text-align: left; /* 각 폼 그룹의 텍스트 정렬을 좌측으로 설정 */
 }
 
 /*제목 설정*/
@@ -55,11 +52,17 @@ small {
     margin-bottom: 10px;
     color: #666;
 }
+
 /*이메일 영역*/
+.form-group {
+    margin-bottom: 5%;
+    text-align: left; /* 각 폼 그룹의 텍스트 정렬을 좌측으로 설정 */
+}
+
 .email-input {
     display: flex;
     align-items: center;
-	gap: 3%;
+	gap: 2%;
 }
 
 /*중복확인 버튼*/
@@ -77,10 +80,15 @@ small {
 	cursor: pointer;
 }
 
-#checkEmailBtn:active{
+#checkEmailBtn:hover{
 	color: #ff6f61;
 }
 
+/*
+.email_mem : 이메일 입력란
+.text : 이메일 제외 모든 입력란
+.sendBtn : 
+*/
 .email_mem, .text, .sendBtn, .confirmBtn, .submitBtn {
     width: 70%;
     height: 40px;
@@ -140,7 +148,7 @@ small {
     width: 40%;
 	height: 40px;
     margin-right: 10px;
-	padding: 0 5%;
+	padding: 0 2%;
 	font-size: 1.1em;
 }
 
