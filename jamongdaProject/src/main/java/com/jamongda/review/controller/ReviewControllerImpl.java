@@ -1,0 +1,83 @@
+package com.jamongda.review.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.jamongda.member.dto.MemberDTO;
+import com.jamongda.review.dto.ReviewDTO;
+import com.jamongda.review.service.ReviewService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+@Controller("reviewControllerImpl")
+public class ReviewControllerImpl implements ReviewController {
+    @Autowired
+    ReviewService reviewService;
+
+    @Override
+    @GetMapping("/review/reviewForm.do")
+    public ModelAndView reviewForm(@RequestParam("number") Long bo_number,
+                                   @RequestParam("aname") String acc_name,
+                                   @RequestParam("rname") String ro_name,
+                                   @RequestParam("rid") String ro_id,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response) throws Exception {
+        ModelAndView mav = new ModelAndView();
+
+        HttpSession session = request.getSession();
+        MemberDTO guest = (MemberDTO) session.getAttribute("guest");
+
+        System.out.println("Booking number: " + bo_number);
+        mav.addObject("guest", guest);
+        mav.addObject("bo_number", bo_number);
+        mav.addObject("acc_name", acc_name);
+        mav.addObject("ro_id", ro_id);
+        mav.addObject("ro_name", ro_name);
+        mav.setViewName("/review/reviewForm");
+        return mav;
+    }
+
+    @Override
+    @PostMapping("/review/insertReview.do")
+    public ModelAndView insertReview(@RequestParam("rev_content") String rev_content,
+                                     @RequestParam("ro_id") int ro_id,
+                                     @RequestParam("email") String email,
+                                     @RequestParam(value = "images", required = false) List<MultipartFile> images,
+                                     HttpServletRequest request,
+                                     HttpServletResponse response) throws Exception {
+        System.out.println("Review content: " + rev_content);
+        System.out.println("Room ID: " + ro_id);
+        System.out.println("Email: " + email);
+        System.out.println("Images: " + (images == null ? "No images" : images.size()));
+
+        // Email을 session에서 가져오는 경우 (중복 확인 필요)
+        HttpSession session = request.getSession();
+        MemberDTO guest = (MemberDTO) session.getAttribute("guest");
+        if (guest != null) {
+            email = guest.getEmail();
+        }
+
+        // 리뷰 DTO 설정
+        ReviewDTO reviewDTO = new ReviewDTO();
+        reviewDTO.setRev_content(rev_content);
+        reviewDTO.setRo_id(ro_id);
+        reviewDTO.setEmail(email);
+
+        // 리뷰 삽입
+        reviewService.insertReview(reviewDTO, images);
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("redirect:/review/success");
+        return mav;
+    }
+
+}

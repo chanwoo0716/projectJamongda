@@ -60,6 +60,17 @@
 	    margin-bottom: 20px;
 	}
 
+	.review-link, .reBooking-link {
+		padding: 10px 50px;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		background-color: #fafafa;
+	}
+	
+	.review-link:hover, .reBooking-link:hover {
+	    background-color: rgb(212, 212, 212); /* Darker green on hover */
+	}
+
 	.booking-history h2 {
 	    margin-bottom: 20px;
 	}
@@ -143,15 +154,16 @@
 		        <p>안녕하세요</p>
 				<form action="/member/updateMemberForm.do" method="post" id="updateMemberForm">
 				    <input type="hidden" name="email" th:value="${guest.email}">
+				    <input type="hidden" name="ro_id" th:value="${latestBooking.ro_id}">
 				    <button type="submit">내 정보 관리 ></button>
 				</form>
 		    </div>
-			<!--
+			
 	        <div class="reviews">
-	            <span>작성된 후기</span>
+	            <span>내가 쓴 리뷰보기</span>
 	            <span>19</span>
 	        </div>
-			-->
+			
 		    <div class="booking-history">
 		    	<div>
 			        <h2>예약내역 <a href="/mypage/allBookings.do" class="details-link">더보기</a></h2>
@@ -160,19 +172,29 @@
 				    <div class="booking-header">
 				        <span class="booking-date" th:text="'결제일자 : ' + ${latestBooking['payDate']}"></span>
 				        <span class="booking-number" th:text="'예약번호 : ' + ${latestBooking['bo_number']}"></span>
-						<a href="#" class="details-link" th:attr="onclick='openPopup(' + ${latestBooking['bo_number']} + ')'">상세보기</a>
+						<a href="#" class="details-link" th:attr="onclick='openPopup(' + ${latestBooking['bo_number']} + ')'">상세보기</a>						
 				    </div>
 				    <div class="booking-content">
 				        <img src="https://via.placeholder.com/100" alt="호텔 이미지" class="acc-image">
 				        <div class="hotel-info">
 				            <div class="acc-name" th:text="${latestBooking['acc_name']}"></div>
 				            <div class="ro_name" th:text="${latestBooking['ro_name']}"></div>
+				            <input type="hidden" th:text="${latestBooking['ro_id']}"></input>
 				            <div class="booking-dates" th:text="${latestBooking['bo_checkIn']} + ' ~ ' + ${latestBooking['bo_checkOut']} + ' | ???박'"></div>
 				            <div class="check-in-out" th:text="'체크인 ' + ${latestBooking['ro_checkIn']} + ' | 체크아웃 ' + ${latestBooking['ro_checkOut']}"></div>
 				        </div>
 				    </div>
+					<div >
+						<!-- 수정전 1
+						<button id="review-button" class="review-link" th:if="${isPastCheckout}">리뷰 등록</button>
+						<button id="review-button" class="review-link" th:if="${isPastCheckout}">다시 예약</button>						
+						-->
+						<a th:href="@{/review/reviewForm.do(number=${latestBooking.bo_number},aname=${latestBooking.acc_name},rid=${latestBooking.ro_id},rname=${latestBooking.ro_name})}" class="review-link" th:if="${isPastCheckout}">리뷰 등록</a>
+					</div>
 				</div>
 		    </div>
+			
+			<!-- 고객센터 섹션 -->
 			<div class="chatbot-section">
 				<h2>고객센터</h2>
 				<div>

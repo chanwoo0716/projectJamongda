@@ -12,7 +12,7 @@ public interface MypageController {
 	public ModelAndView mypageForm(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	// 마이페이지 예약내역 더보기 누르면 해당 회원 전체 예약내역
-    public ModelAndView allBookings(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView allBookings(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
     // 상세보기 누르면 예약번호 가지고가서 예약정보 조회
     public ModelAndView myBookingDetails(@RequestParam("number") Long bo_number,

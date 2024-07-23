@@ -1,5 +1,5 @@
 let phoneCheck = false; // 휴대폰 인증 여부를 저장하는 변수 추가
-let pwdCheck = false;	// 비밀번호 확인 여부
+let pwdCheck = false;   // 비밀번호 확인 여부
 let emailCheck = false; // 이메일 인증완료 여부
 let emailChecked = false; // 이메일 중복확인 완료 여부를 저장하는 변수 추가
 
@@ -37,35 +37,34 @@ $(document).ready(function() {
         });
     });
 
-    // 이메일 인증 완료 후 입력란 blur 이벤트 처리
-    $('.mail-check-input').blur(function () {
-        const inputCode = $(this).val();
-        const $resultMsg = $('#mail-check-warn');
-        
-        if (inputCode === code) {
-            $resultMsg.text('인증번호가 일치합니다.');
-            $resultMsg.css('color', 'green');
-            $('#mail-Check-Btn').prop('disabled', true);
-            $('#email_mem').attr('readonly', true);
-            $('#email_domain').prop('disabled', true);
-            emailChecked = true; // 이메일 중복확인 상태를 true로 변경
-            emailCheck = true; // 이메일 인증 완료 상태를 true로 변경
-        } else {
-            $resultMsg.text('인증번호가 불일치합니다. 다시 확인해주세요.');
-            $resultMsg.css('color', 'red');
-        }
-    });
-	
-	// 전화번호 입력란에 이벤트 리스너 추가
+	// 이메일 인증 완료 후 입력란 blur 이벤트 처리
+	$('.mail-check-input').blur(function () {
+	    const inputCode = $(this).val();
+	    
+	    if (inputCode === code) {
+			alert('이메일 인증이 정상적으로 완료되었습니다.');
+	        $('#mail-Check-Btn').prop('disabled', true);
+	        $('#email_mem').attr('readonly', true);
+	        $('#email_domain').prop('disabled', true);
+	        emailChecked = true; // 이메일 중복확인 상태를 true로 변경
+	        emailCheck = true; // 이메일 인증 완료 상태를 true로 변경
+	    } else {
+			alert('인증번호가 불일치합니다. 다시 확인해주세요.');
+	        emailChecked = false; // 이메일 중복확인 상태를 true로 변경
+	        emailCheck = false; // 이메일 인증 완료 상태를 true로 변경
+	    }
+	});
+   
+   // 전화번호 입력란에 이벤트 리스너 추가
     $('#tel').on('input', function() {
         // 전화번호가 "010"으로 시작하는지 확인
         if ($(this).val().startsWith("010")) {
             $('#phone-Check-Btn').prop('disabled', false); // 인증 버튼 활성화
-			$('#inputCertifiedNumber').prop('required', true); // 인증번호 입력란 required 추가
+         $('#inputCertifiedNumber').prop('required', true); // 인증번호 입력란 required 추가
         } else {
             $('#phone-Check-Btn').prop('disabled', true); // 본인인증 버튼 비활성화
-			$('#inputCertifiedNumber').prop('required', false); // 인증번호 입력란 required 제거
-			phoneCheck=true;
+         $('#inputCertifiedNumber').prop('required', false); // 인증번호 입력란 required 제거
+         phoneCheck=true;
         }
     });
 
@@ -103,7 +102,7 @@ $(document).ready(function() {
                                 "tel": $('#tel').val().replace(/[^0-9]/g, '')
                             },
                             success: function() {
-                                document.location.href="/main.do"; // 메인 페이지로 이동
+								
                             },
                             error: function() {
                                 // 오류 처리
@@ -221,39 +220,39 @@ function validateForm() {
     // 필수 입력 사항 유효성 검사 및 사업자 등록번호 인증 상태 확인
     if (regNumCheck && emailChecked && phoneCheck) {
         // 폼 제출을 허용하기 위해 true를 반환
-		alert("가입이 완료되었습니다. 로그인 후 이용해주세요.");
+      alert("가입이 완료되었습니다. 로그인 후 이용해주세요.");
         return true;
     } else {
-		if(!regNumCheck){
-	        // 인증이 실패한 경우 폼 제출을 막기 위해 false를 반환
-	        alert("사업자 등록번호를 인증해주세요.");		
-		}else if(!emailChecked){
-			alert("이메일 중복 확인을 해주세요.");
-		}else if(!emailCheck){
-			alert("이메일 인증을 완료해주세요.");			
-		}else if(!phoneCheck){
-			alert("휴대폰 인증을 먼저 완료해주세요.");	
-		}
+      if(!regNumCheck){
+           // 인증이 실패한 경우 폼 제출을 막기 위해 false를 반환
+           alert("사업자 등록번호를 인증해주세요.");      
+      }else if(!emailChecked){
+         alert("이메일 중복 확인을 해주세요.");
+      }else if(!emailCheck){
+         alert("이메일 인증을 완료해주세요.");         
+      }else if(!phoneCheck){
+         alert("휴대폰 인증을 먼저 완료해주세요.");   
+      }
     }
         return false;
 }
 
 
 function pwd_Chk() {
-	console.log("pwdChk함수호출");
-	let pwd = document.getElementById("pwd").value;
-	let pwdChk = document.getElementById("pwdChk").value;
-	let pwdChk_msg = document.getElementById("pwdChk_msg");
-	let submitBtn = document.getElementById("submitBtn");
-	if (pwd == pwdChk) {
-		pwdChk_msg.textContent = "비밀번호가 일치합니다."
-		pwdChk_msg.className = "chkSucess";
-		submitBtn.disabled = false;
-	} else {
-		pwdChk_msg.textContent = "비밀번호가 일치하지 않습니다."
-		pwdChk_msg.className = "chkFail";
-		submitBtn.disabled = true;
-	}
+   console.log("pwdChk함수호출");
+   let pwd = document.getElementById("pwd").value;
+   let pwdChk = document.getElementById("pwdChk").value;
+   let pwdChk_msg = document.getElementById("pwdChk_msg");
+   let submitBtn = document.getElementById("submitBtn");
+   if (pwd == pwdChk) {
+      pwdChk_msg.textContent = "비밀번호가 일치합니다."
+      pwdChk_msg.className = "chkSucess";
+      submitBtn.disabled = false;
+   } else {
+      pwdChk_msg.textContent = "비밀번호가 일치하지 않습니다."
+      pwdChk_msg.className = "chkFail";
+      submitBtn.disabled = true;
+   }
 };
 
 function showPassword(id) {
@@ -265,13 +264,13 @@ function hidePassword(id) {
 }
 
 function oninputTel(target) {
-	target.value = target.value
-		.replace(/[^0-9]/g, '')
-		.replace(/(\d{2,3})(\d{3,4})(\d{4})/, "$1-$2-$3");
+   target.value = target.value
+      .replace(/[^0-9]/g, '')
+      .replace(/(\d{2,3})(\d{3,4})(\d{4})/, "$1-$2-$3");
 }
 
 function oninputRegNum(target) {
-	target.value = target.value
-		.replace(/[^0-9]/g, '')
-		.replace(/(\d{3})(\d{2})(\d{5})/, "$1-$2-$3");
+   target.value = target.value
+      .replace(/[^0-9]/g, '')
+      .replace(/(\d{3})(\d{2})(\d{5})/, "$1-$2-$3");
 }
