@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>리뷰 작성</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<style>
+	html,
+	body {
+	  position: relative;
+	  min-width: 1250px;
+	  max-width: 1920px;
+	  margin: 0 auto;
+	}
+
+	body {
+	  background: rgb(252, 252, 252);
+	  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+	  font-size: 14px;
+	  color: #000;
+	  margin: 0 auto;
+	  padding: 0 auto;
+	}
+
+	div {
+		margin: 30px 20px;
+	}
+	
+	.review-form-container {
+	    width: 80%;
+	    max-width: 600px;
+	    margin: 40px auto;
+	    padding: 20px;
+	    background: #ffffff;
+	    border-radius: 8px;
+	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
+
+	.review-form-container h1 {
+	    font-size: 24px;
+	    margin-bottom: 20px;
+	    color: #333;
+	}
+
+	.form-control {
+	    width: 100%;
+	    padding: 10px;
+	    font-size: 14px;
+	    border: 1px solid #ced4da;
+	    border-radius: 4px;
+	    box-sizing: border-box;
+	}
+
+	.form-control:focus {
+	    border-color: #80bdff;
+	    outline: none;
+	    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+	}
+	
+	.file-upload-section {
+	    position: relative;
+	    width: 100%;
+	    max-width: 400px;
+	    margin: 20px auto;
+	    text-align: center;
+	}
+
+	.file-upload-label {
+	    display: inline-block;
+	    background-color: #f4f4f4;
+	    padding: 10px;
+	    border: 2px dashed #ccc;
+	    border-radius: 10px;
+	    cursor: pointer;
+	    font-size: 16px;
+	    color: #555;
+	    position: relative;
+	    width: 100%;
+	    height: 200px; /* 버튼의 높이를 크게 설정 */
+	    overflow: hidden;
+	}
+
+	.file-upload-input {
+	    display: none;
+	}
+
+	.file-upload-label img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: cover;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    border-radius: 10px;
+	    display: none;
+	}
+
+	.file-upload-label .placeholder {
+	    display: block;
+	}
+
+	.file-upload-label img.show {
+	    display: block;
+	}
+</style>
+<script>
+	function previewImage(event) {
+	    var reader = new FileReader();
+	    reader.onload = function(){
+	        var img = document.getElementById('preview-img');
+	        img.src = reader.result;
+	        img.classList.add('show'); // 이미지를 보여줍니다
+	    };
+	    reader.readAsDataURL(event.target.files[0]);
+	}
+</script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div class="review-form-container">
+            <h1>리뷰를 작성해주세요</h1>
+            <form action="/review/insertReview.do" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="ro_id" th:value="${ro_id}">
+                <input type="hidden" name="email" th:value="${email}">
+                <div class="">
+                    <h3>이용한 숙소</h3>
+                    <p id="acc_name" th:text="${acc_name}"></p>
+                    <p id="ro_name" th:text="${ro_name}"></p>
+                </div>
+                
+                <div class="">
+                    <label for="review">리뷰</label>
+                    <textarea id="rev_content" name="rev_content" rows="5" class="form-control" required
+                              placeholder="좋은 여행되셨나요? 객실에 대한 솔직한 리뷰를 남겨주세요!"></textarea>
+                </div>
+                
+                <div class="file-upload-section">
+                    <label for="image" class="file-upload-label">
+                        <span class="placeholder">사진을 추가해주세요</span>
+                        <input type="file" name="images" id="image" class="file-upload-input" multiple onchange="previewImage(event)" />
+                        <img id="preview-img" />
+                    </label>
+                </div>
+                
+                <div class="">
+                    <button type="submit" class="btn-submit">제출</button>
+                </div>
+            </form>
+        </div>
+    </th:block>
+</body>
+</html>

@@ -16,7 +16,7 @@ public interface MypageDAO {
     
     // 이메일을 가지고 모든 예약 정보를 가져옴
     public List<Map<String, Object>> getAllBoInfoByEmail(String email) throws DataAccessException;
-
+    
     // 상세보기 누르면 예약번호 가지고가서 예약정보 조회
     public Map<String, Object> myBookingDetails(Long bo_number) throws DataAccessException;
 }
