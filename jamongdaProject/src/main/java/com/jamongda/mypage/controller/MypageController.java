@@ -17,4 +17,13 @@ public interface MypageController {
     // 상세보기 누르면 예약번호 가지고가서 예약정보 조회
     public ModelAndView myBookingDetails(@RequestParam("number") Long bo_number,
     		HttpServletRequest request, HttpServletResponse response) throws Exception;
+    
+    // 회원 이메일로 리뷰내역 불러오기
+    public ModelAndView getMyReviews(@RequestParam("email") String email,
+    		@RequestParam("page") int page, @RequestParam("size") int size,
+    		HttpServletRequest request, HttpServletResponse response) throws Exception;
+    
+//    public ResponseEntity<List<ReviewDTO>> getReviewsAjax(@RequestParam("email") String email,
+//            @RequestParam(value = "page", defaultValue = "1") int page,
+//            @RequestParam(value = "size", defaultValue = "5") int size) throws Exception;
 }

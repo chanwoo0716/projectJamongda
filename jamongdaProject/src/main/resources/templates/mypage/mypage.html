@@ -160,8 +160,12 @@
 		    </div>
 			
 	        <div class="reviews">
-	            <span>내가 쓴 리뷰보기</span>
-	            <span>19</span>
+				<form action="/mypage/myReviews.do" method="post" id="myReviews">
+				    <input type="hidden" name="email" th:value="${guest.email}">
+				    <button type="submit">내가 쓴 리뷰보기</button>
+				</form>
+				
+	            <span>후기 개수 : </span>
 	        </div>
 			
 		    <div class="booking-history">
@@ -185,11 +189,8 @@
 				        </div>
 				    </div>
 					<div >
-						<!-- 수정전 1
-						<button id="review-button" class="review-link" th:if="${isPastCheckout}">리뷰 등록</button>
-						<button id="review-button" class="review-link" th:if="${isPastCheckout}">다시 예약</button>						
-						-->
 						<a th:href="@{/review/reviewForm.do(number=${latestBooking.bo_number},aname=${latestBooking.acc_name},rid=${latestBooking.ro_id},rname=${latestBooking.ro_name})}" class="review-link" th:if="${isPastCheckout}">리뷰 등록</a>
+						<a th:href="@{/search/detailSearch.do(aid=${latestBooking.acc_id})}" class="reBooking-link">다시 예약</a>
 					</div>
 				</div>
 		    </div>

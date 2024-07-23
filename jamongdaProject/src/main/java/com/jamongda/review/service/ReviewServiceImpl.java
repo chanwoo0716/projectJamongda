@@ -14,6 +14,7 @@ import com.jamongda.review.dto.ReviewImageDTO;
 
 @Service("reviewService")
 public class ReviewServiceImpl implements ReviewService {
+	
     @Autowired
     private ReviewDAO reviewDAO;
 
@@ -47,5 +48,6 @@ public class ReviewServiceImpl implements ReviewService {
         
         return fileName; // 저장된 파일 이름 반환
     }
+
 }
 
