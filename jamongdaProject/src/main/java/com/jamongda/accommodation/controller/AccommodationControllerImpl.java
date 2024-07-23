@@ -129,10 +129,15 @@ public class AccommodationControllerImpl implements AccommodationController {
 		
 		String email = memberDTO.getEmail();
 		
+		// 회원 예약 리스트 가져오기
+		
+		
+		
+		
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/accommodation/manageReservation");
-		mav.addObject("sidebar", "accommodation/hostSidebar");
-		mav.addObject("email", email);
+		mav.addObject("hostSidebar", "accommodation/hostSidebar");
 		return mav;
 	}
 
@@ -167,17 +172,18 @@ public class AccommodationControllerImpl implements AccommodationController {
 		Map<String, List<String>> roMap = new HashMap<String, List<String>>();
 
 		// 로그인할 때 세션에 그 사람의 이메일 담아서 오면 여기서 getAttribute로 꺼내서 accMap에 put해야함
-		// 사업자만 여기로 오게 될 거다. 그거는 로그인에서 처리함
 		/*
-		 * HttpSession session = multipartRequest.getSession(); MemberDTO
-		 * memberDTO=(MemberDTO)session.getAttribute("email"); String
-		 * email=memberDTO.getEmail(); accMap.put("email", email); // *accMap에
-		 * email넣어야함(accommodation테이블,member테이블)
-		 */
-		// *임시 이메일 테스트용
+		임시 이메일 테스트용
 		String email = "guro@shillastay.com";
 		accMap.put("email", email);
-
+		*/
+		
+		HttpSession session = multipartRequest.getSession(false);
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("host");
+		String email = memberDTO.getEmail();
+		accMap.put("email", email);
+		
+		
 		// (accMap, roMap) accRoMap에 accMap과 roMap 담기(숙소,객실 구분).
 		Enumeration enu = multipartRequest.getParameterNames(); // name들 열거
 

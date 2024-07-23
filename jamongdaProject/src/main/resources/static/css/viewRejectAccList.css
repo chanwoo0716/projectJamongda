@@ -180,27 +180,29 @@ form{
 
 
 .acc-details p {
-    margin: 10px 0; /* 각 항목 사이의 여백 추가 */
-    font-size: 1.1em; /* 글자 크기 조정 */
-    line-height: 1.5; /* 줄 간격 조정 */
+    margin: 10px 0;
+    font-size: 1.1em;
+    line-height: 1.5;
    font-weight: bold;
    padding-left : 25px; 
 }
 
+
 .acc-details p span {
-    /*display: block; /* 블록 요소로 설정하여 줄바꿈 효과 */
-    margin-top: 5px; /* 항목 이름과 값 사이의 여백 추가 */
+    /*display: block;*/
+    margin-top: 5px;
    font-weight: normal;
 }
-
+/*
 .acc-details p span:first-child {
-    /*font-weight: bold; /* 항목 이름을 볼드체로 설정 */
-    color: #333; /* 색상 설정 */
+    font-weight: bold;
+    color: #333;
 }
 
 .acc-details p span:last-child {
-    color: #555; /* 항목 값의 색상 설정 */
+    color: #555;
 }
+*/
 
 .acc-details .section-title {
     background-color: #f8f8f8; /* 제목 배경색 설정 */
