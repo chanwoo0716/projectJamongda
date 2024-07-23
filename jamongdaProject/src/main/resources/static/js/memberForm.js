@@ -40,19 +40,18 @@ $(document).ready(function() {
     // 이메일 인증 완료 후 입력란 blur 이벤트 처리
     $('.mail-check-input').blur(function () {
         const inputCode = $(this).val();
-        const $resultMsg = $('#mail-check-warn');
         
         if (inputCode === code) {
-            $resultMsg.text('인증번호가 일치합니다.');
-            $resultMsg.css('color', 'green');
+			alert('이메일 인증이 정상적으로 완료되었습니다.');
             $('#mail-Check-Btn').prop('disabled', true);
             $('#email_mem').attr('readonly', true);
             $('#email_domain').prop('disabled', true);
             emailChecked = true; // 이메일 중복확인 상태를 true로 변경
             emailCheck = true; // 이메일 인증 완료 상태를 true로 변경
         } else {
-            $resultMsg.text('인증번호가 불일치합니다. 다시 확인해주세요.');
-            $resultMsg.css('color', 'red');
+			alert('인증번호가 불일치합니다. 다시 확인해주세요.');
+            emailChecked = false; // 이메일 중복확인 상태를 true로 변경
+            emailCheck = false; // 이메일 인증 완료 상태를 true로 변경
         }
     });
 
@@ -82,7 +81,7 @@ $(document).ready(function() {
                         phoneCheck = true; // 휴대폰 인증 완료 상태를 true로 변경
                         emailChecked = true; // 휴대폰 인증 완료 시 이메일 인증도 완료된 것으로 처리
 
-                        // 휴대폰 번호 업데이트 Ajax 요청
+                        // 휴대폰 번호 업데이트 Ajax 요청인데 삭제해도 될거같음
                         $.ajax({
                             type: "GET",
                             url: "/update/phone",
@@ -90,7 +89,7 @@ $(document).ready(function() {
                                 "tel": $('#tel').val().replace(/[^0-9]/g, '')
                             },
                             success: function() {
-                                document.location.href="/main.do"; // 메인 페이지로 이동
+								
                             },
                             error: function() {
                                 // 오류 처리

@@ -28,4 +28,5 @@ public class MypageServiceImpl implements MypageService {
     public Map<String, Object> myBookingDetails(Long bo_number) throws Exception {
     	return mypageDAO.myBookingDetails(bo_number);
     }
+
 }
