@@ -3,8 +3,9 @@
 html,
 body {
   position: relative;
- 	max-width: 1200px;
-  	max-height: 100%;
+  min-width: 600px;
+  max-width: 1920px;
+  max-height: 100%;
 }
 
 body {
@@ -15,111 +16,255 @@ body {
   margin: 0;
   padding: 0;
 }
-a{
-	text-decoration: none;
-	color: #000;
+
+a {
+  text-decoration: none;
+  color: #000;
 }
 
 /*header 영역*/
-header {
-	margin-bottom: 5px;
-	padding:1%;
-	background-color:rgb(252, 252, 252);
+#header {
+  width: 100%;
+  padding: 1%;
+  background-color: rgb(252, 252, 252);
+  overflow: hidden;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 1.2em;
+  white-space: nowrap;
 }
-#header{
-	text-align: center;
+
+/*알림영역*/
+.header_notice {
+  width: 5%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 13%;
+}
+
+/*로고 영역*/
+.header_logo {
+  width: 60%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/*로그인/회원가입/마이페이지 영역*/
+.header_userinfo {
+  width: 10%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: right;
+  margin-right: 18%;
+  font-size: 1.1em;
+  
+}
+
+/*누구누구님 영역*/
+.header_name {
+  text-align: left;
+  display: inline-block;
+  float: left;
+}
+
+.header_name >h3{
+	float: left;
+}
+
+/*마이페이지 영역*/
+.header_mypage > a {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #FF6F61;
+  display: inline-block;
+  margin-top: 22%;
+  margin-left: 2%;
+}
+
+.mypage_list {
+  display: none;
+}
+
+/*로그인/회원가입 영역*/
+.header_login {
+  font-weight: bold;
+  font-size: 1em;
+  display: inline-block;
+  margin-right: 40%;
 }
 
 #content {
-	width : 75%;
-	padding : 5px;
-	margin-right: 5px;
-	float: right;
+  width: 75%;
+  padding: 5px;
+  margin-right: 5px;
+  float: right;
 }
 
 /*footer 영역*/
 footer {
-	height: 100%;
-	clear: both;
-	background-color:rgb(252, 252, 252);
-	text-align: center;
-	border-top: 0.1em solid rgb(255, 111, 97) ;
-	font-size: 1em;	
-	margin-top: 3%;
+  height: 100%;
+  clear: both;
+  background-color: rgb(252, 252, 252);
+  text-align: center;
+  border-top: 0.1em solid rgb(255, 111, 97);
+  font-size: 1em;
+  margin-top: 3%;
 }
 
-#footer_info{
-	margin: 0 auto;
-	width: 55%;
+#footer_info {
+  margin: 0 auto;
+  width: 55%;
+  display: inline-block;
+  text-align: center;
 }
 
-.footer_jamongda{
-	float: left;
-	text-align: left;
+.footer_jamongda {
+  text-align: left;
+  display: inline-block;
+  vertical-align: top;
+  width: 45%;
 }
 
-.jamongda_info>h3{
-	margin-top:2%;
-	margin-bottom: 0;
-}
-.jamongda_info>p{
-	margin: 2% 0;
+.jamongda_info > h3 {
+  margin-top: 2%;
+  margin-bottom: 0;
 }
 
-.user_info > p{
-	float: left;
-	margin-right: 2%;
+.jamongda_info > p {
+  margin: 2% 0;
 }
 
-.user_info>p:nth-child(2){
-	font-weight: bold;
+.user_info > p {
+  float: left;
+  margin-right: 2%;
 }
 
-.user_info>p>a:hover{
-	color: #ccc;
+.user_info > p:nth-child(2) {
+  font-weight: bold;
 }
 
-.user_info>p>a{
-	text-decoration-line: underline;
+.user_info > p > a:hover {
+  color: #ccc;
 }
 
-.footer_support{
-	text-align: right;
+.user_info > p > a {
+  text-decoration-line: underline;
 }
 
-.footer_support>.support_info{
-	display: inline-block;
+.footer_support {
+  text-align: right;
+  display: inline-block;
+  vertical-align: top;
+  width: 45%;
 }
 
-.support_info>h3{
-	margin-top:5.5%;
-	margin-bottom: 0;
+.footer_support > .support_info {
+  display: inline-block;
 }
 
-.support_info>p{
-	margin: 5% 0;
+.support_info > h3 {
+  margin-top: 5.5%;
+  margin-bottom: 0;
 }
 
-.support_btn>button{
-	-webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: rgba(255, 111, 97, 0.5);
-    border: none;
-    padding: 0;
+.support_info > p {
+  margin: 5% 0;
+}
+
+.support_btn > button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: rgba(255, 111, 97, 0.5);
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 1%;
+  margin-top: 1.5%;
+}
+
+.support_btn > button:first-child {
+  margin-right: 1%;
+}
+
+.support_btn > button:active {
+  color: #ccc;
+}
+
+/* 미디어 쿼리 */
+@media screen and (max-width: 1200px) {
+  #header {
+    padding: 2% 5%;
+    white-space: normal;
+  }
+
+  .header_notice, .header_logo, .header_login, .header_mypage > a {
+    width: auto;
+    display: block;
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .header_logo {
+    margin: 0 auto;
+  }
+
+  .header_login {
+    margin-top: 2%;
+  }
+
+  #content {
+    width: 100%;
     margin: 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-	border-radius: 10px;
-	padding: 1%;
-	margin-top: 1.5%;
+    float: none;
+  }
+
+  #footer_info {
+    width: 90%;
+  }
+
+  .footer_jamongda, .footer_support {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
 }
 
-.support_btn>button:first-child{
-	margin-right: 1%;
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 12px;
+  }
+
+  .header_userinfo {
+    text-align: center;
+  }
+
+  .header_login {
+    width: 100%;
+    margin-top: 5%;
+  }
+
+  .header_mypage > a {
+    right: 0;
+  }
+
+  .support_info > h3, .support_info > p {
+    margin-top: 10%;
+  }
 }
 
-.support_btn>button:active{
-	color: #ccc;
+@media screen and (max-width: 480px) {
+  .header_notice, .header_logo, .header_login, .header_mypage > a {
+    font-size: 1em;
+  }
+
+  .support_btn > button {
+    width: 100%;
+    padding: 2%;
+    margin-top: 5%;
+  }
 }
