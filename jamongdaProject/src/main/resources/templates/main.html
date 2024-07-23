@@ -139,43 +139,33 @@
 				<div class="inner">
 					<ul class="swiper-wrapper slide_list">
 						<li class="swiper-slide">
-							<a th:href="@{/search/selectSearch.do}">
-								<img src="/images/area/jejudo.jpg" alt="제주도">
+							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[0]})}">
+								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[0]}, acc_image=${jamongdaAccListImage[0]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
-							<a th:href="@{/search/selectSearch.do}">
-								<img src="/images/area/jejudo.jpg" alt="제주도">
+							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[1]})}">
+								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[1]}, acc_image=${jamongdaAccListImage[1]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
-							<a th:href="@{/search/selectSearch.do}">
-								<img src="/images/area/jejudo.jpg" alt="제주도">
+							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[2]})}">
+								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[2]}, acc_image=${jamongdaAccListImage[2]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
-							<a th:href="@{/search/selectSearch.do}">
-								<img src="/images/area/jejudo.jpg" alt="제주도">
+							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[3]})}">
+								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[3]}, acc_image=${jamongdaAccListImage[3]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
-							<a th:href="@{/search/selectSearch.do}">
-								<img src="/images/area/jejudo.jpg" alt="제주도">
+							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[4]})}">
+								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[4]}, acc_image=${jamongdaAccListImage[4]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
-							<a th:href="@{/search/selectSearch.do}">
-								<img src="/images/area/jejudo.jpg" alt="제주도">
-							</a>
-						</li>
-						<li class="swiper-slide">
-							<a th:href="@{/search/selectSearch.do}">
-								<img src="/images/area/jejudo.jpg" alt="제주도">
-							</a>
-						</li>
-						<li class="swiper-slide">
-							<a th:href="@{/search/selectSearch.do}">
-								<img src="/images/area/jejudo.jpg" alt="제주도">
+							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[5]})}">
+								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[5]}, acc_image=${jamongdaAccListImage[5]})}">
 							</a>
 						</li>
 					</ul>
@@ -194,7 +184,6 @@
 							<a
 								th:href="@{/search/selectSearch.do(acc_name=${''}, acc_area=${'서울'}, datetimes=${datetimes}, checkIn=${today}, checkOut=${tomorrow})}">
 								<img src="/images/area/seoul.jpg" alt="서울">
-								<h3>서울</h3>
 							</a>
 						</li>
 						<li class="swiper-slide">

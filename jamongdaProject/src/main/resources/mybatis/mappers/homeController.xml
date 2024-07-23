@@ -4,6 +4,56 @@
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.jamongda.main.dao.HomeControllerDAO">
  	
+ 	<!--자몽다pick-->
+    <select id="getJamongdaAccImages" resultType="map">
+        <![CDATA[
+        WITH RankedRooms AS (
+            SELECT 
+                r.acc_id, 
+                r.ro_price,
+                ROW_NUMBER() OVER (PARTITION BY r.acc_id ORDER BY r.ro_price ASC) AS rn
+            FROM 
+                room r
+            JOIN 
+                accommodation a ON r.acc_id = a.acc_id
+            WHERE 
+                a.regCheck = 'Y'
+                AND r.ro_price BETWEEN 50000 AND 100000
+        ),
+        UniqueAccIDs AS (
+            SELECT 
+                acc_id,
+                ro_price
+            FROM 
+                RankedRooms
+            WHERE 
+                rn = 1
+            ORDER BY 
+                ro_price ASC
+            LIMIT 8
+        ),
+        RankedImages AS (
+            SELECT 
+                ai.acc_id, 
+                ai.acc_image,
+                ROW_NUMBER() OVER (PARTITION BY ai.acc_id ORDER BY ai.acc_id) AS img_rn
+            FROM 
+                acc_image ai
+        )
+        SELECT 
+            u.acc_id,
+            ri.acc_image
+        FROM 
+            UniqueAccIDs u
+        JOIN 
+            RankedImages ri ON u.acc_id = ri.acc_id
+        WHERE 
+            ri.img_rn = 1
+        ]]>
+    </select>
+ 	
+ 	
+ 	<!--최저가 숙소-->
     <select id="getLowestPricedAccImages" resultType="map">
         <![CDATA[
         WITH RankedRooms AS (
