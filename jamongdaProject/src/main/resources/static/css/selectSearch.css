@@ -16,12 +16,7 @@
             text-decoration: none;
             color: inherit;
         }
-        header{
-            background-color: lightgreen;
-        }
-        footer{
-            background-color:#e5d85c; 
-        }
+
         .wrapper{
             width: 1200px;
             margin: 0 auto;
