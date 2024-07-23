@@ -12,10 +12,10 @@ import org.springframework.stereotype.Repository;
 @Repository("homeControllerDAO")
 public interface HomeControllerDAO {
 
+	//자몽다pick 이미지 8개 가져오기
+	
 	//최저가 숙소 이미지 8개 가져오기
 	public List<Map<String, Object>> getLowestPricedAccImages() throws DataAccessException;
 	
-	//
 	
-	//
 }
