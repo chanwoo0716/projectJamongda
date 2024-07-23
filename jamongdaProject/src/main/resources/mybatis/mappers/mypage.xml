@@ -10,16 +10,18 @@
         <result property="bo_checkOut" column="bo_checkOut"/>
         <result property="payDate" column="payDate"/>
         <result property="ro_name" column="ro_name"/>
+        <result property="ro_id" column="ro_id"/>
         <result property="ro_checkIn" column="ro_checkIn"/>
         <result property="ro_checkOut" column="ro_checkOut"/>
         <result property="ro_price" column="ro_price"/>
         <result property="acc_name" column="acc_name"/>
+        <result property="acc_id" column="acc_id"/>
     </resultMap>
     
     <!-- 가장 최근 예약 정보 조회 -->
     <select id="getLatestBoInfoByEmail" parameterType="String" resultMap="bookingResultMap">
-        SELECT b.bo_number, b.email, b.bo_checkIn, b.bo_checkOut, b.payDate,
-               r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name
+        SELECT b.bo_number, b.email, b.bo_checkIn, b.bo_checkOut, b.payDate, r.ro_id,
+               r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name, a.acc_id
         FROM booking b
         JOIN room r ON b.ro_id = r.ro_id
         JOIN accommodation a ON r.acc_id = a.acc_id
@@ -30,8 +32,8 @@
 
     <!-- 모든 예약 정보 조회 -->
     <select id="getAllBoInfoByEmail" parameterType="String" resultMap="bookingResultMap">
-        SELECT b.bo_number, b.email, b.bo_checkIn, b.bo_checkOut, b.payDate,
-               r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name
+        SELECT b.bo_number, b.email, b.bo_checkIn, b.bo_checkOut, b.payDate, r.ro_id,
+               r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name, a.acc_id
         FROM booking b
         JOIN room r ON b.ro_id = r.ro_id
         JOIN accommodation a ON r.acc_id = a.acc_id
@@ -41,8 +43,8 @@
     
     <!-- 예약상세보기 예약 정보 조회 -->    
 	<select id="myBookingDetails" parameterType="Long" resultMap="bookingResultMap">
-	    SELECT b.*,
-	           r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name
+	    SELECT b.*, r.ro_id,
+	           r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name, a.acc_id
 	    FROM booking b
 	    JOIN room r ON b.ro_id = r.ro_id
 	    JOIN accommodation a ON r.acc_id = a.acc_id

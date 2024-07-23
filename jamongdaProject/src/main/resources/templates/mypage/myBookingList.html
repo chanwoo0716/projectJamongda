@@ -61,6 +61,18 @@
         margin-bottom: 20px;
     }
 
+	.review-link, .reBooking-link {
+		margin-top: 10px;
+		padding: 10px 50px;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		background-color: #fafafa;
+	}
+
+	.review-link:hover, .reBooking-link:hover {
+	    background-color: rgb(212, 212, 212); /* Darker green on hover */
+	}
+	
     .booking-history h2 {
         margin-bottom: 20px;
     }
@@ -119,8 +131,60 @@
     .hotel-info .check-in-out {
         margin-bottom: 5px;
     }
+	
+	.showComplete-btn {
+	    display: none;
+	}
+
+	.showComplete-btn + label {
+	    position: relative;
+	    padding-left: 25px;
+	    cursor: pointer;
+	    font-size: 16px;
+	}
+
+	.showComplete-btn + label:before {
+	    content: '';
+	    position: absolute;
+	    left: 0;
+	    top: 2px;
+	    width: 16px;
+	    height: 16px;
+	    border: 1px solid #fb877f;
+	    background: #fff;
+	    border-radius: 4px;
+	}
+
+	.showComplete-btn:checked + label:before {
+	    background: #fb877f;
+	    border-color: #fb877f;
+	}
+
+	.showComplete-btn:checked + label:after {
+	    content: '✔';
+	    position: absolute;
+	    top: 2px;
+	    left: 4px;
+	    font-size: 14px;
+	    color: #fff;
+	}
 </style>
 <script>
+	$(document).ready(function() {
+	    // 체크박스 클릭 시 필터링
+	    $('input[type="checkbox"]').on('change', function() {
+	        var isChecked = $(this).is(':checked');
+	        if (isChecked) {
+	            $('.booking-card').each(function() {
+	                var showBooking = $(this).find('#review-button').length > 0;
+	                $(this).toggle(showBooking);
+	            });
+	        } else {
+	            $('.booking-card').show(); // 모든 예약 내역 표시
+	        }
+	    });
+	});
+	
 	function openPopup(boNumber) {
 	    var url = '/mypage/myBookingDetails.do?number=' + encodeURIComponent(boNumber);
 		
@@ -137,29 +201,41 @@
 </head>
 <body>
     <th:block layout:fragment="content">
-        <div class="mypage-container">
-            <div class="header">
-                <h1>예약 내역</h1>
-            </div>
-            <div class="booking-history">
-                <div class="booking-card" th:each="booking : ${bookingList}">
-                    <div class="booking-header">
-                        <span class="booking-date" th:text="'결제일자 : ' + ${booking['payDate']}"></span>
-                        <span class="booking-number" th:text="'예약번호 : ' + ${booking['bo_number']}"></span>
-						<a href="#" class="details-link" th:attr="onclick='openPopup(' + ${booking['bo_number']} + ')'">상세보기</a>
-                    </div>
-                    <div class="booking-content">
-                        <img src="https://via.placeholder.com/100" alt="호텔 이미지" class="acc-image">
-                        <div class="hotel-info">
-                            <div class="acc-name" th:text="${booking['acc_name']}"></div>
-                            <div class="ro_name" th:text="${booking['ro_name']}"></div>
-                            <div class="booking-dates" th:text="${booking['bo_checkIn']} + ' ~ ' + ${booking['bo_checkOut']} + ' | 1박'"></div>
-                            <div class="check-in-out" th:text="'체크인 ' + ${booking['ro_checkIn']} + ' | 체크아웃 ' + ${booking['ro_checkOut']}"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div class="mypage-container">
+		    <div class="header">
+		        <h1>예약 내역</h1>
+				<input type="checkbox" id="showCompleted" class="showComplete-btn"/>
+				<label for="showCompleted">이용완료 내역 보기</label>
+		    </div>
+		    <div id="booking-history" class="booking-history">
+		        <div class="booking-card" th:each="booking : ${bookingList}">
+		            <div class="booking-header">
+		                <span class="booking-date" th:text="'결제일자 : ' + ${booking['payDate']}"></span>
+		                <span class="booking-number" th:text="'예약번호 : ' + ${booking['bo_number']}"></span>
+		                <a href="#" class="details-link" th:attr="onclick='openPopup(' + ${booking['bo_number']} + ')'">상세보기</a>
+		            </div>
+		            <div class="booking-content">
+		                <img src="https://via.placeholder.com/100" alt="호텔 이미지" class="acc-image">
+		                <div class="hotel-info">
+		                    <div class="acc-name" th:text="${booking['acc_name']}"></div>
+						<input type="hidden" name="ro_id" th:value="${booking.ro_id}">
+							<input type="hidden" th:text="${booking['ro_id']}"></input>
+		                    <div class="ro_name" th:text="${booking['ro_name']}"></div>
+		                    <div class="booking-dates" th:text="${booking['bo_checkIn']} + ' ~ ' + ${booking['bo_checkOut']} + ' | 1박'"></div>
+		                    <div class="check-in-out" th:text="'체크인 ' + ${booking['ro_checkIn']} + ' | 체크아웃 ' + ${booking['ro_checkOut']}"></div>
+		                </div>
+		            </div>
+		            <div>
+						<!-- 수정전
+						<button id="review-button" class="review-link" th:if="${booking.isPastCheckout}">리뷰 등록</button>
+						<button id="review-button" class="reBooking-link" th:if="${booking.isPastCheckout}">다시 예약</button>
+						-->
+						<a id="review-button" th:href="@{/review/reviewForm.do(number=${booking.bo_number},rid=${booking.ro_id},aname=${booking.acc_name},rname=${booking.ro_name})}" class="review-link" th:if="${booking.isPastCheckout}">리뷰 등록</a>
+						<a th:href="@{/search/detailSearch.do(aid=${booking.acc_id})}" class="reBooking-link">다시 예약</a>
+		            </div>
+		        </div>
+		    </div>
+		</div>
     </th:block>
 </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jamongda.review.dao.ReviewDAO">
+    <resultMap id="revResult" type="reviewDTO">
+        <result property="rev_id" column="rev_id"/>
+        <result property="rev_content" column="rev_content"/>
+        <result property="rev_date" column="rev_date"/>
+        <result property="email" column="email"/>
+        <result property="ro_id" column="ro_id"/>
+    </resultMap>
+
+    <resultMap id="revImgResult" type="reviewImageDTO">
+        <result property="rev_image_id" column="rev_image_id"/>
+        <result property="rev_image" column="rev_image"/>
+        <result property="rev_id" column="rev_id"/>
+    </resultMap>
+
+    <insert id="insertReview" parameterType="reviewDTO" useGeneratedKeys="true" keyProperty="rev_id">
+        insert into review (rev_content, rev_date, email, ro_id)
+        values (#{rev_content}, sysdate(), #{email}, #{ro_id})
+    </insert>
+
+    <insert id="insertReviewImage" parameterType="reviewImageDTO" useGeneratedKeys="true" keyProperty="rev_image_id">
+        INSERT INTO review_image (rev_image, rev_id)
+        VALUES (null, #{rev_id})
+    </insert>
+
+    <update id="updateReviewImage" parameterType="reviewImageDTO">
+        UPDATE review_image
+        SET rev_image = #{rev_image}
+        WHERE rev_image_id = #{rev_image_id}
+    </update>
+    
+</mapper>
