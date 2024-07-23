@@ -16,6 +16,10 @@ public class HomeControllerService {
 	@Autowired
 	private HomeControllerDAO homeControllerDAO;
 	
+	//자몽다pick 이미지 8개 및 
+	
+	
+	
 	//최저가 숙소 이미지 8개 가져오기
 	public List<Map<String, Object>> lowestAcc() throws DataAccessException {
 		//최저가(객실) 숙소 이미지 파일이름 + acc_id 8개 들고오기
@@ -23,7 +27,5 @@ public class HomeControllerService {
 		
 		return lowestAccList;
 	}
-	//
-	
-	//
+
 }

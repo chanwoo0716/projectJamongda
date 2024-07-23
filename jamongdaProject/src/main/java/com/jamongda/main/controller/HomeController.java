@@ -25,6 +25,12 @@ public class HomeController {
 	public ModelAndView main(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
+		//자몽다pick 이미지 가져오기
+		
+		
+		
+		
+		
 		//최저가 숙소 이미지 8개 가져오기
 		List<Map<String, Object>> lowestAccList = homeControllerService.lowestAcc();
 		
@@ -46,15 +52,11 @@ public class HomeController {
         //System.out.println("lowestAccListAcc_id" + lowestAccListAcc_id);
         
 		ModelAndView mav = new ModelAndView();
-		
         LocalDate today = LocalDate.now();
         LocalDate tomorrow = today.plusDays(1);
-        
         mav.addObject("today", today.toString());
         mav.addObject("tomorrow", tomorrow.toString());
         mav.addObject("datetimes", today.toString() + " - " + tomorrow.toString());
-		
-		
 		mav.addObject("lowestAccListImage",lowestAccListImage);
 		mav.addObject("lowestAccListAcc_id",lowestAccListAcc_id);
 		mav.setViewName("/main");
