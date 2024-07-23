@@ -52,7 +52,7 @@
 	    $('#emailPopup').fadeOut('normal');
 	}
 
-	//이메일 보내기(이미지는 구현 안됌)
+	/*이메일 보내기
 	function sendEmail() {
 	    var emailContent = $('#emailContent').val();
 	    //var emailImage = $('#emailImage')[0].files[0];
@@ -79,6 +79,7 @@
 	            alert('수정 요청 전송에 실패하였습니다. 다시 시도해주세요.');
 	        });
 	}
+	*/
 </script>
 </head>
 <body>
@@ -125,11 +126,11 @@
                </div>
                
                <!-- 숙소 정보 출력 -->
-                    <p>유형 <span th:text="${acc.acc_type}"></span></p>
-                    <p>지역 <span th:text="${acc.acc_area}"></span></p>
-                    <p>전화번호 <span th:text="${acc.acc_tel}"></span></p>
-                    <p>주소 <span th:text="${acc.acc_address}"></span></p>
-                    <p>설명 <span th:text="${acc.acc_info}"></span></p>
+                    <p>유형 : <span th:text="${acc.acc_type}"></span></p>
+                    <p>지역 : <span th:text="${acc.acc_area}"></span></p>
+                    <p>전화번호 : <span th:text="${acc.acc_tel}"></span></p>
+                    <p>주소 : <span th:text="${acc.acc_address}"></span></p>
+                    <p>설명 : <span th:text="${acc.acc_info}"></span></p>
                     
                     <!-- 객실 정보 출력 -->
                <div class="section-header">
@@ -143,25 +144,25 @@
                          </div>
                      </div>
                      <!-- 객실 정보 출력 -->
-                           <p>객실 이름 <span th:text="${room.ro_name}"></span></p>
-                           <p>최소 인원 <span th:text="${room.ro_min}"></span></p>
-                           <p>최대 인원 <span th:text="${room.ro_max}"></span></p>
-                           <p>설명 <span th:text="${room.ro_info}"></span></p>
-                           <p>편의시설 <span th:text="${room.ro_amenities}"></span></p>
-                           <p>가격 <span th:text="${room.ro_price}"></span></p>
-                           <p>체크인 시간 <span th:text="${room.ro_checkIn}"></span></p>
-                           <p>체크아웃 시간 <span th:text="${room.ro_checkOut}"></span></p>
+                           <p>객실 이름 : <span th:text="${room.ro_name}"></span></p>
+                           <p>최소 인원 : <span th:text="${room.ro_min}"></span></p>
+                           <p>최대 인원 : <span th:text="${room.ro_max}"></span></p>
+                           <p>설명 : <span th:text="${room.ro_info}"></span></p>
+                           <p>편의시설 : <span th:text="${room.ro_amenities}"></span></p>
+                           <p>가격 : <span th:text="${room.ro_price}"></span></p>
+                           <p>체크인 시간 : <span th:text="${room.ro_checkIn}"></span></p>
+                           <p>체크아웃 시간 : <span th:text="${room.ro_checkOut}"></span></p>
                        </div>
                </div>
                
-               <!-- 수정 요청 영역(등록된 숙소만 노출되도록 함) -->
+               <!-- 수정 요청 영역(등록된 숙소만 노출되도록 함)
                <div class="modSusAccRo" th:if="${acc.regCheck == 'Y'}">
-                  <!-- 수정 요청 -->
                   <div class="modSusRo">
                      <p class="modSusMsg">내용을 변경하고싶으신가요? 원하는 수정사항을 관리자에게 요청하세요.</p>
                      <input type="button" value="수정요청하기">
                   </div>
                </div>
+			   -->
                 </div>
             <!--상세 정보 영역 종료-->
             </div>
