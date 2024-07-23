@@ -2,7 +2,7 @@
 html,
 body {
   position: relative;
-  min-width: 1250px;
+  min-width: 600px;
   max-width: 1920px;
   margin: 0 auto;
 }
@@ -19,7 +19,254 @@ body {
 /* 전체 영역 */
 #main_content {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto;  main.css 최종
+  @charset "UTF-8";
+  html,
+  body {
+    position: relative;
+    min-width: 600px;
+    max-width: 1920px;
+    margin: 0 auto;
+  }
+
+  body {
+    background: rgb(252, 252, 252);
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0 auto;
+    padding: 0 auto;
+  }
+
+  /* 전체 영역 */
+  #main_content {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* 검색 영역 */
+  #search_section {
+    width: 100%;
+    display: table;
+    height: 250px;
+    position: relative;
+  }
+
+  .main_banner {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .main_banner > img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  #form1 {
+    position: absolute;
+    width: 90%;
+    margin: 0 auto;
+    top: 66%;
+    left: 4.8%;
+    background-color: rgba(256, 256, 256, 0.6);
+    padding: 1.5% 2%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+
+  /* 숙소 검색 영역 */
+  .inputWrap {
+    position: relative;
+    width: 25%;
+    float: left;
+    margin-right: 3%;
+    box-sizing: border-box;
+  }
+
+  #acc_name {
+    width: 100%;
+    padding-right: 5%;
+    padding-left: 18%;
+    height: 70px;
+    background-color: rgba(256, 256, 256, 0.8);
+    border: none;
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+
+  /* 돋보기 아이콘 */
+  .fa-search {
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    font-size: 1.4em;
+    transform: translateY(-50%);
+  }
+
+  /* 지역 검색 영역 */
+  .location {
+    position: relative;
+    width: 25%;
+    float: left;
+    margin-right: 3%;
+    box-sizing: border-box;
+  }
+
+  .fa-location-dot {
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    font-size: 1.4em;
+    transform: translateY(-50%);
+  }
+
+  #acc_area {
+    width: 100%;
+    height: 70px;
+    border: none;
+    background-color: rgba(256, 256, 256, 0.8);
+    font-size: 1.4em;
+    font-weight: bold;
+    color: black;
+    padding-right: 5%;
+    padding-left: 18%;
+  }
+
+  /* 날짜 검색 영역 */
+  .search_In {
+    position: relative;
+    width: 20%;
+    float: left;
+    box-sizing: border-box;
+  }
+
+  #bo_checkIn {
+    width: 100%;
+    height: 70px;
+    border: none;
+    background-color: rgba(256, 256, 256, 0.8);
+    font-size: 1.4em;
+    font-weight: bold;
+    color: black;
+    padding: 0 30%;
+  }
+
+  .fa-calendar-days {
+    position: absolute;
+    top: 35%;
+    left: 10%;
+    font-size: 1.4em;
+    transform: translateY(-50%);
+  }
+
+  /* 검색 버튼 */
+  .search_btn {
+    position: relative; /* 검색 버튼을 다른 요소와 일렬로 배치하기 위해 상대 위치 설정 */
+    float: left; /* 검색 필드와 일렬로 배치 */
+    max-width: 10%; /* 검색 버튼의 최대 너비 설정 */
+    height: 70px; /* 다른 입력 필드와 동일한 높이 설정 */
+    background: none;
+    border: none;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+    margin-left: 17%;
+    margin-top: 0; /* 상단 마진 제거 */
+  }
+
+  /* 반응형을 위한 미디어 쿼리 */
+  @media (max-width: 1200px) {
+    #form1 {
+      width: 90%;
+      left: 5%;
+    }
+    .inputWrap, .location, .search_In {
+      width: 28%;
+      margin-right: 4%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    #form1 {
+      width: 95%;
+      left: 2.5%;
+    }
+    .inputWrap, .location, .search_In {
+      width: 30%;
+      margin-right: 3%;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .inputWrap, .location, .search_In {
+      width: 100%;
+      float: none;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+    .search_btn {
+      width: 100%;
+    }
+  }
+
+  /* 국내 인기 여행지 영역 */
+  .swiper-slide img {
+    width: 153px;
+    height: 150px;
+  }
+
+  .swiper-slide p {
+    width: 50%;
+    height: 10%;
+  }
+
+  /* swiper 영역 */
+  .slider {
+    overflow: hidden;
+    position: relative;
+    max-width: 950px;
+    margin: 50px auto 0;
+  }
+
+  .slider .inner {
+    overflow: hidden;
+    margin: 0 60px;
+  }
+
+  .slide_list > li {
+    width: 40%;
+    height: 150px;
+    background: #ff6f61;
+    font-size: 20px;
+    line-height: 150px;
+    text-align: center;
+  }
+
+  .slider .btn {
+    position: absolute;
+    top: 60%;
+    width: 35px;
+    height: 35px;
+    background: url('../images/main_arrow.png') center center no-repeat;
+    background-size: cover;
+    text-indent: -999em;
+    cursor: pointer;
+  }
+
+  .slider .btn.btn_prev {
+    left: 4%;
+    transform: rotateY(180deg) translate(0, -50%);
+  }
+
+  .slider .btn.btn_next {
+    right: 0;
+    transform: translate(0, -50%);
+  }
+
 }
 
 /* 검색 영역 */
@@ -35,37 +282,35 @@ body {
   vertical-align: middle;
 }
 
-.main_banner>img {
+.main_banner > img {
   max-width: 100%;
   max-height: 100%;
 }
 
-#search_box {
-  width: 100%;
-}
-
-#search_box>form {
+#form1 {
   position: absolute;
-  width: 70%;
-  height: 3%;
+  width: 90%;
   margin: 0 auto;
-  top: 65%;
-  left: 13%;
+  top: 66%;
+  left: 4.8%;
   background-color: rgba(256, 256, 256, 0.6);
-  padding: 3%;
+  padding: 1.5% 2%;
   border-radius: 15px;
-  display: flex;
-  align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* 숙소 검색 영역 */
 .inputWrap {
   position: relative;
-  width: 30%;
-
+  width: 25%;
+  float: left;
+  margin-right: 3%;
+  box-sizing: border-box;
 }
 
 #acc_name {
+  width: 100%;
   padding-right: 5%;
   padding-left: 18%;
   height: 70px;
@@ -78,107 +323,130 @@ body {
 /* 돋보기 아이콘 */
 .fa-search {
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 5%;
-  transform: translateY(-50%);
   font-size: 1.4em;
+  transform: translateY(-50%);
 }
 
-/*지역 영역*/
-.location{
-	position: relative;
-	width: 30%;
+/* 지역 검색 영역 */
+.location {
+  position: relative;
+  width: 25%;
+  float: left;
+  margin-right: 3%;
+  box-sizing: border-box;
 }
 
-.fa-location-dot{
-	position: absolute;
-	width: 5%;
-	top: 35%;
-	left: 5%;
-	font-size: 1.4em;
+.fa-location-dot {
+  position: absolute;
+  top: 35%;
+  left: 5%;
+  font-size: 1.4em;
+  transform: translateY(-50%);
 }
 
-#acc_area{
-	height: 70px;
-	border: none;
-	background-color: rgba(256, 256, 256, 0.8);
-	font-size: 1.4em;
-	font-weight: bold;
-	color: black;
-	padding-right: 5%;
-    padding-left: 18%;
+#acc_area {
+  width: 100%;
+  height: 70px;
+  border: none;
+  background-color: rgba(256, 256, 256, 0.8);
+  font-size: 1.4em;
+  font-weight: bold;
+  color: black;
+  padding-right: 5%;
+  padding-left: 18%;
 }
 
-/* 날짜 영역 */
-/*input 달력 기본설정 없애기*/
-input[type=date]::-webkit-datetime-edit-text {
-    -webkit-appearance: none;
-    display: none;
-}
-input[type=date]::-webkit-datetime-edit-month-field{
-    -webkit-appearance: none;
-    display: none;
-}
-input[type=date]::-webkit-datetime-edit-day-field {
-    -webkit-appearance: none;
-    display: none;
-}
-input[type=date]::-webkit-datetime-edit-year-field {
-    -webkit-appearance: none;
-    display: none;
-}
-/*아이콘 없애기*/
-input[type="date"]::-webkit-calendar-picker-indicator{
-	display: none;
+/* 날짜 검색 영역 */
+.search_In {
+  position: relative;
+  width: 20%;
+  float: left;
+  box-sizing: border-box;
 }
 
-.search_In{
-	position: relative;
-	margin-right: 15%;
+#bo_checkIn {
+  width: 100%;
+  height: 70px;
+  border: none;
+  background-color: rgba(256, 256, 256, 0.8);
+  font-size: 1.4em;
+  font-weight: bold;
+  color: black;
+  padding: 0 30%;
 }
 
-#bo_checkIn{
-	height: 70px;
-	border: none;
-	background-color: rgba(256, 256, 256, 0.8);
-	font-size: 1.4em;
-	font-weight: bold;
-	color: black;
-	padding: 0 30%;
-}
-
-.fa-calendar-days{
-	position: absolute;
-	top: 35%;
-	left: 10%;
-	font-size: 1.4em;
+.fa-calendar-days {
+  position: absolute;
+  top: 35%;
+  left: 10%;
+  font-size: 1.4em;
+  transform: translateY(-50%);
 }
 
 /* 검색 버튼 */
-#search_btn {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+.search_btn {
+  position: relative; /* 검색 버튼을 다른 요소와 일렬로 배치하기 위해 상대 위치 설정 */
+  float: left; /* 검색 필드와 일렬로 배치 */
+  max-width: 10%; /* 검색 버튼의 최대 너비 설정 */
+  height: 70px; /* 다른 입력 필드와 동일한 높이 설정 */
   background: none;
   border: none;
-  padding: 0;
-  margin-left: 2%;
   font-size: 1.4em;
   font-weight: bold;
   color: black;
   cursor: pointer;
-  height: 50px;
+  text-align: center;
+  padding: 0;
+  margin-left: 17%;
+  margin-top: 0; /* 상단 마진 제거 */
 }
 
-/*국내 인기 여행지 영역*/
-.swiper-slide img{
-	width: 153px;
-	height: 150px;
+/* 반응형을 위한 미디어 쿼리 */
+@media (max-width: 1200px) {
+  #form1 {
+    width: 90%;
+    left: 5%;
+  }
+  .inputWrap, .location, .search_In {
+    width: 28%;
+    margin-right: 4%;
+  }
 }
-.swiper-slide p{
-	width: 50%;
-	height: 10%;
-	
+
+@media (max-width: 1000px) {
+  #form1 {
+    width: 95%;
+    left: 2.5%;
+  }
+  .inputWrap, .location, .search_In {
+    width: 30%;
+    margin-right: 3%;
+  }
+}
+
+@media (max-width: 800px) {
+  .inputWrap, .location, .search_In {
+    width: 100%;
+    float: none;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  .search_btn {
+    width: 100%;
+  }
+}
+
+/* 국내 인기 여행지 영역 */
+.swiper-slide img {
+  width: 153px;
+  height: 150px;
+}
+
+.swiper-slide p {
+  width: 50%;
+  height: 10%;
 }
 
 /* swiper 영역 */
@@ -215,7 +483,7 @@ input[type="date"]::-webkit-calendar-picker-indicator{
 }
 
 .slider .btn.btn_prev {
-  left: 0;
+  left: 4%;
   transform: rotateY(180deg) translate(0, -50%);
 }
 
