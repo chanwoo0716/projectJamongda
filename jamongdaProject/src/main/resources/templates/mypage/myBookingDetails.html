@@ -79,7 +79,25 @@
 	.check-section .check-in, .check-section .check-out {
 	    flex: 1;
 	}
+	
+	.close-btn {
+		width: 100%;
+		padding: 10px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		/*border-radius: 10px rgba(252, 252, 252);*/
+	}
+	
+	.close-btn:hover {
+		cursor: pointer;
+	}
 </style>
+<script>
+	$(document).ready(function(){
+	    $('#close-btn').click(function(){
+	        window.close();
+	    });
+	});
+</script>
 </head>
 <body>
     <th:block layout:fragment="content">
@@ -153,8 +171,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>			
         </div>
+		<button type="button" id="close-btn" class="close-btn">닫기</button>
     </th:block>
 </body>
 </html>

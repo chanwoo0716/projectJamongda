@@ -23,7 +23,7 @@
 
     <insert id="insertReviewImage" parameterType="reviewImageDTO" useGeneratedKeys="true" keyProperty="rev_image_id">
         INSERT INTO review_image (rev_image, rev_id)
-        VALUES (null, #{rev_id})
+        VALUES (#{rev_image}, #{rev_id})
     </insert>
 
     <update id="updateReviewImage" parameterType="reviewImageDTO">

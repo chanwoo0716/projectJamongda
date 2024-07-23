@@ -74,9 +74,9 @@ public class ReviewControllerImpl implements ReviewController {
 
         // 리뷰 삽입
         reviewService.insertReview(reviewDTO, images);
-
+        
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("redirect:/review/success");
+        mav.setViewName("redirect:/mypage/mypage.do");
         return mav;
     }
 
