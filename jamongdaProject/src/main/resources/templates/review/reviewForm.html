@@ -8,175 +8,264 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-	html,
-	body {
-	  position: relative;
-	  min-width: 1250px;
-	  max-width: 1920px;
-	  margin: 0 auto;
-	}
+    html,
+    body {
+        position: relative;
+        min-width: 1250px;
+        max-width: 1920px;
+        margin: 0 auto;
+    }
 
-	body {
-	  background: rgb(252, 252, 252);
-	  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-	  font-size: 14px;
-	  color: #000;
-	  margin: 0 auto;
-	  padding: 0 auto;
-	}
+    body {
+        background: rgb(252, 252, 252);
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color: #000;
+        margin: 0 auto;
+        padding: 0 auto;
+    }
+    
+    .review-form-container {
+        width: 80%;
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .review-form-container h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: none;
+    }
+
+    .form-control:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+    }
+
+    .file-upload-section {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .file-upload-label img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 10px;
+        display: none;
+    }
+
+    .file-upload-label .placeholder {
+        display: block;
+    }
+
+    .file-upload-label img.show {
+        display: block;
+    }
+
+    .image-preview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .image-preview {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #f4f4f4;
+    }
+
+    .image-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .remove-image-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255, 255, 255, 0.7);
+        border: none;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .remove-image-btn::before {
+        content: '×';
+        font-size: 16px;
+        color: #f00;
+    }
+
+    .btn-add {
+        position: relative;
+        align-items: center;
+		justify-content: center;
+		width: 100px;
+		height: 100px;
+		display: flex;
+        padding: 10px 20px;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-top: 20px;
+        border-radius: 5px;
+        background-color: rgb(192, 192, 192);
+        color: #fff;
+        text-align: center;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-add:hover {
+        background-color:rgb(114, 114, 114);
+    }
+
+    .btn-add img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .file-upload-input {
+        display: none;
+    }
+
+    .image-preview-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .image-count {
+        font-size: 16px;
+        color: #333;
+    }
+
+    .img-add-btn {
+        display: flex;
+        align-items: center;
+    }
+
+    .img-add-btn.hidden {
+        display: none;
+    }
 	
-	.review-form-container {
-	    width: 80%;
-	    max-width: 600px;
-	    margin: 40px auto;
-	    padding: 20px;
-	    background: #ffffff;
-	    border-radius: 8px;
-	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	}
-
-	.review-form-container h1 {
-	    font-size: 24px;
-	    margin-bottom: 20px;
-	    color: #333;
-	}
-
-	.form-control {
-	    width: 100%;
-	    padding: 10px;
-	    font-size: 14px;
-	    border: 1px solid #ced4da;
-	    border-radius: 4px;
-	    box-sizing: border-box;
-	}
-
-	.form-control:focus {
-	    border-color: #80bdff;
-	    outline: none;
-	    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-	}
-	
-	.file-upload-section {
-	    position: relative;
-	    width: 100%;
-	    max-width: 400px;
-	    margin: 20px auto;
-	    text-align: center;
-	}
-
-	.file-upload-label img {
-	    width: 100%;
-	    height: 100%;
-	    object-fit: cover;
-	    position: absolute;
-	    top: 0;
-	    left: 0;
-	    border-radius: 10px;
-	    display: none;
-	}
-
-	.file-upload-label .placeholder {
-	    display: block;
-	}
-
-	.file-upload-label img.show {
-	    display: block;
-	}
-
-	.image-preview-container {
-	    display: flex;
-	    flex-wrap: wrap;
-	    gap: 10px;
-	    margin-top: 20px;
-	}
-
-	.image-preview {
-	    width: 100px;
-	    height: 100px;
-	    position: relative;
-	    border: 2px solid #ccc;
-	    border-radius: 10px;
-	    overflow: hidden;
-	    background: #f4f4f4;
-	}
-
-	.image-preview img {
-	    width: 100%;
-	    height: 100%;
-	    object-fit: cover;
-	}
-
-	.remove-image-btn {
-	    position: absolute;
-	    top: 5px;
-	    right: 5px;
-	    background: rgba(255, 255, 255, 0.7);
-	    border: none;
-	    border-radius: 50%;
-	    width: 20px;
-	    height: 20px;
-	    cursor: pointer;
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
-	}
-
-	.remove-image-btn::before {
-	    content: '×';
-	    font-size: 16px;
-	    color: #f00;
+	.btn-submit {
+		margin-top: 10px;
 	}
 </style>
 <script>
-	function previewImage(event) {
-	    var reader = new FileReader();
-	    reader.onload = function(){
-	        var img = document.createElement('img');
-	        img.src = reader.result;
+    let maxImages = 3;
 
-	        var previewContainer = document.createElement('div');
-	        previewContainer.classList.add('image-preview');
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var img = document.createElement('img');
+            img.src = reader.result;
 
-	        var removeButton = document.createElement('button');
-	        removeButton.classList.add('remove-image-btn');
-	        removeButton.onclick = function() {
-	            previewContainer.remove();
-	        };
+            var previewContainer = document.createElement('div');
+            previewContainer.classList.add('image-preview');
 
-	        previewContainer.appendChild(img);
-	        previewContainer.appendChild(removeButton);
+            var removeButton = document.createElement('button');
+            removeButton.classList.add('remove-image-btn');
+            removeButton.onclick = function() {
+                previewContainer.remove();
+                updateImageCount();
+            };
 
-	        document.getElementById('image-preview-container').appendChild(previewContainer);
-	    };
-	    reader.readAsDataURL(event.target.files[0]);
-	}
+            previewContainer.appendChild(img);
+            previewContainer.appendChild(removeButton);
 
-	function addFileInput() {
-	    var fileInputContainer = document.createElement('div');
-	    fileInputContainer.classList.add('file-upload-section');
+            document.getElementById('image-preview-container').appendChild(previewContainer);
+            updateImageCount();
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
 
-	    var fileInputLabel = document.createElement('label');
-	    fileInputLabel.classList.add('file-upload-label');
-	    fileInputLabel.innerHTML = '<span class="placeholder">사진을 추가해주세요</span>';
+    function addFileInput() {
+        var fileInputContainer = document.createElement('div');
+        fileInputContainer.classList.add('file-upload-section');
 
-	    var fileInput = document.createElement('input');
-	    fileInput.type = 'file';
-	    fileInput.name = 'images';
-	    fileInput.classList.add('file-upload-input');
-	    fileInput.onchange = previewImage;
+        var fileInputLabel = document.createElement('label');
+        fileInputLabel.classList.add('file-upload-label');
 
-	    fileInputLabel.appendChild(fileInput);
-	    fileInputContainer.appendChild(fileInputLabel);
+        var fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.name = 'images';
+        fileInput.classList.add('file-upload-input');
+        fileInput.onchange = previewImage;
 
-	    document.getElementById('file-input-container').appendChild(fileInputContainer);
-	}
+        fileInputLabel.appendChild(fileInput);
+        fileInputContainer.appendChild(fileInputLabel);
+
+        document.getElementById('file-input-container').appendChild(fileInputContainer);
+
+        // 파일 입력 필드 클릭 트리거
+        fileInput.click();
+    }
+
+    function updateImageCount() {
+        var imagePreviews = document.getElementsByClassName('image-preview');
+        var count = imagePreviews.length;
+        var imgAddBtn = document.querySelector('.img-add-btn');
+        var imageCountText = document.querySelector('.image-count');
+
+        if (count >= maxImages) {
+            imgAddBtn.classList.add('hidden');
+        } else {
+            imgAddBtn.classList.remove('hidden');
+        }
+
+        imageCountText.textContent = `${count}/${maxImages}`;
+    }
+
+    function validateForm(event) {
+        var imagePreviews = document.getElementsByClassName('image-preview');
+        if (imagePreviews.length === 0) {
+            alert('최소한 하나의 사진을 추가해야 합니다.');
+            event.preventDefault();
+        }
+    }
 </script>
 </head>
 <body>
     <th:block layout:fragment="content">
         <div class="review-form-container">
             <h1>리뷰를 작성해주세요</h1>
-            <form action="/review/insertReview.do" method="post" enctype="multipart/form-data">
+            <form id="reviewForm" action="/review/insertReview.do" method="post" enctype="multipart/form-data" onsubmit="validateForm(event)">
                 <input type="hidden" name="ro_id" th:value="${ro_id}">
                 <input type="hidden" name="email" th:value="${guest.email}">
                 <div class="">
@@ -187,24 +276,28 @@
                 
                 <div class="">
                     <label for="review">리뷰</label>
-                    <textarea id="rev_content" name="rev_content" rows="5" class="form-control" required
+                    <textarea id="rev_content" name="rev_content" rows="10" class="form-control" required
                               placeholder="좋은 여행되셨나요? 객실에 대한 솔직한 리뷰를 남겨주세요!"></textarea>
                 </div>
                 
                 <div id="file-input-container">
                     <div class="file-upload-section">
-                        <label for="image" class="file-upload-label">
-                            <input type="file" name="images" id="image" class="file-upload-input" onchange="previewImage(event)" />
+                        <input type="file" name="images" id="image" class="file-upload-input" onchange="previewImage(event)" />
                     </div>
                 </div>
-
-                <div class="image-preview-container" id="image-preview-container"></div>
+                <p>숙소 사진을 추가해주세요!</p>
                 
-                <div class="">
-                    <button type="button" onclick="addFileInput()">이미지 추가</button>
+                <div class="image-preview-wrapper">
+                    <div class="image-preview-container" id="image-preview-container"></div>
+                    <div class="img-add-btn">
+                        <button type="button" class="btn-add" onclick="addFileInput()">
+                            <img src="/images/camera.png" alt="카메라 아이콘"> 
+                            <span class="image-count">0/3</span>
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="">
+                <div class="btn-submit-section">
                     <button type="submit" class="btn-submit">제출</button>
                 </div>
             </form>
