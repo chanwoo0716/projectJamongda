@@ -1,5 +1,6 @@
 package com.jamongda.accommodation.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import com.jamongda.accommodation.dto.AccommodationDTO;
 import com.jamongda.accommodation.dto.AccommodationImageDTO;
 import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.accommodation.dto.RoomImageDTO;
+import com.jamongda.booking.dto.BookingDTO;
 
 @Service("accommodationService")
 public class AccommodationServiceImpl implements AccommodationService{
@@ -152,5 +154,71 @@ public class AccommodationServiceImpl implements AccommodationService{
 
 		return accRoMap;
 	}
+	
+	// 회원 예약 리스트 가져오기
+	@Override
+	public List<Map<String, Object>> getAccommodationBookingInfo(String email) throws DataAccessException {
+	    List<Map<String, Object>> reservationList = new ArrayList<>();
+
+	    // 이메일로 숙소 정보 조회
+	    List<AccommodationDTO> accommodations = accDAO.getAccommodationsByEmail(email);
+
+	    if (accommodations != null && !accommodations.isEmpty()) {
+	        List<Integer> accIds = new ArrayList<>();
+	        for (AccommodationDTO accommodation : accommodations) {
+	            accIds.add(accommodation.getAcc_id());
+	        }
+
+	        // acc_id들로 객실 정보 조회
+	        List<RoomDTO> rooms = accDAO.getRoomsByAccIds(accIds);
+
+	        if (rooms != null && !rooms.isEmpty()) {
+	            List<Integer> roIds = new ArrayList<>();
+	            for (RoomDTO room : rooms) {
+	                roIds.add(room.getRo_id());
+	            }
+
+	            // ro_id들로 예약 정보 조회
+	            List<BookingDTO> bookings = accDAO.getBookingsByRoIds(roIds);
+
+	            // 숙소, 객실, 예약 정보를 조합하여 결과 생성
+	            for (AccommodationDTO accommodation : accommodations) {
+	                List<Map<String, Object>> roomList = new ArrayList<>();
+	                for (RoomDTO room : rooms) {
+	                    if (room.getAcc_id() == accommodation.getAcc_id()) {
+	                        List<BookingDTO> roomBookings = new ArrayList<>();
+	                        for (BookingDTO booking : bookings) {
+	                            if (booking.getRo_id() == room.getRo_id()) {
+	                                roomBookings.add(booking);
+	                            }
+	                        }
+	                        // 객실에 예약이 있는 경우에만 추가
+	                        if (!roomBookings.isEmpty()) {
+	                            Map<String, Object> roomMap = new HashMap<>();
+	                            roomMap.put("room", room);
+	                            roomMap.put("bookings", roomBookings);
+	                            roomList.add(roomMap);
+	                        }
+	                    }
+	                }
+	                // 숙소에 유효한 객실이 있는 경우에만 추가
+	                if (!roomList.isEmpty()) {
+	                    Map<String, Object> accommodationMap = new HashMap<>();
+	                    accommodationMap.put("accommodation", accommodation);
+	                    accommodationMap.put("rooms", roomList);
+	                    reservationList.add(accommodationMap);
+	                }
+	            }
+	        }
+	    }
+
+	    return reservationList;
+	}
+
+	
+	
+	
+
+
 
 }

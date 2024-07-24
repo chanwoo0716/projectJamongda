@@ -21,6 +21,7 @@ import com.jamongda.accommodation.dto.AccommodationDTO;
 import com.jamongda.accommodation.dto.AccommodationImageDTO;
 import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.accommodation.service.AccommodationService;
+import com.jamongda.booking.dto.BookingDTO;
 import com.jamongda.member.dto.MemberDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,7 +49,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 	public ModelAndView regAccommodation(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// 로그인한 사업자의 정보만 보여줘야하므로 세션에서 그 사람의 email꺼내기
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("host");
 
 		// 로그인 여부 확인
@@ -116,7 +117,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 	public ModelAndView manageReservation(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		// 로그인한 사업자의 정보만 보여줘야하므로 세션에서 그 사람의 email꺼내기
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("host");
 
 		// 로그인 여부 확인
@@ -126,18 +127,17 @@ public class AccommodationControllerImpl implements AccommodationController {
 			session.invalidate();
 			return null;
 		}
-		
 		String email = memberDTO.getEmail();
 		
-		// 회원 예약 리스트 가져오기
+		// 회원 예약 리스트 가져오기 (*위 사업자의 이메일에 해당하는 예약정보들만 조회)
+		List<Map<String, Object>> reservationList = accommodationService.getAccommodationBookingInfo(email);
 		
-		
-		
-		
-		
+		System.out.println("==========reservationList:" + reservationList);
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/accommodation/manageReservation");
 		mav.addObject("hostSidebar", "accommodation/hostSidebar");
+		mav.addObject("reservationList", reservationList);
 		return mav;
 	}
 
