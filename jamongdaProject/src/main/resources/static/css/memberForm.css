@@ -17,29 +17,42 @@ body {
 }
 form{
 	border-top:0.1em solid rgb(255, 111, 97) ;
-	padding-top: 3%;
+	padding-top: 2%;
 }
-
+/*button 기본 설정 제거*/
+button{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: none;
+	border: none;
+	padding: 0;
+	margin:0 1%;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: black;
+	cursor: pointer;
+}
 /*회원가입 영역*/
 .form-container {
     width: 30%;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
+    margin: auto;	
     border-radius: 10px;
-    background-color: #f9f9f9;
+
 }
 
-h2 {
+/*회원가입 제목*/
+h1 {
     text-align: center;
-    font-size: 24px;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 10%;
+	font-size: 2.2em;
+	
 }
 
 /*제목 설정*/
 label {
-	font-size: 1.1em;
+	font-size: 1.5em;
     display: block;
     margin-bottom: 3%;
     font-weight: bold;
@@ -53,7 +66,7 @@ small {
     color: #666;
 }
 
-/*이메일 영역*/
+/*모든 영역의 공통 class*/
 .form-group {
     margin-bottom: 5%;
     text-align: left; /* 각 폼 그룹의 텍스트 정렬을 좌측으로 설정 */
@@ -65,63 +78,62 @@ small {
 	gap: 2%;
 }
 
-/*중복확인 버튼*/
-#checkEmailBtn{
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	background: none;
-	border: none;
-	padding: 0;
-	margin:0 2%;
-	font-size: 1.1em;
-	font-weight: bold;
-	color: black;
-	cursor: pointer;
-}
-
-#checkEmailBtn:hover{
-	color: #ff6f61;
-}
-
-/*
-.email_mem : 이메일 입력란
-.text : 이메일 제외 모든 입력란
-.sendBtn : 
-*/
-.email_mem, .text, .sendBtn, .confirmBtn, .submitBtn {
-    width: 70%;
-    height: 40px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    padding-left: 10px;
-    background-color: #f9f9f9;
-    transition: background-color 0.3s;
-    text-align: left; /* 입력 필드 텍스트 정렬을 좌측으로 설정 */
-}
 /*이메일 입력 영역*/
 .email_mem {
     flex: 1;
-    margin-right: 5px;
 }
+
+.email_sign{
+	margin-bottom: 2%;
+	font-size: 1.5em;
+}
+
 /*이메일 선택 영역*/
 .email_domain {
-	width: 40%;
+	width: 30%;
     height: 40px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
+    border-radius: 25px;
+    /*outline: none;*/
     padding-left: 5px;
     background-color: #f9f9f9;
 	font-size: 1.1em;
+	margin-bottom: 2%;
+}
+
+#checkEmailBtn{
+	margin-bottom: 2%;
+}
+
+#checkEmailBtn:hover,.btn-primary:hover, #phone-Check-Btn:hover,#checkBtn:hover
+, .findPostCode:hover
+{
+	color: rgb(255, 111, 97);
+}
+
+.email_mem, .text, #custom_domain, .submitBtn, .mail-check-input {
+    width: 60%;
+    height: 40px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    outline: none;
+    padding-left: 5%;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s;
+    text-align: left; /* 입력 필드 텍스트 정렬을 좌측으로 설정 */
+	margin-bottom: 2%;
 }
 
 #custom_domain {
     display: none;
+	width: 20%;
 }
-
+/*우편번호 / 주소 */
+#postCode{
+	width: 40%;
+	margin-bottom: 3%;
+}
 /*가입하기 버튼*/
 .submitBtn {
     background-color: #f9968e;
@@ -136,7 +148,6 @@ small {
 
 #emailChk_msg, #pwdChk_msg, #mail-check-warn {
     font-size: 12px;
-    color: red;
 }
 
 .mail-check-box {
@@ -148,7 +159,7 @@ small {
     width: 40%;
 	height: 40px;
     margin-right: 10px;
-	padding: 0 2%;
+	padding-left: 5%;
 	font-size: 1.1em;
 }
 

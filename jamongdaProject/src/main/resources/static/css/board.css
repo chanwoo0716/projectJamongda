@@ -38,6 +38,7 @@ ul,ul>li{
 /*전체 화면*/
 #boardcontent{
     width: 100%;
+	border-top:0.1em solid rgb(255, 111, 97) ;
 }
 
 /*오른쪽 View 화면*/

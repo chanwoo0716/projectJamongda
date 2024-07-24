@@ -16,6 +16,9 @@ body {
   padding: 0 auto;
 }
 
+input{
+	border-radius: 20px;
+}
 /* 전체 영역 */
 #main_content {
   width: 100%;

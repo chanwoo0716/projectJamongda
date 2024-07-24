@@ -52,10 +52,10 @@
  	
  	<!--글 수정하고 저장하기-->
  	<select id="updateBoard" parameterType="java.util.Map">
- 		
-			update board set title=#{board_title}, content=#{board_content}
-			where boardId=#{board_id}
-		
+ 		<![CDATA[ 
+			update board set board_title=#{board_title}, board_content=#{board_content}
+			where board_id=#{board_id}
+		]]>
  	</select>
  	
  	<!--글 삭제하기-->
