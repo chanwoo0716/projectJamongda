@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
 import com.jamongda.accommodation.dto.AccommodationDTO;
@@ -27,7 +28,7 @@ public interface SearchDAO {
    
    public List searchImage(AccommodationDTO acc) throws DataAccessException;
    
-   public List<SearchDTO> searchPriceRange(Map<String, Object> params) throws DataAccessException;
+   public List<SearchDTO> searchPriceRange(@Param("minPrice") int minPrice, @Param("maxPrice") int maxPrice) throws DataAccessException;
    
     // acc_id에 해당하는 숙소 가져오기
     public List<AccommodationDTO> selectAcc(int acc_id) throws DataAccessException;
