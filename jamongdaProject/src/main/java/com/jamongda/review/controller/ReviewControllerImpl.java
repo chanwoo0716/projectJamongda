@@ -3,10 +3,13 @@ package com.jamongda.review.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -20,6 +23,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller("reviewControllerImpl")
 public class ReviewControllerImpl implements ReviewController {
+	
     @Autowired
     ReviewService reviewService;
 
@@ -79,5 +83,20 @@ public class ReviewControllerImpl implements ReviewController {
         mav.setViewName("redirect:/mypage/mypage.do");
         return mav;
     }
+    
+	// 숙소 상세페이지에 리뷰 출력(acc_id) - ajax 엔드포인트
+	@GetMapping("/search/reviews")
+	@ResponseBody
+	public ResponseEntity<List<ReviewDTO>> getReviewsByAccId(@RequestParam("aid") int acc_id,
+												            @RequestParam(value = "page", defaultValue = "1") int page,
+												            @RequestParam(value = "size", defaultValue = "5") int size) {
+		try {
+			List<ReviewDTO> reviews = reviewService.getReviewsByAccId(acc_id, page, size);
+			return ResponseEntity.ok(reviews);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		}
+	}
 
 }
