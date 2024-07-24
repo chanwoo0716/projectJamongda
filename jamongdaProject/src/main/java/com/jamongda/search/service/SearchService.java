@@ -21,7 +21,7 @@ public interface SearchService {
    
    public AccommodationDTO radio(AccommodationDTO acc) throws DataAccessException;
    
-   public List rangePrice(String accArea, String accName,int minPrice, int maxPrice) throws DataAccessException;
+   public List<SearchDTO> rangePrice(int minPrice, int maxPrice) throws DataAccessException;
    
    //숙소상세보기
    public Map detailAccRo(int acc_id) throws DataAccessException;

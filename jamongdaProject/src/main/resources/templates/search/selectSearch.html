@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -10,7 +11,7 @@
    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
    <style>
-      .filter-form label {
+              .filter-form label {
                   display: block;
                   margin-bottom: 10px;
               }
@@ -24,12 +25,19 @@
                   border-radius: 4px;
                   box-sizing: border-box;
               }
-              .filter-form button {
-                  display: none; /* 서브밋 버튼 숨기기 */
-              }
+           .price_submit{
+            width: 100%;
+            height: 40px;
+            background: rgba(255, 111, 97, 0.5);
+            border-radius: 10px;
+            margin-top: 10px;
+           }
       .pagination{
          margin:0 auto;
-      }      
+      }
+     #more-btn2{
+      width: 100%;
+     }      
     </style>
     <script src="https://kit.fontawesome.com/e9b58f4b27.js" crossorigin="anonymous"></script>
    <script th:src="@{/js/acc.js}"></script>
@@ -125,47 +133,93 @@
       
       document.getElementById('checkRange').val()=checkRange;
       */
-      $("#price-slider").slider({
-             range: true,
-             min: 0,
-             max: 1000000, // 최대 가격 설정 (500000 단위)
-             step: 10000, // 슬라이더 단계 (50000 단위)
-             values: [10000, 50000], // 초기 범위 설정
-             slide: function(event, ui) {
-                 $("#minPrice").val(ui.values[0]);
-                 $("#maxPrice").val(ui.values[1]);
-             },
-             stop: function(event, ui) {
-                 // 반올림하여 입력란에 설정
-                 var minPriceRounded = Math.round(ui.values[0] / 50000) * 50000;
-                 var maxPriceRounded = Math.round(ui.values[1] / 50000) * 50000;
-                 $("#minPrice").val(minPriceRounded);
-                 $("#maxPrice").val(maxPriceRounded);
-                 
-                 // 데이터가 변경될 때 자동으로 폼을 서브밋
-                 $("#filterForm").submit();
-             }
-         });
-         
-         // 텍스트 입력란과 슬라이더 상호작용
-         $("#minPrice, #maxPrice").on("input", function() {
-             var minPrice = parseInt($("#minPrice").val());
-             var maxPrice = parseInt($("#maxPrice").val());
-             
-             // 입력 값이 유효할 경우 슬라이더 위치 업데이트
-             if (!isNaN(minPrice) && !isNaN(maxPrice)) {
-                 $("#price-slider").slider("values", [minPrice, maxPrice]);
-             }
-             
-             // 데이터가 변경될 때 자동으로 폼을 서브밋
-             $("#filterForm").submit();
-         });
-         
-         // 초기값 설정
-         $("#minPrice").val($("#price-slider").slider("values", 0));
-         $("#maxPrice").val($("#price-slider").slider("values", 1));
       
+      
+     // 초기 변수 설정
+                 var initialMinPrice = 0;
+                 var initialMaxPrice = 500000;
+
+                 // 서버에서 초기 데이터 불러오기
+                 updateInitialPricesFromServer();
+
+                 // 슬라이더 초기 설정
+                 $("#price-slider").slider({
+                     range: true,
+                     min: 0,
+                     max: 1000000, // 최대 가격 설정 (임의로 예시로 설정)
+                     step: 10000, // 슬라이더 단계 (임의로 예시로 설정)
+                     values: [initialMinPrice, initialMaxPrice], // 초기 범위 설정
+                     slide: function(event, ui) {
+                         // 슬라이더 값 업데이트
+                         $("#minPrice").val(ui.values[0]);
+                         $("#maxPrice").val(ui.values[1]);
+                     },
+                     stop: function(event, ui) {
+                         // 슬라이더 조절이 멈추면 초기 변수 업데이트
+                         initialMinPrice = ui.values[0];
+                         initialMaxPrice = ui.values[1];
+                     }
+                 });
+
+                 // 입력 필드 값 변경 시 슬라이더 업데이트 및 폼 제출
+                 $("#minPrice, #maxPrice").on("input", function() {
+                     var minPrice = $("#minPrice").val();
+                     var maxPrice = $("#maxPrice").val();
+                     updateSliderValues(minPrice, maxPrice); // 슬라이더 값 업데이트
+                 });
+
+                 // Enter 키를 눌렀을 때 폼 제출
+                 $("#minPrice, #maxPrice").keydown(function(event) {
+                     if (event.keyCode === 13) { // 13은 Enter 키의 keyCode입니다.
+                         submitForm(); // 폼 제출 함수 호출
+                         event.preventDefault(); // 기본 동작 방지
+                     }
+                 });
+
+                 // 슬라이더 값을 업데이트하는 함수
+                 function updateSliderValues(minPrice, maxPrice) {
+                     $("#price-slider").slider("values", [minPrice, maxPrice]);
+                 }
+
+                 // 폼 제출 함수
+                 function submitForm() {
+                     // 폼 제출
+                     document.getElementById("filterForm").submit();
+                 }
+
+                 // 서버에서 초기 데이터를 가져오는 함수
+                 function updateInitialPricesFromServer() {
+                     $.ajax({
+                         url: "/search/selectPrice.do", // 서버에서 데이터를 받아올 엔드포인트
+                         method: "GET",
+                         success: function(data) {
+                             // 서버에서 받아온 데이터를 변수에 할당
+                             initialMinPrice = data.minPrice;
+                             initialMaxPrice = data.maxPrice;
+
+                             // 슬라이더의 값도 업데이트
+                             $("#price-slider").slider("values", [initialMinPrice, initialMaxPrice]);
+                         },
+                         error: function() {
+                             console.log("서버에서 초기 가격을 불러오는 데 실패했습니다.");
+                         }
+                     });
+                 }
+             
+             
+              function handleRadioClick(option) {
+                // 모든 라디오 버튼의 checked 속성을 false로 설정
+                document.querySelectorAll('input[name="acc_type"]').forEach(item => {
+                  item.checked = false;
+                });
+
+                // 선택된 라디오 버튼만 checked 속성을 true로 설정
+                document.getElementById(option).checked = true;
+              }              
+              
       });
+      
+      
    </script>
 </head>
 <body>
@@ -248,17 +302,17 @@
                </div>
                <input type="hidden" name="action" value="searchAcc">               
             </form>-->
-            <form th:action="@{/search/selectRadio.do}" method="get" name="frmRadio">
-               <input type="hidden" name="action" value="searchRadio">
-               <input type="radio" name="acc_type" value="${accAllListType}" onchange="this.form.submit()" checked id="one"><span>전체</span><br>
-                  <input type="radio" name="acc_type" value="모텔" onchange="this.form.submit()" id="two"><span>모텔</span><br>
-                  <input type="radio" name="acc_type" value="호텔/리조트" onchange="this.form.submit()" id="three"><span>호텔/리조트</span><br>
-                  <input type="radio" name="acc_type" value="펜션" onchange="this.form.submit()" id="four"><span>펜션</span><br>
-                  <input type="radio" name="acc_type" value="글램핑" onchange="this.form.submit()" id="five"><span>글램핑</span>
-                  <!-- 2024-07-21 코드추가 -->
-                  <input type="hidden" name="checkIn">
-                     <input type="hidden" name="checkOut">
-            </form>
+         <form th:action="@{/search/selectRadio.do}" method="get" name="frmRadio">
+            <input type="hidden" name="action" value="searchRadio">
+               <input type="radio" name="acc_type" value="모텔" onclick="handleRadioClick('two')" onchange="this.form.submit()" id="two"><span>모텔</span><br>
+               <input type="radio" name="acc_type" value="호텔/리조트" onclick="handleRadioClick('three')" onchange="this.form.submit()" id="three"><span>호텔/리조트</span><br>
+               <input type="radio" name="acc_type" value="펜션" onclick="handleRadioClick('four')" onchange="this.form.submit()" id="four"><span>펜션</span><br>
+               <input type="radio" name="acc_type" value="글램핑" onclick="handleRadioClick('five')" onchange="this.form.submit()" id="five"><span>글램핑</span>
+               <!-- 2024-07-21 코드추가 -->
+               <input type="hidden" name="checkIn">
+                  <input type="hidden" name="checkOut">
+         </form>
+
 
             </section>
          <!-- 출처:https://www.youtube.com/watch?v=FShnKqPXknI -->
@@ -279,19 +333,25 @@
                     <input type="range" class="range-max" min="0" max="500000" value="500000" step="20000">
                 </div>
                 <span>0원 ~ 500,000원 이상</span>
-            </section>
+            </section>-->
          <div class="filter-form">
              <h2>가격</h2>
              <form id="filterForm" th:action="@{/search/selectPrice.do}" method="GET">
+            <input type="hidden" name="action" value="searchPrice">
                  <label for="minPrice">최저가</label>
-                 <input type="number" id="minPrice" name="minPrice" placeholder="Enter minimum price" required>
+                 <input type="number" id="minPrice" name="minPrice" placeholder="최저금액을 입력해주세요" required>
                  
                  <label for="maxPrice">최고가</label>
-                 <input type="number" id="maxPrice" name="maxPrice" placeholder="Enter maximum price" required>
+                 <input type="number" id="maxPrice" name="maxPrice" placeholder="최대금액을 입력해주세요" required>
                  
-                 <div id="price-slider"></div>
+             <input type="hidden" id="initialMinPrice" value="${minPrice}">
+             <input type="hidden" id="initialMaxPrice" value="${maxPrice}">
+               <!-- 폼 제출을 위한 숨겨진 버튼 -->
+               <button type="submit" class="price_submit">검색</button>
+               <input type="hidden" name="checkIn">
+               <input type="hidden" name="checkOut">
              </form>
-         </div>-->
+         </div>
         </aside>
       
          
@@ -307,7 +367,7 @@
                     
                 </select>
             </div>-->
-            <div class="acc_list">
+            <div class="acc_list" >
             <!--<table border="1" align="center" width="700">
                      <tr align="center" bgcolor="lightgreen">
                         <th>숙소 지역</th><th>숙소 이름</th><th>체크인</th>
@@ -322,7 +382,7 @@
                            <td th:text=${acc.acc_id}></td>            
                      </tr>            
                   </table>-->
-                <div class="acc_box" th:each="acc : ${accListsrch}">
+                <div class="acc_box" th:each="acc : ${accListsrch}" >
                
                     <div class="acc_image">
                   
@@ -372,7 +432,7 @@
                                     </div>
                                 </div>
                             </div>
-                        <!--<div class="acc_box" th:each="acc_p : ${accRangePrice}">
+                        <div class="acc_box" th:each="acc_p : ${accRangePrice}">
                                        
                                             <div class="acc_image">
                                           
@@ -397,8 +457,8 @@
                                             </div>
                                         </div>                        
             <div class="pagination">
-                <a href="#">더보기</a>
-            </div>-->
+                <button id="load-more-btn"></button>
+            </div>
         </section>
     </div>
     </th:block>
