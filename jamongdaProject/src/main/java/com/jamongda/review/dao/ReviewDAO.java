@@ -15,7 +15,7 @@ public interface ReviewDAO {
 	public void insertReview(ReviewDTO reviewDTO) throws DataAccessException;
 	
 	// 리뷰 이미지 저장
-    void insertReviewImage(ReviewImageDTO reviewImageDTO) throws DataAccessException;
+    public void insertReviewImage(ReviewImageDTO reviewImageDTO) throws DataAccessException;
     
-    void updateReviewImage(ReviewImageDTO reviewImageDTO) throws DataAccessException;
+    public void updateReviewImage(ReviewImageDTO reviewImageDTO) throws DataAccessException;
 }

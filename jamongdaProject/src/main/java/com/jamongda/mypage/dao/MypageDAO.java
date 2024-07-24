@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.jamongda.review.dto.ReviewDTO;
+
 @Mapper
 @Repository("mypageDAO")
 public interface MypageDAO {
@@ -19,4 +21,9 @@ public interface MypageDAO {
     
     // 상세보기 누르면 예약번호 가지고가서 예약정보 조회
     public Map<String, Object> myBookingDetails(Long bo_number) throws DataAccessException;
+    
+    // 회원 이메일로 작성한 리뷰와 이미지 리스트 가져오기
+    List<ReviewDTO> getReviewsWithImagesByEmail(Map<String, Object> params) throws DataAccessException;
+    // 객실 이름만 가져오기
+    public String getRoomNameById(int ro_id) throws DataAccessException;
 }

@@ -41,13 +41,44 @@
         ORDER BY b.payDate DESC
     </select>
     
-    <!-- 예약상세보기 예약 정보 조회 -->    
-	<select id="myBookingDetails" parameterType="Long" resultMap="bookingResultMap">
-	    SELECT b.*, r.ro_id,
-	           r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name, a.acc_id
-	    FROM booking b
-	    JOIN room r ON b.ro_id = r.ro_id
-	    JOIN accommodation a ON r.acc_id = a.acc_id
-	    WHERE b.bo_number = #{bo_number}
+    <!-- 예약 상세보기 예약 정보 조회 -->    
+    <select id="myBookingDetails" parameterType="Long" resultMap="bookingResultMap">
+        SELECT b.*, r.ro_id,
+               r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name, a.acc_id
+        FROM booking b
+        JOIN room r ON b.ro_id = r.ro_id
+        JOIN accommodation a ON r.acc_id = a.acc_id
+        WHERE b.bo_number = #{bo_number}
+    </select>
+    
+	<!-- 회원 이메일로 작성한 리뷰와 이미지를 조인하여 가져오기 -->
+	<select id="getReviewsWithImagesByEmail" parameterType="map" resultMap="reviewResultMap">
+	    SELECT r.rev_id, r.rev_content, r.rev_date, r.email, r.ro_id,
+	           ri.rev_image_id, ri.rev_image
+	    FROM review r
+	    LEFT JOIN review_image ri ON r.rev_id = ri.rev_id
+	    WHERE r.email = #{email}
+	    LIMIT #{size} OFFSET #{offset}
 	</select>
+
+    <!-- 리뷰와 이미지를 매핑하는 ResultMap -->
+	<resultMap id="reviewResultMap" type="com.jamongda.review.dto.ReviewDTO">
+	    <id property="rev_id" column="rev_id"/>
+	    <result property="rev_content" column="rev_content"/>
+	    <result property="rev_date" column="rev_date"/>
+	    <result property="email" column="email"/>
+	    <result property="ro_id" column="ro_id"/>
+	    <result property="ro_name" column="ro_name"/>
+	    <collection property="images" ofType="com.jamongda.review.dto.ReviewImageDTO">
+	        <id property="rev_image_id" column="rev_image_id"/>
+	        <result property="rev_image" column="rev_image"/>
+	    </collection>
+	</resultMap>
+
+    <!-- ro_id를 통해 room의 ro_name 가져오기 -->
+    <select id="getRoomNameById" parameterType="int" resultType="string">
+        SELECT ro_name
+        FROM room
+        WHERE ro_id = #{ro_id}
+    </select>
 </mapper>
