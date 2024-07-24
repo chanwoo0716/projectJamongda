@@ -80,7 +80,7 @@
 					</div>
 					
 				    <!-- 전체 글 수가 100개를 넘지 않을 경우 -->
-					<div id="list_paging" th:if="${boardMap.totBoards <= 100}">	
+					<div id="list_paging" align="center" th:if="${boardMap.totBoards <= 100}">	
 						<span th:each="num : ${#numbers.sequence(1,(boardMap.totBoards/10+1))}">
 							<span th:if="${num==boardMap.pageNum}">
 									<a class="target" th:href="@{/board/boardList.do(section=${boardMap.section},pageNum=${num})}" th:text="${num}"></a>

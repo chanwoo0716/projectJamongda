@@ -112,32 +112,6 @@ public class BoardControllerImpl implements BoardController{
 		return mav;
 	}
 
-	//board 상세글 수정하는 메서드
-	/*@Override
-	@PostMapping("/board/modBoardForm.do")
-	public ModelAndView modBoard(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		
-		String category = request.getParameter("category");
-		String title = request.getParameter("title");
-		String content = request.getParameter("editorTxt");
-		String boardId = request.getParameter("boardId");
-		
-		System.out.println("Category: " + category);
-	    System.out.println("Title: " + title);
-	    System.out.println("Content: " + content);
-	    
-		
-		boardDTO.setCategory(category);
-		boardDTO.setTitle(title);
-		boardDTO.setContent(content);
-		boardDTO.setContent(boardId);
-		
-		boardService.modBoard(boardDTO);
-		ModelAndView mav = new ModelAndView("redirect:/board/viewBoard.do?boardId="+boardId);
-		return mav;
-	}*/
-	
 	//board 수정폼으로 이동하는 메서드
 	@Override
 	@GetMapping("/board/modBoardForm.do")

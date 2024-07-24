@@ -16,9 +16,9 @@ body {
   padding: 0 auto;
 }
 #boardSidebar {
-   position : relative;
-   top: -260px;
-   left: 50px;
+   position : absolute;
+   top: 20%;
+   left: 5%;
    display: inline-block;
     width: 220px; /* 사이드바의 너비 */
     background-color: white; /* 배경색 */
