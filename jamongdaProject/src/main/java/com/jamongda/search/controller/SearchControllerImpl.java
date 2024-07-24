@@ -113,12 +113,12 @@ public class SearchControllerImpl implements SearchController{
       
       List accListType=searchService.searchType(acc);// 숙소 검색 리스트(타입)
       
-      List accRangePrice=searchService.rangePrice(acc_name,acc_area,minPrice,maxPrice);
+      List<SearchDTO> accRangePrice=searchService.rangePrice(minPrice,maxPrice);
       
       //List accImageList=searchService.searchImage(acc);   //숙소 검색 이미지 리스트(이름,지역) (1개만 가져옴)
       ModelAndView mav=new ModelAndView();
       mav.setViewName("/search/selectSearch");
-      mav.addObject("accListsrch",accListsrch);
+      mav.addObject("accRangePrice",accRangePrice);
       mav.addObject("bo_checkIn",bo_checkIn);
       mav.addObject("bo_checkOut",bo_checkOut);
       //mav.addObject("accImageList",accImageList);

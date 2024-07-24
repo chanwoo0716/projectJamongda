@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -64,14 +66,10 @@ public class SearchServiceImpl implements SearchService{
    }
    */
    @Override
-   public List rangePrice(String acc_area, String acc_name,int minPrice, int maxPrice) throws DataAccessException{
-      Map<String, Object> params = new HashMap<>();
-      params.put("acc_area", acc_area);
-       params.put("acc_name", acc_name);
-        params.put("minPrice", minPrice);
-        params.put("maxPrice", maxPrice);
-        List accRangePrice=searchDAO.searchPriceRange(params);
+   public List<SearchDTO> rangePrice(int minPrice, int maxPrice) throws DataAccessException{
+      List<SearchDTO> accRangePrice=searchDAO.searchPriceRange(minPrice, maxPrice);
         return accRangePrice;
+        
    }
    
    //숙소상세보기

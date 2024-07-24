@@ -302,3 +302,16 @@ form{
 #nullAccListBtn:hover {
     background-color: #0056b3;
 }
+
+#pagination {
+	font-size : 2em;
+	text-align: center;
+	
+}
+#pagination a {
+    margin: 0 5px; /* 페이지 번호 간의 간격 */
+}
+.selected-page {
+    color: red;
+    font-weight: bold;
+}

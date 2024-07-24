@@ -134,7 +134,7 @@
     </select>
     <!--2024-07-20수정완료-->
     
-    <select id="searchPriceRange" parameterType="Map" resultType="SearchDTO">
+    <select id="searchPriceRange" resultType="SearchDTO">
        <![CDATA[
       SELECT a.*, ai.acc_image, r.ro_price
       FROM accommodation a
@@ -153,9 +153,7 @@
           GROUP BY r1.acc_id
       ) r ON a.acc_id = r.acc_id
             WHERE regCheck LIKE CONCAT('%', 'Y', '%')
-            AND acc_area LIKE CONCAT('%', #{acc_area}, '%')
-               AND acc_name LIKE CONCAT('%', #{acc_name}, '%')
-               AND ro_price BETWEEN #{minPrice} AND #{maxPrice}
+                AND (ro_price BETWEEN #{minPrice} AND #{maxPrice} OR ro_price IS NULL)
           ]]>
     
     </select>
@@ -207,4 +205,10 @@
         JOIN accommodation a ON m.email = a.email
         WHERE a.acc_id = #{acc_id}
     </select>
+    
+    
+    
+    
+    
+    
  </mapper>
