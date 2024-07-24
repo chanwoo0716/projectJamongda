@@ -4,7 +4,7 @@
     layout:decorate="/layout/layout">
 <head>
 <meta charset="UTF-8">
-<title>회원 가입</title>
+<title>JAMONGDA : 회원 가입</title>
 <link rel="stylesheet" th:href="@{/css/memberForm.css}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" th:src="@{/js/common.js}"></script>
@@ -16,13 +16,14 @@
     <th:block layout:fragment="content">
         <form name="frmMember" action="/member/insertMember.do" method="post" onsubmit="return validateForm();">
             <div class="form-container">
-                <h2>회원가입</h2>
+                <h1>회원가입</h1>
 
                 <div class="form-group">
                     <label for="email_mem">이메일</label>
                     <div class="email-input">
-                        <input type="text" name="email_mem" id="email_mem" class="email_mem" placeholder="이메일을 입력하세요" required oninput="updateEmail()">
-                        @
+                        <input type="text" name="email_mem" id="email_mem" class="email_mem" placeholder="이메일을 입력해주세요." required oninput="updateEmail()">
+                        <span class="email_sign"">@</span>
+						<input type="text" id="custom_domain" name="custom_domain" placeholder="example.com" oninput="updateEmail()">
                         <select id="email_domain" name="email_domain" title="이메일 선택" class="email_domain" onchange="toggleCustomDomain(); updateEmail();">
                             <option value="naver.com">naver.com</option>
                             <option value="gmail.com">gmail.com</option>
@@ -31,7 +32,6 @@
                             <option value="nate.com">nate.com</option>
                             <option value="direct">직접입력</option>
                         </select>
-                        <input type="text" id="custom_domain" name="custom_domain" placeholder="example.com" style="display:none;" oninput="updateEmail()">
 						<button type="button" id="checkEmailBtn" onclick="checkEmail()">중복 확인</button>
 					</div>
                     <span id="emailChk_msg"></span>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <div class="mail-check-box">
-                        <input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+                        <input class="form-control mail-check-input" placeholder="인증번호를 입력해주세요." disabled="disabled" maxlength="6">
 						<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
                     </div>
                 </div>
@@ -50,16 +50,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="pwd">비밀번호</label>
-                    <small>* 4~10자리 이내로 입력해주세요</small>
-                    <input type="password" id="pwd" name="pwd" class="text" oninput="pwd_Chk();" required
+                    <label for="pwd">비밀번호</label>	
+                    <input type="password" id="pwd" name="pwd" class="text" placeholder="4~10자리 이내로 입력해주세요" oninput="pwd_Chk();" required
                         onmousedown="showPassword('pwd')" onmouseup="hidePassword('pwd')" onmouseout="hidePassword('pwd')">
                 </div>
 
                 <div class="form-group">
                     <label for="pwdChk">비밀번호 확인</label>
-                    <span id="pwdChk_msg"></span>
-                    <input type="password" id="pwdChk" name="pwdChk" class="text" oninput="pwd_Chk();" required
+                    <p id="pwdChk_msg"></p>
+                    <input type="password" id="pwdChk" name="pwdChk" class="text" placeholder="비밀번호를 입력해주세요" oninput="pwd_Chk();" required
                         onmousedown="showPassword('pwdChk')" onmouseup="hidePassword('pwdChk')" onmouseout="hidePassword('pwdChk')">
                 </div>
 
@@ -73,8 +72,8 @@
 
                 <div class="form-group">
                     <label for="postCode">주소</label>
-                    <input type="tel" name="postCode" id="postCode" maxlength="5" size="6" title="우편번호" class="text" placeholder="우편번호를 입력하세요">
 					<button type="button" class="findPostCode" onclick="findPostCode();">우편번호 찾기</button>
+                    <input type="tel" name="postCode" id="postCode" maxlength="5" size="6" title="우편번호" class="text" placeholder="우편번호를 입력하세요">
                     <input type="text" id="address1" name="address1" class="text" placeholder="주소를 입력하세요">
                     <input type="text" id="address2" name="address2" class="text" placeholder="상세주소를 입력하세요">
                     <input type="hidden" id="address" name="address">

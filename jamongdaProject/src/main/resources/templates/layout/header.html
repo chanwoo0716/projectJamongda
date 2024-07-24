@@ -52,6 +52,7 @@
 			   <div class="header_mypage" th:if="${session.isLogOn==true and session.guest != null}">
 	   				<a th:href="@{/mypage/mypage.do}">마이페이지</a>
 	   				<ul class="mypage_list">
+						<li>임의의 메뉴</li>
 	   					<li th:href="@{/member/logout.do}">로그아웃</li>
 	   				</ul>
 	   			</div>
