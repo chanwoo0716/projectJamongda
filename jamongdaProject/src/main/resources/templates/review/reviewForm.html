@@ -64,25 +64,6 @@
 	    text-align: center;
 	}
 
-	.file-upload-label {
-	    display: inline-block;
-	    background-color: #f4f4f4;
-	    padding: 10px;
-	    border: 2px dashed #ccc;
-	    border-radius: 10px;
-	    cursor: pointer;
-	    font-size: 16px;
-	    color: #555;
-	    position: relative;
-	    width: 100%;
-	    height: 200px; /* 버튼의 높이를 크게 설정 */
-	    overflow: hidden;
-	}
-
-	.file-upload-input {
-	    display: none;
-	}
-
 	.file-upload-label img {
 	    width: 100%;
 	    height: 100%;
@@ -101,16 +82,93 @@
 	.file-upload-label img.show {
 	    display: block;
 	}
+
+	.image-preview-container {
+	    display: flex;
+	    flex-wrap: wrap;
+	    gap: 10px;
+	    margin-top: 20px;
+	}
+
+	.image-preview {
+	    width: 100px;
+	    height: 100px;
+	    position: relative;
+	    border: 2px solid #ccc;
+	    border-radius: 10px;
+	    overflow: hidden;
+	    background: #f4f4f4;
+	}
+
+	.image-preview img {
+	    width: 100%;
+	    height: 100%;
+	    object-fit: cover;
+	}
+
+	.remove-image-btn {
+	    position: absolute;
+	    top: 5px;
+	    right: 5px;
+	    background: rgba(255, 255, 255, 0.7);
+	    border: none;
+	    border-radius: 50%;
+	    width: 20px;
+	    height: 20px;
+	    cursor: pointer;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	}
+
+	.remove-image-btn::before {
+	    content: '×';
+	    font-size: 16px;
+	    color: #f00;
+	}
 </style>
 <script>
 	function previewImage(event) {
 	    var reader = new FileReader();
 	    reader.onload = function(){
-	        var img = document.getElementById('preview-img');
+	        var img = document.createElement('img');
 	        img.src = reader.result;
-	        img.classList.add('show'); // 이미지를 보여줍니다
+
+	        var previewContainer = document.createElement('div');
+	        previewContainer.classList.add('image-preview');
+
+	        var removeButton = document.createElement('button');
+	        removeButton.classList.add('remove-image-btn');
+	        removeButton.onclick = function() {
+	            previewContainer.remove();
+	        };
+
+	        previewContainer.appendChild(img);
+	        previewContainer.appendChild(removeButton);
+
+	        document.getElementById('image-preview-container').appendChild(previewContainer);
 	    };
 	    reader.readAsDataURL(event.target.files[0]);
+	}
+
+	function addFileInput() {
+	    var fileInputContainer = document.createElement('div');
+	    fileInputContainer.classList.add('file-upload-section');
+
+	    var fileInputLabel = document.createElement('label');
+	    fileInputLabel.classList.add('file-upload-label');
+	    fileInputLabel.innerHTML = '<span class="placeholder">사진을 추가해주세요</span>';
+
+	    var fileInput = document.createElement('input');
+	    fileInput.type = 'file';
+	    fileInput.name = 'images';
+	    fileInput.classList.add('file-upload-input');
+	    fileInput.onchange = previewImage;
+
+	    fileInputLabel.appendChild(fileInput);
+	    fileInputContainer.appendChild(fileInputLabel);
+
+	    document.getElementById('file-input-container').appendChild(fileInputContainer);
 	}
 </script>
 </head>
@@ -133,12 +191,17 @@
                               placeholder="좋은 여행되셨나요? 객실에 대한 솔직한 리뷰를 남겨주세요!"></textarea>
                 </div>
                 
-                <div class="file-upload-section">
-                    <label for="image" class="file-upload-label">
-                        <span class="placeholder">사진을 추가해주세요</span>
-                        <input type="file" name="images" id="image" class="file-upload-input" multiple onchange="previewImage(event)" />
-                        <img id="preview-img" />
-                    </label>
+                <div id="file-input-container">
+                    <div class="file-upload-section">
+                        <label for="image" class="file-upload-label">
+                            <input type="file" name="images" id="image" class="file-upload-input" onchange="previewImage(event)" />
+                    </div>
+                </div>
+
+                <div class="image-preview-container" id="image-preview-container"></div>
+                
+                <div class="">
+                    <button type="button" onclick="addFileInput()">이미지 추가</button>
                 </div>
                 
                 <div class="">

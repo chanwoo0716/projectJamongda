@@ -72,6 +72,13 @@
 		overflow-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 */
     }
 
+	.ro_name {
+		color: #ccc;
+		word-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 */
+		overflow-wrap: break-word; /* 긴 단어가 있을 경우 줄바꿈 */
+		
+	}
+	
     .myReviews-container span {
         font-weight: bold;
     }
@@ -116,15 +123,15 @@
 	    padding: 10px;
 	    border: none;
 	    border-radius: 5px;
-	    background-color: #1a73e8;
-	    color: #fff;
+	    color: rgb(137, 137, 137);
 	    font-size: 14px;
 	    text-align: center;
 	    cursor: pointer;
 	    margin-top: 20px;
 	}
 	.load-more-btn:hover {
-	    background-color: #155a9e;
+		cursor: pointer;
+		color: rgb(114, 114, 114);
 	}
 </style>
 <script th:inline="javascript">
@@ -150,14 +157,14 @@
                         data.forEach(review => {
                             let reviewHtml = `
                                 <div>
+                                    <p><span>${review.rev_date}</span></p>
                                     <div>
                                         ${review.images.map(image => 
                                             `<img src="/review/downloadImage?rev_image=${image.rev_image}" alt="Review Image" />`
                                         ).join('')}
                                     </div>
-                                    <p>Room Name: <span>${review.ro_name}</span></p>
-                                    <p>Content: <span>${review.rev_content}</span></p>
-                                    <p>Date: <span>${review.rev_date}</span></p>
+                                    <p><span class="ro_name">${review.ro_name}</span></p>
+                                    <p><span>${review.rev_content}</span></p>
                                 </div>
                             `;
                             $('#reviews').append(reviewHtml);
@@ -190,7 +197,7 @@
             <div id="reviews">
                 <!-- 리뷰는 AJAX를 통해 로드됩니다. 초기 상태는 비어 있어야 합니다. -->
             </div>
-            <button id="loadMore" class="load-more-btn">더 보기</button>
+            <button id="loadMore" class="load-more-btn">▼더보기</button>
         </div>
     </th:block>
 </body>
