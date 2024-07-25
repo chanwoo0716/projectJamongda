@@ -2,22 +2,23 @@ $(document).ready(function() {
     function parseDate(dateString) {
         return new Date(dateString);
     }
+	
+	// string인 체크인체크아웃 날짜를 Date 로 변환
+	checkInDate2=parseDate(checkInDate);
+	checkOutDate2=parseDate(checkOutDate);
 
     function getDayOfWeek(date) {
         const week = ['일', '월', '화', '수', '목', '금', '토'];
         const day = new Date(date).getDay();
         return week[day];
     }
-
+	
+	
     function updateDateAndDay() {
         // 체크인 및 체크아웃 날짜와 요일 업데이트
-        $('#checkInDateDay').text(checkInDate.toISOString().slice(0, 10) + ' (' + getDayOfWeek(checkInDate) + ')');
-        $('#checkOutDateDay').text(checkOutDate.toISOString().slice(0, 10) + ' (' + getDayOfWeek(checkOutDate) + ')');
+        $('#checkInDateDay').text(checkInDate2.toISOString().slice(0, 10) + ' (' + getDayOfWeek(checkInDate) + ')');
+        $('#checkOutDateDay').text(checkOutDate2.toISOString().slice(0, 10) + ' (' + getDayOfWeek(checkOutDate) + ')');
     }
-
-    // 문자열을 Date 객체로 변환
-    var checkInDate = parseDate(/*[[${bo_checkIn}]]*/ '2024-07-25');
-    var checkOutDate = parseDate(/*[[${bo_checkOut}]]*/ '2024-07-28');
 
 	// 숫자 포맷팅 세자리마다 ,넣기
     function formatNumber(number) {
@@ -52,10 +53,10 @@ $(document).ready(function() {
         let totalPrice = oneNightPrice * diffDays;
 
         // 총 결제 금액 포맷팅
-        $('#totalPrice').text(formatNumber(totalPrice) + ' 원');
+        $('#totalPrice').text(formatNumber(totalPrice));
 
 		// 포맷팅된 값으로 설정
-		$('#oneday-price').text(formatNumber(oneNightPrice) + ' 원');
+		$('#oneday-price').text(formatNumber(oneNightPrice));
     }
 
     // 날짜 값이 로드된 후 총 결제 금액 업데이트
@@ -125,50 +126,55 @@ $(document).ready(function() {
         payment();
     });
 
-    function payment() {
-        IMP.init('imp81466281');
-        IMP.request_pay({
-            pg: "kakaopay",
-            pay_method: "card",
-            merchant_uid: "order_" + new Date().getTime(),
-            name: $('#acc_name_hidden').val(),
-            amount: $('#totalPrice').text().replace(' 원', '').replace(/,/g, ''), // 쉼표 제거
-            buyer_email: $('#guestName').val(),
-            buyer_name: $('#bo_name').val(),
-            buyer_tel: $('#bo_tel').val()
-        }, function(rsp) {
-            if (rsp.success) {
-                let bookingData = {
-                    bo_name: $('#bo_name').val(),
-                    bo_tel: $('#bo_tel').val(),
-                    bo_checkIn: $('#bo_checkIn_hidden').val(),
-                    bo_checkOut: $('#bo_checkOut_hidden').val(),
-                    payDate: new Date(),
-                    bo_payment: "카카오페이",
-                    bo_price: $('#totalPrice').text().replace(' 원', ''),
-                    ro_id: $('#ro_id').val(),
-                    email: $('#email').val()
-                };
+	function payment() {
+	    IMP.init('imp81466281');
+	    IMP.request_pay({
+	        pg: "kakaopay",
+	        pay_method: "card",
+	        merchant_uid: "order_" + new Date().getTime(),
+	        name: $('#acc_name_hidden').val(),
+	        amount: $('#totalPrice').text().replace(' 원', '').replace(/,/g, ''), // 쉼표 제거
+	        buyer_email: $('#guestName').val(),
+	        buyer_name: $('#bo_name').val(),
+	        buyer_tel: $('#bo_tel').val()
+	    }, function(rsp) {
+	        if (rsp.success) {
+	            let totalPrice = $('#totalPrice').text().replace(' 원', '').replace(/,/g, ''); // 쉼표 제거
+	            let bookingData = {
+	                bo_name: $('#bo_name').val(),
+	                bo_tel: $('#bo_tel').val(),
+	                bo_checkIn: $('#bo_checkIn_hidden').val(),
+	                bo_checkOut: $('#bo_checkOut_hidden').val(),
+	                payDate: new Date().toISOString(), // 결제 날짜를 ISO 문자열로 변환
+	                bo_payment: "카카오페이",
+	                bo_price: parseInt(totalPrice, 10), // 문자열을 숫자로 변환
+	                ro_id: $('#ro_id').val(),
+	                email: $('#email').val()
+	            };
 
-                $.ajax({
-                    url: "/booking/insertBooking.do",
-                    method: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify(bookingData),
-                    success: function(response) {
-                        alert("예약이 완료되었습니다.");
-                        let url = "/booking/bookingComplete.do?bo_number=" + response.bo_number +
-                                  "&aname=" + $('#acc_name_hidden').val() +
-                                  "&rid=" + $('#ro_id').val();
-                        window.location.href = url;
-                    },
-                    error: function(error) {
-                        alert("예약 처리 중 오류가 발생했습니다.");
-                    }
-                });
-            } else {
-                alert("결제 실패: 코드(" + rsp.error_code + ") / 메시지(" + rsp.error_msg + ")");
-            }
-        });
-    }
+	            $.ajax({
+	                url: "/booking/insertBooking.do",
+	                method: "POST",
+	                contentType: "application/json",
+	                data: JSON.stringify(bookingData),
+	                success: function(response) {
+	                    alert("예약이 완료되었습니다.");
+	                    let url = "/booking/bookingComplete.do?bo_number=" + response.bo_number +
+	                              "&aname=" + $('#acc_name_hidden').val() +
+	                              "&rid=" + $('#ro_id').val();
+	                    window.location.href = url;
+	                },
+	                error: function(xhr, status, error) {
+	                    console.error("예약 처리 중 오류가 발생했습니다:", xhr.responseText);
+	                    console.error("상태:", status);
+	                    console.error("오류 메시지:", error);
+	                    alert("예약 처리 중 오류가 발생했습니다.");
+	                }
+	            });
+	        } else {
+	            alert("결제 실패: 코드(" + rsp.error_code + ") / 메시지(" + rsp.error_msg + ")");
+	        }
+	    });
+	}
+
 });
