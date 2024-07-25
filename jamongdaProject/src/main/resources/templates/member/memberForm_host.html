@@ -14,63 +14,67 @@
 <body>
 	<th:block layout:fragment="content">
 		<form name="frmMember" action="/member/insertMember.do" method="post" onsubmit="return validateForm();">
-		    <div>
-		        <div>
-		            <h2>사업자 회원가입</h2>
-		        </div>
-		        <div>
-		            이메일 <button type="button" id="checkEmailBtn" onclick="checkEmail()">중복 확인</button>
-		        </div>
-		        <div>
-		            <input type="text" name="email_mem" id="email_mem" class="email_mem" placeholder="이메일을 입력하세요" required oninput="updateEmail()">
-		            @
-		            <select id="email_domain" name="email_domain" title="이메일 선택" class="email_domain" onchange="toggleCustomDomain(); updateEmail();">
-		                <option value="naver.com">naver.com</option>
-		                <option value="gmail.com">gmail.com</option>
-		                <option value="daum.net">daum.net</option>
-		                <option value="hanmail.net">hanmail.net</option>
-		                <option value="nate.com">nate.com</option>
-		                <option value="direct">직접입력</option>
-		            </select>
-		            <input type="text" id="custom_domain" name="custom_domain" placeholder="example.com" style="display:none;" oninput="updateEmail()">
+		    <div class="form-container">
+	            <h1>사업자 회원가입</h1>
+
+		        <div class="form-group">
+		            <label for="email_mem">이메일</label>
+			        <div class="email-input">
+			            <input type="text" name="email_mem" id="email_mem" class="email_mem" placeholder="이메일을 입력하세요" required oninput="updateEmail()">
+			            <span class="email_sign">@</span>
+						<input type="text" id="custom_domain" name="custom_domain" placeholder="example.com" style="display:none;" oninput="updateEmail()">
+			            <select id="email_domain" name="email_domain" title="이메일 선택" class="email_domain" onchange="toggleCustomDomain(); updateEmail();">
+			                <option value="naver.com">naver.com</option>
+			                <option value="gmail.com">gmail.com</option>
+			                <option value="daum.net">daum.net</option>
+			                <option value="hanmail.net">hanmail.net</option>
+			                <option value="nate.com">nate.com</option>
+			                <option value="direct">직접입력</option>
+			            </select>
+							<button type="button" id="checkEmailBtn" onclick="checkEmail()">중복 확인</button>
+					</div>
 		            <span id="emailChk_msg"></span>
 		            <input type="hidden" id="email" name="email" value="">
-		            <div class="input-group-addon">
-		                <button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
-		            </div>
+				</div>
+				<div class="form-group">
 		            <div class="mail-check-box">
 		                <input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-		            </div>
+						<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
+					</div>
 		        </div>
-		        <div>
-		            사업자등록번호 <button type="button" class="valRegNumber" onclick="valRegNumber();">사업자 인증</button>
+				
+		        <div class="form-group">
+		            <label for="regNumber">사업자등록번호</label>
+		            <input type="text" id="regNumber" name="regNumber" class="text" placeholder="예시) 01012345678" oninput="oninputRegNum(this)" maxlength="12">
+					<button type="button" class="valRegNumber" onclick="valRegNumber();">사업자 인증</button>
 		        </div>
-		        <div>
-		            <input type="text" id="regNumber" name="regNumber" class="text" placeholder="예시) 1112233333" oninput="oninputRegNum(this)" maxlength="12">
-		        </div>
-		        <div>이름</div>
-		        <div>
-		            <input type="text" id="name" name="name" class="text" placeholder="이름을 입력하세요" required>
-		        </div>
-		        <div>비밀번호</div>
-		        <div>* 4~10자리 이내로 입력해주세요</div>
-		        <div>
-		            <input type="password" id="pwd" name="pwd" class="text" oninput="pwd_Chk();" required onmousedown="showPassword('pwd')" onmouseup="hidePassword('pwd')" onmouseout="hidePassword('pwd')">
-		        </div>
-		        <div>비밀번호 확인</div>
-		        <div><span id="pwdChk_msg"></span></div>
-		        <div>
-		            <input type="password" id="pwdChk" name="pwdChk" class="text" oninput="pwd_Chk();" required onmousedown="showPassword('pwdChk')" onmouseup="hidePassword('pwdChk')" onmouseout="hidePassword('pwdChk')">
-		        </div>
-		        <div>전화번호</div>
-		        <div>
-		            <input type="tel" id="tel" name="tel" class="text" placeholder="예시) 01012345678" required oninput="oninputTel(this)" maxlength="13">
-		        </div>
-		        <div>
-		            <button type="button" class="phone-Check-Btn" id="phone-Check-Btn">본인인증</button>
-		            <input type="text" id="inputCertifiedNumber" class="text" placeholder="인증번호 입력" required>
-		            <button type="button" id="checkBtn">인증확인</button>
-		        </div>
+				
+				<div class="form-group">
+	                <label for="name">이름</label>
+	                <input type="text" id="name" name="name" class="text" placeholder="이름을 입력하세요" required>
+	            </div>
+				
+				<div class="form-group">
+                    <label for="pwd">비밀번호</label>	
+                    <input type="password" id="pwd" name="pwd" class="text" placeholder="4~10자리 이내로 입력해주세요" oninput="pwd_Chk();" required
+                        onmousedown="showPassword('pwd')" onmouseup="hidePassword('pwd')" onmouseout="hidePassword('pwd')">
+                </div>
+				
+				<div class="form-group">
+                    <label for="pwdChk">비밀번호 확인</label>
+                    <p id="pwdChk_msg"></p>
+                    <input type="password" id="pwdChk" name="pwdChk" class="text" placeholder="비밀번호를 입력해주세요" oninput="pwd_Chk();" required
+                        onmousedown="showPassword('pwdChk')" onmouseup="hidePassword('pwdChk')" onmouseout="hidePassword('pwdChk')">
+                </div>
+				
+				<div class="form-group">
+                    <label for="tel">전화번호</label>
+                    <input type="tel" id="tel" name="tel" class="text" placeholder="예시) 01012345678" required oninput="oninputTel(this)" maxlength="13">
+					<button type="button" class="phone-Check-Btn" id="phone-Check-Btn">본인인증</button>
+                    <input type="text" id="inputCertifiedNumber" class="text" placeholder="인증번호 입력" required>
+                    <button type="button" id="checkBtn">인증확인</button>
+                </div>
+				
 		        <div>
 		            <input type="submit" value="가입하기" id="submitBtn" class="submitBtn" disabled>
 		        </div>
