@@ -16,16 +16,16 @@ public class comingSoonControllerImpl {
     private static final Logger logger = LoggerFactory.getLogger(comingSoonControllerImpl.class);
 
     // 모든 예외를 처리하는 메서드
-    @ExceptionHandler(Exception.class)
-    public ModelAndView handleError(HttpServletRequest request, Exception e) {
-        ModelAndView mav = new ModelAndView();
-
-        // 예외 로그 기록
-        logger.error("Request: " + request.getRequestURL() + " raised " + e);
-
-        // 에러페이지의 뷰 이름을 설정
-        mav.setViewName("comingSoon");
-
-        return mav;
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ModelAndView handleError(HttpServletRequest request, Exception e) {
+//        ModelAndView mav = new ModelAndView();
+//
+//        // 예외 로그 기록
+//        logger.error("Request: " + request.getRequestURL() + " raised " + e);
+//
+//        // 에러페이지의 뷰 이름을 설정
+//        mav.setViewName("comingSoon");
+//
+//        return mav;
+//    }
 }

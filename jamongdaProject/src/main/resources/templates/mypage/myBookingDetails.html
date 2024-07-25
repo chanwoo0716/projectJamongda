@@ -91,8 +91,21 @@
 		cursor: pointer;
 	}
 </style>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var bookingPrice = /*[[${myBookingDetails['bo_price']}]]*/ 270000; // 타임리프 변수를 JavaScript 변수에 할당
+    /*]]>*/
+</script>
 <script>
 	$(document).ready(function(){
+		function formatNumber(number) {
+		    return number.toLocaleString() + '원'; // 기본적으로 쉼표를 사용하여 숫자를 포맷팅
+		}
+		
+		let priceElement = document.querySelector('#bo_price');
+
+		priceElement.textContent = formatNumber(bookingPrice);
+		
 	    $('#close-btn').click(function(){
 	        window.close();
 	    });
@@ -107,7 +120,6 @@
             </div>
             <div class="details-content">
                 <div class="details-row">
-                    <img src="https://via.placeholder.com/150" alt="호텔 이미지" class="acc-image">
                     <div class="details-info">
                         <div class="details-item" id="boNumber-section">
                             <span class="details-label">예약번호:</span>
@@ -167,7 +179,7 @@
                         </div>
                         <div class="details-item">
                             <span class="details-label">결제금액:</span>
-                            <span class="details-value" th:text="${myBookingDetails['bo_price']}"></span>
+                            <span class="details-value" id="bo_price" th:text="${myBookingDetails['bo_price']}"></span>
                         </div>
                     </div>
                 </div>
