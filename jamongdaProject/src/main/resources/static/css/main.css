@@ -195,6 +195,28 @@ input{
 }
 
 /* 국내 인기 여행지 영역 */
+.swiper-slide1 {
+    position: relative;
+}
+
+.swiper-slide1 a:hover::after {
+    content: attr(data-alt);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #666;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    opacity: 0.9;
+	transition: all 0.5s;
+}
+
 .swiper-slide img {
   width: 153px;
   height: 150px;
@@ -215,7 +237,7 @@ input{
 
 .slider .inner {
   overflow: hidden;
-  margin: 0 60px;
+  margin: 3% 60px;
 }
 
 .slide_list > li {
@@ -238,11 +260,11 @@ input{
 }
 
 .slider .btn.btn_prev {
-  left: 4%;
+  left: 0;
   transform: rotateY(180deg) translate(0, -50%);
 }
 
 .slider .btn.btn_next {
-  right: 0;
+  right: 4%;
   transform: translate(0, -50%);
 }
