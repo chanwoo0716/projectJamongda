@@ -76,13 +76,14 @@
             height: 48px;
             border-radius: 10px;
             margin: 0 10px;
+            border: 1px solid #ddd;
+        }
+        .search_wrap input:focus{
+           outline:1px solid rgba(255, 111, 97, 0.5);
         }
         .search_submit{
             display: inline-block;
-            background-color: #f6f6f6;
-            height: 48px;
-            border-radius: 10px;
-            border: 1px solid #000;
+            background-color: rgba(255, 111, 97, 0.5);
         }
         .bg_parent{
             position: relative;
@@ -101,73 +102,73 @@
       .acc_content{
          text-align: left;
       }
-	  .acc_title{
-		margin-bottom: 20px;
-	  }
+     .acc_title{
+      margin-bottom: 20px;
+     }
         .acc_imagebox,.map_box{
             height: 430px;
             display: flex;
             flex-direction: row;
             justify-content: space-around;
         }
-		.acc_imagebox5{
-			height: 430px;
-			border: 1px solid blue;
-			/*display: flex;*/
-			display: none;
-		}
-		.flex1{
-			width: 50%;
-			height: 100%;
-		}
-		.flex2,.flex3{
-			width: 50%;
-			height: 50%;
-			margin-left:10px;
-			flex-direction: row;
-			
-		}
-		.acc_imagebox5 .img{
-			width: 100%;
-			height: 100%;
-			margin-right: 10px;
-			
-		}
-		.flex2 .img:first-child,.flex3 .img:first-child{
-			padding-bottom: 10px;
-		}
-		.acc_imagebox5 .img>img{
-			width: 100%;
-			height: 100%;
-			border-radius: 20px;
-		}
-		.acc_imagebox5>.img:first-child{
-			width: 590px;
-		}
+      .acc_imagebox5{
+         height: 430px;
+         border: 1px solid blue;
+         /*display: flex;*/
+         display: none;
+      }
+      .flex1{
+         width: 50%;
+         height: 100%;
+      }
+      .flex2,.flex3{
+         width: 50%;
+         height: 50%;
+         margin-left:10px;
+         flex-direction: row;
+         
+      }
+      .acc_imagebox5 .img{
+         width: 100%;
+         height: 100%;
+         margin-right: 10px;
+         
+      }
+      .flex2 .img:first-child,.flex3 .img:first-child{
+         padding-bottom: 10px;
+      }
+      .acc_imagebox5 .img>img{
+         width: 100%;
+         height: 100%;
+         border-radius: 20px;
+      }
+      .acc_imagebox5>.img:first-child{
+         width: 590px;
+      }
         .acc_imagebox>.img{
             width: 33%;
             height: 390px;
             border-radius: 20px;
-			
+         
         }
-		
-		.acc_imagebox5>.img{
-			width:20%;
-			height: 390px;
-			border-radius: 20px;
-			
-		}
-		
-		.acc_imagebox>.img>img{
-			width: 100%;
-			height: 100%;
-			border-radius: 20px;
-		}
-		.acc_imagebox5>.img>img{
-			width: 100%;
-			height: 100%;
-			border-radius: 20px;
-		}		
+      
+      .acc_imagebox5>.img{
+         width:20%;
+         height: 390px;
+         border-radius: 20px;
+         
+      }
+      
+      .acc_imagebox>.img>img{
+         width: 100%;
+         height: 100%;
+         border-radius: 20px;
+      }
+      .acc_imagebox5>.img>img{
+         width: 100%;
+         height: 100%;
+         border-radius: 20px;
+      }      
         .contents_flexbox{
             display: flex;
             flex-direction: row;
@@ -176,14 +177,22 @@
         .acc_content .content_box{
             width: 792px;
         }
-		.review{
-			margin-bottom: 40px;
-		}
-		.review>a{
-			font-weight: 700;
-			margin-bottom: 10px;
-			display: block;
-		}
+      .review{
+         margin-bottom: 40px;
+      }
+      .user_name{
+         font-size: 0.8em;
+          margin-top: 10px;
+          font-weight:bold;
+      }
+      .user_date{
+         font-size: 0.8em;
+      }
+      .review>a{
+         font-weight: 700;
+         margin-bottom: 10px;
+         display: block;
+      }
         .aside_map{
             width: 340px;
         }
@@ -192,7 +201,7 @@
             border-radius: 10px;
         }
         .room_box{
-            border: 1px solid blue;
+            border: 1px solid #ddd;
             border-radius: 10px;
             display: flex;
             flex-direction: row;
@@ -205,18 +214,22 @@
             width: 224px;   /*이미지 영역 크기 수정*/
             height: 126px;
         }
-		.room_image img{
-			border-radius: 10px;
-		}
+      .room_image img{
+         border-radius: 10px;
+      }
         .room_contents{
             display: flex;
             flex-direction: column;
             border-radius: 10px;
             width: 500px;
         }
-		.roomList{
-			margin-top: 20px;
-		}
+        .room_more{
+         width: 40%;
+          text-align: right;        
+        }
+      .roomList{
+         margin-top: 20px;
+      }
         .roomList .contente_box1{
             display: flex;
             justify-content: space-between;
@@ -227,74 +240,88 @@
             justify-content: space-between;
             margin-bottom: 20px;
         }
-		.room_price{
-			display: inline;
-			font-size: 2em;
-		}
+      .room_price{
+         display: inline;
+         font-size: 2em;
+      }
         .res_button>button{
-            background-color: blue;
+            background-color: #ff6f61;
             color: #fff;
             border-radius: 10px;
             padding: 10px;
             cursor: pointer;
-			float: right;
+         float: right;
         }
-		.room_info strong{
-			color: #555;
-			font-size: 0.7em;
-		}
-		.room_info p{
-			display: inline;
-			margin-left: 15px;
-		}
-		.use_caution{
-			margin: 20px 0;
-		}
-		.use_caution>div{
-			margin: 20px 0;
-		}
-		.review_box{
-			display: flex;
-			flex-wrap: wrap;
-			padding-top: 30px;
-			padding-bottom: 30px;
-			border-bottom: 1px solid #ddd;
-		}
-		.review_title{
-			width: 1200px;
-			padding: 10px 0;
-			border-bottom: 1px solid #ddd;
-		}
-		.review_user{
-			width: 30%;
-			display: flex;
-		}
-		.review_content{
-			width: 70%;
-		}
-		.user_image{
-			background-color: aqua;
-			width: 45px;
-			height: 45px;
-			border-radius: 50%;
-			margin-right: 20px;
-		}
-		.review_imagesbox{
-			display: flex;		}
-		.review_image{
-			border: 1px solid aquamarine;
-			width: 200px;
-			height: 200px;
-			border-radius: 20px;
-			margin-right: 20px;
-			margin-bottom: 20px;
-		}
-		.pagination{
-			width: 1200px;
-			padding: 10px 0;
-		}
+      .room_info strong{
+         color: #555;
+         font-size: 0.7em;
+      }
+      .room_info p{
+         display: inline;
+         margin-left: 15px;
+      }
+      .use_caution{
+         margin: 20px 0;
+      }
+      .use_caution h2{
+         margin-bottom:10px;
+      }
+      .use_caution p, .use_caution ul{
+         margin-bottom:40px;
+      }
+      .use_caution ul{
+         font-weight: 700;
+      }
+      .use_caution li{
+         font-weight: 100;
+          margin-bottom: 20px;
+      }
+      .use_caution>div{
+         margin: 20px 0;
+      }
+      .review_box{
+         display: flex;
+         flex-wrap: wrap;
+         padding-top: 30px;
+         padding-bottom: 30px;
+         border-bottom: 1px solid #ddd;
+      }
+      .review_title{
+         width: 1200px;
+         padding: 10px 0;
+         border-bottom: 1px solid #ddd;
+      }
+      .review_user{
+         width: 30%;
+         display: flex;
+      }
+      .review_content{
+         width: 70%;
+      }
+      .user_image{
+         background-color: aqua;
+         width: 45px;
+         height: 45px;
+         border-radius: 50%;
+         margin-right: 20px;
+      }
+      .review_imagesbox{
+         display: flex;      
+      }
+      .review_image{
+         border: 1px solid aquamarine;
+         width: 200px;
+         height: 200px;
+         border-radius: 20px;
+         margin-right: 20px;
+         margin-bottom: 20px;
+      }
+      .pagination{
+         width: 1200px;
+         padding: 10px 0;
+      }
       .pagination ul{
-				  width: 100%;
+              width: 100%;
                   display: flex;
                   justify-content: center;
               }

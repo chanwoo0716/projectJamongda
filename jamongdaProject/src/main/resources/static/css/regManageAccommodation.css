@@ -23,18 +23,18 @@ form{
 }
 */
 .acc-summary {
-   width : 70%;
+   width : 50%;
    display : flex;
    flex-direction: column;
    margin: 20px auto;
-   max-width: 800px;
-   min-width: 800px;
+   /*max-width: 800px;*/
+   /*min-width: 800px;*/
    padding: 20px;
    box-sizing: border-box;
    position: relative;
-   top: 30px; /* 상단에 위치 */
-   right: 250px; /* 오른쪽에 위치 */
-   float: right;
+   right:-45px;
+   top: 50px; /* 상단에 위치 */
+   margin-bottom: 300px;
 }
 
 .admin-h2 {
@@ -42,7 +42,7 @@ form{
 }
 
 .acc-box {
-   margin: 20px auto;
+   margin: 0px auto;
 }
 .acc-container {
     display: flex;
@@ -51,7 +51,7 @@ form{
 }
 .acc-box {
     padding: 10px;
-    margin: 20px;
+    margin-bottom: 20px;
     cursor: pointer;
     background-color: #fffaf7;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

@@ -12,6 +12,7 @@ import com.jamongda.accommodation.dto.AccommodationDTO;
 import com.jamongda.accommodation.dto.AccommodationImageDTO;
 import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.accommodation.dto.RoomImageDTO;
+import com.jamongda.booking.dto.BookingDTO;
 
 @Mapper
 @Repository("accommodationDAO")
@@ -43,4 +44,16 @@ public interface AccommodationDAO {
 	public List<AccommodationImageDTO> selectAccImages(String email) throws DataAccessException;
 	// 객실 이미지 가져오기
 	public List<RoomImageDTO> selectRoImages(String email) throws DataAccessException;
+	
+	
+	
+	//
+	public List<AccommodationDTO> getAccommodationsByEmail(@Param("email") String email);
+	//
+	public List<RoomDTO> getRoomsByAccIds(@Param("accIds") List<Integer> accIds);
+	//
+	public List<BookingDTO> getBookingsByRoIds(@Param("roIds") List<Integer> roIds);
+	
+	
+	
 }
