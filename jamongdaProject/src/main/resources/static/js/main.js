@@ -70,3 +70,16 @@ $(function() {
     });
 	
 });
+
+//지역별 이미지 hover시 지역명 나오게하기
+document.addEventListener("DOMContentLoaded", function() {
+    const slides = document.querySelectorAll(".swiper-slide1");
+
+    slides.forEach(slide => {
+        const anchor = slide.querySelector("a");
+        const img = slide.querySelector("img");
+        if (anchor && img) {
+            anchor.setAttribute("data-alt", img.getAttribute("alt"));
+        }
+    });
+});
