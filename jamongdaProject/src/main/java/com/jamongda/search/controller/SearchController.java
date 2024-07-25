@@ -1,12 +1,10 @@
 package com.jamongda.search.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jamongda.accommodation.dto.AccommodationDTO;
-import com.jamongda.search.dto.SearchDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,8 +40,8 @@ public interface SearchController {
          @RequestParam(value = "checkIn", required = false) String bo_checkIn,
          @RequestParam(value = "checkOut", required = false) String bo_checkOut,
          @RequestParam(value = "acc_type", required = false) String acc_type,
-         @RequestParam(value = "minPrice", required = false) int minPrice,
-         @RequestParam(value = "maxPrice", required = false) int maxPrice,
+         @RequestParam(value = "minPrice", required = false) Integer minPrice,
+         @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
          HttpServletRequest request, 
          HttpServletResponse response) throws Exception;
    
