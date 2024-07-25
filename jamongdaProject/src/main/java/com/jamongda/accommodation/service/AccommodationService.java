@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import com.jamongda.booking.dto.BookingDTO;
+
 public interface AccommodationService {
 
 	// 여러장의 숙소 이미지 추가 (+숙소 고유 ID가져오기)
@@ -19,5 +21,8 @@ public interface AccommodationService {
 
 	// 숙소/객실관리 (등록요청 or 등록된 숙소,객실을 화면에 뿌려야함)
 	public Map listAccRo(String email) throws DataAccessException;
+	
+	// 회원 예약 리스트 가져오기
+	public List<Map<String, Object>> getAccommodationBookingInfo(String email) throws DataAccessException;
 	
 }

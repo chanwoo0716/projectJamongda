@@ -16,7 +16,6 @@
             text-decoration: none;
             color: inherit;
         }
-
         .wrapper{
             width: 1200px;
             margin: 0 auto;
@@ -76,12 +75,15 @@
             height: 48px;
             border-radius: 10px;
             margin: 0 10px;
+            border:1px solid #ddd;
+        }
+        .search_wrap input:focus{
+           outline:1px solid rgba(255, 111, 97, 0.5);
         }
         .search_submit{
-            background-color: #f6f6f6;
+            background-color: rgba(255, 111, 97, 0.5);
             height: 48px;
             border-radius: 10px;
-            border: 1px solid #000;
         }
         .contents_wrap{
             display: flex;
@@ -89,7 +91,7 @@
         aside{
             width: 288px;
             height: 100%;
-            margin-right: 20px;
+            margin-right: 60px;
             
         }
         #kakao_map{
@@ -105,35 +107,57 @@
             background-color: aquamarine;
             height: 20px;
         }
-		.customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
-		.customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
-		.customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
-		.customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
-		.customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}		
+      .customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
+      .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
+      .customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
+      .customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
+      .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}      
         #acc_filter{
             margin-top: 20px;
             margin-bottom: 20px;
-			text-align: left;
+         text-align: left;
         }
-		.radio_button{
-			width: 15px;
-			height: 15px;
-			margin-right: 10px;
-			border-radius: 50%;
-			cursor: pointer;
-		}
-		
-		
-		.non-click{
-			background-color: #fff;
-			border:1px solid #17a2b8;
-		}
-		.click{
-			background-color: #17a2b8;
-		}
-		.acc_title{
-			text-align: left;
-		}
+        #acc_filter h2{
+           margin-bottom:10px;
+        }
+        #acc_filter input[type="radio"] {
+             appearance: none;
+           width: 15px;
+           height: 15px;
+           box-shadow: 0 0 0 1px #ddd;
+           border: 4px solid #fff;
+           border-radius: 50%;
+           background-color: #fff;
+           margin-right:10px;
+         }
+         #acc_filter input[type="radio"]:checked {
+           box-shadow: 0 0 0 1px #ff6f61;
+           border: 4px solid #fff;
+           background-color: #ff6f61;
+        }
+         #acc_filter span{
+            margin-bottom:10px;
+            display:inline-block;
+         }
+      .radio_button{
+         width: 15px;
+         height: 15px;
+         margin-right: 10px;
+         border-radius: 50%;
+         cursor: pointer;
+      }
+      
+      
+      .non-click{
+         background-color: #fff;
+         border:1px solid #17a2b8;
+      }
+      .click{
+         background-color: #17a2b8;
+      }
+      .acc_title{
+         text-align: left;
+      }
         #price_filter.wrapper{
             width: 288px;
             border: 1px solid #17a2b8;
@@ -195,7 +219,7 @@
         .range-input input{
             position: absolute;
             top: -7px;
-			left: 0px;
+         left: 0px;
             height: 7px;
             width: 100%;
             background: none;
@@ -220,6 +244,13 @@
             background-color: #17a2b8;
             -moz-appearance: none;
         }
+        .filter-form input[type="number"] {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid rgba(255, 111, 97, 0.3);
+          border-radius: 4px;
+          box-sizing: border-box;
+      }
         .sct2{
             width: 880px;
             height: 100%;
@@ -248,13 +279,18 @@
             width: 100%;
             height: 240px;
             background-color: #fff;
-            border: 1px solid gray;
+            border: 1px solid #ddd;
             border-radius: 10px;
             display: flex;
             flex-direction: row;
             box-sizing: border-box;
             margin-bottom: 20px;
+            transition-property :box-shadow; 
+            transition-duration:0.5s;
         }
+        /*.acc_box:hover{
+           box-shadow: 2px 2px 10px rgba(255, 111, 97, 0.2);
+        }*/
         .acc_image{
             width: 396px;
             height: 100%;

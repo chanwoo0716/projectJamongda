@@ -33,10 +33,14 @@ legend {
    width: 50%;
    margin: 0 auto;
    padding-left: 50px;
-   float: right;
+   
    position : relative;
-   top: 30px;
-   right: 300px;
+   top: 50px;
+   
+}
+#formArea p {
+	color: black;
+	font-size:1.1em;
 }
 .acc-h2 {
     margin-right: 20px; /* h2와 div 사이에 여유 공간 추가 */
@@ -65,7 +69,7 @@ legend {
 }
 
 #accRegArea {
-    /*width: 500px;*/
+    width: 90%;
     background-color: #ffffff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -74,10 +78,21 @@ legend {
 }
 
 fieldset {
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-bottom: 20px;
+    /*border: 1px solid #ccc;*/
+	border: none;
+    /*padding: 20px;*/
+    margin-bottom: 40px;
     border-radius: 8px;
+	background-color: #F5F7FA;
+}
+fieldset>h2 {
+	color: #fff;
+	font-weight:bold;
+	font-size : 1.3em;
+	background-color: #FF6F61;
+	padding: 10px;
+	border-radius: 8px 8px 0 0;
+	margin-bottom:30px;
 }
 
 label {
@@ -87,15 +102,17 @@ label {
 }
 
 input[type="text"],
+input[type="tel"],
 input[type="number"],
 textarea {
-    width: 100%;
+    width: 80%;
     padding: 10px;
-    margin-bottom: 25px;
-   margin-top : 25px;
+    margin-bottom: 20px;
+   margin-top : 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+	resize: none;
 }
 
 .regAcc {
@@ -110,7 +127,7 @@ textarea {
    height:75px;
     padding: 15x 30px;
     border: none;
-    background-color: #116EDB;
+    background-color: #FF6F61;
     color: white;
    font-weight : bold;
     border-radius: 6px;
@@ -139,10 +156,14 @@ textarea {
 
 #accRegArea p {
     border-bottom: 2px dotted #ccc; /* 아래쪽 경계선 추가 */
-    padding-bottom: 30px; /* 선과 텍스트 사이의 여백 추가 */
+    padding-bottom: 20px; /* 선과 텍스트 사이의 여백 추가 */
     margin-bottom: 20px; /* 다음 요소와의 여백 추가 */
-   padding-top: 15px;
+   /*padding-top: 15px;*/
    
+}
+#accRegArea p:last-child {
+    border-bottom: none; /* 마지막 p 요소의 아래쪽 경계선 제거 */
+    padding-bottom: 0; /* 마지막 p 요소의 아래쪽 여백 제거 */
 }
 
 /* 마지막 p 태그의 경계선을 제거 */
@@ -171,4 +192,72 @@ label {
 .radio-group input[type="radio"] {
     margin-right: 0px; /* 라디오 버튼과 레이블 사이의 간격 추가 */
    margin : 10px;
+}
+
+
+
+
+
+
+
+
+/* 파일 추가 버튼 스타일 */
+input[type="button"] {
+    background-color: #49627A; /* 버튼 배경색 */
+    border: none; /* 테두리 제거 */
+    color: white; /* 글자 색상 */
+    padding: 8px 16px; /* 버튼 안의 여백 (크기 줄임) */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    text-decoration: none; /* 텍스트 장식 제거 */
+    display: inline-block; /* 인라인 블록 요소로 설정 */
+    font-size: 14px; /* 글자 크기 (크기 줄임) */
+    margin: 5px 2px; /* 버튼 간의 여백 */
+    cursor: pointer; /* 마우스 커서 변경 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+}
+
+/* 클릭 상태 스타일 */
+input[type="button"]:active {
+    background-color: #4A627A; /* 클릭 시 버튼 배경색 */
+}
+
+/* 비활성화 상태 스타일 */
+input[type="button"]:disabled {
+    background-color: #cccccc; /* 비활성화 시 버튼 배경색 */
+    cursor: not-allowed; /* 커서 모양 변경 */
+}
+
+/* 파일 추가 버튼 주변의 div 스타일 */
+#accommodation_file, #room_file1, [id^="room_file"] {
+    margin-top: 10px; /* 위쪽 여백 */
+    padding: 10px; /* 내부 여백 */
+    border: 1px dashed #ccc; /* 점선 테두리 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+    background-color: #f9f9f9; /* 배경색 */
+}
+
+/* 객실 추가 버튼 스타일 */
+button[type="button"] {
+    background-color: #49627A; /* 버튼 배경색 */
+    border: none; /* 테두리 제거 */
+    color: white; /* 글자 색상 */
+    padding: 8px 16px; /* 버튼 안의 여백 (크기 줄임) */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    text-decoration: none; /* 텍스트 장식 제거 */
+    display: inline-block; /* 인라인 블록 요소로 설정 */
+    font-size: 14px; /* 글자 크기 (크기 줄임) */
+    margin: 5px 2px; /* 버튼 간의 여백 */
+    cursor: pointer; /* 마우스 커서 변경 */
+    border-radius: 5px; /* 모서리 둥글게 설정 */
+}
+
+/* 객실 추가 버튼 클릭 상태 스타일 */
+button[type="button"]:active {
+    background-color: #4A627A; /* 클릭 시 버튼 배경색 */
+}
+
+/* 객실 추가 버튼 비활성화 상태 스타일 */
+button[type="button"]:disabled {
+    background-color: #cccccc; /* 비활성화 시 버튼 배경색 */
+    cursor: not-allowed; /* 커서 모양 변경 */
 }

@@ -26,4 +26,7 @@ public interface MypageDAO {
     List<ReviewDTO> getReviewsWithImagesByEmail(Map<String, Object> params) throws DataAccessException;
     // 객실 이름만 가져오기
     public String getRoomNameById(int ro_id) throws DataAccessException;
+    
+    // 숙소상페이지와 연결을 위해 acc_id가져오기
+//    List<ReviewDTO> getReviewsByAccId(int acc_id) throws Exception;
 }

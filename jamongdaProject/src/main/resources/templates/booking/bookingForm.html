@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-		layout:decorate="/layout/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="/layout/layout">
 <head>
 <meta charset="UTF-8">
 <title>예약 및 결제</title>
@@ -13,64 +13,77 @@
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var checkInDate = /*[[${bo_checkIn}]]*/ '2024-07-25'; // 예시값으로 대체
+    var checkOutDate = /*[[${bo_checkOut}]]*/ '2024-07-28'; // 예시값으로 대체
+    var oneNightPrice = /*[[${room.ro_price}]]*/ 10000; // 예시값으로 대체
+    /*]]>*/
+</script>
 </head>
 <body>
     <th:block layout:fragment="content">
         <div class="booking-container">
             <h2>예약 확인 및 결제</h2>
-		    <form name="frmBooking" method="post" class="form-section">
+            <form name="frmBooking" method="post" class="form-section">
                 <div class="section">
                     <div class="section-header">숙소</div>
-					<div>
-					    <span id="acc_name" th:text="${acc_name}"></span><br>
-					    <input type="hidden" id="acc_name_hidden" th:value="${acc_name}">
-					    <span th:text="${room.ro_name}"></span>
-						<input type="hidden" id="ro_id" name="ro_id_hidden" th:value="${room.ro_id}">
-					</div>
+                    <div>
+                        <span id="acc_name" th:text="${acc_name}"></span><br>
+                        <input type="hidden" id="acc_name_hidden" th:value="${acc_name}">
+                        <span th:text="${room.ro_name}"></span>
+                        <input type="hidden" id="ro_id" name="ro_id_hidden" th:value="${room.ro_id}">
+                    </div>
                     <br>
                     <div class="checkin-checkout">
                         <div>
                             <label for="bo_checkIn">체크인</label>
+							<!--
                             <span id="bo_checkIn" th:text="${bo_checkIn}"></span><br>
-							<input type="hidden" id="bo_checkIn_hidden" th:value="${bo_checkIn}">
+							-->
+							<p id="checkInDateDay" th:text="${bo_checkIn}"></p>
+                            <input type="hidden" id="bo_checkIn_hidden" th:value="${bo_checkIn}">
                             <span id="ro_checkIn" th:text="${room.ro_checkIn}"></span>
                         </div>
+						
                         <div>
                             <label for="bo_checkOut">체크아웃</label>
+							<p id="checkOutDateDay" th:text="${bo_checkOut}"></p>
+							<!--
                             <span id="bo_checkOut" th:text="${bo_checkOut}"></span><br>
-							<input type="hidden" id="bo_checkOut_hidden" th:value="${bo_checkOut}">
+							-->
+                            <input type="hidden" id="bo_checkOut_hidden" th:value="${bo_checkOut}">
                             <span id="ro_checkOut" th:text="${room.ro_checkOut}"></span>
                         </div>
                     </div>
                     <br>
-					<div>
-					    <p th:text="'기준 ' + ${room.ro_min} + '명 / 최대 ' + ${room.ro_max} + '명'"></p>
-					</div>
-
-		        </div>
-				<div class="section">
+                    <div>
+                        <p th:text="'기준 ' + ${room.ro_min} + '명 / 최대 ' + ${room.ro_max} + '명'"></p>
+                    </div>
+                </div>
+                <div class="section">
                     <div class="section-header">예약자 정보</div>
                     <p>
                         <span id="guestName" th:text="${guest.name}"></span> / <span id="guestTel" th:text="${guest.tel}"></span>
-						<input type="hidden" id="email" th:value="${guest.email}">
+                        <input type="hidden" id="email" th:value="${guest.email}">
                     </p>
-				</div>
-		        <div class="section">
+                </div>
+                <div class="section">
                     <div class="section-header">이용자 정보</div>
-					<p>
+                    <p>
                         <input type="checkbox" id="equalMemInfo" class="check-btn">
                         <label for="equalMemInfo">예약자 정보와 동일</label>
                     </p>
-		            <label for="bo_name">이름</label>
-		            <input type="text" id="bo_name" name="bo_name" placeholder="예시) 홍길동" required>
-		            <label for="bo_tel">전화번호</label>
-		            <input type="tel" id="bo_tel" name="bo_tel" placeholder="예시) 01012345678" maxlength="13" required>
-		        </div>		        
-		        <div class="section">
+                    <label for="bo_name">이름</label>
+                    <input type="text" id="bo_name" name="bo_name" placeholder="예시) 홍길동" required>
+                    <label for="bo_tel">전화번호</label>
+                    <input type="tel" id="bo_tel" name="bo_tel" placeholder="예시) 01012345678" maxlength="13" required>
+                </div>                
+                <div class="section">
                     <div class="section-header">결제 정보</div>
                     <div class="boNotice-section">
-						<ul>
-							<li class="boNotice-title">현장결제
+                        <ul>
+                            <li class="boNotice-title">현장결제
                                 <div class="boNotice-content">추가인원 비용 등의 현장결제 발생 상품을 확인하세요.</div>
                             </li>
                             <li class="boNotice-title">취소불가 및 수수료
@@ -79,19 +92,20 @@
                             <li class="boNotice-title">미성년자 및 법정대리인 필수
                                 <div class="boNotice-content">미성년자는 법정대리인 동행없이 투숙이 불가능합니다.</div>
                             </li>
-						</ul>
-					</div>
-		            <div class="payInfo-section">
+                        </ul>
+                    </div>
+                    <div class="payInfo-section">
                         <label for="memInfo">객실 가격(1박)</label>
-		                <span th:text=" ${room.ro_price} + ' 원'"></span>
-		            </div>
-					<br>
-					<br>					
-		            <div>
-						<strong>총 결제 금액:</strong>
-						<span id="totalPrice" th:text="${room.ro_price}  + ' 원'"></span>
-						<input type="hidden" id="bo_price" th:value="${room.ro_price}">
-		            </div>
+                        <span id="oneday-price" th:text="${room.ro_price}"></span>
+                        <!-- 1박 가격을 저장할 숨겨진 input 요소 추가 -->
+                        <input type="hidden" id="bo_price" value="${room.ro_price}">
+                    </div>
+                    <br>
+                    <br>                    
+                    <div>
+                        <strong>총 결제 금액:</strong>
+                        <span id="totalPrice" name="bo_price"></span>
+                    </div>
                     <div class="checkbox-group">
                         <p>
                             <input type="checkbox" id="allAgree-btn" class="check-btn">
@@ -109,11 +123,11 @@
                             <input type="checkbox" id="agree-btn3" class="check-btn">
                             <label for="agree-btn3">[필수] 개인정보 제 3자 제공</label>
                         </p>
-						<p> * 취소 및 환불규정에 동의할 경우 결제를 진행해주세요 </p>
+                        <p> * 취소 및 환불규정에 동의할 경우 결제를 진행해주세요 </p>
                     </div>
-		        </div>
-		        <button type="button" id="payBtn">결제하기</button>
-		    </form>
+                </div>
+                <button type="button" id="payBtn">결제하기</button>
+            </form>
         </div>
     </th:block>
 </body>
