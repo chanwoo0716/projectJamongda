@@ -1,5 +1,68 @@
-$(document).ready(function() {	
-	$('#equalMemInfo').click(function() {
+$(document).ready(function() {
+    function parseDate(dateString) {
+        return new Date(dateString);
+    }
+
+    function getDayOfWeek(date) {
+        const week = ['일', '월', '화', '수', '목', '금', '토'];
+        const day = new Date(date).getDay();
+        return week[day];
+    }
+
+    function updateDateAndDay() {
+        // 체크인 및 체크아웃 날짜와 요일 업데이트
+        $('#checkInDateDay').text(checkInDate.toISOString().slice(0, 10) + ' (' + getDayOfWeek(checkInDate) + ')');
+        $('#checkOutDateDay').text(checkOutDate.toISOString().slice(0, 10) + ' (' + getDayOfWeek(checkOutDate) + ')');
+    }
+
+    // 문자열을 Date 객체로 변환
+    var checkInDate = parseDate(/*[[${bo_checkIn}]]*/ '2024-07-25');
+    var checkOutDate = parseDate(/*[[${bo_checkOut}]]*/ '2024-07-28');
+
+	// 숫자 포맷팅 세자리마다 ,넣기
+    function formatNumber(number) {
+        return number.toLocaleString();
+    }
+
+    function updateTotalPrice() {
+        let checkIn = new Date(checkInDate);
+        let checkOut = new Date(checkOutDate);
+
+        // 날짜 유효성 검증
+        if (isNaN(checkIn.getTime()) || isNaN(checkOut.getTime())) {
+            console.error("날짜 형식이 올바르지 않습니다.");
+            return;
+        }
+
+        if (checkIn >= checkOut) {
+            console.error("체크인 날짜가 체크아웃 날짜와 같거나 이후입니다.");
+            return;
+        }
+
+        // 날짜 차이 계산 (하루 단위)
+        let diffTime = checkOut - checkIn;
+        let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays <= 0) {
+            console.error("예약 기간이 유효하지 않습니다.");
+            return;
+        }
+
+        // 총 결제 금액 계산
+        let totalPrice = oneNightPrice * diffDays;
+
+        // 총 결제 금액 포맷팅
+        $('#totalPrice').text(formatNumber(totalPrice) + ' 원');
+
+		// 포맷팅된 값으로 설정
+		$('#oneday-price').text(formatNumber(oneNightPrice) + ' 원');
+    }
+
+    // 날짜 값이 로드된 후 총 결제 금액 업데이트
+    updateDateAndDay();
+    updateTotalPrice();
+
+    $('#equalMemInfo').click(function() {
         if ($(this).is(':checked')) {
             let guestName = $('#guestName').text();
             let guestTel = $('#guestTel').text();
@@ -39,59 +102,52 @@ $(document).ready(function() {
     $('#payBtn').click(function(e) {
         e.preventDefault(); // 기본 폼 제출을 방지
 
-        // 이용자 이름 입력 체크
         if ($('#bo_name').val().trim() === '') {
             alert("이용자 정보를 입력해야 결제를 진행할 수 있습니다.");
             return;
         }
 
-        // 약관 동의 체크
         if (!$('#allAgree-btn').is(':checked')) {
             alert("약관에 모두 동의해야 결제를 진행할 수 있습니다.");
             return;
         }
-		
-        // 개별 약관 동의 체크
+
         if (!$('#agree-btn1').is(':checked') || !$('#agree-btn2').is(':checked') || !$('#agree-btn3').is(':checked')) {
             alert("필수 약관에 모두 동의해야 결제를 진행할 수 있습니다.");
             return;
         }
 
-        // 이용자 전화번호 입력 체크
         if ($('#bo_tel').val().trim() === '') {
             alert("이용자 전화번호를 입력해야 결제를 진행할 수 있습니다.");
             return;
         }
 
-        // 모든 조건 충족 시 결제 진행
         payment();
     });
 
     function payment() {
-        // 결제 로직 구현
-        IMP.init('imp81466281'); // 아임포트 관리자 콘솔에서 확인한 '가맹점 식별코드' 입력
+        IMP.init('imp81466281');
         IMP.request_pay({
-            pg: "kakaopay", // pg사명 or pg사명.CID
-            pay_method: "card", // 시물 방법
-            merchant_uid: "order_" + new Date().getTime(), // 가맹점 주문번호 (중복되지 않은 임의의 문자열 입력)
-            name: $('#acc_name_hidden').val(), // 결제창에 노출될 상품명
-            amount: $('#bo_price').val(), // 금액
+            pg: "kakaopay",
+            pay_method: "card",
+            merchant_uid: "order_" + new Date().getTime(),
+            name: $('#acc_name_hidden').val(),
+            amount: $('#totalPrice').text().replace(' 원', '').replace(/,/g, ''), // 쉼표 제거
             buyer_email: $('#guestName').val(),
             buyer_name: $('#bo_name').val(),
             buyer_tel: $('#bo_tel').val()
         }, function(rsp) {
             if (rsp.success) {
-                // 결제 성공 시 예약 정보 서버로 전송
                 let bookingData = {
                     bo_name: $('#bo_name').val(),
                     bo_tel: $('#bo_tel').val(),
                     bo_checkIn: $('#bo_checkIn_hidden').val(),
                     bo_checkOut: $('#bo_checkOut_hidden').val(),
                     payDate: new Date(),
-                    bo_payment: "카카오페이", //실제로는 선택지를 줘야하지만 현재는 카카오페이 결제만 구현
-                    bo_price: $('#bo_price').val(), 
+                    bo_payment: "카카오페이",
+                    bo_price: $('#totalPrice').text().replace(' 원', ''),
                     ro_id: $('#ro_id').val(),
-					email: $('#email').val()
+                    email: $('#email').val()
                 };
 
                 $.ajax({
@@ -101,10 +157,10 @@ $(document).ready(function() {
                     data: JSON.stringify(bookingData),
                     success: function(response) {
                         alert("예약이 완료되었습니다.");
-						let url = "/booking/bookingComplete.do?bo_number=" + response.bo_number +
-						          "&aname=" + $('#acc_name_hidden').val() +
-						          "&rid=" + $('#ro_id').val();
-						window.location.href = url;
+                        let url = "/booking/bookingComplete.do?bo_number=" + response.bo_number +
+                                  "&aname=" + $('#acc_name_hidden').val() +
+                                  "&rid=" + $('#ro_id').val();
+                        window.location.href = url;
                     },
                     error: function(error) {
                         alert("예약 처리 중 오류가 발생했습니다.");

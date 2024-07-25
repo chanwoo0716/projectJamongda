@@ -21,4 +21,7 @@ public interface MypageService {
     
     public String getRoomNameById(int ro_id) throws Exception;
     
+    // 새로운 메서드 추가
+//    List<ReviewDTO> getReviewsByAccId(int acc_id) throws Exception;
+    
 }

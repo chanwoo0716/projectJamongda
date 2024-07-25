@@ -2,7 +2,9 @@ package com.jamongda.review.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +51,21 @@ public class ReviewServiceImpl implements ReviewService {
         return fileName; // 저장된 파일 이름 반환
     }
 
-}
+    // 숙소 상세페이지에 리뷰 출력(acc_id)
+    public List<ReviewDTO> getReviewsByAccId(int acc_id, int page, int size) throws Exception {
+        int offset = (page - 1) * size;
+        Map<String, Object> params = new HashMap<>();
+        params.put("acc_id", acc_id);
+        params.put("offset", offset);
+        params.put("size", size);
 
+        List<ReviewDTO> reviews = reviewDAO.getReviewsByAccId(params);
+
+        for (ReviewDTO review : reviews) {
+            String roName = reviewDAO.getRoomNameById(review.getRo_id());
+            review.setRo_name(roName);
+        }
+
+        return reviews;
+    }
+}
