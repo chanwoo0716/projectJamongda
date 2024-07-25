@@ -40,6 +40,18 @@
 	    <result property="acc_id" column="acc_id"/>
  	</resultMap>
  	
+	<resultMap type="bookingDTO" id="bookingResult">
+		<result property="bo_number" column="bo_number" />
+		<result property="bo_name" column="bo_name" />
+		<result property="bo_tel" column="bo_tel" />
+		<result property="bo_checkIn" column="bo_checkIn" />
+		<result property="bo_checkOut" column="bo_checkOut" />
+		<result property="payDate" column="payDate" />
+		<result property="bo_payment" column="bo_payment" />
+		<result property="bo_price" column="bo_price" />
+		<result property="ro_id" column="ro_id" />
+		<result property="email" column="email" />
+	</resultMap>
  	
  	<!--숙소 고유 ID 생성(acc_id)-->
     <select id="getNewAccId" resultType="int">
@@ -120,5 +132,36 @@
             where ro_id in (select ro_id from room where acc_id in (select acc_id from accommodation where email=#{email}))
         ]]>
     </select>
+    
+    
+    <!--회원 예약 리스트 가져오기-->
+    
+    <!-- 이메일로 숙소 정보 조회 -->
+    <select id="getAccommodationsByEmail" resultMap="accResult">
+        SELECT acc_id, acc_name
+        FROM accommodation
+        WHERE email = #{email}
+    </select>
+    
+    <!-- acc_id들로 객실 정보 조회 -->
+    <select id="getRoomsByAccIds" resultMap="roResult">
+        SELECT ro_id, ro_name, ro_checkIn, ro_checkOut, acc_id
+        FROM room
+        WHERE acc_id IN
+        <foreach item="item" index="index" collection="accIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+    
+    <!-- ro_id들로 예약 정보 조회 -->
+    <select id="getBookingsByRoIds" resultMap="bookingResult">
+        SELECT bo_number, bo_name, bo_tel, bo_checkIn, bo_checkOut, payDate, bo_price, ro_id
+        FROM booking
+        WHERE ro_id IN
+        <foreach item="item" index="index" collection="roIds" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>   
+    
 
  </mapper>

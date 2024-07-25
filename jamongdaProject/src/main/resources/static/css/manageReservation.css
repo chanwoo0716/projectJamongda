@@ -4,7 +4,7 @@ body {
   position: relative;
   min-width: 1250px;
   max-width: 1920px;
-  margin: 0 auto;	
+  margin: 0 auto;
 }
 
 body {
@@ -14,4 +14,154 @@ body {
   color: #000;
   margin: 0 auto;
   padding: 0 auto;
+}
+#reservationList {
+	width: 50%;
+	font-size: 1.2em;
+	margin: 20px auto;
+	font-weight: bold;
+}
+.accommodation-info {
+	text-align: center;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #FF6F61;
+}
+
+#accommodation-info-box {
+    width: 80%;
+	font-size: 0.9em;
+    margin: 20px auto;
+    padding: 20px;
+    /*background-color: #F5F7FA;*/
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.manageReservation-container {
+	position: relative;
+	display: inline-block;
+	margin-top:50px;
+	margin-bottom: 100px;
+	/*left: 25%;*/
+	right: -350px;
+	transform: translate(0%, 0%);
+	width: 50%;
+	padding: 20px;
+	background-color: none;
+	/*border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+}
+
+.booking-history {
+	/*
+	display: inline-block;
+	width: 100%;
+	margin: 50px auto;
+	*/
+}
+.booking-info {
+	border : 0px solid #ccc;
+	border-radius: 10px;
+	padding: 20px;
+	margin-bottom: 20px;
+	background-color : #F5F7FA;
+}
+
+.header {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.header p {
+    margin: 5px 0 20px;
+    color: #777;
+}
+
+.reviews {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+    margin-bottom: 20px;
+}
+
+.review-link, .reBooking-link {
+	padding: 10px 50px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fafafa;
+}
+
+.review-link:hover, .reBooking-link:hover {
+    background-color: rgb(212, 212, 212); /* Darker green on hover */
+}
+
+.booking-history h2 {
+    margin-bottom: 20px;
+}
+
+.booking-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.booking-header {
+	width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.booking-header .booking-date,
+.booking-header .booking-number {
+    font-size: 14px;
+    color: #777;
+}
+
+.details-link {
+    color: #1a73e8;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.booking-content {
+    display: flex;
+    align-items: center;
+	color: #49627A;
+	font-weight: 500;
+}
+
+.acc-image {
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.hotel-info {
+    font-size: 14px;
+}
+
+.hotel-info .acc-name {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.hotel-info .ro_name,
+.hotel-info .booking-dates,
+.hotel-info .check-in-out {
+    margin-bottom: 5px;
 }
