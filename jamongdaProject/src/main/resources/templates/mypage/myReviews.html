@@ -133,6 +133,19 @@
 		cursor: pointer;
 		color: rgb(114, 114, 114);
 	}
+	
+	.image-gallery {
+	    display: flex;
+	    flex-wrap: wrap;
+	    gap: 10px; /* 이미지 사이의 간격 조정 */
+	}
+
+	.review-image {
+	    width: 100px; /* 원하는 너비 */
+	    height: 100px; /* 원하는 높이 */
+	    object-fit: cover; /* 이미지 비율 유지, 상자에 맞게 잘림 */
+	    border-radius: 5px; /* 선택 사항: 모서리 둥글게 */
+	}
 </style>
 <script th:inline="javascript">
     /*<![CDATA[*/
@@ -156,16 +169,16 @@
                     if (data && data.length > 0) {
                         data.forEach(review => {
                             let reviewHtml = `
-                                <div>
-                                    <p><span>${review.rev_date}</span></p>
-                                    <div>
-                                        ${review.images.map(image => 
-                                            `<img src="/review/downloadImage?rev_image=${image.rev_image}" alt="Review Image" />`
-                                        ).join('')}
-                                    </div>
-                                    <p><span class="ro_name">${review.ro_name}</span></p>
-                                    <p><span>${review.rev_content}</span></p>
-                                </div>
+								<div>
+								    <p><span>${review.rev_date}</span></p>
+								    <div class="image-gallery">
+								        ${review.images.map(image => 
+								            `<img src="/review/downloadImage?rev_image=${image.rev_image}" alt="Review Image" class="review-image"/>`
+								        ).join('')}
+								    </div>
+								    <p><span class="ro_name">${review.ro_name}</span></p>
+								    <p><span>${review.rev_content}</span></p>
+								</div>
                             `;
                             $('#reviews').append(reviewHtml);
                         });

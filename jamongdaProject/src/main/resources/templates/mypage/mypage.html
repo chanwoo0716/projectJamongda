@@ -52,14 +52,6 @@
 	    color: #777;
 	}
 
-	.reviews {
-	    padding: 10px;
-	    border: 1px solid #ddd;
-	    border-radius: 5px;
-	    background-color: #fafafa;
-	    margin-bottom: 20px;
-	}
-
 	.review-link, .reBooking-link {
 		padding: 10px 50px;
 		border: 1px solid #ddd;
@@ -129,6 +121,17 @@
 	.hotel-info .check-in-out {
 	    margin-bottom: 5px;
 	}
+	
+.myReviews-btn {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fafafa;
+	margin-bottom: 20px;
+	cursor: pointer;
+	text-align: left;
+}
 </style>
 <script>
 	function openPopup(boNumber) {
@@ -162,10 +165,8 @@
 	        <div class="reviews">
 				<form action="/mypage/myReviews.do" method="post" id="myReviews">
 				    <input type="hidden" name="email" th:value="${guest.email}">
-				    <button type="submit">내가 쓴 리뷰보기</button>
+				    <button type="submit" class="myReviews-btn">내가 작성한 리뷰 보러가기</button>
 				</form>
-				
-	            <span>후기 개수 : </span>
 	        </div>
 			
 		    <div class="booking-history">
