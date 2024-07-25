@@ -8,15 +8,97 @@
 <link rel="stylesheet" type="text/css" th:href="@{/css/manageReservation.css}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+	//사이드바 선택된 곳 색 적용
+	document.addEventListener('DOMContentLoaded', function() {
+	    const links = document.querySelectorAll('#hostSidebar a');
 	
+	    links.forEach(link => {
+	        link.addEventListener('click', function() {
+	            links.forEach(link => link.classList.remove('active'));
+	            this.classList.add('active');
+	        });
+	
+	        // 현재 URL이 링크의 href와 일치하는 경우 active 클래스 추가
+	        if (window.location.href.includes(link.href)) {
+	            link.classList.add('active');
+	        }
+	    });
+	});
+	
+	//예약 상세보기
+	function openPopup(boNumber) {
+	    var url = '/mypage/myBookingDetails.do?number=' + encodeURIComponent(boNumber);
+		
+		// 팝업창 위치 조정하기
+		var popupW = 600;
+		var popupH = 700;
+		var top = Math.ceil((window.screen.height - popupH)/2);
+		var left = Math.ceil((window.screen.width - popupW)/2);
+		var option='width=' + popupW + ',height=' + popupH + ',scrollbars=yes, top=' + top + ',left=' + left + ', resizable=yes';
+		
+	    window.open(url, 'popup', option);
+	}
 </script>
 </head>
 <body>
 	<!--<div th:include="hostSidebar :: sidebar"></div>-->
 	<th:block layout:fragment="content">
-		<div>
-			와하하 여긴 회원 예약 관리 페이지
-		</div>	
+	    <div class="manageReservation-container">
+	        <div class="booking-history">
+				<!--
+	            <div id="reservationList">
+	                <h2>예약내역</h2>
+	            </div>
+				-->
+	            <div class="booking-header" th:if="${reservationList == null || reservationList.isEmpty()}">
+					<div>
+	                	<span id="no-reservation">예약내역이 없습니다.</span>
+					</div>
+	            </div>
+	            <div th:if="${reservationList != null}">
+	                <div th:each="accommodationMap : ${reservationList}" id="accommodation-info-box">
+	                    <div class="accommodation-info">
+	                        <h3 th:text="${accommodationMap.accommodation.acc_name}"></h3>
+	                    </div>
+	                    <div th:each="roomMap : ${accommodationMap.rooms}">
+							<!--
+	                        <div class="room-info">
+	                            <h4 th:text="'객실 이름: ' + ${roomMap.room.ro_name}"></h4>
+	                            <p th:text="'체크인 시간: ' + ${roomMap.room.ro_checkIn}"></p>
+	                            <p th:text="'체크아웃 시간: ' + ${roomMap.room.ro_checkOut}"></p>
+	                        </div>
+							-->
+	                        <div th:each="booking : ${roomMap.bookings}">
+	                            <div class="booking-info">
+	                                <div class="booking-header">
+	                                    <span class="booking-date" th:text="'결제일자 : ' + ${booking.payDate}"></span>
+	                                    <span class="booking-number" th:text="'예약번호 : ' + ${booking.bo_number}"></span>
+	                                    <a href="#" class="details-link" th:attr="onclick='openPopup(' + ${booking.bo_number} + ')'">상세보기</a>                        
+	                                </div>
+	                                <div class="booking-content">
+	                                    <!--<img src="https://via.placeholder.com/100" alt="호텔 이미지" class="acc-image">-->
+	                                    <div class="hotel-info">
+	                                        <!--<div class="acc-name" th:text="${accommodationMap.accommodation.acc_name}"></div>-->
+	                                        <div class="ro_name" th:text="'• '+${roomMap.room.ro_name}"></div>
+											<br>
+	                                        <input type="hidden" th:value="${booking.ro_id}"></input>
+	                                        <div class="booking-dates" th:text="'• '+${booking.bo_checkIn} + ' ~ ' + ${booking.bo_checkOut}"></div>
+											<br>
+	                                        <div class="check-in-out" th:text="'• '+'체크인 ' + ${roomMap.room.ro_checkIn} + ' | 체크아웃 ' + ${roomMap.room.ro_checkOut}"></div>
+											<br>
+	                                        <div class="guest-info">
+	                                            <p th:text="'• '+'예약자 이름: ' + ${booking.bo_name}"></p>
+	                                            <p th:text="'• '+'예약자 전화번호: ' + ${booking.bo_tel}"></p>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 	</th:block>
 </body>
 </html>
