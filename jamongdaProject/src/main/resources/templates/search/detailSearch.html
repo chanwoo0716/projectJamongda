@@ -488,21 +488,21 @@
       <!--숙소이미지, 리뷰 미리보기 및 객실 정보 영역 종료-->
       
 	  <aside>
-	              <div class="aside_map" >
-	  				<h2>지도보기</h2>
-	                  <div class="map_box2" id="small_map"></div>
-					  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다."></script>
-					  	<script>
-					  		var container = document.getElementById('map');
-					  		var options = {
-					  			center: new kakao.maps.LatLng(33.450701, 126.570667),
-					  			level: 3
-					  		};
+          <div class="aside_map" >
+			<h2>지도보기</h2>
+              <div class="map_box2" id="small_map"></div>
+			  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 넣으시면 됩니다."></script>
+			  	<script>
+			  		var container = document.getElementById('map');
+			  		var options = {
+			  			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			  			level: 3
+			  		};
 
-					  		var map = new kakao.maps.Map(container, options);
-					  	</script>
-	              </div>
-	          </aside>          
+			  		var map = new kakao.maps.Map(container, options);
+			  	</script>
+          </div>
+      </aside>          
     </section>
 
     <section class="map">
