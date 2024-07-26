@@ -215,13 +215,11 @@
 		                <a href="#" class="details-link" th:attr="onclick='openPopup(' + ${booking['bo_number']} + ')'">상세보기</a>
 		            </div>
 		            <div class="booking-content">
-		                <img src="https://via.placeholder.com/100" alt="호텔 이미지" class="acc-image">
 		                <div class="hotel-info">
 		                    <div class="acc-name" th:text="${booking['acc_name']}"></div>
-						<input type="hidden" name="ro_id" th:value="${booking.ro_id}">
-							<input type="hidden" th:text="${booking['ro_id']}"></input>
+							<input type="hidden" name="ro_id" th:value="${booking.ro_id}">
 		                    <div class="ro_name" th:text="${booking['ro_name']}"></div>
-		                    <div class="booking-dates" th:text="${booking['bo_checkIn']} + ' ~ ' + ${booking['bo_checkOut']} + ' | 1박'"></div>
+		                    <div class="booking-dates" th:text="${booking['bo_checkIn']} + ' ~ ' + ${booking['bo_checkOut']}"></div>
 		                    <div class="check-in-out" th:text="'체크인 ' + ${booking['ro_checkIn']} + ' | 체크아웃 ' + ${booking['ro_checkOut']}"></div>
 		                </div>
 		            </div>
