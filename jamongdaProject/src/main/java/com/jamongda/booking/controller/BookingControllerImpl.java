@@ -35,7 +35,7 @@ public class BookingControllerImpl implements BookingController {
 		ModelAndView mav=new ModelAndView();
 		HttpSession session=request.getSession();
 		MemberDTO guest=(MemberDTO) session.getAttribute("guest");
-			
+
 		// 숙소 id로 조회, 객실 id로 조회하는 쿼리문 돌려야함
 		String acc_name=bookingService.showAccInfo(acc_id);
 		RoomDTO roomDTO = bookingService.showRoInfo(ro_id);
