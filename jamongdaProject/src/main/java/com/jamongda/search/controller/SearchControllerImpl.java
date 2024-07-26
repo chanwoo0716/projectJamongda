@@ -42,15 +42,12 @@ public class SearchControllerImpl implements SearchController {
 
 		List accListsrch = searchService.search(acc); // 숙소 검색 리스트(이름,지역)
 
-		// List accImageList=searchService.searchImage(acc); //숙소 검색 이미지 리스트(이름,지역) (1개만
-		// 가져옴)
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("search/selectSearch");
 		mav.addObject("accList", accList);
 		mav.addObject("accListsrch", accListsrch);
 		mav.addObject("bo_checkIn", bo_checkIn);
 		mav.addObject("bo_checkOut", bo_checkOut);
-		// mav.addObject("accImageList",accImageList);
 		return mav;
 	}
 
