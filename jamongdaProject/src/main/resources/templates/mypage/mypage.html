@@ -133,7 +133,7 @@
 	text-align: left;
 }
 </style>
-<script>
+<script>	
 	function openPopup(boNumber) {
 	    var url = '/mypage/myBookingDetails.do?number=' + encodeURIComponent(boNumber);
 		
@@ -180,12 +180,11 @@
 						<a href="#" class="details-link" th:attr="onclick='openPopup(' + ${latestBooking['bo_number']} + ')'">상세보기</a>						
 				    </div>
 				    <div class="booking-content">
-				        <img src="https://via.placeholder.com/100" alt="호텔 이미지" class="acc-image">
 				        <div class="hotel-info">
 				            <div class="acc-name" th:text="${latestBooking['acc_name']}"></div>
 				            <div class="ro_name" th:text="${latestBooking['ro_name']}"></div>
 				            <input type="hidden" th:text="${latestBooking['ro_id']}"></input>
-				            <div class="booking-dates" th:text="${latestBooking['bo_checkIn']} + ' ~ ' + ${latestBooking['bo_checkOut']} + ' | ???박'"></div>
+				            <div class="booking-dates" th:text="${latestBooking['bo_checkIn']} + ' ~ ' + ${latestBooking['bo_checkOut']}"></div>
 				            <div class="check-in-out" th:text="'체크인 ' + ${latestBooking['ro_checkIn']} + ' | 체크아웃 ' + ${latestBooking['ro_checkOut']}"></div>
 				        </div>
 				    </div>

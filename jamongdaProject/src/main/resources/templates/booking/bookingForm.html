@@ -96,9 +96,9 @@
                     </div>
                     <div class="payInfo-section">
                         <label for="memInfo">객실 가격(1박)</label>
-                        <span id="oneday-price" th:text="${room.ro_price}"></span>
+                        <span id="oneday-price" th:text="${room.ro_price}">원</span>
                         <!-- 1박 가격을 저장할 숨겨진 input 요소 추가 -->
-                        <input type="hidden" id="bo_price" value="${room.ro_price}">
+                        <input type="hidden" id="bo_price" value="${room.ro_price}">원
                     </div>
                     <br>
                     <br>                    
