@@ -51,7 +51,7 @@ public class MypageControllerImpl implements MypageController {
         mav.addObject("guest", guest);
         mav.addObject("latestBooking", latestBooking);
         mav.addObject("isPastCheckout", isPastCheckout);
-        mav.setViewName("/mypage/mypage");
+        mav.setViewName("mypage/mypage");
 
         return mav;
     }
@@ -81,7 +81,7 @@ public class MypageControllerImpl implements MypageController {
 
         mav.addObject("guest", guest);
         mav.addObject("bookingList", bookingList);
-        mav.setViewName("/mypage/myBookingList");
+        mav.setViewName("mypage/myBookingList");
 
         return mav;
     }
@@ -95,7 +95,7 @@ public class MypageControllerImpl implements MypageController {
         Map<String, Object> myBookingDetails = mypageService.myBookingDetails(bo_number);
 
         mav.addObject("myBookingDetails", myBookingDetails);
-        mav.setViewName("/mypage/myBookingDetails");
+        mav.setViewName("mypage/myBookingDetails");
         return mav;
     }
 

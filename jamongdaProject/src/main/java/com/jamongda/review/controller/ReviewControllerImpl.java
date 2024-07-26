@@ -46,7 +46,7 @@ public class ReviewControllerImpl implements ReviewController {
         mav.addObject("acc_name", acc_name);
         mav.addObject("ro_id", ro_id);
         mav.addObject("ro_name", ro_name);
-        mav.setViewName("/review/reviewForm");
+        mav.setViewName("review/reviewForm");
         return mav;
     }
 
