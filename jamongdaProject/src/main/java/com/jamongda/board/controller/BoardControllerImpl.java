@@ -49,7 +49,7 @@ public class BoardControllerImpl implements BoardController{
 		boardMap.put("pageNum", pageNum);
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/boardList");
+		mav.setViewName("board/boardList");
 		mav.addObject("boardSidebar", "board/boardSidebar");
 		mav.addObject("boardMap", boardMap);
 		return mav;
@@ -60,7 +60,7 @@ public class BoardControllerImpl implements BoardController{
 	@GetMapping("/board/boardForm.do")
 	public ModelAndView boardForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/boardForm");
+		mav.setViewName("board/boardForm");
 		mav.addObject("boardSidebar", "board/boardSidebar");
 		return mav;
 	}	
@@ -70,7 +70,7 @@ public class BoardControllerImpl implements BoardController{
 	@GetMapping("/board/FAQ.do")
 	public ModelAndView FAQ(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/FAQ");
+		mav.setViewName("board/FAQ");
 		mav.addObject("boardSidebar", "board/boardSidebar");
 		return mav;
 	}
@@ -106,7 +106,7 @@ public class BoardControllerImpl implements BoardController{
 		boardDTO=boardService.viewBoard(board_id);
 		
 		ModelAndView mav= new ModelAndView();
-		mav.setViewName("/board/viewBoard");
+		mav.setViewName("board/viewBoard");
 		mav.addObject("boardSidebar", "board/boardSidebar");
 		mav.addObject("board",boardDTO);
 		return mav;
@@ -119,7 +119,7 @@ public class BoardControllerImpl implements BoardController{
 			throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/board/modBoardForm");
+		mav.setViewName("board/modBoardForm");
 		mav.addObject("boardSidebar", "board/boardSidebar");
 		mav.addObject("board",boardDTO);
 		return mav;

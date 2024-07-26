@@ -37,7 +37,7 @@ public class MemberControllerImpl implements MemberController {
 	@GetMapping("/member/memberForm.do")
 	public ModelAndView memberForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/member/memberForm");
+		mav.setViewName("member/memberForm");
 		return mav;
 	}
 	
@@ -45,7 +45,7 @@ public class MemberControllerImpl implements MemberController {
 	@GetMapping("/member/memberForm_host.do")
 	public ModelAndView memberFormH(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/member/memberForm_host");
+		mav.setViewName("member/memberForm_host");
 		return mav;
 	}
 
@@ -97,6 +97,7 @@ public class MemberControllerImpl implements MemberController {
 	@PostMapping("/member/updateMemberForm.do")
 	public ModelAndView updateMemberForm(@RequestParam("email") String email, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
 		memberDTO = memberService.findInfo(email);
 		ModelAndView mav = new ModelAndView("/member/updateMemberForm");
 		mav.addObject("member", memberDTO);
@@ -107,6 +108,7 @@ public class MemberControllerImpl implements MemberController {
 	@GetMapping("/member/updateMemberForm_host.do")
 	public ModelAndView updateMemberFormH(@RequestParam("email") String email, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
 		memberDTO = memberService.findInfo(email);
 		ModelAndView mav = new ModelAndView("/member/updateMemberForm_host");
 		mav.addObject("member", memberDTO);
@@ -144,7 +146,7 @@ public class MemberControllerImpl implements MemberController {
 			
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("result", result);
-			mav.setViewName("/member/loginForm_guest");
+			mav.setViewName("member/loginForm_guest");
 			return mav;
 	}
 	
@@ -158,7 +160,7 @@ public class MemberControllerImpl implements MemberController {
 		session.setAttribute("action",action);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("result2", result2);
-		mav.setViewName("/member/loginForm_host");
+		mav.setViewName("member/loginForm_host");
 		return mav;
 	}
 	// 일반회원 로그인 처리

@@ -45,7 +45,7 @@ public class SearchControllerImpl implements SearchController {
 		// List accImageList=searchService.searchImage(acc); //숙소 검색 이미지 리스트(이름,지역) (1개만
 		// 가져옴)
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/search/selectSearch");
+		mav.setViewName("search/selectSearch");
 		mav.addObject("accList", accList);
 		mav.addObject("accListsrch", accListsrch);
 		mav.addObject("bo_checkIn", bo_checkIn);
@@ -74,7 +74,7 @@ public class SearchControllerImpl implements SearchController {
 		// List accImageList=searchService.searchImage(acc); //숙소 검색 이미지 리스트(이름,지역) (1개만
 		// 가져옴)
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/search/selectSearch");
+		mav.setViewName("search/selectSearch");
 		mav.addObject("accList", accList);
 		mav.addObject("accListType", accListType);
 		mav.addObject("bo_checkIn", bo_checkIn);
@@ -115,7 +115,7 @@ public class SearchControllerImpl implements SearchController {
 		// List accImageList=searchService.searchImage(acc); //숙소 검색 이미지 리스트(이름,지역) (1개만
 		// 가져옴)
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/search/selectSearch");
+		mav.setViewName("search/selectSearch");
 		mav.addObject("accRangePrice", accRangePrice);
 		mav.addObject("bo_checkIn", bo_checkIn);
 		mav.addObject("bo_checkOut", bo_checkOut);
@@ -145,7 +145,7 @@ public class SearchControllerImpl implements SearchController {
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("detailAccRoMap", detailAccRoMap);
-		mav.setViewName("/search/detailSearch");
+		mav.setViewName("search/detailSearch");
 		return mav;
 	}
 }

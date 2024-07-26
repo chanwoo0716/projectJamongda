@@ -69,7 +69,7 @@ public class HomeController {
 		mav.addObject("jamongdaAccListAcc_id",jamongdaAccListAcc_id);
 		mav.addObject("lowestAccListImage",lowestAccListImage);
 		mav.addObject("lowestAccListAcc_id",lowestAccListAcc_id);
-		mav.setViewName("/main");
+		mav.setViewName("main");
 		return mav;
 	}
 }
