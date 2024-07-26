@@ -96,6 +96,14 @@ public class SearchControllerImpl implements SearchController {
 			@RequestParam(value = "maxPrice", required = false) Integer maxPrice, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
+	    // 기본값 설정
+	    if (minPrice == null) {
+	        minPrice = 0; // 기본값을 0으로 설정
+	    }
+	    if (maxPrice == null) {
+	        maxPrice = Integer.MAX_VALUE; // 기본값을 최대값으로 설정
+	    }
+		
 		List accList = searchService.selectAll(); // 숙소 전체 리스트
 
 		List accListsrch = searchService.search(acc); // 숙소 검색 리스트(이름,지역)

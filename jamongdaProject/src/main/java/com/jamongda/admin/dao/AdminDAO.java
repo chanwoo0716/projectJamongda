@@ -67,7 +67,7 @@ public interface AdminDAO {
 	//회원정보 모두 가져오기(가입일자 순으로)
 	public List selectAllMembersList() throws DataAccessException;
 	//특정 회원(email)의 회원정보 가져오기(검색기능)
-	public List searchMembers(String searchEmail) throws DataAccessException;
+	public List searchMembers(Map<String, Object> paramMap) throws DataAccessException;
 	
 	//특정 회원(email)의 회원정보 가져오기(수정하기)
 	public MemberDTO selectMemberByEmail(String email) throws DataAccessException;
