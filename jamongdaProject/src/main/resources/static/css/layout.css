@@ -48,12 +48,12 @@ a {
   width: 5%;
   display: inline-block;
   vertical-align: middle;
-  margin-left: 15%;
+  margin-left: 10%;
 }
 
 /*로고 영역*/
 .header_logo {
-  width: 60%;
+  width: 63%;
   display: inline-block;
   vertical-align: middle;
 }
@@ -63,8 +63,8 @@ a {
   display: inline-block;
   vertical-align: middle;
   text-align: right;
-  margin-right: 15%;
-  font-size: 1em;
+  margin-right: 10%;
+  font-size: 1.2em;
   
 }
 
@@ -85,10 +85,41 @@ a {
   font-size: 1.2em;
   color: black;
   display: inline-block;
-  margin-left: 5%;
+  margin-left: 15%;
 }
 
+.mypage_list{
+	width: 10%;
+	visibility: hidden;
+	position: absolute;
+	z-index: 100000;
+	margin-top: 0.5%;
+	
+	text-align: center;
+	background-color: rgb(252, 252, 252);
+	border-radius: 15px;
+	border: 1px solid #ccc;
+	margin-top: 1%;
+	margin-right: 10%;
+	
+	transform: translateY(-7px); /* 위에서 아래로 이동하는 효과를 위해 초기 위치를 위로 설정합니다 */
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease; /* 전환 효과를 설정합니다 */
+}
 
+.header_mypage:hover .mypage_list {
+    visibility: visible; /* 보이게 설정합니다 */
+	transform: translateY(0); /* 원래 위치로 이동시킵니다 */
+}
+
+.mypage_list > li {
+	font-size: 1em;
+	font-weight: 500;
+	padding: 5%;
+}
+
+.mypage_list > li > a:hover{
+	color: #FF6F61;
+}
 
 /*로그인/회원가입 영역*/
 .header_login {
