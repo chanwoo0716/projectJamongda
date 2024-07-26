@@ -32,18 +32,20 @@
 			<div class="header_name" th:if="${session.isLogOn == true and session.guest != null}">
                <h3 th:text="${session.guest.name} + '님'"></h3>
 			   <div class="header_mypage" th:if="${session.isLogOn==true and session.guest != null}">
-	   				<a th:href="@{/mypage/mypage.do}">마이페이지</a>
+	   				<a th:href="@{/mypage/mypage.do}">
+						<i class="fas fa-bars"></i>
+					</a>
 	   				<ul class="mypage_list">
 						<li>
-							예약내역
+							<a th:href="@{/mypage/allBookings.do}">예약내역</a>
 						</li>
 						
 						<li>
-							포인트
+							<a th:href="@{/mypage/point.do}">포인트</a>
 						</li>
 						
 						<li>
-							공지사항
+							<a th:href="@{/board/boardList.do}">공지사항</a>
 						</li>
 						
 						<li>
@@ -54,23 +56,15 @@
             </div>
             <div class="header_name" th:if="${session.isLogOn == true and session.host != null}">
                <h3 th:text="${session.host.name} + '님'"></h3>
-			   <div class="header_mypage" th:if="${session.isLogOn==true and session.host != null}">
-	   				<ul class="mypage_list">
-	   					<li>
-							<a th:href="@{/member/logout.do}">로그아웃</a>
-						</li>
-	   				</ul>
-	   			</div>
+			   	<div class="header_mypage" th:if="${session.isLogOn==true and session.host != null}">
+					<a th:href="@{/member/logout.do}">로그아웃</a>
+   				</div>
             </div>
             <div class="header_name" th:if="${session.isLogOn == true and session.admin != null}">
                <h3 th:text="${session.admin.name} + '님'"></h3>
-			   <div class="header_mypage" th:if="${session.isLogOn==true and session.admin != null}">
-	   				<ul class="mypage_list" th:if="${session.isLogOn == true}">
-						<li>
-							<a th:href="@{/member/logout.do}">로그아웃</a>
-						</li>
-	   				</ul>
-	   			</div>
+			   	<div class="header_mypage" th:if="${session.isLogOn==true and session.admin != null}">
+					<a th:href="@{/member/logout.do}">로그아웃</a>
+  				</div>
             </div>
 			
 			<!--로그인/회원가입 영역-->

@@ -9,8 +9,6 @@
 	<script th:src="@{https://code.jquery.com/jquery-3.4.1.js}"></script>
 	<script type="text/javascript" th:src="@{/js/main.js}"></script>
 	<link rel="stylesheet" th:href="@{/css/main.css}" />
-	<!--Font Awsome 아이콘-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 	<!-- 달력 라이브러리 -->
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<!-- 달력라이브러리 소스 -->
@@ -102,7 +100,7 @@
 		<div id="main_content">
 			<section id="search_section">
 				<div class="main_banner">
-					<img src="/images/main_image.jpg" alt="">
+					<video src="images/video/main_video.mp4" poster="/images/main_image.jpg" width="1920" height="450" loop="1" autoplay="1" muted="1"></video>
 				</div>
 				<div class="content_box" id="search_box">
 					<form th:action="@{/search/selectSearch.do}" method="get" id="form1">
@@ -140,32 +138,38 @@
 					<ul class="swiper-wrapper slide_list">
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[0]})}">
-								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[0]}, acc_image=${jamongdaAccListImage[0]})}">
+								<img
+									th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[0]}, acc_image=${jamongdaAccListImage[0]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[1]})}">
-								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[1]}, acc_image=${jamongdaAccListImage[1]})}">
+								<img
+									th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[1]}, acc_image=${jamongdaAccListImage[1]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[2]})}">
-								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[2]}, acc_image=${jamongdaAccListImage[2]})}">
+								<img
+									th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[2]}, acc_image=${jamongdaAccListImage[2]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[3]})}">
-								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[3]}, acc_image=${jamongdaAccListImage[3]})}">
+								<img
+									th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[3]}, acc_image=${jamongdaAccListImage[3]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[4]})}">
-								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[4]}, acc_image=${jamongdaAccListImage[4]})}">
+								<img
+									th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[4]}, acc_image=${jamongdaAccListImage[4]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${jamongdaAccListAcc_id[5]})}">
-								<img th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[5]}, acc_image=${jamongdaAccListImage[5]})}">
+								<img
+									th:src="@{/accDownload.do(acc_id=${jamongdaAccListAcc_id[5]}, acc_image=${jamongdaAccListImage[5]})}">
 							</a>
 						</li>
 					</ul>
@@ -241,42 +245,50 @@
 					<ul class="swiper-wrapper slide_list">
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${lowestAccListAcc_id[0]})}">
-								<img th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[0]}, acc_image=${lowestAccListImage[0]})}">
+								<img
+									th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[0]}, acc_image=${lowestAccListImage[0]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${lowestAccListAcc_id[1]})}">
-								<img th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[1]}, acc_image=${lowestAccListImage[1]})}">
+								<img
+									th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[1]}, acc_image=${lowestAccListImage[1]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${lowestAccListAcc_id[2]})}">
-								<img th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[2]}, acc_image=${lowestAccListImage[2]})}">
+								<img
+									th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[2]}, acc_image=${lowestAccListImage[2]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${lowestAccListAcc_id[3]})}">
-								<img th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[3]}, acc_image=${lowestAccListImage[3]})}">									
+								<img
+									th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[3]}, acc_image=${lowestAccListImage[3]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${lowestAccListAcc_id[4]})}">
-								<img th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[4]}, acc_image=${lowestAccListImage[4]})}">									
+								<img
+									th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[4]}, acc_image=${lowestAccListImage[4]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${lowestAccListAcc_id[5]})}">
-								<img th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[5]}, acc_image=${lowestAccListImage[5]})}">									
+								<img
+									th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[5]}, acc_image=${lowestAccListImage[5]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${lowestAccListAcc_id[6]})}">
-								<img th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[6]}, acc_image=${lowestAccListImage[6]})}">									
+								<img
+									th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[6]}, acc_image=${lowestAccListImage[6]})}">
 							</a>
 						</li>
 						<li class="swiper-slide">
 							<a th:href="@{/search/detailSearch.do(aid=${lowestAccListAcc_id[7]})}">
-								<img th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[7]}, acc_image=${lowestAccListImage[7]})}">									
+								<img
+									th:src="@{/accDownload.do(acc_id=${lowestAccListAcc_id[7]}, acc_image=${lowestAccListImage[7]})}">
 							</a>
 						</li>
 					</ul>
