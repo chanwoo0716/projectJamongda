@@ -199,12 +199,16 @@
 			select * from member order by joinDate DESC;
 		]]>
 	</select>
-	<!-- 특정 회원(email)의 회원정보 가져오기(검색하기)searchMembers -->
-	<select id="searchMembers" parameterType="String" resultMap="memResult">
-		select * from member
+	
+	<!-- 특정 회원(email)과 역할(role)의 회원정보 가져오기(검색하기)searchMembers -->
+	<select id="searchMembers" parameterType="map" resultMap="memResult">
+	    select * from member
 	    <where>
 	        <if test="searchEmail != null and searchEmail != ''">
 	            email like CONCAT('%', #{searchEmail}, '%')
+	        </if>
+	        <if test="role != null and role != 'ALL'">
+	            and role = #{role}
 	        </if>
 	    </where>
 	    order by joinDate DESC;

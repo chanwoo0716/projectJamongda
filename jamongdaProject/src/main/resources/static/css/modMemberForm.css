@@ -45,6 +45,9 @@ td:last-child {
     text-align: left;
     padding-left: 20px;
 }
+.modMemberButton {
+	text-align: center;
+}
 
 input[type="text"],
 input[type="password"] {

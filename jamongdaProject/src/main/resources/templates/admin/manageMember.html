@@ -6,62 +6,66 @@
 <meta charset="UTF-8">
 <title>회원정보</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/manageMember.css}" />
-<style>
-    h2 {
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .table-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        overflow-x: auto;
-        margin: 20px auto;
-    }
-
-    .filter-container {
-        margin-bottom: 20px;
-    }
-
-    .table-style {
-        border-collapse: collapse;
-        width: 100%;
-        max-width: 1200px;
-        background-color: #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .th-style, .td-style {
-        padding: 12px;
-        text-align: center;
-        border-bottom: 1px solid #ddd;
-        white-space: nowrap;
-    }
-	
-    .th-style {
-        background-color: #FF6F61;
-        color: white;
-    }
-
-    .tr-style:hover {
-        background-color: #f1f1f1;
-    }
-
-    .modDelMember:hover {
-        text-decoration: underline;
-    }
-	
-    .role-A {
-        background-color: #f2fbff;
-    }
-
-    .role-H {
-        background-color: #fffaf7;
-    }
-</style>
 <script>
+	document.addEventListener('DOMContentLoaded', function() {
+	    const rowsPerPage = 10;
+	    let currentPage = 1;
+
+	    function paginateTable() {
+	        const rows = document.querySelectorAll(".member-row");
+	        const totalRows = rows.length;
+	        const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+	        rows.forEach((row, index) => {
+	            if (index < (currentPage - 1) * rowsPerPage || index >= currentPage * rowsPerPage) {
+	                row.style.display = "none";
+	            } else {
+	                row.style.display = "";
+	            }
+	        });
+
+	        renderPagination(totalPages);
+	    }
+
+	    function renderPagination(totalPages) {
+	        const paginationContainer = document.querySelector('.pagination');
+	        paginationContainer.innerHTML = '';
+
+	        for (let i = 1; i <= totalPages; i++) {
+	            const button = document.createElement('button');
+	            button.textContent = i;
+	            button.classList.toggle('active', i === currentPage);
+	            button.addEventListener('click', () => {
+	                currentPage = i;
+	                paginateTable();
+	            });
+	            paginationContainer.appendChild(button);
+	        }
+	    }
+
+	    filterTable = function() {
+	        let filter = document.getElementById("roleFilter").value;
+	        let rows = document.querySelectorAll(".member-row");
+
+	        rows.forEach(function(row) {
+	            if (filter === "ALL" || row.classList.contains("role-" + filter)) {
+	                row.style.display = "";
+	            } else {
+	                row.style.display = "none";
+	            }
+	        });
+
+	        // 필터 적용 후 페이지네이션 다시 설정
+	        paginateTable();
+	    }
+
+	    // 초기 페이지네이션 설정
+	    paginateTable();
+		
+		// 필터 변경 이벤트 리스너 추가
+		document.getElementById("roleFilter").addEventListener('change', filterTable);
+	});
+	/*
     function filterTable() {
         let filter = document.getElementById("roleFilter").value;
         let rows = document.querySelectorAll(".member-row");
@@ -74,6 +78,7 @@
             }
         });
     }
+	*/
 </script>
 </head>
 <body>
@@ -83,7 +88,7 @@
 			<form action="/admin/searchMember.do" method="get" id="searchEmail" name="searchEmail">
 	            <div class="filter-container">
 	                <label for="roleFilter">회원구분 필터:</label>
-	                <select id="roleFilter" onchange="filterTable()">
+	                <select id="roleFilter" name="role" onchange="filterTable()">
 	                    <option value="ALL">전체</option>
 	                    <option value="G">일반회원</option>
 	                    <option value="H">사업자</option>
@@ -130,6 +135,7 @@
                     </tr>
                 </tbody>
             </table>
+			<div class="pagination"></div>
         </div>
     </th:block>
 </body>

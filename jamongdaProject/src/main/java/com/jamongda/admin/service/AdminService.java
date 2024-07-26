@@ -30,7 +30,7 @@ public interface AdminService {
 	public List listMembers() throws DataAccessException;
 	
 	//회원검색기능(이메일)
-	public List searchMembers(String searchEmail) throws DataAccessException;
+	public List searchMembers(Map<String, Object> paramMap) throws DataAccessException;
 	
 	//특정 회원(email)의 회원정보 가져오기
 	public MemberDTO findMember(String email) throws DataAccessException;
