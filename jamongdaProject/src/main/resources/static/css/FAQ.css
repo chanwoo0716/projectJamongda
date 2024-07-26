@@ -1,6 +1,11 @@
 @charset "uft-8";
 
 /* 전체 기본 설정*/
+
+* {
+  margin: 0;
+}
+
 html,
 body {
   position: relative;
@@ -60,6 +65,7 @@ body {
 .askArea>.ask_info{
     width: 20%;
     margin-left: 5%;
+	margin-top: 3%;
 }
 .ask_info>h3{
     font-weight: bold;
