@@ -1,4 +1,3 @@
-@charset "UTF-8";
 h2 {
     text-align: center;
     margin-top: 20px;
@@ -19,10 +18,11 @@ h2 {
 
 .table-style {
     border-collapse: collapse;
-    width: 100%;
-    max-width: 1200px;
+    width: 70%;
+    /*max-width: 1200px;*/
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	font-size:0.85em;
 }
 
 .th-style, .td-style {
@@ -51,4 +51,29 @@ h2 {
 
 .role-H {
     background-color: #fffaf7;
+}
+
+/* 페이징관련CSS */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #ffbcb5;
+    color: white;
+    border: none;
+    cursor: pointer;
+	font-weight:bold;
+}
+
+.pagination button:hover {
+    background-color: #FF3F30;
+}
+
+.pagination button.active {
+    background-color: #FF3F30;
 }

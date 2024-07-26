@@ -1,5 +1,6 @@
 package com.jamongda.admin.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -175,11 +176,19 @@ public class AdminControllerImpl implements AdminController {
 	// 회원검색기능(이메일) ->해당 이메일의 회원정보만 가져오기
 	@Override
 	@GetMapping("/admin/searchMember.do")
-	public ModelAndView searchMember(@RequestParam("searchEmail") String searchEmail, HttpServletRequest request,
+	public ModelAndView searchMember(
+			@RequestParam("searchEmail") String searchEmail,
+			@RequestParam("role") String role,
+			HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-
+		
+	    // 특정 이메일과 역할에 해당하는 회원정보 가져오기
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("searchEmail", searchEmail);
+	    paramMap.put("role", role);
+		
 		// 특정 이메일에 해당하는 회원정보 가져오기
-		List searchMembersList = adminService.searchMembers(searchEmail);
+		List searchMembersList = adminService.searchMembers(paramMap);
 
 		System.out.println(searchMembersList);
 

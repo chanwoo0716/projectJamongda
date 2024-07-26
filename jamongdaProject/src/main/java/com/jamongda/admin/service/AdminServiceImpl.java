@@ -210,14 +210,13 @@ public class AdminServiceImpl implements AdminService {
 		List membersList = adminDAO.selectAllMembersList();
 		return membersList;
 	}
+	
 	//회원검색기능(이메일)
 	@Override
-	public List searchMembers(String searchEmail) throws DataAccessException {	
-		List searchMembersList = adminDAO.searchMembers(searchEmail);
+	public List searchMembers(Map<String, Object> paramMap) throws DataAccessException {	
+		List searchMembersList = adminDAO.searchMembers(paramMap);
 		return searchMembersList;
 	}
-	
-	
 	
 	//특정 회원(email)의 회원정보 가져오기(수정하기)
 	@Override
