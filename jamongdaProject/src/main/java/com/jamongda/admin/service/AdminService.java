@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.member.dto.MemberDTO;
 
 public interface AdminService {
@@ -12,11 +13,15 @@ public interface AdminService {
 	//숙소등록요청 조회하기
 	public Map regN_AccRo() throws DataAccessException;
 	//숙소등록승인
-	public void approveAcc(int acc_id);
+	public void approveAcc(int acc_id) throws DataAccessException;
 	//숙소등록거부
-	public void rejectAcc(int acc_id);
+	public void rejectAcc(int acc_id) throws DataAccessException;
 	//숙소등록거부 사유
-	public void rejectReason(int acc_id, String reject_reason);
+	public void rejectReason(int acc_id, String reject_reason) throws DataAccessException;
+	//해당 숙소 관련 모든 정보 삭제하기
+	public void removeAcc(int acc_id) throws DataAccessException;
+	//해당 숙소의 객실 폴더 삭제하기
+	public List<RoomDTO> getRo_id(int acc_id) throws DataAccessException;
 	
 	//숙소등록승인 조회하기
 	public Map regY_AccRo() throws DataAccessException;

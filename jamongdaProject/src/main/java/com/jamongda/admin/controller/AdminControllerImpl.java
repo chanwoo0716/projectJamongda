@@ -1,9 +1,11 @@
 package com.jamongda.admin.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.admin.service.AdminService;
 import com.jamongda.member.dto.MemberDTO;
 
@@ -24,8 +27,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller("adminController")
 public class AdminControllerImpl implements AdminController {
 
-	private static String ACCOMMODATION_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadAcc";
-	private static String ROOM_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadRo";
+	private static String ACCOMMODATION_IMAGE_REPO = "D:\\Hwang\\FileuploadAcc";
+	private static String ROOM_IMAGE_REPO = "D:\\Hwang\\FileuploadRo";
 
 	@Autowired
 	private AdminService adminService;
@@ -156,6 +159,34 @@ public class AdminControllerImpl implements AdminController {
 		// 취소사유 테이블에 추가하기(update)
 		adminService.rejectReason(acc_id, reject_reason);
 
+		ModelAndView mav = new ModelAndView("redirect:/admin/regManageAccommodation.do");
+		return mav;
+	}
+	
+	// 숙소 등록 삭제하기
+	@PostMapping("/admin/removeAccList.do")
+	@Override
+	public ModelAndView removeAccList(@RequestParam("acc_id") int acc_id, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+	    //해당 숙소의 객실 폴더 삭제하기(*removeAcc()수행하기 전에 ro_id들을 먼저 가져와야 로직 안꼬임 조심해라잇)
+	    List<RoomDTO> ro_id_list = adminService.getRo_id(acc_id);
+		
+		//해당 숙소 관련 모든 정보 삭제하기
+		adminService.removeAcc(acc_id);
+		//해당 숙소 폴더 삭제하기
+	    File accImgDir=new File(ACCOMMODATION_IMAGE_REPO + "\\" + acc_id);
+	    if(accImgDir.exists()) {
+	       FileUtils.deleteDirectory(accImgDir);
+	    }
+
+	    //해당 객실 폴더 삭제하기
+	    for (RoomDTO room : ro_id_list) {
+	        File roImgDir = new File(ROOM_IMAGE_REPO + "\\" + room.getRo_id());
+	        if (roImgDir.exists()) {
+	            FileUtils.deleteDirectory(roImgDir);
+	        }
+	    }
 		ModelAndView mav = new ModelAndView("redirect:/admin/regManageAccommodation.do");
 		return mav;
 	}
