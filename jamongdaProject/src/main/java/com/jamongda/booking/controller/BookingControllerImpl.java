@@ -46,7 +46,7 @@ public class BookingControllerImpl implements BookingController {
 			mav.addObject("room", roomDTO);
 			mav.addObject("bo_checkIn", bo_checkIn);
 			mav.addObject("bo_checkOut", bo_checkOut);
-			mav.setViewName("/booking/bookingForm");
+			mav.setViewName("booking/bookingForm");
 		}else { // 이건 상세페이지에서 예약넘어올때 처리할거라서 나중에 지울 예정
 			mav.setViewName("redirect:/member/loginForm_guest.do");
 		}
@@ -96,7 +96,7 @@ public class BookingControllerImpl implements BookingController {
 		mav.addObject("room", roomDTO);
 		mav.addObject("bo_number",bo_number);
 		mav.addObject("booking", bookingDTO);
-		mav.setViewName("/booking/bookingComplete");
+		mav.setViewName("booking/bookingComplete");
 		
 		return mav;
 	}

@@ -24,8 +24,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller("adminController")
 public class AdminControllerImpl implements AdminController {
 
-	private static String ACCOMMODATION_IMAGE_REPO = "D:\\Hwang\\FileuploadAcc";
-	private static String ROOM_IMAGE_REPO = "D:\\Hwang\\FileuploadRo";
+	private static String ACCOMMODATION_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadAcc";
+	private static String ROOM_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadRo";
 
 	@Autowired
 	private AdminService adminService;
@@ -49,7 +49,7 @@ public class AdminControllerImpl implements AdminController {
 		}
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/mainAdmin");
+		mav.setViewName("admin/mainAdmin");
 		return mav;
 	}
 
@@ -62,7 +62,7 @@ public class AdminControllerImpl implements AdminController {
 		Map regN_accRoMap = adminService.regN_AccRo();
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/regManageAccommodation");
+		mav.setViewName("admin/regManageAccommodation");
 		mav.addObject("adminSidebar", "admin/adminSidebar");
 		mav.addObject("regN_accRoMap", regN_accRoMap);
 		return mav;
@@ -79,7 +79,7 @@ public class AdminControllerImpl implements AdminController {
 		session.setAttribute("regY_accRoMap", regY_accRoMap);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/viewApproveAccList");
+		mav.setViewName("admin/viewApproveAccList");
 		mav.addObject("adminSidebar", "admin/adminSidebar");
 		mav.addObject("regY_accRoMap", regY_accRoMap);
 		return mav;
@@ -95,7 +95,7 @@ public class AdminControllerImpl implements AdminController {
 		Map regY_accRoMap = (Map) session.getAttribute("regY_accRoMap");
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/viewApproveAccList");
+		mav.setViewName("admin/viewApproveAccList");
 		mav.addObject("adminSidebar", "admin/adminSidebar");
 		mav.addObject("regY_accRoMap", regY_accRoMap);
 		return mav;
@@ -112,7 +112,7 @@ public class AdminControllerImpl implements AdminController {
 		System.out.println(search_regY_accRoMap);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/viewApproveAccList");
+		mav.setViewName("admin/viewApproveAccList");
 		mav.addObject("adminSidebar", "admin/adminSidebar");
 		mav.addObject("regY_accRoMap", search_regY_accRoMap);
 		return mav;
@@ -126,7 +126,7 @@ public class AdminControllerImpl implements AdminController {
 		Map regC_accRoMap = adminService.regC_AccRo();
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/viewRejectAccList");
+		mav.setViewName("admin/viewRejectAccList");
 		mav.addObject("adminSidebar", "admin/adminSidebar");
 		mav.addObject("regC_accRoMap", regC_accRoMap);
 		return mav;
@@ -168,7 +168,7 @@ public class AdminControllerImpl implements AdminController {
 		List membersList = adminService.listMembers();
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/manageMember");
+		mav.setViewName("admin/manageMember");
 		mav.addObject("membersList", membersList);
 		return mav;
 	}
@@ -193,7 +193,7 @@ public class AdminControllerImpl implements AdminController {
 		System.out.println(searchMembersList);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/manageMember");
+		mav.setViewName("admin/manageMember");
 		mav.addObject("membersList", searchMembersList);
 		return mav;
 	}
@@ -207,7 +207,7 @@ public class AdminControllerImpl implements AdminController {
 		memberDTO = adminService.findMember(email);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/admin/modMemberForm");
+		mav.setViewName("admin/modMemberForm");
 		mav.addObject("member", memberDTO);
 		return mav;
 	}
