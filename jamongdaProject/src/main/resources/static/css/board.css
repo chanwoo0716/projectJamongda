@@ -40,7 +40,7 @@ ul, ul > li {
   list-style: none;
 }
 
-/*boardListd*/
+/*boardList 영역*/
 /*전체 화면*/
 #boardcontent {
   width: 100%;
@@ -49,7 +49,7 @@ ul, ul > li {
 
 /*오른쪽 View 화면*/
 .board {
-  width: 50%;
+  width: 60%;
   margin: 0 auto;
 }
 .board > h2 {
@@ -69,10 +69,11 @@ ul, ul > li {
 
 .board > table {
   table-layout: auto;
-  width: 100%;
+  width: 60%;
   border-bottom: 1px solid #ccc;
   border-collapse: collapse;
   margin-top: 3%;
+  margin: 0 auto;
 }
 
 .board td {
@@ -147,10 +148,10 @@ ul, ul > li {
 
 #boardForm > h2 {
   color: #ff6f61;
-  text-decoration: underline;
-  text-underline-offset: 8px;
-  margin: 3% 0;
   text-align: center;
+  padding-top: 3%;
+  
+  border-top: 1px solid #ff6f61;
 }
 
 /*카테고리, 제목 영역*/
@@ -169,36 +170,97 @@ ul, ul > li {
 }
 
 .top > .title {
-  width: 50%;
-  margin-right: 3%;
+  width: 30%;
   font-size: 1em;
 }
 
 /*smartEditor 영역*/
+/* 기본 스타일 */
 form#smartEditor {
-  width: 94%;
-  margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
 }
 
 div#smartEditor {
-  width: 70%;
-  margin: 0 auto;
+    width: 70%;
+    margin: 0 auto;
+    margin-left: 17%;
+}
+
+textarea#editorTxt {
+    width: 90%;
+    height: 200px;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 1280px) {
+    div#smartEditor {
+        width: 70%;
+        margin-left: 18%;
+    }
+	
+	.top {
+	  width: 100%;
+	  text-align: center;
+	}
+}
+
+@media (max-width: 992px) {
+    div#smartEditor {
+        width: 90%;
+        margin-left: 5%;
+    }
+	
+	.top {
+		  width: 100%;
+		  margin: 2% 0;
+		  text-align: center;
+		}
+}
+
+@media (max-width: 768px) {
+    div#smartEditor {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    textarea#editorTxt {
+        height: 150px;
+    }
+	
+	.top {
+	  width: 100%;
+	  margin: 2% 0;
+	  text-align: center;
+	}
+}
+
+@media (max-width: 576px) {
+    textarea#editorTxt {
+        height: 100px;
+    }
+	
+	.top {
+	  width	: 100%;
+	  margin: 2% 0;
+	  text-align: center;
+	}
 }
 
 /*등록하기 버튼*/
 .form_btn > input {
   float: right;
-  margin: 3% 15% 3% 0;
+  margin: 3% 8% 3% 0;
   border: 0;
   background-color: transparent;
-  color: #ff6f61;
+  color: black;
   font-size: 1em;
   font-weight: bold;
   cursor: pointer;
 }
 
 .form_btn > input:hover {
-  text-shadow: rgb(237, 93, 75) 1px 0px 20px;
+  color: #ff6f61;
 }
 
 /*viewBoard css 영역*/
