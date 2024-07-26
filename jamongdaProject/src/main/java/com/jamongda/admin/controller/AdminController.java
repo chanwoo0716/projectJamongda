@@ -37,7 +37,7 @@ public interface AdminController {
 	public ModelAndView manageMember(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//회원검색기능(이메일)
-	public ModelAndView searchMember(@RequestParam("searchEmail") String searchEmail, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView searchMember(@RequestParam("searchEmail") String searchEmail, @RequestParam("role") String role, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//회원정보수정하기 페이지
 	public ModelAndView modMemberForm(@RequestParam("email") String email, HttpServletRequest request, HttpServletResponse response) throws Exception;
