@@ -92,8 +92,8 @@ public class SearchControllerImpl implements SearchController {
 			@RequestParam(value = "checkIn", required = false) String bo_checkIn,
 			@RequestParam(value = "checkOut", required = false) String bo_checkOut,
 			@RequestParam(value = "acc_type", required = false) String acc_type,
-			@RequestParam(value = "minPrice", required = false) int minPrice,
-			@RequestParam(value = "maxPrice", required = false) int maxPrice, HttpServletRequest request,
+			@RequestParam(value = "minPrice", required = false) Integer minPrice,
+			@RequestParam(value = "maxPrice", required = false) Integer maxPrice, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		List accList = searchService.selectAll(); // 숙소 전체 리스트
