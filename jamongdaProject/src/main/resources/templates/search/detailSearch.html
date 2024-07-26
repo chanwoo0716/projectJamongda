@@ -263,7 +263,7 @@
         cursor: pointer;
         font-weight: bold;
     }
-	
+	/* 규림추가 삭제하지마!!!! 객실 이미지 팝업창!!!*/
 	.img-popup-container {
 	    position: fixed;
 	    left: 0;
@@ -294,7 +294,96 @@
 	    display: block;
 	    margin: 10px 0;
 	}
+	/* 규림추가 삭제하지마!!!! 지도 관련 css*/
+	/* 지도 컨테이너의 스타일 */
+	.aside_map {
+	    padding: 20px;
+	    border: 1px solid #ddd;
+	    border-radius: 8px;
+	}
+
+	/* 지도 제목 스타일 */
+	.aside_map h2 {
+	    font-size: 18px;
+	    margin-bottom: 10px;
+	    color: #333;
+	}
+
+	/* 지도의 스타일 */
+	#map {
+	    border-radius: 8px;
+	    overflow: hidden;
+	}
+
+	/* 주소 텍스트 스타일 */
+	.aside_map p {
+	    font-size: 17px;
+	    color: #555;
+	    margin: 10px 0;
+	}
+
+	/* 버튼의 스타일 */
+	/* 버튼과 주소를 나란히 배치할 컨테이너의 스타일 */
+	.routeButton-container {
+	    display: flex;
+	    align-items: center; /* 세로 중앙 정렬 */
+	    flex-wrap: wrap; /* 주소가 길어질 경우 다음 줄로 넘어가도록 설정 */
+	    gap: 10px; /* 주소와 버튼 사이의 간격 */
+	    margin-top: 20px;
+	}
+
+	/* 주소 텍스트의 스타일 */
+	.routeButton-container p {
+	    font-size: 17px; /* 폰트 사이즈 */
+	    color: #555; /* 텍스트 색상 */
+	    margin: 0; /* 마진을 0으로 설정하여 버튼과의 간격을 조정합니다 */
+	    padding-right: 10px; /* 버튼과의 간격을 위한 패딩 추가 */
+	    flex: 1; /* 주소 텍스트가 가능한 공간을 차지하도록 합니다 */
+	    word-break: break-word; /* 긴 주소가 박스를 넘어가지 않도록 합니다 */
+	}
 	
+	#routeButton {
+	    width: 50px; /* 버튼의 너비 */
+	    height: 50px; /* 버튼의 높이 */
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    font-size: 16px;
+	    color: rgb(0, 0, 0);
+	    background-color: #fff;
+	    border: 1px solid #ccc;
+	    border-radius: 50%; /* 동그란 모양 */
+	    cursor: pointer;
+	    text-decoration: none;
+	    transition: background-color 0.3s ease;
+	    margin-left: 10px; /* 주소와의 간격 */
+	}
+
+	#routeButton img {
+	    width: 30px; /* 아이콘 이미지의 너비 */
+	    height: 30px; /* 아이콘 이미지의 높이 */
+	}
+
+	#routeButton:hover {
+	    background-color: rgb(238, 238, 238);
+	}
+
+	/* 주소 텍스트의 스타일 */
+	#addressText {
+	    display: inline-block;
+	    font-size: 14px;
+	    color: #555;
+	    margin-right: 10px; /* 버튼과의 간격 */
+	    max-width: calc(100% - 70px); /* 버튼 너비를 제외한 최대 너비 */
+	    overflow-wrap: break-word; /* 자동 줄바꿈 */
+	}
+
+	/* 버튼과 텍스트를 나란히 배치할 컨테이너의 스타일 */
+	.routeButton-container {
+	    display: flex;
+	    align-items: center; /* 세로 중앙 정렬 */
+	    margin-top: 20px;
+	}
 </style>
 <script th:inline="javascript">
     /*<![CDATA[*/
@@ -317,30 +406,53 @@
 		    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 		        mapOption = {
 		            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		            level: 3 // 지도의 확대 레벨
+		            level: 2 // 지도의 확대 레벨
 		        };
 
 		    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-		    
-			console.log('Kakao Maps API loaded');
-			var geocoder = new kakao.maps.services.Geocoder();
-			console.log('Geocoder:', geocoder);
-		    //var geocoder = new kakao.maps.services.Geocoder(); // Geocoder 객체 생성
 
-		    // 타임리프 변수로 받은 주소로 Geocode 요청
+		    console.log('Kakao Maps API loaded');
+		    var geocoder = new kakao.maps.services.Geocoder();
+		    console.log('Geocoder:', geocoder);
+
+		    // 주소로 좌표를 검색하여 마커를 표시
 		    geocoder.addressSearch(mapAddress, function(result, status) {
 		        if (status === kakao.maps.services.Status.OK) {
 		            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		            
+		            var imageSrc = '/images/map-marker.png', // 마커이미지의 주소입니다    
+		                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+		                imageOption = {offset: new kakao.maps.Point(32, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+		                  
+		            // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+		            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+		                markerPosition = coords; // 마커가 표시될 위치입니다
+		            
+		            // 마커를 생성합니다
 		            var marker = new kakao.maps.Marker({
 		                map: map,
-		                position: coords
+		                position: markerPosition, 
+		                image: markerImage // 마커이미지 설정 
 		            });
+
+		            // 마커가 지도 위에 표시되도록 설정합니다
+		            marker.setMap(map);
+
+		            // 지도 중심을 설정합니다
 		            map.setCenter(coords);
 		        } else {
 		            console.error('주소 검색 실패:', status);
 		        }
 		    });
+
+		    // 길찾기 버튼 클릭 이벤트
+		    $('#routeButton').on('click', function() {
+		        var startAddress = '서울특별시 서초구 서초대로77길 41'; // 예시 출발지(실제로는 사용자의 현위치)
+		        var kakaoMapUrl = `https://map.kakao.com/?sName=${encodeURIComponent(startAddress)}&eName=${encodeURIComponent(mapAddress)}`;
+		        window.open(kakaoMapUrl, '_blank');
+		    });
 		});
+		
 		
         // 회원 이메일 마스킹
         function maskEmail(email) {
@@ -638,11 +750,10 @@
 			        <br>
 			        <!-- 지도를 표시할 div 입니다 -->
 			        <div id="map" style="width:100%;height:350px;"></div>
-					<script th:inline="javascript">
-					    /*<![CDATA[*/
-					    var addresses = /*[[${addresses}]]*/ '[]';
-					    /*]]>*/
-					</script>]
+					<div class="routeButton-container">
+					    <p th:text="${detailAccRoMap.get('accList')[0].acc_address}"></p>
+					    <button id="routeButton"><img src="/images/map-route.png" width="30px"></button>
+					</div>
 			    </div>
 			</aside>
         </section>
