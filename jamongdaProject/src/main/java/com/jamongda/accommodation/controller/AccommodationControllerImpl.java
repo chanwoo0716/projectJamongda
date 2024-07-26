@@ -31,8 +31,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller("accommodationController")
 public class AccommodationControllerImpl implements AccommodationController {
 
-	private static String ACCOMMODATION_IMAGE_REPO = "D:\\Hwang\\FileuploadAcc";
-	private static String ROOM_IMAGE_REPO = "D:\\Hwang\\FileuploadRo";
+	private static String ACCOMMODATION_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadAcc";
+	private static String ROOM_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadRo";
 
 	@Autowired
 	private AccommodationService accommodationService;
@@ -63,7 +63,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 		String email = memberDTO.getEmail();
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/accommodation/regAccommodation");
+		mav.setViewName("accommodation/regAccommodation");
 		mav.addObject("hostSidebar", "accommodation/hostSidebar");
 		mav.addObject("email", email);
 		return mav;
@@ -104,7 +104,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 		System.out.println("manageAccommodation.do의 accRoMap: " + accRoMap);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/accommodation/manageAccommodation");
+		mav.setViewName("accommodation/manageAccommodation");
 		mav.addObject("hostSidebar", "accommodation/hostSidebar");
 		mav.addObject("accRoMap", accRoMap);
 		mav.addObject("email", email);
@@ -135,9 +135,10 @@ public class AccommodationControllerImpl implements AccommodationController {
 		System.out.println("==========reservationList:" + reservationList);
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/accommodation/manageReservation");
+		mav.setViewName("accommodation/manageReservation");
 		mav.addObject("hostSidebar", "accommodation/hostSidebar");
 		mav.addObject("reservationList", reservationList);
+		mav.addObject("email", email);
 		return mav;
 	}
 
@@ -147,7 +148,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 	public ModelAndView manageReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/accommodation/manageReview");
+		mav.setViewName("accommodation/manageReview");
 		mav.addObject("sidebar", "accommodation/hostSidebar");
 		return mav;
 	}
