@@ -32,18 +32,16 @@ public interface SearchController {
          HttpServletRequest request, 
          HttpServletResponse response) throws Exception;
    
-   public ModelAndView listPrice(
-         @ModelAttribute("acc") AccommodationDTO acc,
-         @RequestParam(value = "aname", required = false) String acc_name,
-         @RequestParam(value = "area", required = false) String acc_area,
-         @RequestParam(value = "datetimes", required = false) String datetimes,
-         @RequestParam(value = "checkIn", required = false) String bo_checkIn,
-         @RequestParam(value = "checkOut", required = false) String bo_checkOut,
-         @RequestParam(value = "acc_type", required = false) String acc_type,
-         @RequestParam(value = "minPrice", required = false) Integer minPrice,
-         @RequestParam(value = "maxPrice", required = false) Integer maxPrice,
-         HttpServletRequest request, 
-         HttpServletResponse response) throws Exception;
+	public ModelAndView listPrice(@ModelAttribute("acc") AccommodationDTO acc,
+			@RequestParam(value = "aname", required = false) String acc_name,
+			@RequestParam(value = "area", required = false) String acc_area,
+			@RequestParam(value = "datetimes", required = false) String datetimes,
+			@RequestParam(value = "checkIn", required = false) String bo_checkIn,
+			@RequestParam(value = "checkOut", required = false) String bo_checkOut,
+			@RequestParam(value = "acc_type", required = false) String acc_type,
+			@RequestParam(value = "minPrice", required = false) Integer minPrice,
+			@RequestParam(value = "maxPrice", required = false) Integer maxPrice, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
    
     public ModelAndView detail(
              @RequestParam("acc_id") int acc_id,

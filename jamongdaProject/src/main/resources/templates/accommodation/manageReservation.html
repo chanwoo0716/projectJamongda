@@ -50,7 +50,7 @@
 	                <h2>예약내역</h2>
 	            </div>
 				-->
-	            <div class="booking-header" th:if="${reservationList == null || reservationList.isEmpty()}">
+	            <div th:if="${reservationList == null || reservationList.isEmpty()}">
 					<div>
 	                	<span id="no-reservation">예약내역이 없습니다.</span>
 					</div>
