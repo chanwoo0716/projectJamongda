@@ -114,6 +114,20 @@ body {
     padding: 20px;
     margin-bottom: 20px;
 }
+#no-reservation{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-bottom: 300px;
+	margin-bottom: 10px;
+	font-size: 3em;
+	font-weight: bold;
+	color:#999999;
+	position:relative;
+	top:150px;
+	right:-200px;
+}
 
 .booking-header {
 	width: 100%;
