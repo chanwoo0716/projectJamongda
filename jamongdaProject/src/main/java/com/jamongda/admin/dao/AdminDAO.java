@@ -35,6 +35,10 @@ public interface AdminDAO {
 	public void rejectAcc(int acc_id);
 	// 숙소등록거부 사유
 	public void rejectReason(Map<String, Object> rejectReasonMap);
+	// 해당 숙소 관련 모든 정보 삭제하기
+	public void removeAcc(int acc_id);
+	// 해당 숙소의 객실 폴더 삭제하기
+	public List<RoomDTO> getRo_id(int acc_id) throws DataAccessException;
 	
 	// regCheck=Y 숙소 가져오기
 	public List<AccommodationDTO> selectAcc_RegY() throws DataAccessException;

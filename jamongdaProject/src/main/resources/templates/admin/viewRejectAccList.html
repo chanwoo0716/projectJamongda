@@ -53,6 +53,26 @@
        }
    }
    
+   //숙소 삭제
+   function removeAcc(acc_id) {
+       if (confirm("등록이 취소된 숙소입니다. 숙소를 삭제하시겠습니까?")) {
+           let form = document.createElement("form");
+           form.setAttribute("method", "post");
+           form.setAttribute("action", "/admin/removeAccList.do");
+
+           let hiddenField = document.createElement("input");
+           hiddenField.setAttribute("type", "hidden");
+           hiddenField.setAttribute("name", "acc_id");
+           hiddenField.setAttribute("value", acc_id);
+           form.appendChild(hiddenField);
+
+           document.body.appendChild(form);
+           form.submit();
+         
+         alert("숙소를 삭제하셨습니다.");
+       }
+   }
+   
 </script>
 </head>
 <body>
@@ -133,6 +153,7 @@
                   <div class="modSusAccRo">
                      <div class="approve">
                         <input type="button" value="승인하기" th:onclick="'approveAcc(' + ${acc.acc_id} + ')'">
+						<input type="button" value="삭제하기" th:onclick="'removeAcc(' + ${acc.acc_id} + ')'">
                      </div>
                   </div>
                    </div>
