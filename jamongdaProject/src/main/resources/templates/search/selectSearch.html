@@ -31,12 +31,28 @@
             border-radius: 10px;
             margin-top: 10px;
            }
-      .pagination{
-         margin:0 auto;
-      }
-     #more-btn2{
-      width: 100%;
-     }      
+
+		   /* 페이징관련 CSS */
+		   .pagination {
+		   	margin: 20px auto;
+		   	display: flex;
+		   	justify-content: center;
+		   }
+
+		   .pagination button {
+		   	margin: 0 5px;
+		   	padding: 5px 10px;
+		   	background-color: #FEB6AF;
+		   	color: white;
+		   	border: none;
+		   	cursor: pointer;
+			font-weight: bold;
+			font-size:1.5em;
+		   }
+
+		   .pagination button.active {
+		   	background-color: #fc6053;
+		   }     
     </style>
     <script src="https://kit.fontawesome.com/e9b58f4b27.js" crossorigin="anonymous"></script>
    <script th:src="@{/js/acc.js}"></script>
@@ -48,34 +64,45 @@
    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
    
-   
-   
-   
-   <script>
-   //1문제 해결완료
-   /*$(function() {
-        $('input[name="datetimes"]').daterangepicker({
-            timePicker: false,
-            startDate: moment().startOf('day'),
-            endDate: moment().startOf('day').add(32, 'hour'),
-            locale: {
-                format: 'YYYY-MM-DD'
-            }
-        }, function(start, end, label) {
-           console.log("Start Date: " + start.format('YYYY-MM-DD'));
-            console.log("End Date: " + end.format('YYYY-MM-DD'));
-            $('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
-            $('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
-        });
 
-        // 초기 값 설정 (필요시)
-        var initialStartDate = $('input[name="datetimes"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
-        var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
-        $('input[name="checkIn"]').val(initialStartDate);
-        $('input[name="checkOut"]').val(initialEndDate);
-    });*/
-    
+   <script>
     $(function() {
+		//페이징
+		var itemsPerPage = 10;
+		var currentPage = 1;
+		var accItems = $(".acc_box");
+
+		function showPage(page) {
+			var start = (page - 1) * itemsPerPage;
+			var end = start + itemsPerPage;
+
+			accItems.hide().slice(start, end).show();
+
+			renderPagination();
+		}
+
+		function renderPagination() {
+			var totalPages = Math.ceil(accItems.length / itemsPerPage);
+			var paginationContainer = $(".pagination");
+			paginationContainer.empty();
+
+			for (var i = 1; i <= totalPages; i++) {
+				var button = $("<button>").text(i).attr("data-page", i);
+				if (i === currentPage) {
+					button.addClass("active");
+				}
+				paginationContainer.append(button);
+			}
+		}
+
+		$(".pagination").on("click", "button", function () {
+			currentPage = parseInt($(this).attr("data-page"));
+			showPage(currentPage);
+		});
+
+		showPage(currentPage);
+		
+		
         // 로컬 저장소에서 날짜 값 가져오기
         var startDate = localStorage.getItem('startDate');
         var endDate = localStorage.getItem('endDate');
@@ -124,16 +151,9 @@
         var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
         $('input[name="checkIn"]').val(initialStartDate);
         $('input[name="checkOut"]').val(initialEndDate);
-           //출처:https://sub0709.tistory.com/94
-           //$(":radio[name='acc_type']").radioSelect(radioVal);
-           
-      /* 시도1     
-      const checkRange=localStorage.getItem('checkRange');
-      
-      document.getElementById('checkRange').val()=checkRange;
-      */
-      
-      
+		//날짜 저장 끝
+		
+		//가격설정 시작
      // 초기 변수 설정
                  var initialMinPrice = 0;
                  var initialMaxPrice = 500000;
