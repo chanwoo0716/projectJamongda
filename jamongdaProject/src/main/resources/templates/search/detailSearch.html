@@ -449,6 +449,13 @@
 		function closePopup() {
 		    document.getElementById('imgPopupContainer').style.display = 'none';
 		}
+		
+		// 찬우 추가
+		document.addEventListener("DOMContentLoaded", function() {
+		    var accInfoElement = document.getElementById("accInfo");
+		    var accInfoText = accInfoElement.textContent || accInfoElement.innerText;
+		    accInfoElement.innerHTML = accInfoText.replace(/\n/g, "<br>");
+		});
 
 </script>
 </head>
@@ -610,7 +617,7 @@
 
                     <div class="use_caution">
                         <h2>숙소 소개</h2>
-                        <p th:text="${detailAccRoMap.get('accList')[0].acc_info}"></p>
+                        <p id="accInfo" th:text="${detailAccRoMap.get('accList')[0].acc_info}"></p>
 
                         <h2>판매자정보</h2>
                         <ul>
