@@ -42,46 +42,44 @@ public class SearchControllerImpl implements SearchController {
 
 		List accListsrch = searchService.search(acc); // 숙소 검색 리스트(이름,지역)
 
-		// List accImageList=searchService.searchImage(acc); //숙소 검색 이미지 리스트(이름,지역) (1개만
-		// 가져옴)
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("search/selectSearch");
 		mav.addObject("accList", accList);
 		mav.addObject("accListsrch", accListsrch);
 		mav.addObject("bo_checkIn", bo_checkIn);
 		mav.addObject("bo_checkOut", bo_checkOut);
-		// mav.addObject("accImageList",accImageList);
 		return mav;
 	}
 
-	@Override
-	@GetMapping("/search/selectRadio.do")
-	public ModelAndView listType(@ModelAttribute("acc") AccommodationDTO acc,
-			@RequestParam(value = "aname", required = false) String acc_name,
-			@RequestParam(value = "area", required = false) String acc_area,
-			@RequestParam(value = "datetimes", required = false) String datetimes,
-			@RequestParam(value = "checkIn", required = false) String bo_checkIn,
-			@RequestParam(value = "checkOut", required = false) String bo_checkOut,
-			@RequestParam(value = "acc_type", required = false) String acc_type, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	  @Override
+	   @GetMapping("/search/selectRadio.do")
+	   public ModelAndView listType(
+	            @ModelAttribute("acc") SearchDTO acc,
+	            @RequestParam(value = "aname", required = false) String acc_name,
+	            @RequestParam(value = "area", required = false) String acc_area,
+	            @RequestParam(value = "datetimes", required = false) String datetimes,
+	            @RequestParam(value = "checkIn", required = false) String bo_checkIn,
+	            @RequestParam(value = "checkOut", required = false) String bo_checkOut,
+	            @RequestParam(value = "acc_type", required = false) String acc_type,
+	            HttpServletRequest request, 
+	            HttpServletResponse response) throws Exception {
 
-		List accList = searchService.selectAll(); // 숙소 전체 리스트
+	      List accList = searchService.selectAll(); // 숙소 전체 리스트
+	        //System.out.println(acc_type);
+	      List accListType = searchService.searchType(acc);// 숙소 검색 리스트(타입)
+	      
+	      // List accImageList=searchService.searchImage(acc); //숙소 검색 이미지 리스트(이름,지역) (1개만
+	      // 가져옴)
+	      ModelAndView mav = new ModelAndView();
+	      mav.setViewName("/search/selectSearch");
+	      mav.addObject("acc_type", acc_type);
+	      mav.addObject("accListType", accListType);
+	      mav.addObject("bo_checkIn", bo_checkIn);
+	      mav.addObject("bo_checkOut", bo_checkOut);
+	      // mav.addObject("accImageList",accImageList);
+	      return mav;
+	   }
 
-		List accListsrch = searchService.search(acc); // 숙소 검색 리스트(이름,지역)
-
-		List accListType = searchService.searchType(acc);// 숙소 검색 리스트(타입)
-
-		// List accImageList=searchService.searchImage(acc); //숙소 검색 이미지 리스트(이름,지역) (1개만
-		// 가져옴)
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("search/selectSearch");
-		mav.addObject("accList", accList);
-		mav.addObject("accListType", accListType);
-		mav.addObject("bo_checkIn", bo_checkIn);
-		mav.addObject("bo_checkOut", bo_checkOut);
-		// mav.addObject("accImageList",accImageList);
-		return mav;
-	}
 
 	@Override
 	@GetMapping("/search/selectPrice.do")
@@ -103,12 +101,6 @@ public class SearchControllerImpl implements SearchController {
 	    if (maxPrice == null) {
 	        maxPrice = Integer.MAX_VALUE; // 기본값을 최대값으로 설정
 	    }
-		
-		List accList = searchService.selectAll(); // 숙소 전체 리스트
-
-		List accListsrch = searchService.search(acc); // 숙소 검색 리스트(이름,지역)
-
-		List accListType = searchService.searchType(acc);// 숙소 검색 리스트(타입)
 
 		List<SearchDTO> accRangePrice = searchService.rangePrice(minPrice, maxPrice);
 

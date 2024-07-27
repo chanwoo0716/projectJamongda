@@ -30,8 +30,12 @@ public interface AdminController {
 	
 	//숙소 등록 승인하기
 	public ModelAndView approveAccList(@RequestParam("acc_id") int acc_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
 	//숙소 등록 거부하기
 	public ModelAndView rejectAccList(@RequestParam("acc_id") int acc_id, @RequestParam("reject_reason") String reject_reason, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	//숙소 삭제하기
+	public ModelAndView removeAccList(@RequestParam("acc_id") int acc_id, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	//회원관리 페이지
 	public ModelAndView manageMember(HttpServletRequest request, HttpServletResponse response) throws Exception;

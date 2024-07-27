@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller("revFileDownload")
 public class RevFileDownloadController {
-    private static final String REVIEW_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadRev";
+    private static final String REVIEW_IMAGE_REPO = "D:\\Hwang\\FileuploadRev";
 
     @GetMapping("/review/downloadImage")
     public void fileDown(@RequestParam("rev_image") String rev_image,

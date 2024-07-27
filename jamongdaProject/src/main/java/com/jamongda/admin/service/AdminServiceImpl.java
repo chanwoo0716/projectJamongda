@@ -85,6 +85,18 @@ public class AdminServiceImpl implements AdminService {
 	    
 	    adminDAO.rejectReason(rejectReasonMap);
 	}
+	//해당 숙소 관련 모든 정보 삭제하기
+	@Override
+	public void removeAcc(int acc_id) throws DataAccessException {
+		adminDAO.removeAcc(acc_id);
+	}
+	// 해당 숙소의 객실 폴더 삭제하기
+	@Override
+	public List<RoomDTO> getRo_id(int acc_id) throws DataAccessException {
+		List<RoomDTO> ro_id_list = adminDAO.getRo_id(acc_id);
+		System.out.println("ro_id_list:" + ro_id_list);
+		return ro_id_list;
+	}
 	
 	// 숙소등록승인 조회(regCheck=Y)
 	@Override
@@ -237,6 +249,7 @@ public class AdminServiceImpl implements AdminService {
 	public void delMember(String email) throws DataAccessException {
 		adminDAO.delMember(email);
 	}
+
 
 	
 }

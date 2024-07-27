@@ -19,7 +19,7 @@ public interface SearchDAO {
    //2024-07-20수정
    public List searchAccList(AccommodationDTO acc) throws DataAccessException;
    
-   public List searchAccType(AccommodationDTO acc) throws DataAccessException;
+   public List searchAccType(SearchDTO acc) throws DataAccessException;
    //2024-07-20수정완료
    
    public AccommodationDTO selectAccId(int acc_id) throws DataAccessException;
