@@ -27,7 +27,7 @@ body {
 
 #boardSidebar {
 	position: absolute;
-	top: 15%;
+	top: 20%;
 	left: 3%;
 	display: inline-block;
 	width: 12%;/* 사이드바의 너비 */

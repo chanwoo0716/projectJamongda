@@ -16,11 +16,6 @@ body {
   padding: 0 auto;
 }
 
-a:visited{
-	text-decoration: none;
-	border: none;
-}
-
 input{
 	border-radius: 20px;
 }
@@ -45,7 +40,6 @@ input{
 
 .main_banner > video {
   max-width: 100%;
-  max-height: 100%;
   object-fit: fill;
 }
 
@@ -57,7 +51,7 @@ input{
   left: 4.5%;
 
   padding: 1% 2% 1% 4%;
-  border-radius: 15px;
+  border-radius: 20px;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -213,10 +207,11 @@ input{
     content: attr(data-alt);
     position: absolute;
     top: 0;
-    left: 0;
-    width: 120%;
+    left: 3%;
+    width: 94%;
     height: 100%;
     background-color: #666;
+	border-radius: 10px;
     color: white;
     display: flex;
     align-items: center;
@@ -230,6 +225,8 @@ input{
 .swiper-slide img {
   width: 153px;
   height: 150px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 
 .swiper-slide p {
@@ -245,7 +242,7 @@ input{
 .slider {
   overflow: hidden;
   position: relative;
-  max-width: 850px;
+  max-width: 1000px;
   margin: 50px auto 0;
 }
 
