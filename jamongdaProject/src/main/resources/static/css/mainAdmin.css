@@ -1,4 +1,19 @@
 @charset "utf-8";
+.button-container>a {
+    color: black; /* 기본 링크 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+/* 링크가 방문되었을 때의 스타일 */
+.button-container>a:visited {
+    color: white; /* 방문한 링크의 색상 */
+}
+
+/* 링크가 활성 상태일 때의 스타일 */
+.button-container>a:active {
+    color: white; /* 활성 상태의 링크 색상 */
+}
+
 .adminBody {
    display: flex;
    justify-content: center;
