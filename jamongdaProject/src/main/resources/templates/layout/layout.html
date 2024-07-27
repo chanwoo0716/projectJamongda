@@ -30,5 +30,13 @@
       <div th:if="${hostSidebar == null}"></div>
 	  <footer th:replace="layout/footer :: footer"></footer>
    </div>
+   
+   <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+   <df-messenger
+     intent="WELCOME"
+     chat-title="JAMONGDA_ChatBot"
+     agent-id="260e724e-f80d-4d90-b4ca-cc791775025a"
+     language-code="ko"
+   ></df-messenger>
 </body>
 </html>
