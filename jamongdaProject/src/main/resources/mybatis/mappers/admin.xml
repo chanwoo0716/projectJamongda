@@ -101,6 +101,14 @@
 	<update id="rejectReason" parameterType="java.util.Map">
 	    update accommodation set rejectReason=#{reject_reason} where acc_id=#{acc_id}
 	</update>
+    <!--숙소삭제하기-->
+    <delete id="removeAcc" parameterType="int">
+    	delete from accommodation where acc_id=#{acc_id};
+    </delete>
+    <!--해당 숙소의 객실 폴더 삭제하기-->
+    <select id="getRo_id" parameterType="int" resultMap="roResult">
+    	select ro_id from room where acc_id=#{acc_id};
+    </select>
     
 	<!-- regCheck=Y 숙소 가져오기 -->
     <select id="selectAcc_RegY" resultMap="accResult" parameterType="String">

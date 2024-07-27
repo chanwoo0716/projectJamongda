@@ -40,7 +40,7 @@ public class SearchServiceImpl implements SearchService{
    }
    
    @Override
-   public List searchType(AccommodationDTO acc) throws DataAccessException {
+   public List searchType(SearchDTO acc) throws DataAccessException {
       List accListType=searchDAO.searchAccType(acc);
       return accListType;
    }
