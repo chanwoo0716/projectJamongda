@@ -28,7 +28,7 @@
 	}
 
 	.mypage-container {
-	    width: 600px;
+	    width: 40%;
 	    margin: 50px auto;
 	    padding: 20px;
 	    background-color: #fff;
@@ -37,19 +37,15 @@
 	}
 
 	.header {
-	    text-align: left;
 	    margin-bottom: 20px;
 	}
 
-	.header h1 {
-	    margin: 0;
-	    font-size: 24px;
-	    color: #333;
-	}
-
-	.header p {
-	    margin: 5px 0 20px;
-	    color: #777;
+	.header-content {
+	    display: flex;
+	    align-items: center; /* 수직 중앙 정렬 */
+	    justify-content: space-between; /* 여백을 자동으로 배분 */
+		float: left;
+		margin: 20px 0;
 	}
 
 	.review-link, .reBooking-link {
@@ -91,8 +87,9 @@
 	}
 
 	.details-link {
-	    color: #1a73e8;
+		color: rgb(131, 131, 131) !important;
 	    text-decoration: none;
+		font-weight: normal;
 	    font-size: 14px;
 	}
 
@@ -132,6 +129,49 @@
 	cursor: pointer;
 	text-align: left;
 }
+.hello {
+    font-size: 1.5em;
+    margin-right: 20px; /* 버튼과의 간격 조정 */
+}
+.myInfo-btn {
+  background: none; /* 배경 제거 */
+  border: none; /* 테두리 제거 */
+  cursor: pointer; /* 커서를 포인터로 변경 */
+  font-size: 16px; /* 폰트 사이즈 조정 */
+  padding: 0; /* 패딩 제거 */
+  margin: 0; /* 마진 제거 */
+}
+
+.myInfo-btn:hover, .details-link:hover, .myReviews-btn:hover {
+  background-color: rgb(223, 223, 223);
+}
+
+.faq-notice {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    font-size: 1.5em;
+}
+
+.faq-btn, .notice-btn {
+    width: 40%;
+    display: flex;
+    justify-content: center; /* 아이콘과 텍스트를 가운데 정렬 */
+    align-items: center; /* 아이콘과 텍스트를 수직 가운데 정렬 */
+}
+
+.faq-btn a, .notice-btn a {
+    display: flex;
+    justify-content: center; /* 아이콘과 텍스트를 가운데 정렬 */
+    align-items: center; /* 아이콘과 텍스트를 수직 가운데 정렬 */
+    width: 100%; /* 버튼 영역 전체를 클릭 가능하게 설정 */
+    height: 100px; /* 버튼 영역 전체를 클릭 가능하게 설정 */
+    text-decoration: none; /* 기본 링크 밑줄 제거 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비와 높이 계산 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
 </style>
 <script>	
 	function openPopup(boNumber) {
@@ -152,38 +192,37 @@
     <th:block layout:fragment="content">
 		<div class="mypage-container">
 		    <div class="header">
-		        <h1>마이페이지</h1>
-		        <p th:text="${guest.name} + '님'"></p>
-		        <p>안녕하세요</p>
-				<form action="/member/updateMemberForm.do" method="post" id="updateMemberForm">
-				    <input type="hidden" name="email" th:value="${guest.email}">
-				    <input type="hidden" name="ro_id" th:value="${latestBooking.ro_id}">
-				    <button type="submit">내 정보 관리 ></button>
-				</form>
+				<div class="header-content">
+				    <p class="hello" th:text="${guest.name} + '님'"></p>
+				    <form action="/member/updateMemberForm.do" method="post" id="updateMemberForm">
+				        <input type="hidden" name="email" th:value="${guest.email}">
+				        <input type="hidden" name="ro_id" th:value="${latestBooking.ro_id}">
+				        <button type="submit" class="myInfo-btn">내 정보 관리 ></button>
+				    </form>
+				</div>
 		    </div>
 			
 	        <div class="reviews">
 				<form action="/mypage/myReviews.do" method="post" id="myReviews">
 				    <input type="hidden" name="email" th:value="${guest.email}">
-				    <button type="submit" class="myReviews-btn">내가 작성한 리뷰 보러가기</button>
+				    <button type="submit" class="myReviews-btn">내가 작성한 리뷰 보러가기 <i class="fa-solid fa-pen"></i> </button>
 				</form>
 	        </div>
 			
 		    <div class="booking-history">
 		    	<div>
-			        <h2>예약내역 <a href="/mypage/allBookings.do" class="details-link">더보기</a></h2>
+			        <h2><i class="fa-solid fa-check"></i> 예약내역 <a href="/mypage/allBookings.do" class="details-link">전체 내역보기</a></h2>
 		    	</div>
 				<div class="booking-card" th:if="${latestBooking != null}">
 				    <div class="booking-header">
-				        <span class="booking-date" th:text="'결제일자 : ' + ${latestBooking['payDate']}"></span>
 				        <span class="booking-number" th:text="'예약번호 : ' + ${latestBooking['bo_number']}"></span>
+				        <span class="booking-date" th:text="'결제일자 : ' + ${latestBooking['payDate']}"></span>
 						<a href="#" class="details-link" th:attr="onclick='openPopup(' + ${latestBooking['bo_number']} + ')'">상세보기</a>						
 				    </div>
 				    <div class="booking-content">
 				        <div class="hotel-info">
 				            <div class="acc-name" th:text="${latestBooking['acc_name']}"></div>
 				            <div class="ro_name" th:text="${latestBooking['ro_name']}"></div>
-				            <input type="hidden" th:text="${latestBooking['ro_id']}"></input>
 				            <div class="booking-dates" th:text="${latestBooking['bo_checkIn']} + ' ~ ' + ${latestBooking['bo_checkOut']}"></div>
 				            <div class="check-in-out" th:text="'체크인 ' + ${latestBooking['ro_checkIn']} + ' | 체크아웃 ' + ${latestBooking['ro_checkOut']}"></div>
 				        </div>
@@ -196,10 +235,29 @@
 		    </div>
 			
 			<!-- 고객센터 섹션 -->
-			<div class="chatbot-section">
+			<div class="center-section">
 				<h2>고객센터</h2>
 				<div>
-					<a href="#" >챗봇 연결</a>
+					<div class="faq-notice">
+						<div class="faq-btn">
+							<a href="/board/FAQ.do">
+								<i class="fa-regular fa-circle-question"></i>
+								<span> FAQ</span>
+							</a>
+						</div>
+						<div class="notice-btn">
+							<a href="/board/boardList.do">
+								<i class="fa-solid fa-bullhorn"></i>
+								<span> 공지사항</span>
+							</a>
+						</div>
+						<div class="notice-btn">
+							<a href="/board/boardList.do">
+								<i class="fa-solid fa-bullhorn"></i>
+								<span> 고객상담센터</span>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
