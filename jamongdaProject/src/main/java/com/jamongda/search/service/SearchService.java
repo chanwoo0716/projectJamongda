@@ -14,7 +14,7 @@ public interface SearchService {
 	// 2024-07-20수정
 	public List search(AccommodationDTO acc) throws DataAccessException;
 
-	public List searchType(AccommodationDTO acc) throws DataAccessException;
+	public List searchType(SearchDTO acc) throws DataAccessException;
 	// 2024-07-20수정완료
 
 	public AccommodationDTO detailSearch(int acc_id) throws DataAccessException;
