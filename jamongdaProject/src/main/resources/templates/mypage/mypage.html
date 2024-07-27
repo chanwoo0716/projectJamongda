@@ -59,8 +59,9 @@
 	    background-color: rgb(212, 212, 212); /* Darker green on hover */
 	}
 
-	.booking-history h2 {
+	.booking-history h2{
 	    margin-bottom: 20px;
+		margin-left: 10px;
 	}
 
 	.booking-card {
@@ -104,12 +105,12 @@
 	}
 
 	.hotel-info {
-	    font-size: 14px;
+	    font-size: 1.2em;
 	}
 
 	.hotel-info .acc-name {
 	    font-weight: bold;
-	    font-size: 16px;
+	    font-size: 1.4em;
 	    margin-bottom: 5px;
 	}
 
@@ -130,7 +131,9 @@
 	text-align: left;
 }
 .hello {
-    font-size: 1.5em;
+	font-weight: bold;
+    font-size: 2em;
+	margin-left: 10px;
     margin-right: 20px; /* 버튼과의 간격 조정 */
 }
 .myInfo-btn {
@@ -156,10 +159,22 @@
 }
 
 .faq-btn, .notice-btn {
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: center; /* 아이콘과 텍스트를 가운데 정렬 */
     align-items: center; /* 아이콘과 텍스트를 수직 가운데 정렬 */
+    position: relative; /* ::after 가상 요소를 사용하기 위해 position을 relative로 설정 */
+}
+
+.faq-btn::after {
+    content: '';
+    position: absolute;
+    top: 10px; /* 구분선의 위쪽 여백 조정 */
+    right: 0;
+    width: 1px; /* 구분선의 두께 */
+    height: 80%; /* 구분선의 높이 (부모의 높이에 비례) */
+    background-color: #ccc; /* 구분선 색상 */
+    z-index: 1; /* 다른 요소보다 위에 표시되도록 설정 */
 }
 
 .faq-btn a, .notice-btn a {
@@ -167,10 +182,36 @@
     justify-content: center; /* 아이콘과 텍스트를 가운데 정렬 */
     align-items: center; /* 아이콘과 텍스트를 수직 가운데 정렬 */
     width: 100%; /* 버튼 영역 전체를 클릭 가능하게 설정 */
-    height: 100px; /* 버튼 영역 전체를 클릭 가능하게 설정 */
+    height: 50px; /* 버튼 영역 전체를 클릭 가능하게 설정 */
     text-decoration: none; /* 기본 링크 밑줄 제거 */
+    color: inherit; /* 텍스트 색상 상속 */
+    padding: 0 10px; /* 좌우 패딩 조정 (필요시 조정) */
     box-sizing: border-box; /* 패딩과 테두리를 포함하여 너비와 높이 계산 */
     text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.review-booking-btn {
+	display: flex;
+	margin-top: 20px;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.review-link, .reBooking-link {
+    display: inline-block; /* 너비를 적용할 수 있게 설정 */
+    width: 100%; /* 원하는 너비를 설정 */
+    padding: 10px 20px; /* 적절한 패딩 추가 */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.faq-notice a:hover {
+	background-color: rgb(233, 233, 233);
+}
+.center-section {
+	margin-left: 10px;
 }
 </style>
 <script>	
@@ -223,11 +264,12 @@
 				        <div class="hotel-info">
 				            <div class="acc-name" th:text="${latestBooking['acc_name']}"></div>
 				            <div class="ro_name" th:text="${latestBooking['ro_name']}"></div>
+							<br>
 				            <div class="booking-dates" th:text="${latestBooking['bo_checkIn']} + ' ~ ' + ${latestBooking['bo_checkOut']}"></div>
 				            <div class="check-in-out" th:text="'체크인 ' + ${latestBooking['ro_checkIn']} + ' | 체크아웃 ' + ${latestBooking['ro_checkOut']}"></div>
 				        </div>
 				    </div>
-					<div >
+					<div class="review-booking-btn">
 						<a th:href="@{/review/reviewForm.do(number=${latestBooking.bo_number},aname=${latestBooking.acc_name},rid=${latestBooking.ro_id},rname=${latestBooking.ro_name})}" class="review-link" th:if="${isPastCheckout}">리뷰 등록</a>
 						<a th:href="@{/search/detailSearch.do(aid=${latestBooking.acc_id})}" class="reBooking-link">다시 예약</a>
 					</div>
@@ -236,25 +278,19 @@
 			
 			<!-- 고객센터 섹션 -->
 			<div class="center-section">
-				<h2>고객센터</h2>
+				<h2><i class="fa-solid fa-headset"></i> 고객센터</h2>
 				<div>
 					<div class="faq-notice">
 						<div class="faq-btn">
 							<a href="/board/FAQ.do">
-								<i class="fa-regular fa-circle-question"></i>
+								<i class="fa-regular fa-circle-question"></i>&nbsp;
 								<span> FAQ</span>
 							</a>
 						</div>
 						<div class="notice-btn">
 							<a href="/board/boardList.do">
-								<i class="fa-solid fa-bullhorn"></i>
+								<i class="fa-solid fa-bullhorn"></i>&nbsp;
 								<span> 공지사항</span>
-							</a>
-						</div>
-						<div class="notice-btn">
-							<a href="/board/boardList.do">
-								<i class="fa-solid fa-bullhorn"></i>
-								<span> 고객상담센터</span>
 							</a>
 						</div>
 					</div>
