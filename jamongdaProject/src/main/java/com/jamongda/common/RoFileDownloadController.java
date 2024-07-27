@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller("roFileDownload")
 public class RoFileDownloadController {
-   private static String ROOM_IMAGE_REPO="D:\\Hwang\\FileuploadRo";
+   private static String ROOM_IMAGE_REPO="C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadRo";
    
    @GetMapping("roDownload.do")
    public void fileDown(@RequestParam("ro_id") String ro_id,
