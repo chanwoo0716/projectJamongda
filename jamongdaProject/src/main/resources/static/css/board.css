@@ -44,6 +44,7 @@ ul, ul > li {
 /*전체 화면*/
 #boardcontent {
   width: 100%;
+  min-height: 630px;
   border-top: 0.1em solid rgb(255, 111, 97);
 }
 
@@ -111,7 +112,7 @@ ul, ul > li {
 
 /*하단 페이징 영역*/
 #list_paging {
-  margin-top: 5%;
+  margin-top: 3%;
 }
 
 #list_paging .noLine:hover {
@@ -130,20 +131,22 @@ ul, ul > li {
 .write {
   width: 10%;
   margin: 1% auto;
+  margin-bottom: 5%;
 }
 
 .write > a {
-  color: #ff6f61;
+  color: black;
   font-weight: bold;
 }
 
-.board > p > a:hover {
-  text-shadow: rgb(237, 93, 75) 1px 0px 20px;
+.write > a:hover {
+  color: #ff6f61;
 }
 
 /*boardForm css 영역*/
 #boardForm {
   width: 80%;
+  min-height: 630px;
   margin: 0 auto;
 }
 
@@ -269,6 +272,7 @@ textarea#editorTxt {
 /*viewBoard css 영역*/
 #view_board {
   width: 60%;
+  min-height: 630px;
   margin: 0 auto;
   text-align: left;
   border-top: 1px solid #ff6f61;
