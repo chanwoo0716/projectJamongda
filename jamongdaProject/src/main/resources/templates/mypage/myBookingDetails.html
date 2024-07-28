@@ -63,7 +63,7 @@
 
 	.details-item {
 	    display: flex;
-	    justify-content: space-between;
+		gap: 20px;
 	    margin-bottom: 10px;
 	}
 
@@ -83,8 +83,10 @@
 	.close-btn {
 		width: 100%;
 		padding: 10px;
+		border-radius: 10px;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		/*border-radius: 10px rgba(252, 252, 252);*/
+		border: none;
+		background-color: #fff;
 	}
 	
 	.close-btn:hover {
@@ -121,16 +123,18 @@
             <div class="details-content">
                 <div class="details-row">
                     <div class="details-info">
+						<h3>예약 정보</h3>
                         <div class="details-item" id="boNumber-section">
                             <span class="details-label">예약번호:</span>
                             <span class="details-value" th:text="${myBookingDetails['bo_number']}"></span>
                         </div>
                         <div class="details-item" id="product-section">
-                            <span class="details-value" th:text="${myBookingDetails['acc_name']}"></span>
+                            <span class="details-value" th:text="'이용숙소 : ' + ${myBookingDetails['acc_name']}"></span>
                         </div>
                         <div class="details-item" id="product-section">
-                            <span class="details-value" th:text="${myBookingDetails['ro_name']}"></span>
+                            <span class="details-value" th:text="'이용객실 : ' + ${myBookingDetails['ro_name']}"></span>
                         </div>
+						<br>
                         <div class="check-section">
                             <div class="check-in" id="checkIn-section">
                                 <div class="details-item">
