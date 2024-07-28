@@ -85,6 +85,7 @@
       }
       .search_wrap input[type="submit"]{
          width: 8%;
+		 cursor:pointer;
       }
         .search_submit{
             background-color: transparent;
