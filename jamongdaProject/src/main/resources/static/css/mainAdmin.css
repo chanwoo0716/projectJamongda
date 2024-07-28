@@ -1,6 +1,6 @@
 @charset "utf-8";
 .button-container>a {
-    color: black; /* 기본 링크 색상 */
+    color: white; /* 기본 링크 색상 */
     text-decoration: none; /* 밑줄 제거 */
 }
 
