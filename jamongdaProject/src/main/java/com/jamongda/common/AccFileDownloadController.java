@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller("accFileDownload")
 public class AccFileDownloadController {
-   private static String ACCOMMODATION_IMAGE_REPO="/Users/frozen-ji/Desktop/images/FileuploadAcc";
+   private static String ACCOMMODATION_IMAGE_REPO="D:\\Hwang\\FileuploadAcc";
    
    @GetMapping("accDownload.do")
    public void fileDown(@RequestParam("acc_id") String acc_id,
