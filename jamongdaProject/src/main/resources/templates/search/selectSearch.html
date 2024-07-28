@@ -5,64 +5,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>자몽다 검색조회페이지</title>
+	<title>JAMONGDA : 검색조회</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/css/selectSearch.css}" />
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<style>
-		.filter-form label {
-			display: block;
-			margin-bottom: 10px;
-		}
-
-		.filter-form #price-slider {
-			margin-top: 20px;
-		}
-
-		.filter-form input[type="number"] {
-			width: 100%;
-			padding: 8px;
-			border: 1px solid #ccc;
-			border-radius: 4px;
-			box-sizing: border-box;
-		}
-
-		.price_submit {
-		         width: 100%;
-		         height: 40px;
-		         background:transparent;
-		         border:1px solid #ddd;
-		         border-radius: 10px;
-		         margin-top: 10px;
-		         cursor: pointer;
-		      }
-
-		/* 페이징관련 CSS */
-		.pagination {
-			margin: 20px auto;
-			display: flex;
-			justify-content: center;
-		}
-
-		.pagination button {
-			margin: 0 5px;
-			padding: 5px 10px;
-			background-color: #FEB6AF;
-			color: white;
-			border: none;
-			cursor: pointer;
-			font-weight: bold;
-			font-size: 1.5em;
-		}
-
-		.pagination button.active {
-			background-color: #fc6053;
-		}
-
-		#list-gap {
-			margin-bottom: 25px;
-		}
-	</style>
 	<script src="https://kit.fontawesome.com/e9b58f4b27.js" crossorigin="anonymous"></script>
 	<script th:src="@{/js/acc.js}"></script>
 	<!-- 제이쿼리 -->
@@ -266,186 +212,205 @@
 
 <body>
 	<th:block layout:fragment="content">
-		<section class="sct1">
-			<div class="wrapper sct1_wrap">
-				<div class="search_wrap">
-					<form th:action="@{/search/selectSearch.do}" method="get" name="frmSelect" id="form2">
-						<input type="hidden" name="action" value="searchAcc">
-						<input type="search" placeholder="숙소이름" name="acc_name" id="acc_name">
-						<input type="search" placeholder="지역" name="acc_area" id="acc_area">
-						<!-- 지역이 나오면 검색조회페이지로 숙소이름이 나오면 검색상세페이지로 리다이렉트 -->
-						<input type="text" name="datetimes" required id="bo_checkIn">
-						<!--<input type="number" placeholder="기준인원수">-->
-						<!-- 인원수 -->
-						<input type="submit" id="submit" class="search_submit" value="검색">
-						<!-- 체크인, 체크아웃 -->
-						<input type="hidden" name="checkIn">
-						<input type="hidden" name="checkOut">
-					</form>
-				</div>
-
-			</div>
-		</section>
-		<div class="wrapper contents_wrap">
-			<aside>
-
-				<section id="acc_filter">
-					<h2>숙소유형</h2>
-
-					<form th:action="@{/search/selectRadio.do}" method="get" name="frmRadio">
-						<input type="hidden" name="action" value="searchRadio">
-						
-						<input type="radio" name="acc_type" value="모텔" th:checked="${acc_type == '모텔'}"
-							onchange="this.form.submit()">
-						<span>모텔</span><br>
-
-						<input type="radio" name="acc_type" value="호텔/리조트" th:checked="${acc_type == '호텔/리조트'}"
-							onchange="this.form.submit()">
-						<span>호텔/리조트</span><br>
-
-						<input type="radio" name="acc_type" value="펜션" th:checked="${acc_type == '펜션'}"
-							onchange="this.form.submit()">
-						<span>펜션</span><br>
-
-						<input type="radio" name="acc_type" value="글램핑" th:checked="${acc_type == '글램핑'}"
-							onchange="this.form.submit()">
-						<span>글램핑</span><br>
-
-
-						<!-- 2024-07-21 코드추가 -->
-						<input type="hidden" name="checkIn">
-						<input type="hidden" name="checkOut">
-					</form>
-
-				</section>
-
-				<div class="filter-form">
-					<h2>가격</h2>
-					<form id="filterForm" th:action="@{/search/selectPrice.do}" method="GET">
-						<input type="hidden" name="action" value="searchPrice">
-						<label for="minPrice">최저가</label>
-						<input type="number" id="minPrice" name="minPrice" placeholder="최저금액을 입력해주세요" required>
-
-						<label for="maxPrice">최고가</label>
-						<input type="number" id="maxPrice" name="maxPrice" placeholder="최대금액을 입력해주세요" required>
-
-						<input type="hidden" id="initialMinPrice" value="${minPrice}">
-						<input type="hidden" id="initialMaxPrice" value="${maxPrice}">
-						<!-- 폼 제출을 위한 숨겨진 버튼 -->
-						<button type="submit" class="price_submit">검색</button>
-						<input type="hidden" name="checkIn">
-						<input type="hidden" name="checkOut">
-					</form>
-				</div>
-			</aside>
-
-
-			<section class="sct2">
-				<!--맨 위 검색-->
-				<th:block th:if="${accListsrch != null and  #lists.size(accListsrch) > 0}">
-					<div class="acc_list" th:each="acc : ${accListsrch}">
-						<a
-							th:href="@{/search/detailSearch.do(aid=${acc.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}">
-							<div class="acc_box">
-								<div class="acc_image">
-									<img th:src="@{/accDownload.do(acc_id=${acc.acc_id}, acc_image=${acc.acc_image})}"
-										th:alt="${acc.acc_id}">
-								</div>
-								<div class="acc_info">
-									<div class="box1">
-										<div class="acc_title">
-											<p th:text="${acc.acc_type}"></p>
-											<h2 th:text="${acc.acc_name}"></h2>
-										</div>
-									</div>
-									<div class="box2">
-										<div class="acc_price">
-											<span>가격</span><span class="price_font_big"
-												th:text="${#numbers.formatInteger(acc.ro_price, 3, 'COMMA') + '원'}"></span>
-										</div>
-
-									</div>
-								</div>
+		<div id="select_search">
+			<section class="sct1">
+				<div class="wrapper sct1_wrap">
+					<div class="search_wrap">
+						<form th:action="@{/search/selectSearch.do}" method="get" name="frmSelect" id="form2">
+							<!--숙소-->
+							<div class="inputWrap">
+								<i class="fas fa-search" aria-hidden="true"></i>
+								<input type="search" id="acc_name" name="acc_name" placeholder="숙소명을 입력해주세요.">
 							</div>
-						</a>
-					</div>
-				</th:block>
 
-				<!--숙소유형-->
-				<th:block th:if="${accListType != null and #lists.size(accListType) > 0}">
-					<div class="acc_list" th:each="acc_t : ${accListType}"
-						th:if="${accListType != null and #lists.size(accListType) > 0}">
-						<a
-							th:href="@{/search/detailSearch.do(aid=${acc_t.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}">
-							<div class="acc_box">
-	
-								<div class="acc_image">
-	
-									<img th:src="@{/accDownload.do(acc_id=${acc_t.acc_id}, acc_image=${acc_t.acc_image})}"
-										th:alt="${acc_t.acc_id}">
-								</div>
-								<div class="acc_info">
-									<div class="box1">
-										<div class="acc_title">
-											<p th:text="${acc_t.acc_type}"></p>
-											<h2 th:text="${acc_t.acc_name}"></h2>
-	
-	
-										</div>
-									</div>
-									<div class="box2">
-										<div class="acc_price">
-											<span>가격</span><span class="price_font_big"
-												th:text="${#numbers.formatInteger(acc_t.ro_price, 3, 'COMMA') + '원'}"></span>
-										</div>
-									</div>
-								</div>
+							<!--지역-->
+							<div class="location">
+								<i class="fas fa-location-dot"></i>
+								<input type="search" id="acc_area" name="acc_area" placeholder="지역을 입력하세요.">
 							</div>
-						</a>
-					</div>
-				</th:block>
 
-
-				<!--가격 검색-->
-				<th:block th:if="${accRangePrice != null and #lists.size(accRangePrice) > 0}">
-					<div class="acc_list" th:each="acc_p : ${accRangePrice}"
-						th:if="${accRangePrice != null and #lists.size(accRangePrice) > 0}">
-						<a
-							th:href="@{/search/detailSearch.do(aid=${acc_p.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}">
-							<div class="acc_box">
-	
-								<div class="acc_image">
-	
-									<img th:src="@{/accDownload.do(acc_id=${acc_p.acc_id}, acc_image=${acc_p.acc_image})}"
-										th:alt="${acc_p.acc_id}">
-								</div>
-								<div class="acc_info">
-									<div class="box1">
-										<div class="acc_title">
-											<p th:text="${acc_p.acc_type}"><a
-													th:href="@{/search/detailSearch.do(aid=${acc_p.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}"></a>
-											</p>
-											<h2 th:text="${acc_p.acc_name}"><a
-													th:href="@{/search/detailSearch.do(aid=${acc_p.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}"></a>
-											</h2>
-										</div>
-									</div>
-									<div class="box2">
-										<div class="acc_price">
-											<span>가격</span><span class="price_font_big"
-												th:text="${#numbers.formatInteger(acc_p.ro_price, 3, 'COMMA') + '원'}"></span>
-										</div>
-									</div>
-								</div>
+							<!--날짜 영역-->
+							<div class="search_In">
+								<i class="fas fa-calendar-days"></i>
+								<!-- id="bo_checkIn"에서 id="checkRange1"로 바꿨을 값 전달받을 게 있어서 시도 실패-->
+								<input type="text" name="datetimes" required id="bo_checkIn">
+								<!--2024-07-20 기능 수정-->
+								<input type="hidden" name="checkIn">
+								<input type="hidden" name="checkOut">
+								<!--2024-07-20 기능 완료-->
 							</div>
-						</a>
+							<input type="submit" id="submit" class="search_btn" value="검색">
+						</form>
 					</div>
-				</th:block>
-				<!--페이지넘버-->
-				<div class="pagination">
-					<button id="load-more-btn"></button>
+	
 				</div>
 			</section>
+			
+			<!--숙소 유형-->
+			<div class="wrapper contents_wrap">
+				<aside>
+					<section id="acc_filter">
+						<h2>숙소유형</h2>
+	
+						<form th:action="@{/search/selectRadio.do}" method="get" name="frmRadio">
+							<input type="hidden" name="action" value="searchRadio">
+							
+							<input type="radio" name="acc_type" value="" th:checked="${acc_type == ''}"
+							   onchange="this.form.submit()">
+							<span>전체</span><br>
+							
+							<input type="radio" name="acc_type" value="모텔" th:checked="${acc_type == '모텔'}"
+								onchange="this.form.submit()">
+							<span>모텔</span><br>
+	
+							<input type="radio" name="acc_type" value="호텔/리조트" th:checked="${acc_type == '호텔/리조트'}"
+								onchange="this.form.submit()">
+							<span>호텔/리조트</span><br>
+	
+							<input type="radio" name="acc_type" value="펜션" th:checked="${acc_type == '펜션'}"
+								onchange="this.form.submit()">
+							<span>펜션</span><br>
+	
+							<input type="radio" name="acc_type" value="글램핑" th:checked="${acc_type == '글램핑'}"
+								onchange="this.form.submit()">
+							<span>글램핑</span><br>
+	
+	
+							<!-- 2024-07-21 코드추가 -->
+							<input type="hidden" name="checkIn">
+							<input type="hidden" name="checkOut">
+						</form>
+	
+					</section>
+	
+					<div class="filter-form">
+						<h2>가격</h2>
+						<form id="filterForm" th:action="@{/search/selectPrice.do}" method="GET">
+							<input type="hidden" name="action" value="searchPrice">
+							<label for="minPrice">최저가</label>
+							<input type="number" id="minPrice" name="minPrice" placeholder="최저금액을 입력해주세요" required>
+	
+							<label for="maxPrice">최고가</label>
+							<input type="number" id="maxPrice" name="maxPrice" placeholder="최대금액을 입력해주세요" required>
+	
+							<input type="hidden" id="initialMinPrice" value="${minPrice}">
+							<input type="hidden" id="initialMaxPrice" value="${maxPrice}">
+							<!-- 폼 제출을 위한 숨겨진 버튼 -->
+							<button type="submit" class="price_submit">검색</button>
+							<input type="hidden" name="checkIn">
+							<input type="hidden" name="checkOut">
+						</form>
+					</div>
+				</aside>
+	
+	
+				<section class="sct2">
+					<!--맨 위 검색-->
+					<th:block th:if="${accListsrch != null and  #lists.size(accListsrch) > 0}">
+						<div class="acc_list" th:each="acc : ${accListsrch}">
+							<a
+								th:href="@{/search/detailSearch.do(aid=${acc.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}">
+								<div class="acc_box">
+									<div class="acc_image">
+										<img th:src="@{/accDownload.do(acc_id=${acc.acc_id}, acc_image=${acc.acc_image})}"
+											th:alt="${acc.acc_id}">
+									</div>
+									<div class="acc_info">
+										<div class="box1">
+											<div class="acc_title">
+												<p th:text="${acc.acc_type}"></p>
+												<h2 th:text="${acc.acc_name}"></h2>
+											</div>
+										</div>
+										<div class="box2">
+											<div class="acc_price">
+												<span>가격</span><span class="price_font_big"
+													th:text="${#numbers.formatInteger(acc.ro_price, 3, 'COMMA') + '원'}"></span>
+											</div>
+	
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</th:block>
+	
+					<!--숙소유형-->
+					<th:block th:if="${accListType != null and #lists.size(accListType) > 0}">
+						<div class="acc_list" th:each="acc_t : ${accListType}"
+							th:if="${accListType != null and #lists.size(accListType) > 0}">
+							<a
+								th:href="@{/search/detailSearch.do(aid=${acc_t.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}">
+								<div class="acc_box">
+		
+									<div class="acc_image">
+		
+										<img th:src="@{/accDownload.do(acc_id=${acc_t.acc_id}, acc_image=${acc_t.acc_image})}"
+											th:alt="${acc_t.acc_id}">
+									</div>
+									<div class="acc_info">
+										<div class="box1">
+											<div class="acc_title">
+												<p th:text="${acc_t.acc_type}"></p>
+												<h2 th:text="${acc_t.acc_name}"></h2>
+		
+		
+											</div>
+										</div>
+										<div class="box2">
+											<div class="acc_price">
+												<span>가격</span><span class="price_font_big"
+													th:text="${#numbers.formatInteger(acc_t.ro_price, 3, 'COMMA') + '원'}"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</th:block>
+	
+	
+					<!--가격 검색-->
+					<th:block th:if="${accRangePrice != null and #lists.size(accRangePrice) > 0}">
+						<div class="acc_list" th:each="acc_p : ${accRangePrice}"
+							th:if="${accRangePrice != null and #lists.size(accRangePrice) > 0}">
+							<a
+								th:href="@{/search/detailSearch.do(aid=${acc_p.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}">
+								<div class="acc_box">
+		
+									<div class="acc_image">
+		
+										<img th:src="@{/accDownload.do(acc_id=${acc_p.acc_id}, acc_image=${acc_p.acc_image})}"
+											th:alt="${acc_p.acc_id}">
+									</div>
+									<div class="acc_info">
+										<div class="box1">
+											<div class="acc_title">
+												<p th:text="${acc_p.acc_type}"><a
+														th:href="@{/search/detailSearch.do(aid=${acc_p.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}"></a>
+												</p>
+												<h2 th:text="${acc_p.acc_name}"><a
+														th:href="@{/search/detailSearch.do(aid=${acc_p.acc_id}, checkIn=${bo_checkIn}, checkOut=${bo_checkOut})}"></a>
+												</h2>
+											</div>
+										</div>
+										<div class="box2">
+											<div class="acc_price">
+												<span>가격</span><span class="price_font_big"
+													th:text="${#numbers.formatInteger(acc_p.ro_price, 3, 'COMMA') + '원'}"></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</th:block>
+					<!--페이지넘버-->
+					<div class="pagination">
+						<button id="load-more-btn"></button>
+					</div>
+				</section>
+			</div>
 		</div>
 	</th:block>
 
