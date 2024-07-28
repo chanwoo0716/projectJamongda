@@ -122,7 +122,7 @@
 
     .hotel-info .acc-name {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 1.4em;
         margin-bottom: 5px;
     }
 
@@ -130,6 +130,7 @@
     .hotel-info .booking-dates,
     .hotel-info .check-in-out {
         margin-bottom: 5px;
+		font-size: 1.2em;
     }
 	
 	.showComplete-btn {
@@ -167,6 +168,22 @@
 	    left: 4px;
 	    font-size: 14px;
 	    color: #fff;
+	}
+	.review-booking-btn {
+		display: flex;
+		margin-top: 20px;
+		justify-content: center;
+		align-items: center;
+		gap: 5px;
+	}
+
+	.review-link, .reBooking-link {
+	    display: inline-block; /* 너비를 적용할 수 있게 설정 */
+	    width: 100%; /* 원하는 너비를 설정 */
+	    padding: 10px 20px; /* 적절한 패딩 추가 */
+	    border: 1px solid #ddd;
+	    border-radius: 5px;
+	    text-align: center; /* 텍스트 가운데 정렬 */
 	}
 </style>
 <script>
@@ -210,8 +227,8 @@
 		    <div id="booking-history" class="booking-history">
 		        <div class="booking-card" th:each="booking : ${bookingList}">
 		            <div class="booking-header">
-		                <span class="booking-date" th:text="'결제일자 : ' + ${booking['payDate']}"></span>
 		                <span class="booking-number" th:text="'예약번호 : ' + ${booking['bo_number']}"></span>
+		                <span class="booking-date" th:text="'결제일자 : ' + ${booking['payDate']}"></span>
 		                <a href="#" class="details-link" th:attr="onclick='openPopup(' + ${booking['bo_number']} + ')'">상세보기</a>
 		            </div>
 		            <div class="booking-content">
@@ -219,15 +236,12 @@
 		                    <div class="acc-name" th:text="${booking['acc_name']}"></div>
 							<input type="hidden" name="ro_id" th:value="${booking.ro_id}">
 		                    <div class="ro_name" th:text="${booking['ro_name']}"></div>
-		                    <div class="booking-dates" th:text="${booking['bo_checkIn']} + ' ~ ' + ${booking['bo_checkOut']}"></div>
+							<br>
+		                    <div class="booking-dates" th:text="'숙박일자 : ' + ${booking['bo_checkIn']} + ' ~ ' + ${booking['bo_checkOut']}"></div>
 		                    <div class="check-in-out" th:text="'체크인 ' + ${booking['ro_checkIn']} + ' | 체크아웃 ' + ${booking['ro_checkOut']}"></div>
 		                </div>
 		            </div>
-		            <div>
-						<!-- 수정전
-						<button id="review-button" class="review-link" th:if="${booking.isPastCheckout}">리뷰 등록</button>
-						<button id="review-button" class="reBooking-link" th:if="${booking.isPastCheckout}">다시 예약</button>
-						-->
+		            <div class="review-booking-btn">
 						<a id="review-button" th:href="@{/review/reviewForm.do(number=${booking.bo_number},rid=${booking.ro_id},aname=${booking.acc_name},rname=${booking.ro_name})}" class="review-link" th:if="${booking.isPastCheckout}">리뷰 등록</a>
 						<a th:href="@{/search/detailSearch.do(aid=${booking.acc_id})}" class="reBooking-link">다시 예약</a>
 		            </div>
