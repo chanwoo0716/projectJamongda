@@ -1,0 +1,236 @@
+.mypage-container {
+	width: 40%;
+	margin: 50px auto;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+	margin-bottom: 20px;
+}
+
+.header-content {
+	float: left;
+	margin: 20px 0;
+}
+
+.review-link,
+.reBooking-link {
+	padding: 10px 50px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fafafa;
+}
+
+.review-link:hover,
+.reBooking-link:hover {
+	background-color: rgb(212, 212, 212);
+	/* Darker green on hover */
+}
+
+.booking-history{
+	border-bottom: 1px dotted #ccc;
+}
+
+.booking-history h2 {
+	margin-top: 7%;
+	margin-bottom: 2%;
+	margin-left: 10px;
+}
+
+.booking-card {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fafafa;
+	padding: 20px;
+	margin-bottom: 7%;
+}
+
+.booking-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.booking-header .booking-date,
+.booking-header .booking-number {
+	font-size: 14px;
+	color: #777;
+}
+
+.details-link {
+	color: rgb(131, 131, 131) !important;
+	text-decoration: none;
+	font-weight: normal;
+	font-size: 12px;
+}
+
+.booking-content {
+	display: flex;
+	align-items: center;
+}
+
+.acc-image {
+	border-radius: 5px;
+	margin-right: 20px;
+}
+
+.hotel-info {
+	font-size: 1em;
+}
+
+.hotel-info .acc-name {
+	font-weight: bold;
+	font-size: 1.4em;
+	margin-bottom: 5px;
+}
+
+.hotel-info .ro_name,
+.hotel-info .booking-dates,
+.hotel-info .check-in-out {
+	margin-bottom: 5px;
+}
+
+.reviews{
+	border-bottom: 1px dotted #ccc;
+}
+
+.myReviews-btn {
+	width: 90%;
+	padding: 10px;
+	margin-left: 2%;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fafafa;
+	margin-bottom: 7%;
+	cursor: pointer;
+	text-align: left;
+}
+
+.hello {
+	font-weight: bold;
+	font-size: 2em;
+	margin-left: 10px;
+	margin-right: 20px;
+	/* 버튼과의 간격 조정 */
+}
+
+.myInfo-btn {
+	background: none;
+	/* 배경 제거 */
+	border: none;
+	/* 테두리 제거 */
+	cursor: pointer;
+	/* 커서를 포인터로 변경 */
+	font-size: 14px;
+	/* 폰트 사이즈 조정 */
+	padding: 0;
+	/* 패딩 제거 */
+	margin: 0;
+	/* 마진 제거 */
+	margin-left: 10%;
+}
+
+.myInfo-btn:hover,
+.details-link:hover,
+.myReviews-btn:hover {
+	color: #666;
+}
+
+.faq-notice {
+	width: 100%;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	/* 중앙 정렬 */
+	align-items: center;
+	/* 수직 중앙 정렬 */
+	font-size: 1.5em;
+}
+
+.faq-btn,
+.notice-btn {
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	/* 아이콘과 텍스트를 가운데 정렬 */
+	align-items: center;
+	/* 아이콘과 텍스트를 수직 가운데 정렬 */
+	position: relative;
+	/* ::after 가상 요소를 사용하기 위해 position을 relative로 설정 */
+}
+
+.faq-btn::after {
+	content: '';
+	position: absolute;
+	top: 10px;
+	/* 구분선의 위쪽 여백 조정 */
+	right: 0;
+	width: 1px;
+	/* 구분선의 두께 */
+	height: 80%;
+	/* 구분선의 높이 (부모의 높이에 비례) */
+	background-color: #ccc;
+	/* 구분선 색상 */
+	z-index: 1;
+	/* 다른 요소보다 위에 표시되도록 설정 */
+}
+
+.faq-btn a,
+.notice-btn a {
+	display: flex;
+	justify-content: center;
+	/* 아이콘과 텍스트를 가운데 정렬 */
+	align-items: center;
+	/* 아이콘과 텍스트를 수직 가운데 정렬 */
+	width: 100%;
+	/* 버튼 영역 전체를 클릭 가능하게 설정 */
+	height: 50px;
+	/* 버튼 영역 전체를 클릭 가능하게 설정 */
+	text-decoration: none;
+	/* 기본 링크 밑줄 제거 */
+	color: inherit;
+	/* 텍스트 색상 상속 */
+	padding: 0 10px;
+	/* 좌우 패딩 조정 (필요시 조정) */
+	box-sizing: border-box;
+	/* 패딩과 테두리를 포함하여 너비와 높이 계산 */
+	text-align: center;
+	/* 텍스트 가운데 정렬 */
+}
+
+.review-booking-btn {
+	display: flex;
+	margin-top: 20px;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.review-link,
+.reBooking-link {
+	display: inline-block;
+	/* 너비를 적용할 수 있게 설정 */
+	width: 100%;
+	/* 원하는 너비를 설정 */
+	padding: 10px 20px;
+	/* 적절한 패딩 추가 */
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	text-align: center;
+	/* 텍스트 가운데 정렬 */
+}
+
+.faq-notice a:hover {
+	background-color: rgb(233, 233, 233);
+}
+
+.center-section {
+	margin-top: 7%;
+	margin-left: 10px;
+}
