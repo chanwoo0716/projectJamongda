@@ -8,7 +8,7 @@ body {
   position: relative;
   min-width: 600px;
   max-width: 1920px;
-  max-height: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -80,12 +80,13 @@ a {
 }
 
 /*마이페이지 영역*/
-.header_mypage > a {
+.header_mypage > i {
   font-weight: bold;
-  font-size: 1.2em;
+  font-size: 1.3em;
   color: black;
   display: inline-block;
-  margin-left: 15%;
+  margin-top: 1%;
+  margin-left: 10%;
 }
 
 .mypage_list{
@@ -131,25 +132,30 @@ a {
 
 #content {
   width: 75%;
+  min-height: 100%;
   padding: 5px;
   margin-right: 5px;
   float: right;
+  position: relative;
 }
 
 /*footer 영역*/
 footer {
-  height: 100%;
+	width: 100%;
   clear: both;
   background-color: rgb(252, 252, 252);
   text-align: center;
   border-top: 0.1em solid rgb(255, 111, 97);
   font-size: 1em;
   margin-top: 3%;
+  
+  position: relative;
+  transform: translatY(-100%);
 }
 
 #footer_info {
   margin: 0 auto;
-  width: 70%;
+  width: 80%;
   display: inline-block;
   text-align: center;
 }

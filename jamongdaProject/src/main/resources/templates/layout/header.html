@@ -32,10 +32,11 @@
 			<div class="header_name" th:if="${session.isLogOn == true and session.guest != null}">
                <h3 th:text="${session.guest.name} + '님'"></h3>
 			   <div class="header_mypage" th:if="${session.isLogOn==true and session.guest != null}">
-	   				<a th:href="@{/mypage/mypage.do}">
-						<i class="fas fa-bars"></i>
-					</a>
+					<i class="fas fa-bars"></i>
 	   				<ul class="mypage_list">
+						<li>
+							<a th:href="@{/mypage/mypage.do}">마이페이지</a>
+						</li>
 						<li>
 							<a th:href="@{/mypage/allBookings.do}">예약내역</a>
 						</li>
