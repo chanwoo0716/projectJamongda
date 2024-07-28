@@ -144,6 +144,7 @@ small {
 
 #emailChk_msg, #pwdChk_msg, #mail-check-warn {
     font-size: 12px;
+	margin-left: 5%;
 	
 	font-weight: bold;
 }
