@@ -4,7 +4,7 @@
     layout:decorate="layout/layout">
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>JAMONGDA : 마이페이지</title>
 <link rel="stylesheet" th:href="@{/css/mypage.css}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" th:src="@{/js/common.js}"></script>
@@ -27,67 +27,69 @@
 </head>
 <body>
     <th:block layout:fragment="content">
-		<div class="mypage-container">
-		    <div class="header">
-				<div class="header-content">
-				    <p class="hello" th:text="${guest.name} + '님'"></p>
-				    <form action="/member/updateMemberForm.do" method="post" id="updateMemberForm">
-				        <input type="hidden" name="email" th:value="${guest.email}">
-				        <input type="hidden" name="ro_id" th:value="${latestBooking.ro_id}">
-				        <button type="submit" class="myInfo-btn">내 정보 관리 ></button>
-				    </form>
-				</div>
-		    </div>
-			
-	        <div class="reviews">
-				<form action="/mypage/myReviews.do" method="post" id="myReviews">
-				    <input type="hidden" name="email" th:value="${guest.email}">
-				    <button type="submit" class="myReviews-btn">내가 작성한 리뷰 보러가기 <i class="fa-solid fa-pen"></i> </button>
-				</form>
-	        </div>
-			
-		    <div class="booking-history">
-		    	<div>
-			        <h2><i class="fa-solid fa-check"></i> 예약내역 <a href="/mypage/allBookings.do" class="details-link">전체 내역보기</a></h2>
-		    	</div>
-				<div class="booking-card" th:if="${latestBooking != null}">
-				    <div class="booking-header">
-				        <span class="booking-number" th:text="'예약번호 : ' + ${latestBooking['bo_number']}"></span>
-				        <span class="booking-date" th:text="'결제일자 : ' + ${latestBooking['payDate']}"></span>
-						<a href="#" class="details-link" th:attr="onclick='openPopup(' + ${latestBooking['bo_number']} + ')'">상세보기</a>						
-				    </div>
-				    <div class="booking-content">
-				        <div class="hotel-info">
-				            <div class="acc-name" th:text="${latestBooking['acc_name']}"></div>
-				            <div class="ro_name" th:text="${latestBooking['ro_name']}"></div>
-							<br>
-				            <div class="booking-dates" th:text="${latestBooking['bo_checkIn']} + ' ~ ' + ${latestBooking['bo_checkOut']}"></div>
-				            <div class="check-in-out" th:text="'체크인 ' + ${latestBooking['ro_checkIn']} + ' | 체크아웃 ' + ${latestBooking['ro_checkOut']}"></div>
-				        </div>
-				    </div>
-					<div class="review-booking-btn">
-						<a th:href="@{/review/reviewForm.do(number=${latestBooking.bo_number},aname=${latestBooking.acc_name},rid=${latestBooking.ro_id},rname=${latestBooking.ro_name})}" class="review-link" th:if="${isPastCheckout}">리뷰 등록</a>
-						<a th:href="@{/search/detailSearch.do(aid=${latestBooking.acc_id})}" class="reBooking-link">다시 예약</a>
+		<div id="mypage-top">
+			<div class="mypage-container">
+			    <div class="header">
+					<div class="header-content">
+					    <p class="hello" th:text="${guest.name} + '님'"></p>
+					    <form action="/member/updateMemberForm.do" method="post" id="updateMemberForm">
+					        <input type="hidden" name="email" th:value="${guest.email}">
+					        <input type="hidden" name="ro_id" th:value="${latestBooking.ro_id}">
+					        <button type="submit" class="myInfo-btn">내 정보 관리 ></button>
+					    </form>
 					</div>
-				</div>
-		    </div>
-			
-			<!-- 고객센터 섹션 -->
-			<div class="center-section">
-				<h2><i class="fa-solid fa-headset"></i> 고객센터</h2>
-				<div>
-					<div class="faq-notice">
-						<div class="faq-btn">
-							<a href="/board/FAQ.do">
-								<i class="fa-regular fa-circle-question"></i>&nbsp;
-								<span> FAQ</span>
-							</a>
+			    </div>
+				
+		        <div class="reviews">
+					<form action="/mypage/myReviews.do" method="post" id="myReviews">
+					    <input type="hidden" name="email" th:value="${guest.email}">
+					    <button type="submit" class="myReviews-btn">내가 작성한 리뷰 보러가기 <i class="fa-solid fa-pen"></i> </button>
+					</form>
+		        </div>
+				
+			    <div class="booking-history">
+			    	<div>
+				        <h2><i class="fa-solid fa-check"></i> 예약내역 <a href="/mypage/allBookings.do" class="details-link">전체 내역보기</a></h2>
+			    	</div>
+					<div class="booking-card" th:if="${latestBooking != null}">
+					    <div class="booking-header">
+					        <span class="booking-number" th:text="'예약번호 : ' + ${latestBooking['bo_number']}"></span>
+					        <span class="booking-date" th:text="'결제일자 : ' + ${latestBooking['payDate']}"></span>
+							<a href="#" class="details-link" th:attr="onclick='openPopup(' + ${latestBooking['bo_number']} + ')'">상세보기</a>						
+					    </div>
+					    <div class="booking-content">
+					        <div class="hotel-info">
+					            <div class="acc-name" th:text="${latestBooking['acc_name']}"></div>
+					            <div class="ro_name" th:text="${latestBooking['ro_name']}"></div>
+								<br>
+					            <div class="booking-dates" th:text="${latestBooking['bo_checkIn']} + ' ~ ' + ${latestBooking['bo_checkOut']}"></div>
+					            <div class="check-in-out" th:text="'체크인 ' + ${latestBooking['ro_checkIn']} + ' | 체크아웃 ' + ${latestBooking['ro_checkOut']}"></div>
+					        </div>
+					    </div>
+						<div class="review-booking-btn">
+							<a th:href="@{/review/reviewForm.do(number=${latestBooking.bo_number},aname=${latestBooking.acc_name},rid=${latestBooking.ro_id},rname=${latestBooking.ro_name})}" class="review-link" th:if="${isPastCheckout}">리뷰 등록</a>
+							<a th:href="@{/search/detailSearch.do(aid=${latestBooking.acc_id})}" class="reBooking-link">다시 예약</a>
 						</div>
-						<div class="notice-btn">
-							<a href="/board/boardList.do">
-								<i class="fa-solid fa-bullhorn"></i>&nbsp;
-								<span> 공지사항</span>
-							</a>
+					</div>
+			    </div>
+				
+				<!-- 고객센터 섹션 -->
+				<div class="center-section">
+					<h2><i class="fa-solid fa-headset"></i> 고객센터</h2>
+					<div>
+						<div class="faq-notice">
+							<div class="faq-btn">
+								<a href="/board/FAQ.do">
+									<i class="fa-regular fa-circle-question"></i>&nbsp;
+									<span> FAQ</span>
+								</a>
+							</div>
+							<div class="notice-btn">
+								<a href="/board/boardList.do">
+									<i class="fa-solid fa-bullhorn"></i>&nbsp;
+									<span> 공지사항</span>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>
