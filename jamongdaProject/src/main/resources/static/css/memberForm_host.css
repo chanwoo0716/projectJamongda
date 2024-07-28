@@ -13,7 +13,6 @@ button{
 	padding: 0;
 	margin:0 1%;
 	font-size: 1.1em;
-	font-weight: bold;
 	color: #333;
 	cursor: pointer;
 }
@@ -48,6 +47,16 @@ small {
     margin-top: -10px;
     margin-bottom: 10px;
     color: #666;
+}
+
+/*회원가입 영역*/
+.form-container {
+    width: 37%;
+    margin: auto;	
+	padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /*모든 영역의 공통 class*/
