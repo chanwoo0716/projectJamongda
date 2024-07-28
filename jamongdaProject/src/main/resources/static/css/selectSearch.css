@@ -1,347 +1,429 @@
 @charset "utf-8";
-*{
-            margin: 0;
-            box-sizing: border-box;
-        }
-        ul,li{
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        button{
-            background-color: transparent;
-            border: none;
-        }
-        a{
-            text-decoration: none;
-            color: inherit;
-        }
-        .wrapper{
-            width: 1200px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-        .hidden{
-            display: none;
-        }
-        .header_wrap{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            
-        }
-        .navInfobox{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .navInfobox>ul{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .navInfobox>ul>li{
-            margin-left: 20px;
-        }
-        .mainmenu{
-            position: relative;
-        }
-        .mainmenu>button{
-            cursor: pointer;
-        }
-        .submenu{
-            position: absolute;
-            width: 100px;
-            height: 150px;
-            background-color: #fff;
-            top: 40px;
-            left: -60px;
-            border-radius: 10px;
-            padding: 10px;
-            z-index: 3;
-        }
-        .sct1_wrap{
-            padding: 30px 0;
-        }
-        .search_wrap{
-            position: relative;
-            z-index: 1;
-            display: inline-block;
-            height: 100%;
-         width: 100%;
-        }
-      .search_wrap form{
-         display: flex;
-         justify-content: space-between;
-      }
-        .search_wrap input{
-            height: 60px;
-            border-radius: 10px;
-         padding: 10px;
-            border:1px solid #ddd;
-        }
-      .search_wrap input[type="search"],.search_wrap input[type="text"]{
-         width: 30%;
-      }
-      .search_wrap input[type="submit"]{
-         width: 8%;
-		 cursor:pointer;
-      }
-        .search_submit{
-            background-color: transparent;
-            height: 48px;
-            border-radius: 10px;
-        }
-        .contents_wrap{
-            display: flex;
-        }
-        aside{
-            width: 288px;
-            height: 100%;
-            margin-right: 60px;
-            
-        }
-        #kakao_map{
-            box-sizing: border-box;
-            width: 288px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-        }
-        #kakao_map>button{
-            background-color: aquamarine;
-            height: 20px;
-        }
-      .customoverlay {position:relative;bottom:85px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;}
-      .customoverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
-      .customoverlay a {display:block;text-decoration:none;color:#000;text-align:center;border-radius:6px;font-size:14px;font-weight:bold;overflow:hidden;background: #d95050;background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;}
-      .customoverlay .title {display:block;text-align:center;background:#fff;margin-right:35px;padding:10px 15px;font-size:14px;font-weight:bold;}
-      .customoverlay:after {content:'';position:absolute;margin-left:-12px;left:50%;bottom:-12px;width:22px;height:12px;background:url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}      
-        #acc_filter{
-            margin-top: 20px;
-            margin-bottom: 20px;
-         text-align: left;
-        }
-        #acc_filter h2{
-           margin-bottom:10px;
-        }
-        #acc_filter input[type="radio"] {
-             appearance: none;
-           width: 15px;
-           height: 15px;
-           box-shadow: 0 0 0 1px #ddd;
-           border: 4px solid #fff;
-           border-radius: 50%;
-           background-color: #fff;
-           margin-right:10px;
-         }
-         #acc_filter input[type="radio"]:checked {
-           box-shadow: 0 0 0 1px #ff6f61;
-           border: 4px solid #fff;
-           background-color: #ff6f61;
-        }
-         #acc_filter span{
-            margin-bottom:10px;
-            display:inline-block;
-         }
-      .radio_button{
-         width: 15px;
-         height: 15px;
-         margin-right: 10px;
-         border-radius: 50%;
-         cursor: pointer;
-      }
-      
-      
-      .non-click{
-         background-color: #fff;
-         border:1px solid #17a2b8;
-      }
-      .click{
-         background-color: #17a2b8;
-      }
-      .acc_title{
-         text-align: left;
-      }
-        #price_filter.wrapper{
-            width: 288px;
-            border: 1px solid #17a2b8;
-            border-radius: 10px;
-            padding: 20px 25px 40px;
-            box-sizing: border-box;
-        }
-        .price-input{
-            width: 100%;
-            margin: 10px 0 15px;
-            display: flex;
-        }
-        .price-input .field{
-            height: 45px;
-            width: 100%;
-            align-items: center;
-            display: flex;
-        }
-        .field input{
-            width: 100%;
-            height: 100%;
-            margin-left: 12px;
-            outline: none;
-            border: 1px solid #999;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 14px;
-            -moz-appearance: textfield;
-        }
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button{
-            -webkit-appearance: none;
-        }
-        .price-input .separator{
-            /* background-color: red; */
-            width: 70px;
-            display: flex;
-            font-size: 14px;
-            align-items: center;
-            justify-content: center;
-        }
-        #price_filter .slider{
-            height: 5px;
-            background-color: #ddd;
-            border-radius: 5px;
-            position: relative;
-        }
-        #price_filter .slider .progress{
-            height: 5px;
-            border-radius: 5px;
-            background-color: #17a2b8;
-            position: absolute;
-            left: 25%;
-            right: 25%;
-        }
-        .range-input{
-            position: relative;
-        }
-        .range-input input{
-            position: absolute;
-            top: -7px;
-         left: 0px;
-            height: 7px;
-            width: 100%;
-            background: none;
-            pointer-events: none;
-            -webkit-appearance: none;
-        }
-        input[type="range"]::-webkit-slider-thumb{
-            height: 17px;
-            width: 17px;
-            border-radius: 50%;
-            pointer-events: auto;
-            background-color: #17a2b8;
-            -webkit-appearance: none;
-        }
 
-        input[type="range"]::-moz-range-thumb{
-            height: 17px;
-            width: 17px;
-            border-radius: 50%;
-            border: none;
-            pointer-events: auto;
-            background-color: #17a2b8;
-            -moz-appearance: none;
-        }
-        .filter-form input[type="number"] {
-          width: 100%;
-          padding: 8px;
-          border: 1px solid rgba(255, 111, 97, 0.3);
-          border-radius: 4px;
-          box-sizing: border-box;
-      }
-        .sct2{
-            width: 880px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .sct2_head{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        .sort{
-            border-radius: 10px;
-            height: 44px;
-            width: 148px;
-        }
+* {
+	box-sizing: border-box;
+}
 
-        .acc_list{
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            /*padding: 10px 0;*/
-        }
-        .acc_box{
-            width: 100%;
-            height: 240px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: row;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            transition-property :box-shadow; 
-            transition-duration:0.5s;
-        }
-        /*.acc_box:hover{
+img{object-fit: cover;}
+
+#select_search{
+	width: 80%;
+	margin: 0 auto;
+}
+
+.wrapper {
+	margin: 0 auto;
+}
+
+.hidden {
+	display: none;
+}
+
+.sct1_wrap {
+	padding: 2% 0;
+}
+
+.search_wrap {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+
+#form2 {
+  width: 100%;
+  margin: 0 auto;
+  top: 68%;
+  left: 6%;
+
+  padding: 1% 2% 1% 4%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 숙소 검색 영역 */
+.inputWrap {
+  position: relative;
+  width: 25%;
+  float: left;
+  margin-right: 3%;
+  box-sizing: border-box;
+}
+
+#acc_name {
+  width: 100%;
+  padding-right: 5%;
+  padding-left: 18%;
+  height: 50px;
+  background-color: rgb(256, 256, 256);
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  
+  border-radius: 15px;
+  border:1px solid #ff6f61;
+}
+
+/* 돋보기 아이콘 */
+.fa-search {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  font-size: 1.4em;
+  transform: translateY(-50%);
+}
+
+/* 지역 검색 영역 */
+.location {
+  position: relative;
+  width: 25%;
+  float: left;
+  margin-right: 3%;
+  box-sizing: border-box;
+}
+
+.fa-location-dot {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  font-size: 1.4em;
+  transform: translateY(-50%);
+}
+
+#acc_area {
+  width: 100%;
+  height: 50px;
+  border: none;
+  background-color: rgba(256, 256, 256, 0.8);
+  font-size: 1em;
+  font-weight: bold;
+  color: black;
+  padding-right: 5%;
+  padding-left: 18%;
+  
+  border-radius: 15px;
+  border:1px solid #ff6f61;
+}
+
+/* 날짜 검색 영역 */
+.search_In {
+  position: relative;
+  width: 30%;
+  float: left;
+  box-sizing: border-box;
+}
+
+#bo_checkIn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  background-color: rgba(256, 256, 256, 0.8);
+  font-size: 1em;
+  font-weight: bold;
+  color: black;
+  padding-left: 20%;
+  
+  border-radius: 15px;
+  border:1px solid #ff6f61;
+}
+
+.fa-calendar-days {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  font-size: 1.4em;
+  transform: translateY(-50%);
+}
+
+/* 검색 버튼 */
+.search_btn {
+  position: relative; /* 검색 버튼을 다른 요소와 일렬로 배치하기 위해 상대 위치 설정 */
+  float: left; /* 검색 필드와 일렬로 배치 */
+  max-width: 10%; /* 검색 버튼의 최대 너비 설정 */
+  height: 50px; /* 다른 입력 필드와 동일한 높이 설정 */
+  background: none;
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  text-align: center;
+  padding: 0;
+  margin-top: 0; /* 상단 마진 제거 */
+  margin-left: 5%;
+}
+
+.search_btn:hover{
+	color: #ff6f61;
+}
+
+.contents_wrap {
+	display: flex;
+}
+
+aside {
+	width: 30%;
+	height: 100%;	
+}
+
+#kakao_map {
+	box-sizing: border-box;
+	width: 288px;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+}
+
+#kakao_map>button {
+	background-color: aquamarine;
+	height: 20px;
+}
+
+.customoverlay {
+	position: relative;
+	bottom: 85px;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	border-bottom: 2px solid #ddd;
+	float: left;
+}
+
+.customoverlay:nth-of-type(n) {
+	border: 0;
+	box-shadow: 0px 1px 2px #888;
+}
+
+.customoverlay a {
+	display: block;
+	text-decoration: none;
+	color: #000;
+	text-align: center;
+	border-radius: 6px;
+	font-size: 14px;
+	font-weight: bold;
+	overflow: hidden;
+	background: #d95050;
+	background: #d95050 url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+}
+
+.customoverlay .title {
+	display: block;
+	text-align: center;
+	background: #fff;
+	margin-right: 35px;
+	padding: 10px 15px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.customoverlay:after {
+	content: '';
+	position: absolute;
+	margin-left: -12px;
+	left: 50%;
+	bottom: -12px;
+	width: 22px;
+	height: 12px;
+	background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+}
+
+#acc_filter {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+#acc_filter h2 {
+	margin-bottom: 10px;
+}
+
+#acc_filter input[type="radio"] {
+	appearance: none;
+	width: 4%;
+	height: 10.12px;
+	box-shadow: 0 0 0 1px #ddd;
+	border: 4px solid #fff;
+	border-radius: 50%;
+	background-color: #fff;
+	margin:0 5%;
+	
+	cursor: pointer;
+}
+
+#acc_filter input[type="radio"]:checked {
+	box-shadow: 0 0 0 1px #ff6f61;
+	border: 4px solid #fff;
+	background-color: #ff6f61;
+}
+
+#acc_filter span {
+	margin-bottom: 10px;
+	display: inline-block;
+}
+
+.acc_title {
+	text-align: left;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
+.sct2 {
+	width: 75%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.sct2_head {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.sort {
+	border-radius: 10px;
+	height: 44px;
+	width: 148px;
+}
+
+.acc_list {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	/*padding: 10px 0;*/
+}
+
+.acc_box {
+	width: 100%;
+	height: 240px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: row;
+	box-sizing: border-box;
+	margin-bottom: 20px;
+	transition-property: box-shadow;
+	transition-duration: 0.5s;
+}
+
+/*.acc_box:hover{
            box-shadow: 2px 2px 10px rgba(255, 111, 97, 0.2);
         }*/
-        .acc_image{
-            width: 396px;
-            height: 100%;
-            padding: 10px;
-        }
-        .acc_image>img{
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-        }
-        .acc_info{
-            width: 484px;
-            padding-left: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        .box1{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            padding: 15px 15px 0 0;
-        }
-        .acc_zzim>button{
-            cursor: pointer;
-        }
-        .fa-heart{
-            padding-right: 10px;
-            cursor: pointer;
-        }
-        .box2{
-            padding: 0px 15px 15px 0;
-        }
-        .acc_price{
-            text-align: right;
-        }
-        .price_font_big{
-            font-size: 2em;
-            padding-left: 20px;
-        }
-        .pagination ul{
-            display: flex;
-            justify-content: center;
-        }
-        .pagination ul li{
-            padding: 0 10px;
-        }
+.acc_image {
+	width: 396px;
+	height: 100%;
+	padding: 10px;
+}
+
+.acc_image>img {
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+}
+
+.acc_info {
+	width: 484px;
+	padding-left: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.box1 {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 15px 15px 0 0;
+}
+
+.acc_zzim>button {
+	cursor: pointer;
+}
+
+.fa-heart {
+	padding-right: 10px;
+	cursor: pointer;
+}
+
+.box2 {
+	padding: 0px 15px 15px 0;
+}
+
+.acc_price {
+	text-align: right;
+}
+
+.price_font_big {
+	font-size: 2em;
+	padding-left: 20px;
+}
+
+.pagination ul {
+	display: flex;
+	justify-content: center;
+}
+
+.pagination ul li {
+	padding: 0 10px;
+}
+
+.filter-form label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.filter-form #price-slider {
+	margin-top: 20px;
+}
+
+.filter-form input[type="number"] {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+.price_submit {
+	width: 100%;
+	height: 40px;
+	background: transparent;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	margin-top: 10px;
+	cursor: pointer;
+}
+
+/* 페이징관련 CSS */
+.pagination {
+	margin: 20px auto;
+	display: flex;
+	justify-content: center;
+}
+
+.pagination button {
+	margin: 0 5px;
+	padding: 5px 10px;
+	background-color: #FEB6AF;
+	color: white;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.pagination button.active {
+	background-color: #fc6053;
+}
+
+#list-gap {
+	margin-bottom: 25px;
+}

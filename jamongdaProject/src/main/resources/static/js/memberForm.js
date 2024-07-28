@@ -142,7 +142,7 @@ function checkEmail() {
         success: function(response) {
             if (!response) {
                 emailChk_msg.textContent = "사용 가능한 이메일입니다.";
-                emailChk_msg.className = "chkSuccess";
+                emailChk_msg.className = "chkSucess";
                 document.getElementById("submitBtn").disabled = false;
                 emailChecked = true; // 이메일 중복 확인 완료 상태를 true로 변경
                 

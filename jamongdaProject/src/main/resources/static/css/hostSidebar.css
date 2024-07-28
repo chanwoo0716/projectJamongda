@@ -1,20 +1,4 @@
 @charset "uft-8";
-html,
-body {
-  position: relative;
-  min-width: 1250px;
-  max-width: 1920px;
-  margin: 0 auto;
-}
-
-body {
-  background: rgb(252, 252, 252);
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  margin: 0 auto;
-  padding: 0 auto;
-}
 #hostSidebar {
    position : absolute;
    top: 150px;
@@ -24,7 +8,6 @@ body {
    background-color: white; /* 배경색 */
    border : 1px solid #dedede;
    border-radius: 15px; /* 모서리를 둥글게 */
-   margin: 20px; /* 외부 여백 */
 }
 #hostSidebar h3 {
     margin: 20px 0; /* 제목 사이의 여백 */
@@ -41,7 +24,7 @@ body {
     text-decoration: none; /* 링크 밑줄 제거 */
     color: #333333; /* 링크 색상 */
     display: block; /* 블록 요소로 설정 */
-    padding: 10px; /* 내부 여백 */
+    padding: 0 10%; /* 내부 여백 */
     border-radius: 4px; /* 링크의 모서리를 둥글게 */
     transition: background-color 0.1s ease; /* 배경색 전환 효과 */
 }
@@ -54,5 +37,5 @@ body {
 }
 */
 #hostSidebar a.active {
-    color: #1273E4; /* 클릭된 앵커의 색상 */
+    color:  #FF6F61; /* 클릭된 앵커의 색상 */
 }
