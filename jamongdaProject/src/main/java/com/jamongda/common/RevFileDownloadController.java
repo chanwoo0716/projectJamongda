@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller("revFileDownload")
 public class RevFileDownloadController {
-    private static final String REVIEW_IMAGE_REPO = "D:\\Hwang\\FileuploadRev";
+    private static final String REVIEW_IMAGE_REPO = "/Users/frozen-ji/Desktop/images/FileuploadRev";
 
     @GetMapping("/review/downloadImage")
     public void fileDown(@RequestParam("rev_image") String rev_image,
@@ -25,7 +25,7 @@ public class RevFileDownloadController {
         response.setContentType("text/html;charset=utf-8");
 
         OutputStream out = response.getOutputStream();
-        String path = REVIEW_IMAGE_REPO + "\\" + rev_image;
+        String path = REVIEW_IMAGE_REPO + "/" + rev_image;
         File imageFile = new File(path);
         if (!imageFile.exists()) {
             // 파일이 존재하지 않는 경우 예외 처리
@@ -35,7 +35,7 @@ public class RevFileDownloadController {
 
         response.setHeader("Cache-Control", "no-cache");
 
-        String encodedFilename = URLEncoder.encode(rev_image, "utf-8").replaceAll("\\+", "%20");
+        String encodedFilename = URLEncoder.encode(rev_image, "utf-8").replaceAll("/+", "%20");
         response.addHeader("Content-disposition", "attachment; fileName=\"" + encodedFilename + "\"");
 
         try (FileInputStream fis = new FileInputStream(imageFile)) {
