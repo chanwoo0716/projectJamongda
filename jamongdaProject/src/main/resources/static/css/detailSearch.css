@@ -86,6 +86,7 @@
       }
       .search_wrap input[type="submit"]{
          width: 8%;
+		 cursor:pointer;
       }        
         .search_submit{
             display: inline-block;
@@ -200,7 +201,7 @@
          display: block;
       }
         .aside_map{
-            width: 340px;
+            width: 380px;
         }
         .map_box2{
             height: 135px;
@@ -218,7 +219,7 @@
         .room_image{
             border-radius: 10px;
             width: 224px;   /*이미지 영역 크기 수정*/
-            height: 126px;
+            height: 224px;
         }
       .room_image img{
          border-radius: 10px;
