@@ -18,6 +18,20 @@
         <result property="acc_id" column="acc_id"/>
     </resultMap>
     
+    <!-- 리뷰와 이미지를 매핑하는 ResultMap -->
+	<resultMap id="reviewResultMap" type="com.jamongda.review.dto.ReviewDTO">
+	    <id property="rev_id" column="rev_id"/>
+	    <result property="rev_content" column="rev_content"/>
+	    <result property="rev_date" column="rev_date"/>
+	    <result property="email" column="email"/>
+	    <result property="ro_id" column="ro_id"/>
+	    <result property="ro_name" column="ro_name"/>
+	    <collection property="images" ofType="com.jamongda.review.dto.ReviewImageDTO">
+	        <id property="rev_image_id" column="rev_image_id"/>
+	        <result property="rev_image" column="rev_image"/>
+	    </collection>
+	</resultMap>
+    
     <!-- 가장 최근 예약 정보 조회 -->
     <select id="getLatestBoInfoByEmail" parameterType="String" resultMap="bookingResultMap">
         SELECT b.bo_number, b.email, b.bo_checkIn, b.bo_checkOut, b.payDate, r.ro_id,
@@ -60,20 +74,6 @@
 	    WHERE r.email = #{email}
 	    LIMIT #{size} OFFSET #{offset}
 	</select>
-
-    <!-- 리뷰와 이미지를 매핑하는 ResultMap -->
-	<resultMap id="reviewResultMap" type="com.jamongda.review.dto.ReviewDTO">
-	    <id property="rev_id" column="rev_id"/>
-	    <result property="rev_content" column="rev_content"/>
-	    <result property="rev_date" column="rev_date"/>
-	    <result property="email" column="email"/>
-	    <result property="ro_id" column="ro_id"/>
-	    <result property="ro_name" column="ro_name"/>
-	    <collection property="images" ofType="com.jamongda.review.dto.ReviewImageDTO">
-	        <id property="rev_image_id" column="rev_image_id"/>
-	        <result property="rev_image" column="rev_image"/>
-	    </collection>
-	</resultMap>
 
     <!-- ro_id를 통해 room의 ro_name 가져오기 -->
     <select id="getRoomNameById" parameterType="int" resultType="string">
