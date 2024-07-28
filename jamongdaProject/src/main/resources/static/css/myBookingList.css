@@ -1,0 +1,170 @@
+#booking-top{
+	border-top: 0.1em solid rgb(255, 111, 97);
+}
+.mypage-container {
+	width: 40%;
+	margin: 50px auto;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+	text-align: left;
+	margin-bottom: 20px;
+}
+
+.header h1 {
+	margin: 0;
+	margin-bottom: 3%;
+	font-size: 24px;
+	color: #333;
+}
+
+.header p {
+	margin: 5px 0 20px;
+	color: #777;
+}
+
+.reviews {
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fafafa;
+	margin-bottom: 20px;
+}
+
+.review-link,
+.reBooking-link {
+	margin-top: 10px;
+	padding: 10px 50px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fafafa;
+}
+
+.review-link:hover,
+.reBooking-link:hover {
+	background-color: rgb(212, 212, 212);
+	/* Darker green on hover */
+}
+
+.booking-history h2 {
+	margin-bottom: 20px;
+}
+
+.booking-card {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #fafafa;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.booking-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+
+.booking-header .booking-date,
+.booking-header .booking-number {
+	font-size: 14px;
+	color: #777;
+}
+
+.details-link {
+	color: #666;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.booking-content {
+	display: flex;
+	align-items: center;
+}
+
+.acc-image {
+	border-radius: 5px;
+	margin-right: 20px;
+}
+
+.hotel-info {
+	font-size: 14px;
+}
+
+.hotel-info .acc-name {
+	font-weight: bold;
+	font-size: 1.4em;
+	margin-bottom: 5px;
+}
+
+.hotel-info .ro_name,
+.hotel-info .booking-dates,
+.hotel-info .check-in-out {
+	margin-bottom: 5px;
+	font-size: 1em;
+}
+
+.showComplete-btn {
+	display: none;
+}
+
+.showComplete-btn+label {
+	position: relative;
+	padding-left: 25px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.showComplete-btn+label:before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 2px;
+	width: 16px;
+	height: 16px;
+	border: 1px solid #fb877f;
+	background: #fff;
+	border-radius: 4px;
+}
+
+.showComplete-btn:checked+label:before {
+	background: #fb877f;
+	border-color: #fb877f;
+}
+
+.showComplete-btn:checked+label:after {
+	content: '✔';
+	position: absolute;
+	top: 2px;
+	left: 4px;
+	font-size: 14px;
+	color: #fff;
+}
+
+.review-booking-btn {
+	display: flex;
+	margin-top: 20px;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.review-link,
+.reBooking-link {
+	display: inline-block;
+	/* 너비를 적용할 수 있게 설정 */
+	width: 100%;
+	/* 원하는 너비를 설정 */
+	padding: 10px 20px;
+	/* 적절한 패딩 추가 */
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	text-align: center;
+	/* 텍스트 가운데 정렬 */
+}

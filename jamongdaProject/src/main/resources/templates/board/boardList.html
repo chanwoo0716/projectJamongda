@@ -94,7 +94,7 @@
 				<div th:if="${MemberDTO.admin_check=='Y'}">
 					
 				</div>-->	
-				<p align="center" class="write">
+				<p align="center" class="write" th:if="${session.isLogOn == true and session.admin != null}">
 					<a th:href="|javascript:fn_boardForm('/board/boardForm.do')|">글쓰기</a>
 				</p>
 			</div>
