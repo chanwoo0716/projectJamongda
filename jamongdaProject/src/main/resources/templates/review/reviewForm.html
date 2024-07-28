@@ -4,189 +4,11 @@
       layout:decorate="layout/layout">
 <head>
 <meta charset="UTF-8">
-<title>리뷰 작성</title>
+<title>JAMONGDA : 리뷰 작성</title>
+<link rel="stylesheet" th:href="@{/css/reviewForm.css}" />
+
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<style>
-    html,
-    body {
-        position: relative;
-        min-width: 1250px;
-        max-width: 1920px;
-        margin: 0 auto;
-    }
-
-    body {
-        background: rgb(252, 252, 252);
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        color: #000;
-        margin: 0 auto;
-        padding: 0 auto;
-    }
-    
-    .review-form-container {
-        width: 80%;
-        max-width: 600px;
-        margin: 40px auto;
-        padding: 20px;
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .review-form-container h1 {
-        font-size: 24px;
-        margin-bottom: 20px;
-        color: #333;
-    }
-
-    .form-control {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        border: 1px solid #ced4da;
-        border-radius: 4px;
-        box-sizing: border-box;
-        resize: none;
-    }
-
-    .form-control:focus {
-        border-color: #80bdff;
-        outline: none;
-        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
-    }
-
-    .file-upload-section {
-        position: relative;
-        width: 100%;
-        max-width: 400px;
-        margin: 20px auto;
-        text-align: center;
-    }
-
-    .file-upload-label img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 10px;
-        display: none;
-    }
-
-    .file-upload-label .placeholder {
-        display: block;
-    }
-
-    .file-upload-label img.show {
-        display: block;
-    }
-
-    .image-preview-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 20px;
-    }
-
-    .image-preview {
-        width: 100px;
-        height: 100px;
-        position: relative;
-        border: 2px solid #ccc;
-        border-radius: 10px;
-        overflow: hidden;
-        background: #f4f4f4;
-    }
-
-    .image-preview img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .remove-image-btn {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background: rgba(255, 255, 255, 0.7);
-        border: none;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .remove-image-btn::before {
-        content: '×';
-        font-size: 16px;
-        color: #f00;
-    }
-
-    .btn-add {
-        position: relative;
-        align-items: center;
-		justify-content: center;
-		width: 100px;
-		height: 100px;
-		display: flex;
-        padding: 10px 20px;
-		flex-wrap: wrap;
-		gap: 10px;
-		margin-top: 20px;
-        border-radius: 5px;
-        background-color: rgb(192, 192, 192);
-        color: #fff;
-        text-align: center;
-        font-size: 16px;
-        cursor: pointer;
-        border: none;
-        transition: background-color 0.3s ease;
-    }
-
-    .btn-add:hover {
-        background-color:rgb(114, 114, 114);
-    }
-
-    .btn-add img {
-        width: 30px;
-        height: 30px;
-    }
-
-    .file-upload-input {
-        display: none;
-    }
-
-    .image-preview-wrapper {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-top: 20px;
-    }
-
-    .image-count {
-        font-size: 16px;
-        color: #333;
-    }
-
-    .img-add-btn {
-        display: flex;
-        align-items: center;
-    }
-
-    .img-add-btn.hidden {
-        display: none;
-    }
-	
-	.btn-submit {
-		margin-top: 10px;
-	}
-</style>
 <script>
     let maxImages = 3;
 
@@ -268,14 +90,14 @@
             <form id="reviewForm" action="/review/insertReview.do" method="post" enctype="multipart/form-data" onsubmit="validateForm(event)">
                 <input type="hidden" name="ro_id" th:value="${ro_id}">
                 <input type="hidden" name="email" th:value="${guest.email}">
-                <div class="">
+                <div class="review_room">
                     <h3>이용한 숙소</h3>
                     <p id="acc_name" th:text="${acc_name}"></p>
                     <p id="ro_name" th:text="${ro_name}"></p>
                 </div>
                 
-                <div class="">
-                    <label for="review">리뷰</label>
+                <div class="review_info">
+                    <label for="review"></label>
                     <textarea id="rev_content" name="rev_content" rows="10" class="form-control" required
                               placeholder="좋은 여행되셨나요? 객실에 대한 솔직한 리뷰를 남겨주세요!"></textarea>
                 </div>
