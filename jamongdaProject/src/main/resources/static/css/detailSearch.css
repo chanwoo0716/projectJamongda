@@ -177,6 +177,10 @@ a {
   margin-left: 2%;
 }
 
+.deatail-room{
+	min-width: 800px;
+}
+
 .search_btn:hover{
 	color: #ff6f61;
 }
@@ -236,7 +240,7 @@ a {
 
 /*규림이 지도*/
 .aside_map {
-	width: 380px;
+	width: 100%;
 }
 
 .map_box2 {
@@ -244,16 +248,11 @@ a {
 	border-radius: 10px;
 }
 
-.deatail-room{
-	width: 150%;
-}
 .room_box {
 	width: 100%;
 	border: 1px solid #ddd;
 	border-radius: 10px;
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
 	padding: 2%;
 }
 
@@ -263,11 +262,16 @@ a {
 	/*이미지 영역 크기 수정*/
 }
 
+.room_image img{
+	margin: 5%;
+}
+
 .room_contents {
+	margin-left: 2%;
+	width: 65%;
 	display: flex;
 	flex-direction: column;
 	border-radius: 10px;
-	width: 70%;
 }
 
 .room_more {
