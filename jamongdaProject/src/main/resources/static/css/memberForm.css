@@ -18,10 +18,12 @@ button{
 }
 /*회원가입 영역*/
 .form-container {
-    width: 35%;
+    width: 37%;
     margin: auto;	
+	padding: 20px;
+    background-color: #fff;
     border-radius: 10px;
-
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 /*회원가입 제목*/
