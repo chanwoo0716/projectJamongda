@@ -41,7 +41,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     private String saveImage(MultipartFile image) throws IOException {
-        String uploadDir = "D:\\Hwang\\FileuploadRev/";
+        String uploadDir = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadRev/";
         String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
         File file = new File(uploadDir + fileName);
         

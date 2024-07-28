@@ -31,8 +31,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller("accommodationController")
 public class AccommodationControllerImpl implements AccommodationController {
 
-	private static String ACCOMMODATION_IMAGE_REPO = "D:\\Hwang\\FileuploadAcc";
-	private static String ROOM_IMAGE_REPO = "D:\\Hwang\\FileuploadRo";
+	private static String ACCOMMODATION_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadAcc";
+	private static String ROOM_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadRo";
 
 	@Autowired
 	private AccommodationService accommodationService;

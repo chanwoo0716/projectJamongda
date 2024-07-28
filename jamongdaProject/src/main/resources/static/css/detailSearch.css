@@ -240,7 +240,7 @@ a {
 
 /*규림이 지도*/
 .aside_map {
-	width: 100%;
+	width: 370px;
 }
 
 .map_box2 {
@@ -249,7 +249,7 @@ a {
 }
 
 .room_box {
-	width: 100%;
+	width: 970px;
 	border: 1px solid #ddd;
 	border-radius: 10px;
 	display: flex;
@@ -686,7 +686,7 @@ a {
 	padding: 20px;
 	border: 1px solid #ddd;
 	border-radius: 8px;
-	margin-top: 70px;
+	margin-top: 100px;
 }
 
 /* 지도 제목 스타일 */
