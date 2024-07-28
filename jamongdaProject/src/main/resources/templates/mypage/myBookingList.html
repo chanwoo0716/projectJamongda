@@ -4,188 +4,12 @@
       layout:decorate="layout/layout">
 <head>
 <meta charset="UTF-8">
-<title>전체 예약내역</title>
+<title>JAMONGDA : 전체예약내역</title>
 <link rel="stylesheet" th:href="@{/css/myBookingList.css}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" th:src="@{/js/common.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<style>
-	html,
-	body {
-	  position: relative;
-	  min-width: 1250px;
-	  max-width: 1920px;
-	  margin: 0 auto;
-	}
 
-	body {
-	  background: rgb(252, 252, 252);
-	  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-	  font-size: 14px;
-	  color: #000;
-	  margin: 0 auto;
-	  padding: 0 auto;
-	  /*background-color: #f4f4f4;*/
-	}
-
-    .mypage-container {
-        width: 40%;
-        margin: 50px auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .header {
-        text-align: left;
-        margin-bottom: 20px;
-    }
-
-    .header h1 {
-        margin: 0;
-        font-size: 24px;
-        color: #333;
-    }
-
-    .header p {
-        margin: 5px 0 20px;
-        color: #777;
-    }
-
-    .reviews {
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background-color: #fafafa;
-        margin-bottom: 20px;
-    }
-
-	.review-link, .reBooking-link {
-		margin-top: 10px;
-		padding: 10px 50px;
-		border: 1px solid #ddd;
-		border-radius: 5px;
-		background-color: #fafafa;
-	}
-
-	.review-link:hover, .reBooking-link:hover {
-	    background-color: rgb(212, 212, 212); /* Darker green on hover */
-	}
-	
-    .booking-history h2 {
-        margin-bottom: 20px;
-    }
-
-    .booking-card {
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background-color: #fafafa;
-        padding: 20px;
-        margin-bottom: 20px;
-    }
-
-    .booking-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 10px;
-        margin-bottom: 10px;
-    }
-
-    .booking-header .booking-date,
-    .booking-header .booking-number {
-        font-size: 14px;
-        color: #777;
-    }
-
-    .details-link {
-        color: #1a73e8;
-        text-decoration: none;
-        font-size: 14px;
-    }
-
-    .booking-content {
-        display: flex;
-        align-items: center;
-    }
-
-    .acc-image {
-        border-radius: 5px;
-        margin-right: 20px;
-    }
-
-    .hotel-info {
-        font-size: 14px;
-    }
-
-    .hotel-info .acc-name {
-        font-weight: bold;
-        font-size: 1.4em;
-        margin-bottom: 5px;
-    }
-
-    .hotel-info .ro_name,
-    .hotel-info .booking-dates,
-    .hotel-info .check-in-out {
-        margin-bottom: 5px;
-		font-size: 1.2em;
-    }
-	
-	.showComplete-btn {
-	    display: none;
-	}
-
-	.showComplete-btn + label {
-	    position: relative;
-	    padding-left: 25px;
-	    cursor: pointer;
-	    font-size: 16px;
-	}
-
-	.showComplete-btn + label:before {
-	    content: '';
-	    position: absolute;
-	    left: 0;
-	    top: 2px;
-	    width: 16px;
-	    height: 16px;
-	    border: 1px solid #fb877f;
-	    background: #fff;
-	    border-radius: 4px;
-	}
-
-	.showComplete-btn:checked + label:before {
-	    background: #fb877f;
-	    border-color: #fb877f;
-	}
-
-	.showComplete-btn:checked + label:after {
-	    content: '✔';
-	    position: absolute;
-	    top: 2px;
-	    left: 4px;
-	    font-size: 14px;
-	    color: #fff;
-	}
-	.review-booking-btn {
-		display: flex;
-		margin-top: 20px;
-		justify-content: center;
-		align-items: center;
-		gap: 5px;
-	}
-
-	.review-link, .reBooking-link {
-	    display: inline-block; /* 너비를 적용할 수 있게 설정 */
-	    width: 100%; /* 원하는 너비를 설정 */
-	    padding: 10px 20px; /* 적절한 패딩 추가 */
-	    border: 1px solid #ddd;
-	    border-radius: 5px;
-	    text-align: center; /* 텍스트 가운데 정렬 */
-	}
-</style>
 <script>
 	$(document).ready(function() {
 	    // 체크박스 클릭 시 필터링
@@ -218,35 +42,37 @@
 </head>
 <body>
     <th:block layout:fragment="content">
-		<div class="mypage-container">
-		    <div class="header">
-		        <h1>예약 내역</h1>
-				<input type="checkbox" id="showCompleted" class="showComplete-btn"/>
-				<label for="showCompleted">이용완료 내역 보기</label>
-		    </div>
-		    <div id="booking-history" class="booking-history">
-		        <div class="booking-card" th:each="booking : ${bookingList}">
-		            <div class="booking-header">
-		                <span class="booking-number" th:text="'예약번호 : ' + ${booking['bo_number']}"></span>
-		                <span class="booking-date" th:text="'결제일자 : ' + ${booking['payDate']}"></span>
-		                <a href="#" class="details-link" th:attr="onclick='openPopup(' + ${booking['bo_number']} + ')'">상세보기</a>
-		            </div>
-		            <div class="booking-content">
-		                <div class="hotel-info">
-		                    <div class="acc-name" th:text="${booking['acc_name']}"></div>
-							<input type="hidden" name="ro_id" th:value="${booking.ro_id}">
-		                    <div class="ro_name" th:text="${booking['ro_name']}"></div>
-							<br>
-		                    <div class="booking-dates" th:text="'숙박일자 : ' + ${booking['bo_checkIn']} + ' ~ ' + ${booking['bo_checkOut']}"></div>
-		                    <div class="check-in-out" th:text="'체크인 ' + ${booking['ro_checkIn']} + ' | 체크아웃 ' + ${booking['ro_checkOut']}"></div>
-		                </div>
-		            </div>
-		            <div class="review-booking-btn">
-						<a id="review-button" th:href="@{/review/reviewForm.do(number=${booking.bo_number},rid=${booking.ro_id},aname=${booking.acc_name},rname=${booking.ro_name})}" class="review-link" th:if="${booking.isPastCheckout}">리뷰 등록</a>
-						<a th:href="@{/search/detailSearch.do(aid=${booking.acc_id})}" class="reBooking-link">다시 예약</a>
-		            </div>
-		        </div>
-		    </div>
+		<div id="booking-top">
+			<div class="mypage-container">
+			    <div class="header">
+			        <h1>예약 내역</h1>
+					<input type="checkbox" id="showCompleted" class="showComplete-btn"/>
+					<label for="showCompleted">이용완료 내역 보기</label>
+			    </div>
+			    <div id="booking-history" class="booking-history">
+			        <div class="booking-card" th:each="booking : ${bookingList}">
+			            <div class="booking-header">
+			                <span class="booking-number" th:text="'예약번호 : ' + ${booking['bo_number']}"></span>
+			                <span class="booking-date" th:text="'결제일자 : ' + ${booking['payDate']}"></span>
+			                <a href="#" class="details-link" th:attr="onclick='openPopup(' + ${booking['bo_number']} + ')'">상세보기</a>
+			            </div>
+			            <div class="booking-content">
+			                <div class="hotel-info">
+			                    <div class="acc-name" th:text="${booking['acc_name']}"></div>
+								<input type="hidden" name="ro_id" th:value="${booking.ro_id}">
+			                    <div class="ro_name" th:text="${booking['ro_name']}"></div>
+								<br>
+			                    <div class="booking-dates" th:text="'숙박일자 : ' + ${booking['bo_checkIn']} + ' ~ ' + ${booking['bo_checkOut']}"></div>
+			                    <div class="check-in-out" th:text="'체크인 ' + ${booking['ro_checkIn']} + ' | 체크아웃 ' + ${booking['ro_checkOut']}"></div>
+			                </div>
+			            </div>
+			            <div class="review-booking-btn">
+							<a id="review-button" th:href="@{/review/reviewForm.do(number=${booking.bo_number},rid=${booking.ro_id},aname=${booking.acc_name},rname=${booking.ro_name})}" class="review-link" th:if="${booking.isPastCheckout}">리뷰 등록</a>
+							<a th:href="@{/search/detailSearch.do(aid=${booking.acc_id})}" class="reBooking-link">다시 예약</a>
+			            </div>
+			        </div>
+			    </div>
+			</div>
 		</div>
     </th:block>
 </body>
