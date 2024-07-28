@@ -1,337 +1,788 @@
 @charset "utf-8";
-*{
-            margin: 0;
-            box-sizing: border-box;
-        }
-        ul,li{
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        button{
-            background-color: transparent;
-            border: none;
-        }
-        a{
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        .wrapper{
-            width: 1200px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-        .hidden{
-            display: none;
-        }
-        .header_wrap{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            
-        }
-        .navInfobox{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .navInfobox>ul{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-        .navInfobox>ul>li{
-            margin-left: 20px;
-        }
-        .mainmenu{
-            position: relative;
-        }
-        .mainmenu>button{
-            cursor: pointer;
-        }
-        .submenu{
-            position: absolute;
-            width: 100px;
-            height: 150px;
-            background-color: #fff;
-            top: 40px;
-            left: -60px;
-            border-radius: 10px;
-            padding: 10px;
-            z-index: 3;
-        }
-        .sct1_wrap{
-            padding: 30px 0;
-        }
-        .search_wrap{
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-         display: inline-block;
-        }
-      .search_wrap form{
-         display: flex;
-         justify-content: space-between;
-      }
-        .search_wrap input{
-            height: 60px;
-            border-radius: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-      .search_wrap input[type="search"],.search_wrap input[type="text"]{
-         width: 30%;
-      }
-      .search_wrap input[type="submit"]{
-         width: 8%;
-		 cursor:pointer;
-      }        
-        .search_submit{
-            display: inline-block;
-            background-color:transparent;
-        }
-        .bg_parent{
-            position: relative;
-            height: 100%;
-        }
-        .backgrounImage_wrap{
-            position: absolute;
-            width: 100%;
-            height: 440px;
-            background-image: url(./images/bg1.jpg);
-            background-position: center;
-            background-size: 100% 100%;
-            top: 0;
-            left: 0;
-        }
-      .acc_content{
-         text-align: left;
-      }
-     .acc_title{
-      margin-bottom: 20px;
-     }
-        .acc_imagebox,.map_box{
-            height: 430px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-        }
-      .acc_imagebox5{
-         height: 430px;
-         border: 1px solid blue;
-         /*display: flex;*/
-         display: none;
-      }
-      .flex1{
-         width: 50%;
-         height: 100%;
-      }
-      .flex2,.flex3{
-         width: 50%;
-         height: 50%;
-         margin-left:10px;
-         flex-direction: row;
-         
-      }
-      .acc_imagebox5 .img{
-         width: 100%;
-         height: 100%;
-         margin-right: 10px;
-         
-      }
-      .flex2 .img:first-child,.flex3 .img:first-child{
-         padding-bottom: 10px;
-      }
-      .acc_imagebox5 .img>img{
-         width: 100%;
-         height: 100%;
-         border-radius: 20px;
-      }
-      .acc_imagebox5>.img:first-child{
-         width: 590px;
-      }
-        .acc_imagebox>.img{
-            width: 33%;
-            height: 390px;
-            border-radius: 20px;
-         
-        }
-      
-      .acc_imagebox5>.img{
-         width:20%;
-         height: 390px;
-         border-radius: 20px;
-         
-      }
-      
-      .acc_imagebox>.img>img{
-         width: 100%;
-         height: 100%;
-         border-radius: 20px;
-      }
-      .acc_imagebox5>.img>img{
-         width: 100%;
-         height: 100%;
-         border-radius: 20px;
-      }      
-        .contents_flexbox{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        .acc_content .content_box{
-            width: 792px;
-        }
-      .review{
-         margin-bottom: 40px;
-      }
-      .user_name{
-         font-size: 0.8em;
-          margin-top: 10px;
-          font-weight:bold;
-      }
-      .user_date{
-         font-size: 0.8em;
-      }
-      .review>a{
-         font-weight: 700;
-         margin-bottom: 10px;
-         display: block;
-      }
-        .aside_map{
-            width: 380px;
-        }
-        .map_box2{
-            height: 135px;
-            border-radius: 10px;
-        }
-        .room_box{
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            height: 308px;
-            padding: 24px;
-        }
-        .room_image{
-            border-radius: 10px;
-            width: 224px;   /*이미지 영역 크기 수정*/
-            height: 224px;
-        }
-      .room_image img{
-         border-radius: 10px;
-      }
-        .room_contents{
-            display: flex;
-            flex-direction: column;
-            border-radius: 10px;
-            width: 500px;
-        }
-        .room_more{
-         width: 40%;
-          text-align: right;        
-        }
-      .roomList{
-         margin-top: 20px;
-      }
-        .roomList .contente_box1{
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .roomList .contente_box2{
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-      .room_price{
-         display: inline;
-         font-size: 2em;
-      }
-        .res_button>button{
-            background-color: #ff6f61;
-            color: #fff;
-            border-radius: 10px;
-            padding: 10px;
-            cursor: pointer;
-         float: right;
-        }
-      .room_info strong{
-         color: #555;
-         font-size: 0.7em;
-      }
-      .room_info p{
-         display: inline;
-         margin-left: 15px;
-      }
-      .use_caution{
-         margin: 20px 0;
-      }
-      .use_caution h2{
-         margin-bottom:10px;
-      }
-      .use_caution p, .use_caution ul{
-         margin-bottom:40px;
-      }
-      .use_caution ul{
-         font-weight: 700;
-      }
-      .use_caution li{
-         font-weight: 100;
-          margin-bottom: 20px;
-      }
-      .use_caution>div{
-         margin: 20px 0;
-      }
-      .review_box{
-         display: flex;
-         flex-wrap: wrap;
-         padding-top: 30px;
-         padding-bottom: 30px;
-         border-bottom: 1px solid #ddd;
-      }
-      .review_title{
-         width: 1200px;
-         padding: 10px 0;
-         border-bottom: 1px solid #ddd;
-      }
-      .review_user{
-         width: 30%;
-         display: flex;
-      }
-      .review_content{
-         width: 70%;
-      }
-      .user_image{
-         background-color: aqua;
-         width: 45px;
-         height: 45px;
-         border-radius: 50%;
-         margin-right: 20px;
-      }
-      .review_imagesbox{
-         display: flex;      
-      }
-      .review_image{
-         border: 1px solid aquamarine;
-         width: 200px;
-         height: 200px;
-         border-radius: 20px;
-         margin-right: 20px;
-         margin-bottom: 20px;
-      }
-      .pagination{
-         width: 1200px;
-         padding: 10px 0;
-      }
-      .pagination ul{
-              width: 100%;
-                  display: flex;
-                  justify-content: center;
-              }
-              .pagination ul li{
-                  padding: 0 10px;
-              }
+
+* {
+	box-sizing: border-box;
+}
+
+ul,
+li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+button {
+	background-color: transparent;
+	border: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.wrapper {
+	width: 80%;
+	margin: 0 auto;
+	padding: 20px 0;
+}
+
+.hidden {
+	display: none;
+}
+
+.sct1_wrap {
+	padding: 2% 0;
+}
+
+.search_wrap {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	display: inline-block;
+}
+
+.search_wrap input[type="search"],
+.search_wrap input[type="text"] {
+	width: 30%;
+}
+
+.search_wrap input[type="submit"] {
+	width: 8%;
+	cursor: pointer;
+}
+
+
+#form2 {
+  width: 100%;
+  margin: 0 auto;
+  top: 68%;
+  left: 6%;
+
+  padding: 1% 2% 1% 4%;
+  border-radius: 20px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 숙소 검색 영역 */
+.inputWrap {
+  position: relative;
+  width: 25%;
+  float: left;
+  margin-right: 5%;
+  box-sizing: border-box;
+}
+
+#acc_name {
+  width: 100%;
+  padding-right: 5%;
+  padding-left: 18%;
+  height: 50px;
+  background-color: rgb(256, 256, 256);
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  
+  border-radius: 15px;
+  border:1px solid #ff6f61;
+}
+
+/* 돋보기 아이콘 */
+.fa-search {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  font-size: 1.4em;
+  transform: translateY(-50%);
+}
+
+/* 지역 검색 영역 */
+.location {
+  position: relative;
+  width: 25%;
+  float: left;
+  margin-right: 5%;
+  box-sizing: border-box;
+}
+
+.fa-location-dot {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  font-size: 1.4em;
+  transform: translateY(-50%);
+}
+
+#acc_area {
+  width: 100%;
+  height: 50px;
+  border: none;
+  background-color: rgba(256, 256, 256, 0.8);
+  font-size: 1em;
+  font-weight: bold;
+  color: black;
+  padding-right: 5%;
+  padding-left: 18%;
+  
+  border-radius: 15px;
+  border:1px solid #ff6f61;
+}
+
+/* 날짜 검색 영역 */
+.search_In {
+  position: relative;
+  width: 30%;
+  float: left;
+  box-sizing: border-box;
+}
+
+#bo_checkIn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  background-color: rgba(256, 256, 256, 0.8);
+  font-size: 1em;
+  font-weight: bold;
+  color: black;
+  padding-left: 20%;
+  
+  border-radius: 15px;
+  border:1px solid #ff6f61;
+}
+
+.fa-calendar-days {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  font-size: 1.4em;
+  transform: translateY(-50%);
+}
+
+/* 검색 버튼 */
+.search_btn {
+  position: relative; /* 검색 버튼을 다른 요소와 일렬로 배치하기 위해 상대 위치 설정 */
+  float: left; /* 검색 필드와 일렬로 배치 */
+  max-width: 10%; /* 검색 버튼의 최대 너비 설정 */
+  height: 50px; /* 다른 입력 필드와 동일한 높이 설정 */
+  background: none;
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  text-align: center;
+  padding: 0;
+  margin-top: 0; /* 상단 마진 제거 */
+  margin-left: 2%;
+}
+
+.search_btn:hover{
+	color: #ff6f61;
+}
+
+.acc_images{
+	width: 100%;
+	margin: 0 auto;
+}
+
+.acc_imagebox,
+.map_box {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+
+.acc_imagebox>.img {
+	width: 33%;
+	height: 390px;
+}
+
+.acc_imagebox>.img>img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.contents_flexbox {
+	width: 78%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.acc_title{
+	margin-bottom: 2%;
+}
+
+.acc_title>h1{
+	font-size: 2em;
+}
+.acc_content .content_box {
+	margin: 0 auto;
+}
+
+.review {
+	width: 80%;
+	margin: 0 auto;
+	margin-bottom: 10%;
+}
+.review>a {
+	font-weight: 700;
+	margin-bottom: 10px;
+	display: block;
+}
+
+/*규림이 지도*/
+.aside_map {
+	width: 380px;
+}
+
+.map_box2 {
+	height: 135px;
+	border-radius: 10px;
+}
+
+.deatail-room{
+	width: 150%;
+}
+.room_box {
+	width: 100%;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 2%;
+}
+
+.room_image {
+	border-radius: 10px;
+	width: 30%;
+	/*이미지 영역 크기 수정*/
+}
+
+.room_contents {
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+	width: 70%;
+}
+
+.room_more {
+	width: 40%;
+	text-align: right;
+}
+
+.roomList {
+	margin-top: 20px;
+}
+
+.roomList .contente_box1 {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 2%;
+}
+
+.roomList .contente_box2 {
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.room_price {
+	display: inline;
+	font-size: 1.5em;
+}
+
+.res_button>button {
+	background-color: #ff6f61;
+	color: #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	float: right;
+	padding: 7% 10%;
+}
+
+.room_info strong {
+	color: #555;
+	font-size: 0.7em;
+}
+
+.room_info p {
+	display: inline;
+	margin-left: 15px;
+}
+
+.use_caution {
+	border-top: 1px solid #ccc;
+	margin: 10% 0;
+}
+
+.use_caution h2 {
+	margin-top: 10%;
+}
+
+.use_caution p,
+.use_caution ul {
+	margin-bottom: 40px;
+}
+
+.use_caution ul {
+	font-weight: 700;
+}
+
+.use_caution li {
+	font-weight: 100;
+	margin-bottom: 20px;
+}
+.use_caution > p {
+	border-bottom: 1px solid #ccc;
+	margin: 5% 0;
+	padding-bottom: 10%;
+}
+
+.review_box {
+	display: flex;
+	flex-wrap: wrap;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid #ddd;
+}
+
+.review_title {
+	width: 1200px;
+	padding: 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+.review_user {
+	width: 30%;
+	display: flex;
+}
+
+.review_content {
+	width: 70%;
+}
+
+.user_image {
+	background-color: aqua;
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	margin-right: 20px;
+}
+
+.review_imagesbox {
+	display: flex;
+}
+
+.review_image {
+	border: 1px solid aquamarine;
+	width: 200px;
+	height: 200px;
+	border-radius: 20px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+.pagination {
+	width: 1200px;
+	padding: 10px 0;
+}
+
+.pagination ul {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.pagination ul li {
+	padding: 0 10px;
+}
+
+.popup {
+	font-size: 0.8em;
+	display: none;
+	/* 기본적으로 숨김 */
+	position: fixed;
+	/* 고정 위치 */
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* 반투명 배경 */
+	justify-content: center;
+	align-items: center;
+
+	opacity: 0;
+	/* 초기 상태 투명 */
+	transition: opacity 0.2s ease;
+	/* 투명도 변화 애니메이션 */
+	z-index: 9999;
+	/* 팝업이 최상단에 오도록 z-index 설정 */
+}
+
+.popup.show {
+	display: flex;
+	/* 보이게 하기 */
+	opacity: 1;
+	/* 불투명 */
+}
+
+.popup h3 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	color: #49627A;
+}
+
+.popup-content {
+	background-color: #fff;
+	padding: 40px;
+	border-radius: 12px;
+	text-align: left;
+	/* 글씨를 왼쪽으로 배치 */
+	width: 600px;
+	height: auto;
+	max-height: 500px;
+	margin: auto;
+	position: relative;
+	overflow-y: auto;
+
+	transform: scale(0.8);
+	/* 축소된 상태에서 시작 */
+	transition: transform 0.3s ease;
+	/* 크기 변화 애니메이션 */
+	z-index: 9999;
+}
+
+.popup.show .popup-content {
+	transform: scale(1);
+	/* 원래 크기 */
+}
+
+.popup-content::-webkit-scrollbar {
+	width: 10px;
+	/* 스크롤바의 너비 */
+	margin-right: 5px;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+	height: 30%;
+	/* 스크롤바의 길이 */
+	background: #EBEBEB;
+	/* 스크롤바의 색상 */
+	border-radius: 10px;
+}
+
+.popup-title {
+	text-align: center;
+	/* 제목은 가운데 정렬 */
+	margin-bottom: 20px;
+	/* 아래 여백 추가 */
+}
+
+.close {
+	position: absolute;
+	top: 5px;
+	left: 15px;
+	font-size: 35px;
+	cursor: pointer;
+}
+
+.popup-section {
+	border-bottom: 1px solid #EBEBEB;
+	/* 구분을 위한 아래 경계선 */
+	padding-bottom: 20px;
+	margin-top: 10px;
+}
+
+.room-info-list {
+	list-style-type: none;
+	/* 기본 리스트 스타일 제거 */
+	padding: 0;
+	margin: 0;
+}
+
+.room-info-list li {
+	margin-bottom: 10px;
+	/* 항목 간의 간격 조정 */
+}
+
+#CancleRefundReg {
+	border: 1px solid #FFF6F6;
+	/* 10px로 설정하면 너무 두꺼울 수 있어 1px로 설정 */
+	background-color: #FFF6F6;
+	/* 배경색 설정 */
+	padding: 10px;
+	/* 내부 여백 추가 */
+}
+
+#CancleRefundReg h3 {
+	color: #F45858;
+	/* 글씨 색상 변경 */
+}
+
+#CancleRefundReg ul {
+	list-style-type: none;
+	/* 기본 리스트 스타일 제거 */
+	padding: 0;
+	margin: 0;
+}
+
+#CancleRefundReg ul li {
+	color: #F45858;
+	/* 글씨 색상 변경 */
+	margin-bottom: 10px;
+	/* 항목 간의 간격 조정 */
+}
+
+/* 규림추가 삭제하지마!!!!! ajax 리뷰영역이야!!!!*/
+
+.review_imagesbox {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.review_image img {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+
+.review_user {
+	display: flex;
+	flex-direction: column;
+	/* 세로로 배치 */
+}
+
+.user_email {
+	margin-bottom: 5px;
+	/* 이메일과 날짜 간의 간격 조정 */
+}
+
+.review_date {
+	color: #777;
+	font-size: 12px;
+}
+
+.review_text .preview_content,
+.review_text .full_content {
+	margin-top: 10px;
+	/* 리뷰 내용 위쪽 여백 */
+	white-space: pre-wrap;
+	/* 공백과 줄바꿈 유지 */
+}
+
+.review_text .full_content {
+	display: none;
+	/* 기본적으로 숨김 */
+}
+
+.more {
+	display: block;
+	margin-top: 10px;
+	color: rgb(0, 0, 0);
+	cursor: pointer;
+	font-weight: bold;
+}
+
+/* 규림추가 삭제하지마!!!! 객실 이미지 팝업창!!!*/
+.swiper {
+	width: 80%;
+	height: 80%;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+	width: 50px !important;
+	/* 버튼 너비 조정 */
+	height: 40px !important;
+	/* 버튼 높이 조정 */
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+	font-size: 50px !important;
+	/* 아이콘 크기 조정 */
+	font-weight: bold !important;
+	/* 아이콘 두께 조정 */
+	color: rgb(255, 255, 255) !important;
+	/* 아이콘 색상 */
+}
+
+.swiper-pagination {
+	color: #EBEBEB !important;
+	/* 페이지네이션 색상 조정 */
+	font-size: 2em !important;
+	/* 페이지네이션 글자 크기 조정 */
+}
+
+#imgPopupContainer {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	z-index: 9999;
+}
+
+.img-popup-content {
+	background: #fff;
+	padding: 20px;
+	border-radius: 5px;
+	position: relative;
+	max-width: 80%;
+	max-height: 80%;
+	overflow-y: auto;
+}
+
+.img-popup-content .img-close {
+	position: absolute;
+	top: 10px;
+	cursor: pointer;
+	font-size: 3.5em;
+	color: #000;
+	background-color: rgba(255, 255, 255, 0.7);
+	border-radius: 50%;
+	text-align: center;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 규림추가 삭제하지마!!!! 지도 관련 css*/
+/* 지도 컨테이너의 스타일 */
+.aside_map {
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	margin-top: 70px;
+}
+
+/* 지도 제목 스타일 */
+.aside_map h2 {
+	font-size: 18px;
+	margin-bottom: 10px;
+	color: #333;
+}
+
+/* 지도의 스타일 */
+#map {
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+/* 주소 텍스트 스타일 */
+.aside_map p {
+	font-size: 17px;
+	color: #555;
+	margin: 10px 0;
+}
+
+/* 버튼의 스타일 */
+/* 버튼과 주소를 나란히 배치할 컨테이너의 스타일 */
+.routeButton-container {
+	display: flex;
+	align-items: center;
+	/* 세로 중앙 정렬 */
+	flex-wrap: wrap;
+	/* 주소가 길어질 경우 다음 줄로 넘어가도록 설정 */
+	gap: 10px;
+	/* 주소와 버튼 사이의 간격 */
+	margin-top: 20px;
+}
+
+/* 주소 텍스트의 스타일 */
+.routeButton-container p {
+	font-size: 17px;
+	/* 폰트 사이즈 */
+	color: #555;
+	/* 텍스트 색상 */
+	margin: 0;
+	/* 마진을 0으로 설정하여 버튼과의 간격을 조정합니다 */
+	padding-right: 10px;
+	/* 버튼과의 간격을 위한 패딩 추가 */
+	flex: 1;
+	/* 주소 텍스트가 가능한 공간을 차지하도록 합니다 */
+	word-break: break-word;
+	/* 긴 주소가 박스를 넘어가지 않도록 합니다 */
+}
+
+#routeButton {
+	width: 50px;
+	/* 버튼의 너비 */
+	height: 50px;
+	/* 버튼의 높이 */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 16px;
+	color: rgb(0, 0, 0);
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 50%;
+	/* 동그란 모양 */
+	cursor: pointer;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
+	margin-left: 10px;
+	/* 주소와의 간격 */
+}
+
+#routeButton img {
+	width: 30px;
+	/* 아이콘 이미지의 너비 */
+	height: 30px;
+	/* 아이콘 이미지의 높이 */
+}
+
+#routeButton:hover {
+	background-color: rgb(238, 238, 238);
+}
+
+/* 주소 텍스트의 스타일 */
+#addressText {
+	display: inline-block;
+	font-size: 14px;
+	color: #555;
+	margin-right: 10px;
+	/* 버튼과의 간격 */
+	max-width: calc(100% - 70px);
+	/* 버튼 너비를 제외한 최대 너비 */
+	overflow-wrap: break-word;
+	/* 자동 줄바꿈 */
+}
+
+/* 버튼과 텍스트를 나란히 배치할 컨테이너의 스타일 */
+.routeButton-container {
+	display: flex;
+	align-items: center;
+	/* 세로 중앙 정렬 */
+	margin-top: 20px;
+}
