@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller("revFileDownload")
 public class RevFileDownloadController {
-    private static final String REVIEW_IMAGE_REPO = "/Users/frozen-ji/Desktop/images/FileuploadRev";
+    private static final String REVIEW_IMAGE_REPO = "D:\\Hwang\\FileuploadRev";
 
     @GetMapping("/review/downloadImage")
     public void fileDown(@RequestParam("rev_image") String rev_image,
