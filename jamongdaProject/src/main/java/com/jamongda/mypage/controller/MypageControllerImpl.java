@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jamongda.member.dto.MemberDTO;
 import com.jamongda.mypage.service.MypageService;
 import com.jamongda.review.dto.ReviewDTO;
+import com.jamongda.search.service.SearchService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +30,9 @@ public class MypageControllerImpl implements MypageController {
 
     @Autowired
     MypageService mypageService;
+    
+    @Autowired
+    SearchService searchService;
 
     @Override
     @GetMapping("/mypage/mypage.do")
