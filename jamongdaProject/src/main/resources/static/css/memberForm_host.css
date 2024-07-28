@@ -83,6 +83,10 @@ small {
 	font-size: 1.1em;
 }
 
+.mail-check-input{
+	margin-top: 3%;
+}
+
 #checkEmailBtn:hover,.btn-primary:hover, #phone-Check-Btn:hover,#checkBtn:hover
 , .findPostCode:hover, .valRegNumber:hover
 {
@@ -140,10 +144,10 @@ small {
 }
 
 #emailChk_msg, #pwdChk_msg, #mail-check-warn {
-    font-size: 12px;
-	margin-left: 5%;
-		
+	font-size: 12px;
 	font-weight: bold;
+	
+	margin-left: 2%;
 }
 
 .mail-check-box {

@@ -82,6 +82,10 @@ small {
 	font-size: 1.1em;
 }
 
+.mail-check-input{
+	margin-top: 3%;
+}
+
 #checkEmailBtn:hover,.btn-primary:hover, #phone-Check-Btn:hover,#checkBtn:hover
 , .findPostCode:hover
 {
@@ -118,7 +122,7 @@ small {
 }
 
 #address1, #address2{
-	width: 60%;
+	width: 63%;
 	margin-bottom: 2%;
 }
 /*가입하기 버튼*/
@@ -144,9 +148,9 @@ small {
 
 #emailChk_msg, #pwdChk_msg, #mail-check-warn {
     font-size: 12px;
-	margin-left: 5%;
-	
 	font-weight: bold;
+	
+	margin-left: 2%;
 }
 
 .mail-check-box {
