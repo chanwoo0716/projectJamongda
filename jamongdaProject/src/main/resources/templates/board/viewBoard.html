@@ -43,7 +43,7 @@
 					<div th:utext="${board.board_content}" class="view_content"></div>
 				</div>
 				
-				<div class="view_btn">
+				<div class="view_btn" th:if="${session.isLogOn == true and session.admin != null}">
 					<input type="button" value="수정하기" th:onclick="fn_modBoardForm(ftmBoard)">
 					<input type="button" value="삭제하기" th:onclick="fn_remove_board('/board/removeBoard.do', [[${board.board_id}]])">
 				</div>

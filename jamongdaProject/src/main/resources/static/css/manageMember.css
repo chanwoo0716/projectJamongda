@@ -63,17 +63,13 @@ h2 {
 .pagination button {
     margin: 0 5px;
     padding: 5px 10px;
-    background-color: #ffbcb5;
-    color: white;
+    color: black;
+	background-color: rgb(252, 252, 252);
     border: none;
     cursor: pointer;
 	font-weight:bold;
 }
 
-.pagination button:hover {
-    background-color: #FF3F30;
-}
-
 .pagination button.active {
-    background-color: #FF3F30;
+    color: #FF6F61;
 }
