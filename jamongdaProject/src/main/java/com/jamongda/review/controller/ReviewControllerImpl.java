@@ -98,5 +98,21 @@ public class ReviewControllerImpl implements ReviewController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
+	
+	// 리뷰 삭제하기
+	@PostMapping("/review/deleteReviews")
+	public ResponseEntity<?> deleteReviews(@RequestParam("id") int rev_id) {
+        try {
+            boolean isDeleted = reviewService.deleteReviewById(rev_id);
+            if (isDeleted) {
+                return ResponseEntity.ok("리뷰가 성공적으로 삭제되었습니다.");
+            } else {
+                return ResponseEntity.status(404).body("리뷰를 찾을 수 없습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("리뷰 삭제 중 오류가 발생했습니다.");
+        }
+		
+	}
 
 }

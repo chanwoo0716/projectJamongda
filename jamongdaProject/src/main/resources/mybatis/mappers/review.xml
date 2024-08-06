@@ -66,4 +66,14 @@
         WHERE ro_id = #{ro_id}
     </select>
     
+    <!-- rev_id로 리뷰 조회 -->
+    <select id="existById" parameterType="int" resultType="boolean">
+    	select count(*) from review where rev_id=#{rev_id}
+    </select>
+    
+    <!-- rev_id로 리뷰 삭제 -->
+    <delete id="deleteById" parameterType="int">
+    	delete from review where rev_id=#{rev_id}
+    </delete>
+    
 </mapper>

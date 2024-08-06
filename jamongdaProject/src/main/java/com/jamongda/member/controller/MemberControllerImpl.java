@@ -99,7 +99,7 @@ public class MemberControllerImpl implements MemberController {
 			HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		memberDTO = memberService.findInfo(email);
-		ModelAndView mav = new ModelAndView("/member/updateMemberForm");
+		ModelAndView mav = new ModelAndView("member/updateMemberForm");
 		mav.addObject("member", memberDTO);
 		return mav;
 	}
@@ -110,7 +110,7 @@ public class MemberControllerImpl implements MemberController {
 			HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		memberDTO = memberService.findInfo(email);
-		ModelAndView mav = new ModelAndView("/member/updateMemberForm_host");
+		ModelAndView mav = new ModelAndView("member/updateMemberForm_host");
 		mav.addObject("member", memberDTO);
 		return mav;
 	}
@@ -254,9 +254,6 @@ public class MemberControllerImpl implements MemberController {
 
         return mav;
     }
-
-
-
 	
     @Override
     @GetMapping("/member/logout.do")

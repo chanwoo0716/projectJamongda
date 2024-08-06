@@ -26,6 +26,7 @@
 	    <result property="email" column="email"/>
 	    <result property="ro_id" column="ro_id"/>
 	    <result property="ro_name" column="ro_name"/>
+	    <result property="acc_name" column="acc_name"/>
 	    <collection property="images" ofType="com.jamongda.review.dto.ReviewImageDTO">
 	        <id property="rev_image_id" column="rev_image_id"/>
 	        <result property="rev_image" column="rev_image"/>
@@ -67,9 +68,11 @@
     
 	<!-- 회원 이메일로 작성한 리뷰와 이미지를 조인하여 가져오기 -->
 	<select id="getReviewsWithImagesByEmail" parameterType="map" resultMap="reviewResultMap">
-	    SELECT r.rev_id, r.rev_content, r.rev_date, r.email, r.ro_id,
+	    SELECT r.rev_id, r.rev_content, r.rev_date, r.email, r.ro_id, ro.ro_name, a.acc_name, 
 	           ri.rev_image_id, ri.rev_image
 	    FROM review r
+	    LEFT JOIN room ro ON r.ro_id = ro.ro_id
+	    LEFT JOIN accommodation a ON ro.acc_id = a.acc_id
 	    LEFT JOIN review_image ri ON r.rev_id = ri.rev_id
 	    WHERE r.email = #{email}
 	    LIMIT #{size} OFFSET #{offset}

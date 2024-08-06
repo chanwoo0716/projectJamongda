@@ -13,4 +13,7 @@ public interface ReviewService {
 	
     // 숙소 상세페이지에 리뷰 출력(acc_id)
     public List<ReviewDTO> getReviewsByAccId(int acc_id, int page, int size) throws Exception;
+    
+    // 리뷰 삭제하기
+    public boolean deleteReviewById(int rev_id) throws Exception;
 }

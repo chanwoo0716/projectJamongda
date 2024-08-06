@@ -54,8 +54,4 @@ public class MypageServiceImpl implements MypageService {
         return mypageDAO.getRoomNameById(ro_id);
     }
     
-//    @Override
-//    public List<ReviewDTO> getReviewsByAccId(int acc_id) throws Exception {
-//        return mypageDAO.getReviewsByAccId(acc_id);
-//    }
 }

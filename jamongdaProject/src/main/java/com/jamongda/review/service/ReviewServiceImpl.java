@@ -68,4 +68,14 @@ public class ReviewServiceImpl implements ReviewService {
 
         return reviews;
     }
+
+	@Override
+	public boolean deleteReviewById(int rev_id) throws Exception {
+		if(reviewDAO.existById(rev_id)) {
+			reviewDAO.deleteById(rev_id);
+			return true;
+		}else {
+			return false;			
+		}
+	}
 }
