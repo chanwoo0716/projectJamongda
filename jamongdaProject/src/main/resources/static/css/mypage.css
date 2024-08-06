@@ -105,13 +105,13 @@
 }
 
 .myReviews-btn {
-	width: 90%;
+	width: 95%;
 	padding: 10px;
 	margin-left: 2%;
 	border: 1px solid #ddd;
 	border-radius: 5px;
 	background-color: #fafafa;
-	margin-bottom: 7%;
+	margin-bottom: 6%;
 	cursor: pointer;
 	text-align: left;
 }
@@ -133,7 +133,7 @@
 	/* 커서를 포인터로 변경 */
 	font-size: 14px;
 	/* 폰트 사이즈 조정 */
-	padding: 0;
+	padding: 20px 0 0;
 	/* 패딩 제거 */
 	margin: 0;
 	/* 마진 제거 */

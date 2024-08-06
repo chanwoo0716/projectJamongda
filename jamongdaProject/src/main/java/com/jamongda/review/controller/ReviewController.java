@@ -16,7 +16,7 @@ public interface ReviewController {
 			@RequestParam("aname") String acc_name, @RequestParam("rname") String ro_name,
 			@RequestParam("rid") String ro_id,
 			HttpServletRequest request, HttpServletResponse response) throws Exception;
-	
+
 	// 리뷰작성 DB에 등록
     public ModelAndView insertReview(@RequestParam("rev_content") String rev_content,
             @RequestParam("ro_id") int ro_id,

@@ -10,6 +10,7 @@ public class ReviewDTO {
     private String email;
     private int ro_id;
     private String ro_name;
+    private String acc_name;
     private List<ReviewImageDTO> images;
 
     public int getRev_id() {
@@ -58,6 +59,14 @@ public class ReviewDTO {
 
     public void setRo_name(String ro_name) {
         this.ro_name = ro_name;
+    }
+
+    public String getAcc_name() {
+    	return acc_name;
+    }
+    
+    public void setAcc_name(String acc_name) {
+    	this.acc_name = acc_name;
     }
 
     public List<ReviewImageDTO> getImages() {

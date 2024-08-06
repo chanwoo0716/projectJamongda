@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="layout/layout">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -337,7 +336,6 @@
                     <div class="acc_title">
                         <h1 th:text="${detailAccRoMap.get('accList')[0].acc_name}"></h1>
                     </div>
-
                     <!--객실영역-->
                     <div class="deatail-room" th:with="acc_id=${detailAccRoMap.accList[0].acc_id}">
 						<h3>객실선택</h3>
@@ -348,6 +346,7 @@
 								<div class="room_image">
 									<a href="#" th:attr="onclick='showRoomImages(' + ${room.ro_id} + ')'">
 									    <img th:src="@{/roDownload.do(ro_id=${room.ro_id}, ro_image=${detailAccRoMap.get('roThumbnail').get(room.ro_id)})}" width="224px", height="126px" alt="객실 대표 이미지">
+										<i class="fa-regular fa-images" style="color: #858585;"></i>
 									</a>
 					            </div>
                                 <!--객실 이미지(썸네일)종료-->

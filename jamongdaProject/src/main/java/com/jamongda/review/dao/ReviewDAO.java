@@ -26,5 +26,11 @@ public interface ReviewDAO {
     List<ReviewDTO> getReviewsByAccId(Map<String, Object> params) throws DataAccessException;
 
     // ro_id를 통해 room의 ro_name 가져오기
-    String getRoomNameById(int ro_id) throws DataAccessException;
+    public String getRoomNameById(int ro_id) throws DataAccessException;
+    
+    // 리뷰 id로 조회
+    public boolean existById(int rev_id) throws DataAccessException;
+    
+    // 리뷰 삭제
+    public void deleteById(int rev_id) throws DataAccessException;
 }
