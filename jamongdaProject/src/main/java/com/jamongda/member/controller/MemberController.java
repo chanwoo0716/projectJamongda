@@ -30,6 +30,7 @@ public interface MemberController {
 
 
 	public ModelAndView loginForm_guest(@ModelAttribute("member") MemberDTO member,
+			@RequestParam(value = "redirect", required = false) String redirect,
 			@RequestParam(value = "action", required = false) String action,
 			@RequestParam(value = "result", required = false) String result,
 			HttpServletRequest request,

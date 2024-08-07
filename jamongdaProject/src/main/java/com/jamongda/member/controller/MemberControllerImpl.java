@@ -137,12 +137,18 @@ public class MemberControllerImpl implements MemberController {
 	@Override
 	@GetMapping("/member/loginForm_guest.do")
 	public ModelAndView loginForm_guest(@ModelAttribute("member") MemberDTO member,
+			@RequestParam(value = "redirect", required = false) String redirect,
 			@RequestParam(value = "action", required = false) String action,
 			@RequestParam(value = "result", required = false) String result,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 			HttpSession session=request.getSession(); //세션이 있다면 세션 정보를 가져오고, 없다면 세션을 생성하는 거다.
 			session.setAttribute("action",action);
+			
+			// 예약하기 redirect
+		    if (redirect != null) {
+		        session.setAttribute("redirect", redirect);
+		    }
 			
 			ModelAndView mav=new ModelAndView();
 			mav.addObject("result", result);
@@ -163,51 +169,52 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName("member/loginForm_host");
 		return mav;
 	}
-	// 일반회원 로그인 처리
-    @PostMapping("/member/login_guest.do")
-    public ModelAndView login_guest(@ModelAttribute("member") MemberDTO member,
-                                   RedirectAttributes rAttr,
-                                   HttpServletRequest request,
-                                   HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView();
-        
-        // 이메일로 회원 정보 조회
-        MemberDTO existingMember = memberService.getMemberByEmail(member.getEmail());
+	
+	@PostMapping("/member/login_guest.do")
+	public ModelAndView login_guest(@ModelAttribute("member") MemberDTO member,
+	                                RedirectAttributes rAttr,
+	                                HttpServletRequest request,
+	                                HttpServletResponse response) throws Exception {
+	    ModelAndView mav = new ModelAndView();
 
-        if (existingMember != null) {
-            // 비밀번호 비교
-            if (existingMember.getPwd().equals(member.getPwd())) {
-                HttpSession session = request.getSession();
-                String memberRole = existingMember.getRole();
-                session.setAttribute("member", existingMember);
-                session.setAttribute("isLogOn", true);
+	    // 이메일로 회원 정보 조회
+	    MemberDTO existingMember = memberService.getMemberByEmail(member.getEmail());
 
-                if ("A".equals(memberRole)) { // 관리자 로그인
-                    session.setAttribute("admin", existingMember);
-                    mav.setViewName("redirect:/admin/mainAdmin.do");
-                } else if ("G".equals(memberRole)) { // 일반회원 로그인
-                    session.setAttribute("guest", existingMember);
-                    String action = (String) session.getAttribute("action");
-                    mav.setViewName(action != null ? "redirect:" + action : "redirect:/main.do");
-                } else { // 잘못된 역할로 로그인 시도
-                    rAttr.addAttribute("result", "접근 권한이 없습니다.");
-                    mav.setViewName("redirect:/member/loginForm_guest.do");
-                    
-                    session.invalidate();
-                }
-            } else {
-                // 비밀번호가 틀린 경우
-                rAttr.addAttribute("result", "비밀번호가 틀렸습니다. 다시 입력해주세요.");
-                mav.setViewName("redirect:/member/loginForm_guest.do");
-            }
-        } else {
-            // 이메일이 존재하지 않는 경우
-            rAttr.addAttribute("result", "존재하지 않는 이메일입니다. 다시 확인해주세요.");
-            mav.setViewName("redirect:/member/loginForm_guest.do");
-        }
+	    if (existingMember != null) {
+	        // 비밀번호 비교
+	        if (existingMember.getPwd().equals(member.getPwd())) {
+	            HttpSession session = request.getSession();
+	            String memberRole = existingMember.getRole();
+	            session.setAttribute("member", existingMember);
+	            session.setAttribute("isLogOn", true);
 
-        return mav;
-    }
+	            if ("A".equals(memberRole)) { // 관리자 로그인
+	                session.setAttribute("admin", existingMember);
+	                mav.setViewName("redirect:/admin/mainAdmin.do");
+	            } else if ("G".equals(memberRole)) { // 일반회원 로그인
+	                session.setAttribute("guest", existingMember);
+	                String redirect = (String) session.getAttribute("redirect");
+	                session.removeAttribute("redirect");
+	                mav.setViewName(redirect != null ? "redirect:" + redirect : "redirect:/main.do");
+	            } else { // 잘못된 역할로 로그인 시도
+	                rAttr.addAttribute("result", "접근 권한이 없습니다.");
+	                mav.setViewName("redirect:/member/loginForm_guest.do");
+	                session.invalidate();
+	            }
+	        } else {
+	            // 비밀번호가 틀린 경우
+	            rAttr.addAttribute("result", "비밀번호가 틀렸습니다. 다시 입력해주세요.");
+	            mav.setViewName("redirect:/member/loginForm_guest.do");
+	        }
+	    } else {
+	        // 이메일이 존재하지 않는 경우
+	        rAttr.addAttribute("result", "존재하지 않는 이메일입니다. 다시 확인해주세요.");
+	        mav.setViewName("redirect:/member/loginForm_guest.do");
+	    }
+
+	    return mav;
+	}
+
 
     // 사업자 로그인 처리
     @PostMapping("/member/login_host.do")
