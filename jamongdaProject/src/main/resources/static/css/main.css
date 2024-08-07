@@ -1,21 +1,4 @@
 @charset "UTF-8";
-html,
-body {
-  position: relative;
-  min-width: 600px;
-  max-width: 1920px;
-  margin: 0 auto;
-}
-
-body {
-  background: rgb(252, 252, 252);
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  margin: 0 auto;
-  padding: 0 auto;
-}
-
 input{
 	border-radius: 20px;
 }
@@ -46,9 +29,9 @@ input{
 
 #form1 {
   position: absolute;
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
-  top: 68%;
+  top: 75%;
   left: 6%;
 
   padding: 1% 2% 1% 4%;
@@ -164,41 +147,6 @@ input{
 	color: #FF6F61;
 }
 
-/* 반응형 */
-@media (max-width: 1200px) {
-  #form1 {
-    width: 90%;
-    left: 5%;
-  }
-  .inputWrap, .location, .search_In {
-    width: 28%;
-    margin-right: 4%;
-  }
-}
-
-@media (max-width: 1000px) {
-  #form1 {
-    width: 95%;
-    left: 2.5%;
-  }
-  .inputWrap, .location, .search_In {
-    width: 30%;
-    margin-right: 3%;
-  }
-}
-
-@media (max-width: 800px) {
-  .inputWrap, .location, .search_In {
-    width: 100%;
-    float: none;
-    margin-right: 0;
-    margin-bottom: 10px;
-  }
-  .search_btn {
-    width: 100%;
-  }
-}
-
 /* 국내 인기 여행지 영역 */
 .swiper-slide1 {
     position: relative;
@@ -279,4 +227,167 @@ input{
 .slider .btn.btn_next {
   right: 0;
   transform: translate(0, -50%);
+}
+
+
+/*미디어 쿼리*/
+@media (min-width: 344px) {
+	#form1 {
+	  padding: 0;
+	  width: 95%;
+	  left: 2%;
+	}
+	
+	/* 숙소 검색 영역 */
+	.inputWrap {
+	  width: 25%;
+	}
+
+	#acc_name {
+	  height: 50px;
+	  font-size: 1em;
+	}
+	
+	/* 지역 검색 영역 */
+	.location {
+	  width: 25%;
+	}
+
+	#acc_area {
+	  height: 50px;
+	  font-size: 1em;
+	}
+	/* 날짜 검색 영역 */
+	.search_In {
+	  position: relative;
+	  width: 28%;
+	  float: left;
+	  box-sizing: border-box;
+	}
+
+	#bo_checkIn {
+	  width: 100%;
+	  height: 50px;
+	  border: none;
+	  background-color: rgba(256, 256, 256, 0.8);
+	  font-size: 1em;
+	  font-weight: bold;
+	  color: black;
+	  padding: 0 30%;
+	}
+
+	/* 검색 버튼 */
+	.search_btn {
+	  width: 100%; /* 검색 버튼의 최대 너비 설정 */
+	  height: 40px; /* 다른 입력 필드와 동일한 높이 설정 */
+	  font-size: 1.4em;
+	  
+	  background-color: rgba(256, 256, 256, 0.8);
+	  margin-top: 1%;
+	  padding: 0 50%;
+	  margin-left: 0;
+	}
+}
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 1024px) {
+	
+}
+
+@media (min-width: 1200px) {
+	#form1 {
+	  width: 100%;
+	  padding: 0;
+  	  left: 6%;
+	}
+	
+	/* 숙소 검색 영역 */
+	.inputWrap {
+	  position: relative;
+	  width: 25%;
+	  float: left;
+	  margin-right: 3%;
+	  box-sizing: border-box;
+	}
+
+	#acc_name {
+	  width: 100%;
+	  padding-right: 5%;
+	  padding-left: 18%;
+	  height: 70px;
+	  background-color: rgba(256, 256, 256, 0.8);
+	  border: none;
+	  font-size: 1.3em;
+	  font-weight: bold;
+	}
+
+	/* 돋보기 아이콘 */
+	.fa-search {
+	  position: absolute;
+	  top: 50%;
+	  left: 5%;
+	  font-size: 1.4em;
+	  transform: translateY(-50%);
+	}
+	
+	/* 지역 검색 영역 */
+	.location {
+	  width: 25%;
+	}
+
+	#acc_area {
+	  height: 70px;
+	  font-size: 1.3em;
+	}
+	
+	/* 날짜 검색 영역 */
+	.search_In {
+	  position: relative;
+	  width: 15%;
+	  float: left;
+	  box-sizing: border-box;
+	}
+
+	#bo_checkIn {
+	  width: 100%;
+	  height: 70px;
+	  border: none;
+	  background-color: rgba(256, 256, 256, 0.8);
+	  font-size: 1.3em;
+	  font-weight: bold;
+	  color: black;
+	  padding: 0 30%;
+	}
+
+	.fa-calendar-days {
+	  position: absolute;
+	  top: 50%;
+	  left: 10%;
+	  font-size: 1.4em;
+	  transform: translateY(-50%);
+	}
+
+	/* 검색 버튼 */
+	.search_btn {
+	  position: relative; /* 검색 버튼을 다른 요소와 일렬로 배치하기 위해 상대 위치 설정 */
+	  float: left; /* 검색 필드와 일렬로 배치 */
+	  max-width: 10%; /* 검색 버튼의 최대 너비 설정 */
+	  height: 70px; /* 다른 입력 필드와 동일한 높이 설정 */
+	  background: none;
+	  border: none;
+	  font-size: 1.4em;
+	  font-weight: bold;
+	  color: black;
+	  cursor: pointer;
+	  text-align: center;
+	  padding: 0;
+	  margin-left: 10%;
+	  margin-top: 0; /* 상단 마진 제거 */
+	}
+
+	.search_btn:hover{
+		color: #FF6F61;
+	}
 }
