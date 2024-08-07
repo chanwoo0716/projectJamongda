@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.jamongda.mypage.dao.MypageDAO;
 import com.jamongda.review.dto.ReviewDTO;
+import com.jamongda.review.dto.ReviewImageDTO;
 
 @Service("mypageService")
 public class MypageServiceImpl implements MypageService {
@@ -39,16 +40,24 @@ public class MypageServiceImpl implements MypageService {
         params.put("offset", offset);
         params.put("size", size);
 
-        List<ReviewDTO> reviews = mypageDAO.getReviewsWithImagesByEmail(params);
+        try {
+            // 리뷰 리스트 가져오기
+            List<ReviewDTO> reviews = mypageDAO.getReviewsByEmail(params);
 
-        for (ReviewDTO review : reviews) {
-            String roName = mypageDAO.getRoomNameById(review.getRo_id());
-            review.setRo_name(roName);
+            // 각 리뷰에 대해 이미지 가져오기
+            for (ReviewDTO review : reviews) {
+                List<ReviewImageDTO> images = mypageDAO.getImagesByReviewId(review.getRev_id());
+                review.setImages(images);
+            }
+
+            return reviews;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error fetching reviews and images", e);
         }
-
-        return reviews;
     }
 
+    
     @Override
     public String getRoomNameById(int ro_id) throws Exception {
         return mypageDAO.getRoomNameById(ro_id);

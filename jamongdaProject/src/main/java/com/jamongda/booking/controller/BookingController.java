@@ -18,9 +18,6 @@ public interface BookingController {
 	public ModelAndView bookingForm(@RequestParam("aid") int acc_id, @RequestParam("rid") int ro_id,
 			@RequestParam("checkIn") String bo_checkIn, @RequestParam("checkOut") String bo_checkOut,
 			HttpServletRequest request, HttpServletResponse response) throws Exception;
-
-	public String requestPayment(@RequestParam("bo_name") String bo_name, @RequestParam("bo_tel") String bo_tel,
-            HttpServletRequest request) throws Exception;
 	
 	// 예약정보
 	public Map<String, Object> insertBooking(@RequestBody BookingDTO bookingDTO, HttpServletRequest request) throws Exception;

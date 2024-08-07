@@ -56,22 +56,20 @@ public class BookingControllerImpl implements BookingController {
 	    return mav;
 	}
 
-
-	@PostMapping("/booking/requestPayment.do")
+	// 아임포트 API를 통해 결제 요청 처리
 	@ResponseBody
+	@PostMapping("/booking/requestPayment.do")
 	public String requestPayment(@RequestParam("bo_name") String bo_name, @RequestParam("bo_tel") String bo_tel,
 	                             HttpServletRequest request) throws Exception {
-	    // 아임포트 API를 통해 결제 요청 처리
 	    return "결제 요청이 성공적으로 전송되었습니다.";
 	}
 	
 	@Override
-	@PostMapping("/booking/insertBooking.do")
 	@ResponseBody
+	@PostMapping("/booking/insertBooking.do")
 	public Map<String, Object> insertBooking(@RequestBody BookingDTO bookingDTO, HttpServletRequest request) throws Exception {
-		// 예약정보 넘어오는거 확인용
-		System.out.println("Received BookingDTO: " + bookingDTO.toString());
 	    Long bo_number = bookingService.createBoNumber(); // 예약번호 생성
+	    
 	    bookingDTO.setBo_number(bo_number);
 	    bookingService.insertBoInfo(bookingDTO);
 	    
@@ -93,7 +91,7 @@ public class BookingControllerImpl implements BookingController {
 		
 		RoomDTO roomDTO = bookingService.showRoInfo(ro_id);
 		BookingDTO bookingDTO= bookingService.showBoInfo(bo_number);
-		System.out.println("숙소 이름" + acc_name);
+		
 		mav.addObject("guest", guest);
 		mav.addObject("acc_name", acc_name);
 		mav.addObject("room", roomDTO);
@@ -103,6 +101,4 @@ public class BookingControllerImpl implements BookingController {
 		
 		return mav;
 	}
-	
-	
 }

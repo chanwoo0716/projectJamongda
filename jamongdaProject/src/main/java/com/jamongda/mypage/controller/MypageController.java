@@ -22,8 +22,4 @@ public interface MypageController {
     public ModelAndView getMyReviews(@RequestParam("email") String email,
     		@RequestParam("page") int page, @RequestParam("size") int size,
     		HttpServletRequest request, HttpServletResponse response) throws Exception;
-    
-//    public ResponseEntity<List<ReviewDTO>> getReviewsAjax(@RequestParam("email") String email,
-//            @RequestParam(value = "page", defaultValue = "1") int page,
-//            @RequestParam(value = "size", defaultValue = "5") int size) throws Exception;
 }

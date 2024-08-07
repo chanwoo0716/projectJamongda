@@ -6,28 +6,12 @@
 <title>JANMONGDA : 예약 상세</title>
 <link rel="stylesheet" th:href="@{/css/myBookingDetails.css}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/myBookingDetails.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
 <script th:inline="javascript">
     /*<![CDATA[*/
-    var bookingPrice = /*[[${myBookingDetails['bo_price']}]]*/ 270000; // 타임리프 변수를 JavaScript 변수에 할당
+    	var bookingPrice = /*[[${myBookingDetails['bo_price']}]]*/ 270000;
     /*]]>*/
-</script>
-<script>
-	$(document).ready(function(){
-		function formatNumber(number) {
-		    return number.toLocaleString() + '원'; // 기본적으로 쉼표를 사용하여 숫자를 포맷팅
-		}
-		
-		let priceElement = document.querySelector('#bo_price');
-
-		priceElement.textContent = formatNumber(bookingPrice);
-		
-	    $('#close-btn').click(function(){
-	        window.close();
-	    });
-	});
 </script>
 </head>
 <body>
@@ -44,10 +28,12 @@
                             <span class="details-label">예약번호:</span>
                             <span class="details-value" th:text="${myBookingDetails['bo_number']}"></span>
                         </div>
+						
                         <div class="details-item" id="product-section">
                             <span class="details-value" th:text="'이용숙소 : ' + ${myBookingDetails['acc_name']}"></span>
                         </div>
-                        <div class="details-item" id="product-section">
+                        
+						<div class="details-item" id="product-section">
                             <span class="details-value" th:text="'이용객실 : ' + ${myBookingDetails['ro_name']}"></span>
                         </div>
 						<br>
@@ -60,6 +46,7 @@
                                     <span class="details-value" th:text="${myBookingDetails['ro_checkIn']}"></span>
                                 </div>
                             </div>
+							
                             <div class="check-out" id="checkOut-section">
                                 <div class="details-item">
                                     <span class="details-value" th:text="${myBookingDetails['bo_checkOut']}"></span>
@@ -79,6 +66,7 @@
                             <span class="details-label">이용자 이름:</span>
                             <span class="details-value" th:text="${myBookingDetails['bo_name']}"></span>
                         </div>
+						
                         <div class="details-item">
                             <span class="details-label">이용자 전화번호:</span>
                             <span class="details-value" th:text="${myBookingDetails['bo_tel']}"></span>
@@ -93,10 +81,12 @@
                             <span class="details-label">결제일자:</span>
                             <span class="details-value" th:text="${myBookingDetails['payDate']}"></span>
                         </div>
+						
                         <div class="details-item">
                             <span class="details-label">결제수단:</span>
                             <span class="details-value" th:text="${myBookingDetails['bo_payment']}"></span>
                         </div>
+						
                         <div class="details-item">
                             <span class="details-label">결제금액:</span>
                             <span class="details-value" id="bo_price" th:text="${myBookingDetails['bo_price']}"></span>

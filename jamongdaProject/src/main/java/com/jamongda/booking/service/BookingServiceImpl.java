@@ -47,7 +47,6 @@ public class BookingServiceImpl implements BookingService{
 		return bookingDTO;
 	}
 	
-
 	@Override
 	public String showAccInfo(int acc_id) throws Exception {
 		String acc_name=bookingDAO.showAccNameById(acc_id);
@@ -59,7 +58,4 @@ public class BookingServiceImpl implements BookingService{
 		RoomDTO roomDTO=bookingDAO.showRoInfo(ro_id);
 		return roomDTO;
 	}
-	
-	
-
 }

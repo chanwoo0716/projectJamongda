@@ -32,25 +32,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void updateMember(MemberDTO memberDTO) throws DataAccessException {
 		memberDAO.updateMember(memberDTO);
-
 	}
 
 	@Override
 	public void deleteMember(String email) throws DataAccessException {
 		memberDAO.deleteMember(email);
-
 	}
-
-	@Override
-	public MemberDTO loginG(MemberDTO member) throws DataAccessException {
-		return memberDAO.loginCheck(member);
-	}
-	@Override
-	public MemberDTO loginH(MemberDTO member) throws DataAccessException {
-		return memberDAO.loginCheck(member);
-	}
+	
     public MemberDTO getMemberByEmail(String email) throws DataAccessException {
         return memberDAO.getMemberByEmail(email);
     }
-
 }
