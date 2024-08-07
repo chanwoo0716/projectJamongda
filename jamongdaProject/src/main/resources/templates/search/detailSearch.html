@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="layout/layout">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -159,7 +158,7 @@
         }
 
         let page = 1; // 현재 페이지
-        const pageSize = 5; // 페이지 당 리뷰 수
+        const pageSize = 10; // 페이지 당 리뷰 수
 
         function loadReviews() {
             console.log('AJAX 요청을 보내는 acc_id:', acc_id);
@@ -176,22 +175,22 @@
                             const fullContent = content.length > 200 ? content : '';
 
                             let reviewHtml = `
-							<div class="review_user">
-							    <div class="user_email"><strong>${maskEmail(review.email)}</strong></div>
-							    <div class="review_date">${review.rev_date}</div>
-							</div>
-                            <div class="review_content">
-                                <div class="review_imagesbox">
-                                    ${review.images.map(image =>
-                                `<div class="review_image"><img src="/review/downloadImage?rev_image=${image.rev_image}" alt="Review Image"/></div>`
-                            ).join('')}
-                                </div>
-                                <div class="review_text">
-                                    <div class="preview_content">${previewContent}</div>
-                                    ${fullContent ? `<div class="full_content" style="display: none;">${fullContent}</div>` : ''}
-                                    ${fullContent ? '<a href="#" class="more"><strong>더보기</strong></a>' : ''}
-                                </div>
-                            </div>
+								<div class="review_user">
+								    <div class="user_email"><strong>${maskEmail(review.email)}</strong></div>
+								    <div class="review_date">${review.rev_date}</div>
+								</div>
+	                            <div class="review_content">
+	                                <div class="review_imagesbox">
+	                                    ${review.images.map(image =>
+	                                `<div class="review_image"><img src="/review/downloadImage?rev_image=${image.rev_image}" alt="Review Image"/></div>`
+	                            ).join('')}
+	                                </div>
+									<div class="review_text">
+									    <div class="preview_content">${previewContent}</div>
+									    ${fullContent ? `<div class="full_content">${fullContent}</div>` : ''}
+									    ${fullContent ? '<a href="#" class="more"><strong>더보기</strong></a>' : ''}
+									</div>
+	                            </div>
                         `;
                             $('#review').append(reviewHtml);
                         });
@@ -209,20 +208,20 @@
         }
 
         // '더보기' 클릭 이벤트 핸들러
-        $(document).on('click', '.more', function (event) {
-            event.preventDefault();
-            const reviewText = $(this).siblings('.full_content');
-            if (reviewText.is(':visible')) {
-                $(this).siblings('.preview_content').show();
-                reviewText.hide();
-                $(this).html('<strong>더보기</strong>');
-            } else {
-                $(this).siblings('.preview_content').hide();
-                reviewText.show();
-                $(this).html('<strong>접기</strong>');
-            }
-        });
-
+		$(document).on('click', '.more', function (event) {
+		    event.preventDefault();
+		    const reviewText = $(this).siblings('.full_content');
+		    if (reviewText.is(':visible')) {
+		        $(this).siblings('.preview_content').show();
+		        reviewText.hide();
+		        $(this).html('<strong>더보기</strong>');
+		    } else {
+		        $(this).siblings('.preview_content').hide();
+		        reviewText.show();
+		        $(this).html('<strong>접기</strong>');
+		    }
+		});
+		
         // 페이지 로드 시 첫 번째 페이지의 리뷰 로드
         loadReviews();
 
@@ -337,7 +336,6 @@
                     <div class="acc_title">
                         <h1 th:text="${detailAccRoMap.get('accList')[0].acc_name}"></h1>
                     </div>
-
                     <!--객실영역-->
                     <div class="deatail-room" th:with="acc_id=${detailAccRoMap.accList[0].acc_id}">
 						<h3>객실선택</h3>
@@ -348,6 +346,7 @@
 								<div class="room_image">
 									<a href="#" th:attr="onclick='showRoomImages(' + ${room.ro_id} + ')'">
 									    <img th:src="@{/roDownload.do(ro_id=${room.ro_id}, ro_image=${detailAccRoMap.get('roThumbnail').get(room.ro_id)})}" width="224px", height="126px" alt="객실 대표 이미지">
+										<i class="fa-regular fa-images" style="color: #858585;"></i>
 									</a>
 					            </div>
                                 <!--객실 이미지(썸네일)종료-->

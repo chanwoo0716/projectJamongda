@@ -240,7 +240,7 @@ a {
 
 /*규림이 지도*/
 .aside_map {
-	width: 100%;
+	width: 370px;
 }
 
 .map_box2 {
@@ -249,7 +249,7 @@ a {
 }
 
 .room_box {
-	width: 100%;
+	width: 970px;
 	border: 1px solid #ddd;
 	border-radius: 10px;
 	display: flex;
@@ -383,7 +383,6 @@ a {
 }
 
 .review_image {
-	border: 1px solid aquamarine;
 	width: 200px;
 	height: 200px;
 	border-radius: 20px;
@@ -574,25 +573,26 @@ a {
 	font-size: 12px;
 }
 
+.review_text {
+    margin-top: 10px; /* 리뷰 내용 위쪽 여백 */
+}
+
 .review_text .preview_content,
 .review_text .full_content {
-	margin-top: 10px;
-	/* 리뷰 내용 위쪽 여백 */
-	white-space: pre-wrap;
-	/* 공백과 줄바꿈 유지 */
+    white-space: pre-wrap; /* 공백과 줄바꿈 유지 */
+    display: inline; /* 텍스트와 버튼이 같은 라인에 있도록 */
 }
 
 .review_text .full_content {
-	display: none;
-	/* 기본적으로 숨김 */
+    display: none; /* 기본적으로 숨김 */
 }
 
 .more {
-	display: block;
-	margin-top: 10px;
-	color: rgb(0, 0, 0);
-	cursor: pointer;
-	font-weight: bold;
+    display: inline; /* 버튼을 텍스트와 같은 라인에 배치 */
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px; /* 텍스트와 버튼 사이의 여백 */
 }
 
 /* 규림추가 삭제하지마!!!! 객실 이미지 팝업창!!!*/
@@ -686,7 +686,7 @@ a {
 	padding: 20px;
 	border: 1px solid #ddd;
 	border-radius: 8px;
-	margin-top: 70px;
+	margin-top: 100px;
 }
 
 /* 지도 제목 스타일 */

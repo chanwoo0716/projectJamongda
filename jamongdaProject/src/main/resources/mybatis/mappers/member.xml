@@ -15,10 +15,12 @@
 		<result property="role" column="role" />
 	</resultMap>
 	
-	<sql id="inG"> <!--insert guest정보-->
+	<!--insert guest정보-->
+	<sql id="inG">
 		insert into member (email, name, pwd, tel, address, birth, joinDate, role) values
 	</sql>
-	<sql id="inH"> <!--insert host정보-->
+	<!--insert host정보-->
+	<sql id="inH">
 		insert into member (email, name, pwd, tel, regNumber, joinDate, role) values
 	</sql>
 	
@@ -34,7 +36,7 @@
 	    <if test="regNumber == null">
 	        address, birth, joinDate, role
 	    </if>)
-	    VALUES (#{email}, #{name}, #{pwd}, #{tel},
+	    values (#{email}, #{name}, #{pwd}, #{tel},
 	        <if test="regNumber != null">
 	            #{regNumber}, sysdate(), 'H'
 	        </if>
@@ -59,10 +61,7 @@
 	<delete id="deleteMember" parameterType="String">
 		delete from member where email=#{email}
 	</delete>
-	
-	<select id="loginCheck" parameterType="memberDTO" resultType="memberDTO">
- 		select * from member where email=#{email} and pwd=#{pwd}
- 	</select>
+
 	<select id="getMemberByEmail" parameterType="String" resultType="memberDTO">
 	    select * from member where email=#{email}
 	</select>

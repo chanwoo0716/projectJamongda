@@ -19,9 +19,6 @@ public interface MypageService {
     // 회원 이메일로 작성한 리뷰와 이미지 리스트 가져오기
 	public List<ReviewDTO> getReviewsWithImagesByEmail(String email, int page, int size) throws Exception;
     
-    public String getRoomNameById(int ro_id) throws Exception;
-    
-    // 새로운 메서드 추가
-//    List<ReviewDTO> getReviewsByAccId(int acc_id) throws Exception;
-    
+	// ro_id로 정보 조회
+    public String getRoomNameById(int ro_id) throws Exception;    
 }
