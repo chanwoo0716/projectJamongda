@@ -19,29 +19,6 @@
 	<link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css}" />
 	<script th:src="@{https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js}"></script>
 	<script>
-		//1문제 해결완료
-		/*$(function() {
-			$('input[name="datetimes"]').daterangepicker({
-				timePicker: false,
-				startDate: moment().startOf('day'),
-				endDate: moment().startOf('day').add(32, 'hour'),
-				locale: {
-					format: 'YYYY-MM-DD'
-				}
-			}, function(start, end, label) {
-				console.log("Start Date: " + start.format('YYYY-MM-DD'));
-				console.log("End Date: " + end.format('YYYY-MM-DD'));
-				$('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
-				$('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
-			});
-  
-			// 초기 값 설정 (필요시)
-			var initialStartDate = $('input[name="datetimes"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
-			var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
-			$('input[name="checkIn"]').val(initialStartDate);
-			$('input[name="checkOut"]').val(initialEndDate);
-		});*/
-
 		$(function () {
 			$('#bo_checkIn').daterangepicker({
 				timePicker: false,
@@ -74,27 +51,8 @@
 			$('input[name="checkIn"]').val(initialStartDate);
 			$('input[name="checkOut"]').val(initialEndDate);
 		});
-
-		/* 시도1
-		 const form1 = document.getElementById('form1');
-		 const checkRange = document.getElementById('checkRange');
-		 
-		 form1.addEventListener('submit',function(e){
-			e.preventDefault();
-		    
-			const checkRangeValue = checkRange.value;
-		    
-			localStorage.setItem('checkRange', checkRangeValue);
-		    
-			form1.action="/search/selectSearch.do";
-			form1.method="get";
-		 });
-		 
-		 */
 	</script>
-
 </head>
-
 <body>
 	<th:block layout:fragment="content">
 		<div id="main_content">
