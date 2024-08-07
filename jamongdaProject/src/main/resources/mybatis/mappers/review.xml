@@ -16,23 +16,6 @@
         <result property="rev_id" column="rev_id"/>
     </resultMap>
 
-    <insert id="insertReview" parameterType="reviewDTO" useGeneratedKeys="true" keyProperty="rev_id">
-        insert into review (rev_content, rev_date, email, ro_id)
-        values (#{rev_content}, sysdate(), #{email}, #{ro_id})
-    </insert>
-
-    <insert id="insertReviewImage" parameterType="reviewImageDTO" useGeneratedKeys="true" keyProperty="rev_image_id">
-        INSERT INTO review_image (rev_image, rev_id)
-        VALUES (#{rev_image}, #{rev_id})
-    </insert>
-
-    <update id="updateReviewImage" parameterType="reviewImageDTO">
-        UPDATE review_image
-        SET rev_image = #{rev_image}
-        WHERE rev_image_id = #{rev_image_id}
-    </update>
-    
-	<!-- 숙소상세페이지에 리뷰 출력을 위한 쿼리문 -->
     <!-- 리뷰와 이미지를 매핑하는 ResultMap -->
     <resultMap id="reviewResultMap" type="com.jamongda.review.dto.ReviewDTO">
         <id property="rev_id" column="rev_id"/>
@@ -47,17 +30,35 @@
         </collection>
     </resultMap>
 
+    <insert id="insertReview" parameterType="reviewDTO" useGeneratedKeys="true" keyProperty="rev_id">
+        insert into review (rev_content, rev_date, email, ro_id)
+        values (#{rev_content}, sysdate(), #{email}, #{ro_id})
+    </insert>
+
+    <insert id="insertReviewImage" parameterType="reviewImageDTO" useGeneratedKeys="true" keyProperty="rev_image_id">
+        INSERT INTO review_image (rev_image, rev_id)
+        VALUES (#{rev_image}, #{rev_id})
+    </insert>
+    
+
+	<!-- 숙소상세페이지에 리뷰 출력을 위한 쿼리문 -->
 	<!-- 숙소 ID로 작성한 리뷰와 이미지를 조인하여 가져오기 -->
-    <select id="getReviewsByAccId" parameterType="map" resultMap="reviewResultMap">
-        SELECT r.rev_id, r.rev_content, r.rev_date, r.email, r.ro_id,
-               ri.rev_image_id, ri.rev_image
-        FROM review r
-        LEFT JOIN review_image ri ON r.rev_id = ri.rev_id
-        JOIN room ro ON r.ro_id = ro.ro_id
-        JOIN accommodation a ON ro.acc_id = a.acc_id
-        WHERE a.acc_id = #{acc_id}
-        LIMIT #{size} OFFSET #{offset}
-    </select>
+    <!-- 숙소 ID로 작성한 리뷰 리스트 가져오기 -->
+	<select id="getReviewsByAccId" parameterType="map" resultMap="revResult">
+	    SELECT r.rev_id, r.rev_content, r.rev_date, r.email, r.ro_id
+	    FROM review r
+	    JOIN room ro ON r.ro_id = ro.ro_id
+	    JOIN accommodation a ON ro.acc_id = a.acc_id
+	    WHERE a.acc_id = #{acc_id}
+	    LIMIT #{size} OFFSET #{offset}
+	</select>
+
+    <!-- 리뷰 ID로 이미지 리스트 가져오기 -->
+	<select id="getImagesByReviewId" parameterType="int" resultMap="revImgResult">
+	    SELECT rev_image_id, rev_image, rev_id
+	    FROM review_image
+	    WHERE rev_id = #{rev_id}
+	</select>
 
     <!-- ro_id를 통해 room의 ro_name 가져오기 -->
      <select id="getRoomNameById" parameterType="int" resultType="string">
@@ -75,5 +76,12 @@
     <delete id="deleteById" parameterType="int">
     	delete from review where rev_id=#{rev_id}
     </delete>
+    
+    <!-- 폴더의 이미지도 삭제하기 위함 -->
+    <select id="getImageFilesByReviewId" parameterType="int" resultType="String">
+	    SELECT rev_image
+	    FROM review_image
+	    WHERE rev_id = #{rev_id}
+	</select>
     
 </mapper>

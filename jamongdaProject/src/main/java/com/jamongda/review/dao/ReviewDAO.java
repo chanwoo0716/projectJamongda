@@ -20,11 +20,12 @@ public interface ReviewDAO {
 	// 리뷰 이미지 저장
     public void insertReviewImage(ReviewImageDTO reviewImageDTO) throws DataAccessException;
     
-    public void updateReviewImage(ReviewImageDTO reviewImageDTO) throws DataAccessException;
-    
     // 숙소 ID로 작성한 리뷰와 이미지 리스트 가져오기
-    List<ReviewDTO> getReviewsByAccId(Map<String, Object> params) throws DataAccessException;
+    public List<ReviewDTO> getReviewsByAccId(Map<String, Object> params) throws DataAccessException;
 
+    // 숙소 이미지
+    public List<ReviewImageDTO> getImagesByReviewId(int rev_id) throws DataAccessException; 
+    
     // ro_id를 통해 room의 ro_name 가져오기
     public String getRoomNameById(int ro_id) throws DataAccessException;
     
@@ -33,4 +34,7 @@ public interface ReviewDAO {
     
     // 리뷰 삭제
     public void deleteById(int rev_id) throws DataAccessException;
+    
+    // 리뷰 ID로 이미지 파일 이름 조회(폴더 이미지도 삭제)
+    public List<String> getImageFilesByReviewId(int rev_id);
 }

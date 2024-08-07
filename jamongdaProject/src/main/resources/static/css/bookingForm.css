@@ -70,6 +70,7 @@ body {
     padding: 0;
     background-color: #e4e1e1;
     padding: 12px 5px 5px 0;
+	margin-bottom: 15px;
 }
 
 .boNotice-section ul li {
@@ -90,9 +91,25 @@ body {
     color: black;
 }
 
+.checkbox-group p {
+	margin-bottom: 10px;
+}
+
 .payInfo-section {
-    font-weight: bold;
+	font-weight: bold;
+	font-size: 1.25em;
     margin-top: 20px;
+	line-height: 35px;
+}
+
+.payInfo {
+    display: inline-block;
+    width: 20%;
+	letter-spacing: 1.5px
+}
+
+.check-rule {
+	color: rgb(153, 0, 0);
 }
 
 #payBtn {

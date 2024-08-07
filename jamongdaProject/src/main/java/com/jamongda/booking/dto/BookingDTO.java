@@ -81,21 +81,4 @@ public class BookingDTO {
 		this.email = email;
 	}
 	
-	// 디버깅용
-    @Override
-    public String toString() {
-        return "BookingDTO{" +
-               "bo_number=" + bo_number +
-               ", bo_name='" + bo_name + '\'' +
-               ", bo_tel='" + bo_tel + '\'' +
-               ", bo_checkIn='" + bo_checkIn + '\'' +
-               ", bo_checkOut='" + bo_checkOut + '\'' +
-               ", payDate=" + payDate +
-               ", bo_payment='" + bo_payment + '\'' +
-               ", bo_price=" + bo_price +
-               ", email='" + email + '\'' +
-               ", ro_id=" + ro_id +
-               '}';
-    }
-	
 }

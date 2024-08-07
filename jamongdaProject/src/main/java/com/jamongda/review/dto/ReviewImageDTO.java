@@ -26,6 +26,4 @@ public class ReviewImageDTO {
 	public void setRev_id(int rev_id) {
 		this.rev_id = rev_id;
 	}
-	
-	
 }
