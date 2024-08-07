@@ -303,7 +303,6 @@ input[type="number"]::-webkit-inner-spin-button {
 	transition-property: box-shadow;
 	transition-duration: 0.5s;
 }
-
 .acc_image {
 	width: 50%;
 	height: 100%;
