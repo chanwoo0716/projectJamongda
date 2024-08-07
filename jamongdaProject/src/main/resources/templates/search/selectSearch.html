@@ -3,213 +3,191 @@
 	layout:decorate="layout/layout">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>JAMONGDA : 검색조회</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/css/selectSearch.css}" />
-	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<script src="https://kit.fontawesome.com/e9b58f4b27.js" crossorigin="anonymous"></script>
-	<script th:src="@{/js/acc.js}"></script>
-	<!-- 제이쿼리 -->
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-	<!-- 달력라이브러리 소스 -->
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAMONGDA : 검색조회</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/selectSearch.css}" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://kit.fontawesome.com/e9b58f4b27.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/acc.js}"></script>
+<!-- 제이쿼리 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<!-- 달력라이브러리 소스 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 
-	<script>
-		$(function () {
-			//페이징
-			var itemsPerPage = 10;
-			var currentPage = 1;
-			var accItems = $(".acc_box");
+<script>
+	$(function () {
+		//페이징
+		var itemsPerPage = 10;
+		var currentPage = 1;
+		var accItems = $(".acc_box");
 
-			function showPage(page) {
-				var start = (page - 1) * itemsPerPage;
-				var end = start + itemsPerPage;
+		function showPage(page) {
+			var start = (page - 1) * itemsPerPage;
+			var end = start + itemsPerPage;
 
-				accItems.hide().slice(start, end).show();
+			accItems.hide().slice(start, end).show();
 
-				renderPagination();
-			}
+			renderPagination();
+		}
 
-			function renderPagination() {
-				var totalPages = Math.ceil(accItems.length / itemsPerPage);
-				var paginationContainer = $(".pagination");
-				paginationContainer.empty();
+		function renderPagination() {
+			var totalPages = Math.ceil(accItems.length / itemsPerPage);
+			var paginationContainer = $(".pagination");
+			paginationContainer.empty();
 
-				for (var i = 1; i <= totalPages; i++) {
-					var button = $("<button>").text(i).attr("data-page", i);
-					if (i === currentPage) {
-						button.addClass("active");
-					}
-					paginationContainer.append(button);
+			for (var i = 1; i <= totalPages; i++) {
+				var button = $("<button>").text(i).attr("data-page", i);
+				if (i === currentPage) {
+					button.addClass("active");
 				}
+				paginationContainer.append(button);
 			}
+		}
 
-			$(".pagination").on("click", "button", function () {
-				currentPage = parseInt($(this).attr("data-page"));
-				showPage(currentPage);
-			});
-
+		$(".pagination").on("click", "button", function () {
+			currentPage = parseInt($(this).attr("data-page"));
 			showPage(currentPage);
-
-
-			// 로컬 저장소에서 날짜 값 가져오기
-			var startDate = localStorage.getItem('startDate');
-			var endDate = localStorage.getItem('endDate');
-
-			$('#bo_checkIn').daterangepicker({
-				timePicker: false,
-				startDate: startDate ? moment(startDate) : moment().startOf('day'),
-				endDate: endDate ? moment(endDate) : moment().startOf('day').add(7, 'days'),
-				locale: {
-					format: 'YYYY-MM-DD'
-				}
-			}, function (start, end) {
-				// 선택된 날짜 범위를 로컬 저장소에 저장
-				localStorage.setItem('startDate', start.format('YYYY-MM-DD'));
-				localStorage.setItem('endDate', end.format('YYYY-MM-DD'));
-				$('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
-				$('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
-			});
-			var acc_name = localStorage.getItem('acc_name');
-			var acc_area = localStorage.getItem('acc_area');
-			if (acc_name) {
-				document.getElementById('acc_name').value = acc_name;
-			} else {
-				document.getElementById('acc_name').value = '';
-			}
-			if (acc_area) {
-				document.getElementById('acc_area').value = acc_area;
-			} else {
-				document.getElementById('acc_area').value = '';
-			}
-
-			$('#form2').on('submit', function (event) {
-				// 로컬 저장소에 저장된 데이터를 클리어하지 않도록 주의
-				var acc_name = document.getElementById('acc_name').value;
-				var acc_area = document.getElementById('acc_area').value;
-				localStorage.setItem('acc_name', acc_name);
-				localStorage.setItem('acc_area', acc_area);
-				localStorage.setItem('startDate', $('#bo_checkIn').data('daterangepicker').startDate.format('YYYY-MM-DD'));
-				localStorage.setItem('endDate', $('#bo_checkIn').data('daterangepicker').endDate.format('YYYY-MM-DD'));
-			});
-
-
-
-			// 초기 값 설정 (필요시)
-			var initialStartDate = $('input[name="datetimes"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
-			var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
-			$('input[name="checkIn"]').val(initialStartDate);
-			$('input[name="checkOut"]').val(initialEndDate);
-			//날짜 저장 끝
-
-			//가격설정 시작
-			// 초기 변수 설정
-			var initialMinPrice = 0;
-			var initialMaxPrice = 500000;
-
-			// 서버에서 초기 데이터 불러오기
-			updateInitialPricesFromServer();
-
-			// 슬라이더 초기 설정
-			$("#price-slider").slider({
-				range: true,
-				min: 0,
-				max: 1000000, // 최대 가격 설정 (임의로 예시로 설정)
-				step: 10000, // 슬라이더 단계 (임의로 예시로 설정)
-				values: [initialMinPrice, initialMaxPrice], // 초기 범위 설정
-				slide: function (event, ui) {
-					// 슬라이더 값 업데이트
-					$("#minPrice").val(ui.values[0]);
-					$("#maxPrice").val(ui.values[1]);
-				},
-				stop: function (event, ui) {
-					// 슬라이더 조절이 멈추면 초기 변수 업데이트
-					initialMinPrice = ui.values[0];
-					initialMaxPrice = ui.values[1];
-				}
-			});
-
-			// 입력 필드 값 변경 시 슬라이더 업데이트 및 폼 제출
-			$("#minPrice, #maxPrice").on("input", function () {
-				var minPrice = $("#minPrice").val();
-				var maxPrice = $("#maxPrice").val();
-				updateSliderValues(minPrice, maxPrice); // 슬라이더 값 업데이트
-			});
-
-			/*
-			// Enter 키를 눌렀을 때 폼 제출
-			$("#minPrice, #maxPrice").keydown(function (event) {
-				if (event.keyCode === 13) { // 13은 Enter 키의 keyCode입니다.
-					submitForm(); // 폼 제출 함수 호출
-					event.preventDefault(); // 기본 동작 방지
-				}
-			});
-			*/
-			// 슬라이더 값을 업데이트하는 함수
-			function updateSliderValues(minPrice, maxPrice) {
-				$("#price-slider").slider("values", [minPrice, maxPrice]);
-			}
-
-			// 폼 제출 함수
-			function submitForm() {
-				// 폼 제출
-				document.getElementById("filterForm").submit();
-			}
-
-			// 서버에서 초기 데이터를 가져오는 함수
-			function updateInitialPricesFromServer() {
-				$.ajax({
-					url: "/search/selectPrice.do", // 서버에서 데이터를 받아올 엔드포인트
-					method: "GET",
-					success: function (data) {
-						// 서버에서 받아온 데이터를 변수에 할당
-						initialMinPrice = data.minPrice;
-						initialMaxPrice = data.maxPrice;
-
-						// 슬라이더의 값도 업데이트
-						$("#price-slider").slider("values", [initialMinPrice, initialMaxPrice]);
-					},
-					error: function () {
-						console.log("서버에서 초기 가격을 불러오는 데 실패했습니다.");
-					}
-				});
-			}
-
-			// 페이지 로드 시 로컬 저장소에서 선택된 숙소 유형을 가져와 설정
-			var selectedAccType = localStorage.getItem('selectedAccType');
-			if (selectedAccType) {
-				document.getElementById(selectedAccType).checked = true;
-			}
-
-			// 라디오 버튼 클릭 시 선택된 값을 로컬 저장소에 저장
-			function handleRadioClick(option) {
-				// 선택된 라디오 버튼만 checked 속성을 true로 설정
-				document.getElementById(option).checked = true;
-				// 선택된 숙소 유형을 로컬 저장소에 저장
-				localStorage.setItem('selectedAccType', option);
-			}
-			/*
-			function handleRadioClick(option) {
-				// 모든 라디오 버튼의 checked 속성을 false로 설정
-				document.querySelectorAll('input[name="acc_type"]').forEach(item => {
-					item.checked = false;
-				});
-
-				// 선택된 라디오 버튼만 checked 속성을 true로 설정
-				document.getElementById(option).checked = true;
-			}
-			*/
 		});
 
-	</script>
-</head>
+		showPage(currentPage);
 
+
+		// 로컬 저장소에서 날짜 값 가져오기
+		var startDate = localStorage.getItem('startDate');
+		var endDate = localStorage.getItem('endDate');
+
+		$('#bo_checkIn').daterangepicker({
+			timePicker: false,
+			startDate: startDate ? moment(startDate) : moment().startOf('day'),
+			endDate: endDate ? moment(endDate) : moment().startOf('day').add(7, 'days'),
+			locale: {
+				format: 'YYYY-MM-DD'
+			}
+		}, function (start, end) {
+			// 선택된 날짜 범위를 로컬 저장소에 저장
+			localStorage.setItem('startDate', start.format('YYYY-MM-DD'));
+			localStorage.setItem('endDate', end.format('YYYY-MM-DD'));
+			$('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
+			$('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
+		});
+		var acc_name = localStorage.getItem('acc_name');
+		var acc_area = localStorage.getItem('acc_area');
+		if (acc_name) {
+			document.getElementById('acc_name').value = acc_name;
+		} else {
+			document.getElementById('acc_name').value = '';
+		}
+		if (acc_area) {
+			document.getElementById('acc_area').value = acc_area;
+		} else {
+			document.getElementById('acc_area').value = '';
+		}
+
+		$('#form2').on('submit', function (event) {
+			// 로컬 저장소에 저장된 데이터를 클리어하지 않도록 주의
+			var acc_name = document.getElementById('acc_name').value;
+			var acc_area = document.getElementById('acc_area').value;
+			localStorage.setItem('acc_name', acc_name);
+			localStorage.setItem('acc_area', acc_area);
+			localStorage.setItem('startDate', $('#bo_checkIn').data('daterangepicker').startDate.format('YYYY-MM-DD'));
+			localStorage.setItem('endDate', $('#bo_checkIn').data('daterangepicker').endDate.format('YYYY-MM-DD'));
+		});
+
+
+
+		// 초기 값 설정 (필요시)
+		var initialStartDate = $('input[name="datetimes"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
+		var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
+		$('input[name="checkIn"]').val(initialStartDate);
+		$('input[name="checkOut"]').val(initialEndDate);
+		//날짜 저장 끝
+
+		//가격설정 시작
+		// 초기 변수 설정
+		var initialMinPrice = 0;
+		var initialMaxPrice = 500000;
+
+		// 서버에서 초기 데이터 불러오기
+		updateInitialPricesFromServer();
+
+		// 슬라이더 초기 설정
+		$("#price-slider").slider({
+			range: true,
+			min: 0,
+			max: 1000000, // 최대 가격 설정 (임의로 예시로 설정)
+			step: 10000, // 슬라이더 단계 (임의로 예시로 설정)
+			values: [initialMinPrice, initialMaxPrice], // 초기 범위 설정
+			slide: function (event, ui) {
+				// 슬라이더 값 업데이트
+				$("#minPrice").val(ui.values[0]);
+				$("#maxPrice").val(ui.values[1]);
+			},
+			stop: function (event, ui) {
+				// 슬라이더 조절이 멈추면 초기 변수 업데이트
+				initialMinPrice = ui.values[0];
+				initialMaxPrice = ui.values[1];
+			}
+		});
+
+		// 입력 필드 값 변경 시 슬라이더 업데이트 및 폼 제출
+		$("#minPrice, #maxPrice").on("input", function () {
+			var minPrice = $("#minPrice").val();
+			var maxPrice = $("#maxPrice").val();
+			updateSliderValues(minPrice, maxPrice); // 슬라이더 값 업데이트
+		});
+
+		// 슬라이더 값을 업데이트하는 함수
+		function updateSliderValues(minPrice, maxPrice) {
+			$("#price-slider").slider("values", [minPrice, maxPrice]);
+		}
+
+		// 폼 제출 함수
+		function submitForm() {
+			// 폼 제출
+			document.getElementById("filterForm").submit();
+		}
+
+		// 서버에서 초기 데이터를 가져오는 함수
+		function updateInitialPricesFromServer() {
+			$.ajax({
+				url: "/search/selectPrice.do", // 서버에서 데이터를 받아올 엔드포인트
+				method: "GET",
+				success: function (data) {
+					// 서버에서 받아온 데이터를 변수에 할당
+					initialMinPrice = data.minPrice;
+					initialMaxPrice = data.maxPrice;
+
+					// 슬라이더의 값도 업데이트
+					$("#price-slider").slider("values", [initialMinPrice, initialMaxPrice]);
+				},
+				error: function () {
+					console.log("서버에서 초기 가격을 불러오는 데 실패했습니다.");
+				}
+			});
+		}
+
+		// 페이지 로드 시 로컬 저장소에서 선택된 숙소 유형을 가져와 설정
+		var selectedAccType = localStorage.getItem('selectedAccType');
+		if (selectedAccType) {
+			document.getElementById(selectedAccType).checked = true;
+		}
+
+		// 라디오 버튼 클릭 시 선택된 값을 로컬 저장소에 저장
+		function handleRadioClick(option) {
+			// 선택된 라디오 버튼만 checked 속성을 true로 설정
+			document.getElementById(option).checked = true;
+			// 선택된 숙소 유형을 로컬 저장소에 저장
+			localStorage.setItem('selectedAccType', option);
+		}
+	});
+</script>
+</head>
 <body>
 	<th:block layout:fragment="content">
 		<div id="select_search">
@@ -413,7 +391,5 @@
 			</div>
 		</div>
 	</th:block>
-
 </body>
-
 </html>

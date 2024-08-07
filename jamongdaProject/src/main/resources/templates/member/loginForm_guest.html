@@ -17,6 +17,7 @@
 	            <a th:href="@{/member/loginForm_host.do}">사업자 로그인</a>
 	        </p>
 	        <form name="frmGuestLogin" action="/member/login_guest.do" method="post" class="login-form">
+				<input type="hidden" name="redirect" value="${redirect}">
 	            <table>
 	                <tr>
 	                    <td style="letter-spacing: 5px;">이메일</td>
