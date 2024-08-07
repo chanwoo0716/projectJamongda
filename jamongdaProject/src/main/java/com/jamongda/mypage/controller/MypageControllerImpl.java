@@ -134,7 +134,6 @@ public class MypageControllerImpl implements MypageController {
     public ResponseEntity<List<ReviewDTO>> getReviewsAjax(@RequestParam("email") String email,
                                                           @RequestParam(value = "page", defaultValue = "1") int page,
                                                           @RequestParam(value = "size", defaultValue = "5") int size) {
-        System.out.println("Received email: " + email); // 로그로 이메일 확인
         try {
             int offset = (page - 1) * size;
             Map<String, Object> params = new HashMap<>();

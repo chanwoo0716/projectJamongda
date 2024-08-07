@@ -7,38 +7,8 @@
 <title>JAMONGDA : 전체예약내역</title>
 <link rel="stylesheet" th:href="@{/css/myBookingList.css}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" th:src="@{/js/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/myBookingList.js}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-<script>
-	$(document).ready(function() {
-	    // 체크박스 클릭 시 필터링
-	    $('input[type="checkbox"]').on('change', function() {
-	        var isChecked = $(this).is(':checked');
-	        if (isChecked) {
-	            $('.booking-card').each(function() {
-	                var showBooking = $(this).find('#review-button').length > 0;
-	                $(this).toggle(showBooking);
-	            });
-	        } else {
-	            $('.booking-card').show(); // 모든 예약 내역 표시
-	        }
-	    });
-	});
-	
-	function openPopup(boNumber) {
-	    var url = '/mypage/myBookingDetails.do?number=' + encodeURIComponent(boNumber);
-		
-		// 팝업창 위치 조정하기
-		var popupW = 600;
-		var popupH = 700;
-		var top = Math.ceil((window.screen.height - popupH)/2);
-		var left = Math.ceil((window.screen.width - popupW)/2);
-		var option='width=' + popupW + ',height=' + popupH + ',scrollbars=yes, top=' + top + ',left=' + left + ', resizable=yes';
-		
-	    window.open(url, 'popup', option);
-	}
-</script>
 </head>
 <body>
     <th:block layout:fragment="content">

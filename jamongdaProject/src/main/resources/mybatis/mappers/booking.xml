@@ -17,13 +17,14 @@
 	
     <!-- 객실 정보 조회 쿼리 -->
     <select id="selectRoomById" parameterType="int" resultType="RoomDTO">
-        SELECT * FROM room WHERE ro_id = #{ro_id}
+        select * from room where ro_id = #{ro_id}
     </select>
 	
 	<insert id="insertBoInfo" parameterType="bookingDTO">
 		insert into booking values(#{bo_number}, #{bo_name}, #{bo_tel}, #{bo_checkIn}, #{bo_checkOut}, #{payDate}, #{bo_payment}, #{bo_price}, #{ro_id}, #{email})
 	</insert>
 	
+	<!-- 예약번호 중복 확인 -->
 	<select id="isExistNumber" resultType="boolean" parameterType="Long">
 		select count(*) > 0 from booking where bo_number = #{bo_number} 
 	</select>

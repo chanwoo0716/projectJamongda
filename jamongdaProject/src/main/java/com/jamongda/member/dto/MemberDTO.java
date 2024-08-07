@@ -73,6 +73,4 @@ public class MemberDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
 }
