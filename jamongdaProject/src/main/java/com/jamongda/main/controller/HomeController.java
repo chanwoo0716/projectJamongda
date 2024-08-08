@@ -31,22 +31,28 @@ public class HomeController {
         List<String> jamongdaAccListImage = new ArrayList<>();
 		// jamongdaAccList acc_id 리스트
         List<Integer> jamongdaAccListAcc_id = new ArrayList<>();
+        // jamongdaAccList acc_name 리스트
+        List<String> jamongdaAccListAcc_name = new ArrayList<>();
         // jamongdaAccList에서 acc_image와 acc_id 분리
         for (Map<String, Object> map : jamongdaAccList) {
         	jamongdaAccListImage.add((String) map.get("acc_image"));
         	jamongdaAccListAcc_id.add((Integer) map.get("acc_id"));
-        }        
+        	jamongdaAccListAcc_name.add((String) map.get("acc_name"));
+        }
         
-		//최저가 숙소 이미지 8개,acc_id 가져오기
+		// 최저가 숙소 이미지 8개,acc_id 가져오기
 		List<Map<String, Object>> lowestAccList = homeControllerService.lowestAcc();
-		// 이미지 파일 이름 리스트
+		// 최저가 숙소 이미지 파일 이름 리스트
         List<String> lowestAccListImage = new ArrayList<>();
-		// acc_id 리스트
+		// 최저가 숙소 acc_id 리스트
         List<Integer> lowestAccListAcc_id = new ArrayList<>();
+        // 최저가 숙소 acc_name 리스트
+        List<String> lowestAccListAcc_name = new ArrayList<>();
         // lowestAccList에서 acc_image와 acc_id 분리
         for (Map<String, Object> map : lowestAccList) {
             lowestAccListImage.add((String) map.get("acc_image"));
             lowestAccListAcc_id.add((Integer) map.get("acc_id"));
+            lowestAccListAcc_name.add((String) map.get("acc_name"));
         }
         
 		ModelAndView mav = new ModelAndView();

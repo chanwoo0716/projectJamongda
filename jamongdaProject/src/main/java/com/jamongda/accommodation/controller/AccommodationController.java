@@ -1,6 +1,5 @@
 package com.jamongda.accommodation.controller;
 
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,5 +23,4 @@ public interface AccommodationController {
 	// 숙소/객실 등록하기(regAccommodation.html에서 "등록"눌렀을 때 DB에 insert 수행 후 manageAccommodation.html로..)
 	public ModelAndView addAccommodation(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 
-	
 }
