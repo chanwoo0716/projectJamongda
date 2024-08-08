@@ -1,28 +1,24 @@
 package com.jamongda.search.dto;
 
-import java.sql.Date;
-
 import org.springframework.stereotype.Component;
 
 @Component("searchDTO")
 public class SearchDTO {
-   private int acc_id;         //숙소 고유 id(PK), (*articleNo랑 같음)
-   private String acc_name;   //숙소 이름
-   private String acc_type;   //숙소 유형
-   private String acc_area;   //숙소 지역
-   private String acc_tel;      //숙소 전화번호
-   private String acc_address;   //숙소 주소
-   private String acc_info;   //숙소 정보
-   private String email;      //회원 이메일(*사업자는 쿼리문에서 roll='사업자' 조건걸어줘야함)
-   
-   private String regCheck;   //숙소등록여부(N,Y,C)
-   private String rejectReason;   //숙소등록취소 사유
-   
+   private int acc_id;
+   private String acc_name;
+   private String acc_type;
+   private String acc_area;
+   private String acc_tel;
+   private String acc_address;
+   private String acc_info;
+   private String email;
+   private String regCheck;
+   private String rejectReason;   
    private String acc_image;
    private int ro_price;
    
    public SearchDTO() {
-      // TODO Auto-generated constructor stub
+      
    }
 
    public int getAcc_id() {
@@ -121,9 +117,4 @@ public class SearchDTO {
       this.ro_price = ro_price;
    }
 
-   
-   
-   
-   
-   
 }
