@@ -574,7 +574,7 @@ a {
 }
 
 .review_text {
-    margin-top: 10px; /* 리뷰 내용 위쪽 여백 */
+    margin-bottom: 15px; /* 리뷰 내용 위쪽 여백 */
 }
 
 .review_text .preview_content,
