@@ -31,7 +31,7 @@ function slider(){
             }
 
             //slidesPerView 옵션 설정
-            let viewNum = oldWChk == 'pc' ? 4.19 : 2;
+            let viewNum = oldWChk == 'pc' ? 4.19 : 2.8;
             //loop 옵션 체크
             let loopChk = slideNum > viewNum;
 
