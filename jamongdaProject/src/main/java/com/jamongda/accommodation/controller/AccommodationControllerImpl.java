@@ -17,11 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jamongda.accommodation.dto.AccommodationDTO;
 import com.jamongda.accommodation.dto.AccommodationImageDTO;
-import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.accommodation.service.AccommodationService;
-import com.jamongda.booking.dto.BookingDTO;
 import com.jamongda.member.dto.MemberDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,12 +33,6 @@ public class AccommodationControllerImpl implements AccommodationController {
 
 	@Autowired
 	private AccommodationService accommodationService;
-
-	@Autowired
-	private AccommodationDTO accommodationDTO;
-
-	@Autowired
-	private RoomDTO roomDTO;
 
 	// 숙소/객실등록 페이지로 이동(사업자 로그인 후 첫 화면)
 	@Override
@@ -61,7 +52,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 		}
 
 		String email = memberDTO.getEmail();
-		
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("accommodation/regAccommodation");
 		mav.addObject("hostSidebar", "accommodation/hostSidebar");
@@ -88,20 +79,11 @@ public class AccommodationControllerImpl implements AccommodationController {
 
 		String email = memberDTO.getEmail();
 
-		// *임시 이메일 테스트용(관리자에게 이메일 보내는 기능에 쓸 이메일. 원래는 로그인한 사업자 이메일로 써야하지만 도용하는 것 같아서 보류)
-		//String email2 = "chanwoo6195@naver.com";
-
 		// *숙소(regCheck도 포함),객실,숙소대표이미지 정보 담는 Map(이미지 포함!)
 		Map accRoMap = accommodationService.listAccRo(email);
 
 		// 로그인한 사업자 이메일 세팅
 		accRoMap.put("email", email);
-
-		// 로그인한 사업자 이메일 세팅2
-		//accRoMap.put("email2", email2);
-
-		// accRoMap확인
-		System.out.println("manageAccommodation.do의 accRoMap: " + accRoMap);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("accommodation/manageAccommodation");
@@ -115,7 +97,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 	@Override
 	@GetMapping("/accommodation/manageReservation.do")
 	public ModelAndView manageReservation(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+
 		// 로그인한 사업자의 정보만 보여줘야하므로 세션에서 그 사람의 email꺼내기
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("host");
@@ -128,11 +110,9 @@ public class AccommodationControllerImpl implements AccommodationController {
 			return null;
 		}
 		String email = memberDTO.getEmail();
-		
+
 		// 회원 예약 리스트 가져오기 (*위 사업자의 이메일에 해당하는 예약정보들만 조회)
 		List<Map<String, Object>> reservationList = accommodationService.getAccommodationBookingInfo(email);
-		
-		System.out.println("==========reservationList:" + reservationList);
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("accommodation/manageReservation");
@@ -146,7 +126,6 @@ public class AccommodationControllerImpl implements AccommodationController {
 	@Override
 	@GetMapping("/accommodation/manageReview.do")
 	public ModelAndView manageReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("accommodation/manageReview");
 		mav.addObject("sidebar", "accommodation/hostSidebar");
@@ -160,40 +139,27 @@ public class AccommodationControllerImpl implements AccommodationController {
 			throws Exception {
 
 		String accImageFileName = null;
-		// String roImageFileName=null;
 
 		multipartRequest.setCharacterEncoding("utf-8");
 
 		// ★전체 Map★ (accMap, roMap, accImageFileList, roImageMap, regCheck)
 		Map<String, Object> accRoMap = new HashMap<>();
-
 		// (accMap)숙소 데이터 담을 accMap
 		Map<String, Object> accMap = new HashMap<String, Object>();
 		// (roMap)객실들 데이터 담을 roMap
 		Map<String, List<String>> roMap = new HashMap<String, List<String>>();
 
-		// 로그인할 때 세션에 그 사람의 이메일 담아서 오면 여기서 getAttribute로 꺼내서 accMap에 put해야함
-		/*
-		임시 이메일 테스트용
-		String email = "guro@shillastay.com";
-		accMap.put("email", email);
-		*/
-		
 		HttpSession session = multipartRequest.getSession(false);
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("host");
 		String email = memberDTO.getEmail();
 		accMap.put("email", email);
-		
-		
+
 		// (accMap, roMap) accRoMap에 accMap과 roMap 담기(숙소,객실 구분).
 		Enumeration enu = multipartRequest.getParameterNames(); // name들 열거
 
 		while (enu.hasMoreElements()) {
 			String name = (String) enu.nextElement();
 			String value = multipartRequest.getParameter(name);
-
-			System.out.println(name);
-			System.out.println(value);
 
 			if (name.contains("acc_")) {
 				accMap.put(name, value);
@@ -205,9 +171,6 @@ public class AccommodationControllerImpl implements AccommodationController {
 				List<String> roomAttributes = roMap.computeIfAbsent("room" + roomNumber, k -> new ArrayList<>());
 				roomAttributes.add(value); // 해당 객실 번호의 속성 리스트에 값 추가
 			}
-
-			System.out.println("accMap: " + accMap); // accMap의 상태 출력
-			System.out.println("roMap: " + roMap); // roMap의 상태 출력
 		}
 		accRoMap.put("accMap", accMap); // accMap: {acc_name=1, acc_tel=1, acc_type=호텔/리조트, acc_area=1, acc_address=1,
 										// acc_info=1, email=guro@shillastay.com}
@@ -230,27 +193,6 @@ public class AccommodationControllerImpl implements AccommodationController {
 		Map<String, List<String>> roImageMap = roMultiFileUpload(multipartRequest); // 여러개 이미지 이름들 가져옴
 		accRoMap.put("roImageMap", roImageMap); // roImageMap={ro_image1=[hwangsungbin.webp, ...],
 												// ro_image2=[hwangsungbin3.webp, ...]}
-
-		// 리스트에 파일이름 들어갔나 확인하기!
-		System.out.println("====================================================================");
-		System.out.println("accImageFileList:");
-		for (AccommodationImageDTO accImageDTO : accImageFileList) {
-			System.out.println("acc_image: " + accImageDTO.getAcc_image());
-		}
-		// roImageMap 확인
-		for (Map.Entry<String, List<String>> entry : roImageMap.entrySet()) {
-			String key = entry.getKey();
-			List<String> values = entry.getValue();
-			System.out.print(key + "=[");
-			for (int i = 0; i < values.size(); i++) {
-				System.out.print(values.get(i));
-				if (i < values.size() - 1) {
-					System.out.print(", ");
-				}
-			}
-			System.out.println("]");
-		}
-		System.out.println("====================================================================");
 
 		// (서비스)숙소 등록 요청 및 숙소 고유 ID가져오기 -> accRoMap안의 accMap에 acc_id넣기
 		try {
@@ -315,14 +257,11 @@ public class AccommodationControllerImpl implements AccommodationController {
 				}
 			}
 		}
-		// accRoMap에 뭐있는지 확인하기(에러 확인용)
-		System.out.println("accRoMap :" + accRoMap);
 
 		// ModelAndView 객체 생성+반환
 		// 숙소등록하면 바로 manageAccommodation으로 가지 말고 컨트롤러 한번 거치게하기(숙소,객실,regDate정보담기)
 		ModelAndView mav = new ModelAndView("redirect:/accommodation/manageAccommodation.do");
 		return mav;
-
 	}
 
 	// 숙소 이미지 파일 업로드 메서드
@@ -357,7 +296,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 			}
 		}
 		return accFileList;
-	}// accMultiFileUpload() END
+	}
 
 	// 객실 이미지 파일 업로드 메서드
 	private Map<String, List<String>> roMultiFileUpload(MultipartHttpServletRequest multipartRequest) throws Exception {
@@ -396,19 +335,6 @@ public class AccommodationControllerImpl implements AccommodationController {
 				}
 			}
 		}
-		// roImageMap 출력
-		System.out.println("roImageMap:");
-		for (Map.Entry<String, List<String>> entry : roImageMap.entrySet()) {
-			String roomListKey = entry.getKey();
-			List<String> fileList = entry.getValue();
-
-			System.out.println("Key: " + roomListKey);
-			System.out.println("Files:");
-			for (String fileName : fileList) {
-				System.out.println("- " + fileName);
-			}
-		}
 		return roImageMap;
-	}// roMultiFileUpload() END
-
+	}
 }

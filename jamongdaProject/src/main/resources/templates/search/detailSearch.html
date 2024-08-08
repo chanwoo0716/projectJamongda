@@ -11,278 +11,14 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0b56355dabb632da3f8d32aa0ce6997f&libraries=services&autoload=false"></script>
-<!-- Swiper -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script>
-    function togglePopup(roomId) {
-        const popup = document.getElementById('popup-' + roomId);
-        if (popup.classList.contains('show')) {
-            popup.classList.remove('show');
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 300); // 애니메이션 시간이 지난 후 display를 none으로 설정
-        } else {
-            popup.style.display = 'flex';
-            setTimeout(() => {
-                popup.classList.add('show');
-            }, 10); // display 설정 후 약간의 딜레이 후 show 클래스 추가
-        }
-    }
-
-    // 팝업 창 외부를 클릭했을 때 닫히게 하는 함수
-    function setupPopupCloseEvent(roomId) {
-        const popup = document.getElementById('popup-' + roomId);
-        popup.addEventListener('click', (event) => {
-            if (event.target === popup) {
-                togglePopup(roomId);
-            }
-        });
-    }
-    //1문제 해결완료
-    $(function () {
-        // 로컬 저장소에서 날짜 값 가져오기
-        var startDate = localStorage.getItem('startDate');
-        var endDate = localStorage.getItem('endDate');
-
-        $('#bo_checkIn').daterangepicker({
-            timePicker: false,
-            startDate: startDate ? moment(startDate) : moment().startOf('day'),
-            endDate: endDate ? moment(endDate) : moment().startOf('day').add(7, 'days'),
-            locale: {
-                format: 'YYYY-MM-DD'
-            }
-        }, function (start, end) {
-            // 선택된 날짜 범위를 로컬 저장소에 저장
-            localStorage.setItem('startDate', start.format('YYYY-MM-DD'));
-            localStorage.setItem('endDate', end.format('YYYY-MM-DD'));
-            $('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
-            $('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
-        });
-
-
-        $('#form3').on('submit', function (event) {
-            // 로컬 저장소에 저장된 데이터를 클리어하지 않도록 주의
-            var acc_name = document.getElementById('acc_name').value;
-            var acc_area = document.getElementById('acc_area').value;
-            localStorage.setItem('acc_name', acc_name);
-            localStorage.setItem('acc_area', acc_area);
-            localStorage.setItem('startDate', $('#bo_checkIn').data('daterangepicker').startDate.format('YYYY-MM-DD'));
-            localStorage.setItem('endDate', $('#bo_checkIn').data('daterangepicker').endDate.format('YYYY-MM-DD'));
-        });
-
-
-        // 초기 값 설정 (필요시)
-        var initialStartDate = $('input[name="datetimes"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
-        var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
-        $('input[name="checkIn"]').val(initialStartDate);
-        $('input[name="checkOut"]').val(initialEndDate);
-    });
-</script>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    const acc_id = /*[[${detailAccRoMap.get('accList')[0].acc_id}]]*/ '123'; // 타임리프 변수를 JavaScript 변수에 할당
-	
-	var roImages = /*[[${detailAccRoMap.roImageFileList}]]*/ [];
-	
-	// HTML에서 주소를 가져옴
-    var mapAddress = /*[[${detailAccRoMap.get('accList')[0].acc_address}]]*/ '서울특별시 강남구 삼성동';
+	    const acc_id = /*[[${detailAccRoMap.get('accList')[0].acc_id}]]*/ '123'; // 타임리프 변수를 JavaScript 변수에 할당
+		var roImages = /*[[${detailAccRoMap.roImageFileList}]]*/ [];
+	    var mapAddress = /*[[${detailAccRoMap.get('accList')[0].acc_address}]]*/ '서울특별시 강남구 삼성동';
     /*]]>*/
-    console.log('숙소id :' + acc_id);
-    console.log('객실 이미지 리스트 :' + roImages);
-    console.log('숙소 주소 :' + mapAddress);
-</script>
-<script>
-    /*규림추가 삭제하지마!!!!!!!!!!!!!!!!!*/
-    $(document).ready(function () {
-		// 카카오 맵 API를 로드한 후
-		kakao.maps.load(function() {
-		    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-		        mapOption = {
-		            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		            level: 2 // 지도의 확대 레벨
-		        };
-
-		    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-		    console.log('Kakao Maps API loaded');
-		    var geocoder = new kakao.maps.services.Geocoder();
-		    console.log('Geocoder:', geocoder);
-
-		    // 주소로 좌표를 검색하여 마커를 표시
-		    geocoder.addressSearch(mapAddress, function(result, status) {
-		        if (status === kakao.maps.services.Status.OK) {
-		            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		            
-		            var imageSrc = '/images/map-marker.png', // 마커이미지의 주소입니다    
-		                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-		                imageOption = {offset: new kakao.maps.Point(32, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-		                  
-		            // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-		            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-		                markerPosition = coords; // 마커가 표시될 위치입니다
-		            
-		            // 마커를 생성합니다
-		            var marker = new kakao.maps.Marker({
-		                map: map,
-		                position: markerPosition, 
-		                image: markerImage // 마커이미지 설정 
-		            });
-
-		            // 마커가 지도 위에 표시되도록 설정합니다
-		            marker.setMap(map);
-
-		            // 지도 중심을 설정합니다
-		            map.setCenter(coords);
-		        } else {
-		            console.error('주소 검색 실패:', status);
-		        }
-		    });
-
-		    // 길찾기 버튼 클릭 이벤트
-		    $('#routeButton').on('click', function() {
-		        var startAddress = '서울특별시 서초구 서초대로77길 41'; // 예시 출발지(실제로는 사용자의 현위치)
-		        var kakaoMapUrl = `https://map.kakao.com/?sName=${encodeURIComponent(startAddress)}&eName=${encodeURIComponent(mapAddress)}`;
-		        window.open(kakaoMapUrl, '_blank');
-		    });
-		});
-		
-		
-        // 회원 이메일 마스킹
-        function maskEmail(email) {
-            let [local, domain] = email.split('@');
-            if (local.length > 3) {
-                return local[0] + local[1] + local[2] + '*'.repeat(local.length - 3) + '@' + domain;
-            }
-            return local + '@' + domain; // 로컬 부분이 3자 이하인 경우 변형하지 않음
-        }
-
-        let page = 1; // 현재 페이지
-        const pageSize = 10; // 페이지 당 리뷰 수
-
-        function loadReviews() {
-            console.log('AJAX 요청을 보내는 acc_id:', acc_id);
-            $.ajax({
-                url: '/search/reviews',
-                method: 'GET',
-                data: { aid: acc_id, page: page, size: pageSize },
-                success: function (data) {
-                    if (data && data.length > 0) {
-                        data.forEach(review => {
-                            // 리뷰 내용이 100자 이상이면 더보기
-                            const content = review.rev_content;
-                            const previewContent = content.length > 200 ? content.substring(0, 200) + '...' : content;
-                            const fullContent = content.length > 200 ? content : '';
-
-                            let reviewHtml = `
-								<div class="review_user">
-								    <div class="user_email"><strong>${maskEmail(review.email)}</strong></div>
-								    <div class="review_date">${review.rev_date}</div>
-								</div>
-	                            <div class="review_content">
-	                                <div class="review_imagesbox">
-	                                    ${review.images.map(image =>
-	                                `<div class="review_image"><img src="/review/downloadImage?rev_image=${image.rev_image}" alt="Review Image"/></div>`
-	                            ).join('')}
-	                                </div>
-									<div class="review_text">
-									    <div class="preview_content">${previewContent}</div>
-									    ${fullContent ? `<div class="full_content">${fullContent}</div>` : ''}
-									    ${fullContent ? '<a href="#" class="more"><strong>더보기</strong></a>' : ''}
-									</div>
-	                            </div>
-                        `;
-                            $('#review').append(reviewHtml);
-                        });
-                        page++;
-                    } else {
-                        $('#loadMore').hide(); // 더 이상 로드할 리뷰가 없으면 버튼 숨기기
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.error('AJAX Error:', textStatus, errorThrown);
-                    alert('리뷰를 로드하는 데 실패했습니다.');
-                }
-            });
-
-        }
-
-        // '더보기' 클릭 이벤트 핸들러
-		$(document).on('click', '.more', function (event) {
-		    event.preventDefault();
-		    const reviewText = $(this).siblings('.full_content');
-		    if (reviewText.is(':visible')) {
-		        $(this).siblings('.preview_content').show();
-		        reviewText.hide();
-		        $(this).html('<strong>더보기</strong>');
-		    } else {
-		        $(this).siblings('.preview_content').hide();
-		        reviewText.show();
-		        $(this).html('<strong>접기</strong>');
-		    }
-		});
-		
-        // 페이지 로드 시 첫 번째 페이지의 리뷰 로드
-        loadReviews();
-
-        // 더 보기 버튼 클릭 시 추가 리뷰 로드
-        $('#loadMore').on('click', function () {
-            loadReviews();
-        });
-
-	});
-	
-	function showRoomImages(ro_id) {
-	  var imgPopupContainer = document.getElementById('imgPopupContainer');
-	  var imgPopupImages = document.getElementById('imgPopupImages');
-
-	  // Swiper 인스턴스 삭제 (기존 인스턴스가 있는 경우)
-	  if (imgPopupImages.swiper) {
-	    imgPopupImages.swiper.destroy(true, true);
-	  }
-
-	  // 기존 이미지 내용 제거
-	  imgPopupImages.innerHTML = '';
-
-	  // 객실 이미지 목록 가져오기
-	  roImages.forEach(function (roImage) {
-	    if (roImage.ro_id === ro_id) {
-	      var imgWrapper = document.createElement('div');
-	      imgWrapper.className = 'swiper-slide';
-	      var img = document.createElement('img');
-	      img.src = `/roDownload.do?ro_id=${ro_id}&ro_image=${roImage.ro_image}`;
-	      imgWrapper.appendChild(img);
-	      imgPopupImages.appendChild(imgWrapper);
-	    }
-	  });
-
-	  imgPopupContainer.style.display = 'flex';
-
-	  // Swiper 초기화
-	  new Swiper(".mySwiper", {
-	    direction: 'horizontal', // 가로 슬라이드 설정
-	    pagination: {
-	      el: ".swiper-pagination",
-	      type: "fraction",
-	    },
-	    navigation: {
-	      nextEl: ".swiper-button-next",
-	      prevEl: ".swiper-button-prev",
-	    },
-	  });
-	}
-
-	function closePopup() {
-	  document.getElementById('imgPopupContainer').style.display = 'none';
-	}
-		
-		// 찬우 추가
-		document.addEventListener("DOMContentLoaded", function() {
-		    var accInfoElement = document.getElementById("accInfo");
-		    var accInfoText = accInfoElement.textContent || accInfoElement.innerText;
-		    accInfoElement.innerHTML = accInfoText.replace(/\n/g, "<br>");
-		});
-
 </script>
 </head>
 <body>
@@ -306,25 +42,22 @@
 						<!--날짜 영역-->
 						<div class="search_In">
 							<i class="fas fa-calendar-days"></i>
-							<!-- id="bo_checkIn"에서 id="checkRange1"로 바꿨을 값 전달받을 게 있어서 시도 실패-->
 							<input type="text" name="datetimes" required id="bo_checkIn">
-							<!--2024-07-20 기능 수정-->
 							<input type="hidden" name="checkIn">
 							<input type="hidden" name="checkOut">
-							<!--2024-07-20 기능 완료-->
 						</div>
 						<input type="submit" id="submit" class="search_btn" value="검색">
 					</form>
                 </div>
-
             </div>
         </section>
 
         <!--숙소 이미지 영역-->
         <section class="acc_images">
             <div class="acc_imagebox wrapper">
-                <div class="img" th:each="accImage : ${detailAccRoMap.get('accImageFileList')}"><img
-                        th:src="@{/accDownload.do(acc_id=${accImage.acc_id}, acc_image=${accImage.acc_image})}"></div>
+                <div class="img" th:each="accImage : ${detailAccRoMap.get('accImageFileList')}">
+					<img th:src="@{/accDownload.do(acc_id=${accImage.acc_id}, acc_image=${accImage.acc_image})}">
+				</div>
             </div>
         </section>
 
@@ -340,7 +73,6 @@
                     <div class="deatail-room" th:with="acc_id=${detailAccRoMap.accList[0].acc_id}">
 						<h3>객실선택</h3>
 						<div class="roomList" th:each="room : ${detailAccRoMap['roList' + acc_id]}">
-                            
                             <div class="room_box">
 								<!--객실 이미지(썸네일)-->
 								<div class="room_image">
@@ -349,7 +81,6 @@
 										<i class="fa-regular fa-images" style="color: #858585;"></i>
 									</a>
 					            </div>
-                                <!--객실 이미지(썸네일)종료-->
                                 <!--객실 정보 영역-->
                                 <div class="room_contents">
                                     <div class="contente_box1">
@@ -379,7 +110,6 @@
                                                     <button type="submit">객실 예약</button>
                                                 </div>
                                             </form>
-                                            <!-- 예약페이지로 넘어가기 종료 -->
                                         </div>
                                     </div>
                                     <div class="contente_box3">
@@ -390,27 +120,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--객실 정보 영역 종료-->
                             </div>
-                            <!--roombox종료-->
 							
 							<!-- 객실 이미지 팝업창 구조 -->
-							 <div id="imgPopupContainer" class="img-popup-container">
-							   <div id="imgPopupContent" class="img-popup-content">
-							     <span class="img-close" onclick="closePopup()">&times</span>
-							     <div class="swiper mySwiper">
-							       <div class="swiper-wrapper" id="imgPopupImages">
-							         <!-- 이미지가 동적으로 여기에 추가됩니다 -->
-							       </div>
-							       <div class="swiper-button-next"></div>
-							       <div class="swiper-button-prev"></div>
-							       <div class="swiper-pagination"></div>
-							     </div>
-							   </div>
-							 </div>
+							<div id="imgPopupContainer" class="img-popup-container">
+								<div id="imgPopupContent" class="img-popup-content">
+									<span class="img-close" onclick="closePopup()">&times</span>
+									<div class="swiper mySwiper">
+										<div class="swiper-wrapper" id="imgPopupImages">
+											<!-- 이미지 동적으로 추가 -->
+										</div>
+										<div class="swiper-button-next"></div>
+										<div class="swiper-button-prev"></div>
+										<div class="swiper-pagination"></div>
+									</div>
+								</div>
+							</div>
 							
-							
-
                             <!--객실 팝업창 영역-->
                             <div th:attr="id='popup-' + ${room.ro_id}" class="popup">
                                 <div class="popup-content">
@@ -454,12 +180,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--객실 팝업창 영역 종료-->
-
                         </div>
-                        <!--roomList종료-->
                     </div>
-                    <!--객실영역종료-->
 
                     <div class="use_caution">
                         <h2>숙소 소개</h2>
@@ -475,14 +197,11 @@
                     </div>
                 </div>
             </section>
-            <!--숙소이미지, 리뷰 미리보기 및 객실 정보 영역 종료-->
-
-			<!--규림이가 추가함 삭제하지마!!!!!!!!!!!!!!!!!!!!!!!-->
+			
 			<aside>
 			    <div class="aside_map">
 			        <h2>지도보기</h2>
 			        <br>
-			        <!-- 지도를 표시할 div 입니다 -->
 			        <div id="map" style="width:100%;height:350px;"></div>
 					<div class="routeButton-container">
 					    <p th:text="${detailAccRoMap.get('accList')[0].acc_address}"></p>
@@ -492,7 +211,7 @@
 			</aside>
         </section>
 
-        <!-- 리뷰 영역 규림추가 삭제하지마셈 ㅠㅠ -->
+		<!-- 리뷰영역 -->
         <section class="reviewDetail wrapper">
             <h2 class="review_title">리뷰보기</h2>
             <div class="review_box" id="review">
@@ -500,8 +219,8 @@
             </div>
             <button id="loadMore" class="load-more-btn">▼ 더보기</button>
         </section>
-        <!-- 리뷰 영역 -->
+		
+		<script type="text/javascript" th:src="@{/js/detailSearch.js}"></script>
     </th:block>
 </body>
-
 </html>

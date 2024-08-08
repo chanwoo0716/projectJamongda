@@ -7,7 +7,7 @@ public class AccommodationImageDTO {
 
 	private int acc_image_id;	//숙소 이미지 고유ID(AI처리)
 	private String acc_image;	//숙소 이미지 파일이름
-	private int acc_id;			//숙소 고유 ID(accommodation테이블과 FK)
+	private int acc_id;			//숙소 고유 ID(accommodation 테이블과 FK)
 	
 	public int getAcc_image_id() {
 		return acc_image_id;
