@@ -16,6 +16,8 @@ public class SearchDTO {
    private String rejectReason;   
    private String acc_image;
    private int ro_price;
+   private String checkIn;
+   private String checkOut;
    
    public SearchDTO() {
       
@@ -116,5 +118,21 @@ public class SearchDTO {
    public void setRo_price(int ro_price) {
       this.ro_price = ro_price;
    }
+
+public String getCheckIn() {
+	return checkIn;
+}
+
+public void setCheckIn(String checkIn) {
+	this.checkIn = checkIn;
+}
+
+public String getCheckOut() {
+	return checkOut;
+}
+
+public void setCheckOut(String checkOut) {
+	this.checkOut = checkOut;
+}
 
 }
