@@ -56,24 +56,42 @@ function slider(){
 }
 
 // 달력 라이브러리 JS
-$(function() {
-    $('input[name="datetimes"]').daterangepicker({
-        timePicker: false,
-        startDate: moment().startOf('day'),
-        endDate: moment().startOf('day').add(32, 'hour'),
-        locale: {
-            format: 'YYYY-MM-DD'
-        }
-    }, function(start, end, label) {
-        console.log("Start Date: " + start.format('YYYY-MM-DD'));
-        console.log("End Date: " + end.format('YYYY-MM-DD'));
-    });
-	
+$(function () {
+	$('#bo_checkIn').daterangepicker({
+		timePicker: false,
+		startDate: moment().startOf('day'),
+		endDate: moment().startOf('day').add(1, 'days'),
+		locale: {
+			format: 'YYYY-MM-DD'
+		}
+	}, function (start, end) {
+		// 선택된 날짜 범위를 로컬 저장소에 저장
+		localStorage.setItem('startDate', start.format('YYYY-MM-DD'));
+		localStorage.setItem('endDate', end.format('YYYY-MM-DD'));
+		$('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
+		$('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
+	});
+
+	$('#form1').on('submit', function (event) {
+		// 로컬 저장소에 저장된 데이터를 클리어하지 않도록 주의
+		var acc_name = document.getElementById('acc_name').value;
+		var acc_area = document.getElementById('acc_area').value;
+		localStorage.setItem('acc_name', acc_name);
+		localStorage.setItem('acc_area', acc_area);
+		localStorage.setItem('startDate', $('#bo_checkIn').data('daterangepicker').startDate.format('YYYY-MM-DD'));
+		localStorage.setItem('endDate', $('#bo_checkIn').data('daterangepicker').endDate.format('YYYY-MM-DD'));
+	});
+
+	// 초기 값 설정 (필요시)
+	var initialStartDate = $('input[name="datetimes"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
+	var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
+	$('input[name="checkIn"]').val(initialStartDate);
+	$('input[name="checkOut"]').val(initialEndDate);
 });
 
 //지역별 이미지 hover시 지역명 나오게하기
 document.addEventListener("DOMContentLoaded", function() {
-    const slides = document.querySelectorAll(".swiper-slide1");
+    const slides = document.querySelectorAll(".swiper-slide");
 
     slides.forEach(slide => {
         const anchor = slide.querySelector("a");
