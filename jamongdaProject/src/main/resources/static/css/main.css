@@ -148,7 +148,7 @@ input{
 }
 
 /* 국내 인기 여행지 영역 */
-.swiper-slide1 {
+.swiper-slide {
     position: relative;
 }
 
@@ -463,7 +463,7 @@ input{
 		display: none;
 	}
 	
-	.swiper-slide1 a:hover::after {
+	.swiper-slide1 a:hover::after, .swiper-slide a:hover::after {
 	    content: attr(data-alt);
 	    position: absolute;
 	    top: 0;

@@ -64,8 +64,10 @@ public class HomeController {
         
         mav.addObject("jamongdaAccListImage",jamongdaAccListImage);
 		mav.addObject("jamongdaAccListAcc_id",jamongdaAccListAcc_id);
+		mav.addObject("jamongdaAccListAcc_name",jamongdaAccListAcc_name);
 		mav.addObject("lowestAccListImage",lowestAccListImage);
 		mav.addObject("lowestAccListAcc_id",lowestAccListAcc_id);
+		mav.addObject("lowestAccListAcc_name",lowestAccListAcc_name);
 		mav.setViewName("main");
 		
 		return mav;
