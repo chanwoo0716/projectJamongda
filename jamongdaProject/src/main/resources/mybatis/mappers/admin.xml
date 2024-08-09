@@ -3,7 +3,6 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.jamongda.admin.dao.AdminDAO">
- 
     <resultMap type="accommodationDTO" id="accResult">
 	    <result property="acc_id" column="acc_id"/>
 	    <result property="acc_name" column="acc_name"/>
@@ -51,31 +50,27 @@
 		<result property="joinDate" column="joinDate" />
 		<result property="role" column="role" />
 	</resultMap>
-    
-  	<!-- regCheck=N 인 사업자의 email 가져오기-->
-  	<!--
-    <select id="notRegEmail" resultType="String">
-       <![CDATA[
-          select email from member where regCheck='N';
-       ]]>
-    </select>
-    -->
+
 	<!-- regCheck=N 숙소 가져오기 -->
     <select id="selectAcc_RegN" resultMap="accResult" parameterType="String">
 	    <![CDATA[
-	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck from accommodation where regCheck='N' order by acc_id DESC;
+	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck
+	       from accommodation
+	       where regCheck='N' order by acc_id DESC;
 	    ]]>
     </select> 
 	<!-- regCheck=N 객실 정보 가져오기 -->
     <select id="selectRo_RegN" resultMap="roResult" parameterType="int">
 	    <![CDATA[
-	       select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id from room where acc_id=#{acc_id} order by ro_id DESC;
+	       select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id
+	       from room
+	       where acc_id=#{acc_id} order by ro_id DESC;
 	    ]]>
     </select>
     <!-- regCheck=N 숙소 이미지 파일 이름 가져오기 -->
     <select id="selectAccImages_RegN" resultMap="accImageResult" parameterType="String">
 	    <![CDATA[
-	        select acc_image_id, acc_image, acc_id 
+			select acc_image_id, acc_image, acc_id 
 	        from acc_image 
 	        where acc_id in (select acc_id from accommodation where regCheck='N')
 	    ]]>
@@ -113,13 +108,17 @@
 	<!-- regCheck=Y 숙소 가져오기 -->
     <select id="selectAcc_RegY" resultMap="accResult" parameterType="String">
 	    <![CDATA[
-	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck from accommodation where regCheck='Y' order by acc_id DESC;
+	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck
+	       from accommodation
+	       where regCheck='Y' order by acc_id DESC;
 	    ]]>
     </select> 
 	<!-- regCheck=Y 객실 정보 가져오기 -->
     <select id="selectRo_RegY" resultMap="roResult" parameterType="int">
 	    <![CDATA[
-	       select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id from room where acc_id=#{acc_id} order by ro_id DESC;
+	       select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id
+	       from room
+	       where acc_id=#{acc_id} order by ro_id DESC;
 	    ]]>
     </select>
     <!-- regCheck=Y 숙소 이미지 파일 이름 가져오기 -->
@@ -142,13 +141,18 @@
 	<!-- 사업자 이메일 검색 및 regCheck=Y 숙소 가져오기 -->
     <select id="searchAcc_RegY" resultMap="accResult" parameterType="String">
 	    <![CDATA[
-	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck from accommodation where regCheck='Y' and email like CONCAT('%', #{searchEmail}, '%') order by acc_id DESC;
+	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck
+	       from accommodation
+	       where regCheck='Y' and email like CONCAT('%', #{searchEmail}, '%')
+	       order by acc_id DESC;
 	    ]]>
     </select> 
 	<!-- 사업자 이메일 검색 및 regCheck=Y 객실 정보 가져오기 -->
     <select id="searchRo_RegY" resultMap="roResult" parameterType="int">
 	    <![CDATA[
-	       select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id from room where acc_id=#{acc_id} order by ro_id DESC;
+	       select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id
+	       from room
+	       where acc_id=#{acc_id} order by ro_id DESC;
 	    ]]>
     </select>
     <!-- 사업자 이메일 검색 및 regCheck=Y 숙소 이미지 파일 이름 가져오기 -->
@@ -164,24 +168,24 @@
         <![CDATA[
             select ro_image_id, ro_image, ro_id 
             from room_image 
-            where ro_id in (select ro_id from room where acc_id in (select acc_id from accommodation where regCheck='Y' and email like CONCAT('%', #{searchEmail}, '%')))
+            where ro_id in (select ro_id from room where acc_id in (select acc_id from accommodation
+            where regCheck='Y' and email like CONCAT('%', #{searchEmail}, '%')))
         ]]>
     </select>
-    
-    
-    
-    
-    
 	<!-- regCheck=C 숙소 가져오기 -->
     <select id="selectAcc_RegC" resultMap="accResult" parameterType="String">
 	    <![CDATA[
-	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck from accommodation where regCheck='C' order by acc_id DESC;
+	       select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck
+	       from accommodation
+	       where regCheck='C' order by acc_id DESC;
 	    ]]>
     </select> 
 	<!-- regCheck=C 객실 정보 가져오기 -->
     <select id="selectRo_RegC" resultMap="roResult" parameterType="int">
 	    <![CDATA[
-	       select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id from room where acc_id=#{acc_id} order by ro_id DESC;
+	       select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id
+	       from room
+	       where acc_id=#{acc_id} order by ro_id DESC;
 	    ]]>
     </select>
     <!-- regCheck=C 숙소 이미지 파일 이름 가져오기 -->
@@ -197,10 +201,11 @@
         <![CDATA[
             select ro_image_id, ro_image, ro_id 
             from room_image 
-            where ro_id in (select ro_id from room where acc_id in (select acc_id from accommodation where regCheck='C'))
+            where ro_id in (select ro_id
+            from room
+            where acc_id in (select acc_id from accommodation where regCheck='C'))
         ]]>
     </select>
-    
 	<!-- 회원정보 모두 가져오기(가입일자 순으로) -->
 	<select id="selectAllMembersList" resultMap="memResult" >
 		<![CDATA[
@@ -221,15 +226,12 @@
 	    </where>
 	    order by joinDate DESC;
 	</select>
-    
 	<!-- 특정 회원(email)의 회원정보 가져오기(수정하기) -->
 	<select id="selectMemberByEmail" parameterType="String" resultType="memberDTO">
 		<![CDATA[
 			select * from member where email=#{email};
 		]]>
 	</select>
-    
-	<!-- id, joinDate는 modMemberForm에서 수정불가능한 거니 update에 쓸 필요가 없음. 대신 where조건은 id를 준다. PK니까.. -->
 	<!-- 회원정보수정 -->
 	<update id="updateMember" parameterType="memberDTO">
 		<![CDATA[
@@ -242,10 +244,4 @@
 			DELETE FROM member WHERE email=#{email};
 		]]>
 	</delete>
-    
-    
-    
-    
-    
-    
  </mapper>
