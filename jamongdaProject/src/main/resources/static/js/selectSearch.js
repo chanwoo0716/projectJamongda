@@ -42,6 +42,7 @@ $(function () {
 		timePicker: false,
 		startDate: startDate ? moment(startDate) : moment().startOf('day'),
 		endDate: endDate ? moment(endDate) : moment().startOf('day').add(7, 'days'),
+		minDate: moment().startOf('day'),
 		locale: {
 			format: 'YYYY-MM-DD'
 		}

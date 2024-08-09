@@ -15,6 +15,7 @@ import com.jamongda.accommodation.dto.AccommodationDTO;
 import com.jamongda.accommodation.dto.AccommodationImageDTO;
 import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.accommodation.dto.RoomImageDTO;
+import com.jamongda.booking.dto.BookingDTO;
 import com.jamongda.search.dao.SearchDAO;
 import com.jamongda.search.dto.SearchDTO;
 
@@ -23,9 +24,6 @@ public class SearchServiceImpl implements SearchService {
 
 	@Autowired
 	private SearchDAO searchDAO;
-
-	@Autowired
-	private AccommodationDTO accommodationDTO;
 
 	@Override
 	public List selectAll() throws DataAccessException {
@@ -46,65 +44,77 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	@Override
-	public AccommodationDTO detailSearch(int acc_id) throws DataAccessException {
-		AccommodationDTO accommodationDTO = searchDAO.selectAccId(acc_id);
-		return accommodationDTO;
-	}
-
-	@Override
-	public AccommodationDTO radio(AccommodationDTO acc) throws DataAccessException {
-		AccommodationDTO accommodationDTO = searchDAO.selectRadio(acc);
-		return accommodationDTO;
-	}
-
-	@Override
 	public List<SearchDTO> rangePrice(int minPrice, int maxPrice) throws DataAccessException {
 		List<SearchDTO> accRangePrice = searchDAO.searchPriceRange(minPrice, maxPrice);
 		return accRangePrice;
 	}
 
-	// 숙소상세보기
 	@Override
-	public Map detailAccRo(int acc_id) throws DataAccessException {
+	public Map<String, Object> detailAccRo(int acc_id, String bo_checkIn, String bo_checkOut) throws DataAccessException {
+	    Map<String, Object> detailAccRoMap = new HashMap<>();
 
-		Map detailAccRoMap = new HashMap();
+	    // 숙소 및 객실 정보 가져오기
+	    List<AccommodationDTO> accList = searchDAO.selectAcc(acc_id);
+	    detailAccRoMap.put("accList", accList);
 
-		// acc_id에 해당하는 숙소 가져오기
-		List<AccommodationDTO> accList = searchDAO.selectAcc(acc_id);
-		detailAccRoMap.put("accList", accList);
+	    // 객실 정보 가져오기
+	    List<List<RoomDTO>> roLists = new ArrayList<>();
+	    for (AccommodationDTO acc : accList) {
+	        List<RoomDTO> rooms = searchDAO.selectRo(acc.getAcc_id());
+	        roLists.add(rooms);
+	        detailAccRoMap.put("roList" + acc.getAcc_id(), rooms);
+	    }
 
-		// acc_id에 해당하는 객실 가져오기
-		List<List<RoomDTO>> roLists = new ArrayList(); // 각 숙소별 객실 리스트를 저장할 리스트
-		for (AccommodationDTO acc : accList) {
-			List<RoomDTO> rooms = searchDAO.selectRo(acc.getAcc_id()); // 숙소별 객실 리스트를 가져옴
-			roLists.add(rooms); // 로컬 리스트에 추가
-			detailAccRoMap.put("roList" + acc.getAcc_id(), rooms); // 맵에 추가
-		}
+	    // 숙소 이미지 정보 가져오기
+	    List<AccommodationImageDTO> accImageFileList = searchDAO.selectAccImages(acc_id);
+	    detailAccRoMap.put("accImageFileList", accImageFileList);
 
-		// acc_id에 해당하는 숙소 이미지 가져오기
-		List<AccommodationImageDTO> accImageFileList = searchDAO.selectAccImages(acc_id);
-		detailAccRoMap.put("accImageFileList", accImageFileList);
+	    // 객실 이미지 정보 가져오기
+	    List<RoomImageDTO> roImageFileList = searchDAO.selectRoImages(acc_id);
+	    detailAccRoMap.put("roImageFileList", roImageFileList);
 
-		// acc_id에 해당하는 객실 이미지 가져오기(서브쿼리 이용)
-		List<RoomImageDTO> roImageFileList = searchDAO.selectRoImages(acc_id);
-		detailAccRoMap.put("roImageFileList", roImageFileList);
+	    // 각 객실의 첫 번째 이미지
+	    Map<Integer, String> roThumbnail = new HashMap<>();
+	    for (List<RoomDTO> rooms : roLists) {
+	        for (RoomDTO room : rooms) {
+	            for (RoomImageDTO image : roImageFileList) {
+	                if (image.getRo_id() == room.getRo_id()) {
+	                    roThumbnail.put(room.getRo_id(), image.getRo_image());
+	                    break;
+	                }
+	            }
+	        }
+	    }
+	    detailAccRoMap.put("roThumbnail", roThumbnail);
 
-		// 각 객실의 첫 번째 이미지
-		Map<Integer, String> roThumbnail = new HashMap<>();
-		for (List<RoomDTO> rooms : roLists) {
-			for (RoomDTO room : rooms) {
-				for (RoomImageDTO image : roImageFileList) {
-					if (image.getRo_id() == room.getRo_id()) {
-						roThumbnail.put(room.getRo_id(), image.getRo_image());
-						break; // 첫 번째 이미지를 찾으면 루프 종료
-					}
-				}
-			}
-		}
-		detailAccRoMap.put("roThumbnail", roThumbnail);
-		return detailAccRoMap;
+	    // 예약 상태 확인
+	    SearchDTO searchDTO = new SearchDTO();
+	    searchDTO.setAcc_id(acc_id);
+	    searchDTO.setCheckIn(bo_checkIn);
+	    searchDTO.setCheckOut(bo_checkOut);
+	    List<BookingDTO> bookings = searchDAO.checkRoomAvailability(searchDTO);
+	    System.out.println("Bookings: " + bookings);  // 로그 확인용
+	    
+	    // 객실 가용성 확인
+	    Map<Integer, Boolean> roomAvailability = new HashMap<>();
+	    for (List<RoomDTO> rooms : roLists) {
+	        for (RoomDTO room : rooms) {
+	            boolean isAvailable = true;
+	            for (BookingDTO booking : bookings) {
+	                if (booking.getRo_id() == room.getRo_id()) {
+	                    isAvailable = false;
+	                    break;
+	                }
+	            }
+	            roomAvailability.put(room.getRo_id(), isAvailable);
+	        }
+	    }
+	    detailAccRoMap.put("roomAvailability", roomAvailability);
 
+	    return detailAccRoMap;
 	}
+
+
 
 	// 대표자명, 사업자번호 추가
 	@Override
