@@ -210,7 +210,6 @@ input{
   transform: translate(0, -50%);
 }
 
-
 /*미디어 쿼리*/
 @media (min-width: 344px) {
 	/*검색창*/
@@ -289,7 +288,7 @@ input{
 		padding: 0 5%;
 	}
 	
-	.swiper-slide1 a::after{
+	.swiper-slide a::after{
 		content: attr(data-alt);
 	    position: absolute;
 	    top: 0;
@@ -328,7 +327,7 @@ input{
 		display: block;
 	}
 	
-	.swiper-slide1 a::after{
+	.swiper-slide a::after{
 	    left: 3%;
 	    width: 93.5%;
 	    height: 100%;
@@ -337,7 +336,7 @@ input{
 }
 
 @media (min-width: 820px){
-	.swiper-slide1 a::after{
+	.swiper-slide a::after{
 	    left: 1%;
 	    width: 150%;
 	    height: 100%;
@@ -346,7 +345,7 @@ input{
 }
 
 @media (min-width: 1024px) {
-	.swiper-slide1 a::after{
+	.swiper-slide a::after{
 	    left: 1%;
 	    width: 105%;
 	    height: 100%;
@@ -356,7 +355,7 @@ input{
 
 @media (min-width: 1200px) {
 	#form1 {
-	  width: 100%;
+	  width: 90%;
 	  padding: 0;
   	  left: 8%;
 	}
@@ -459,11 +458,11 @@ input{
 		display: block;
 	}
 	
-	.swiper-slide1 a::after{
+	.swiper-slide a::after{
 		display: none;
 	}
 	
-	.swiper-slide1 a:hover::after, .swiper-slide a:hover::after {
+	.swiper-slide a:hover::after, .swiper-slide a:hover::after {
 	    content: attr(data-alt);
 	    position: absolute;
 	    top: 0;
