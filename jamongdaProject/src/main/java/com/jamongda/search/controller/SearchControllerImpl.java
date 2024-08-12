@@ -144,7 +144,6 @@ public class SearchControllerImpl implements SearchController {
 	        if (roomAvailability == null) {
 	            roomAvailability = new HashMap<>(); // 빈 객체로 초기화
 	        }
-	        System.out.println("Room Availability: " + roomAvailability); // 디버깅 로그 추가
 	        return ResponseEntity.ok(roomAvailability);
 	    } catch (DataAccessException e) {
 	        e.printStackTrace(); // 에러 로그 추가

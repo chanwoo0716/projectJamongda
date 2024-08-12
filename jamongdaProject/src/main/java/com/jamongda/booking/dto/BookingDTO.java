@@ -17,6 +17,7 @@ public class BookingDTO {
 	private Date payDate;
 	private String bo_payment;
 	private int bo_price;
+	private String imp_uid;
 	private int ro_id;
 	private String email;
 	
@@ -79,6 +80,12 @@ public class BookingDTO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getImp_uid() {
+		return imp_uid;
+	}
+	public void setImp_uid(String imp_uid) {
+		this.imp_uid = imp_uid;
 	}
 	
 }

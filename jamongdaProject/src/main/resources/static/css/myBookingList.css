@@ -36,6 +36,7 @@
 }
 
 .review-link,
+.refund-link,
 .reBooking-link {
 	margin-top: 10px;
 	padding: 10px 50px;
@@ -45,6 +46,7 @@
 }
 
 .review-link:hover,
+.refund-link:hover,
 .reBooking-link:hover {
 	background-color: rgb(212, 212, 212);
 	/* Darker green on hover */
@@ -156,15 +158,12 @@
 }
 
 .review-link,
+.refund-link,
 .reBooking-link {
 	display: inline-block;
-	/* 너비를 적용할 수 있게 설정 */
 	width: 100%;
-	/* 원하는 너비를 설정 */
 	padding: 10px 20px;
-	/* 적절한 패딩 추가 */
 	border: 1px solid #ddd;
 	border-radius: 5px;
 	text-align: center;
-	/* 텍스트 가운데 정렬 */
 }
