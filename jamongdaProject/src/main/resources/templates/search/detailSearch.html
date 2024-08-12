@@ -107,7 +107,9 @@
                                                 <input type="hidden" name="checkOut"
                                                     th:value="${detailAccRoMap.bo_checkOut}" />
                                                 <div class="res_button">
-                                                    <button type="submit">객실 예약</button>
+													<button type="submit">
+													    <span th:text="${detailAccRoMap.roomAvailability[room.ro_id] ? '객실 예약' : '예약 마감'}"></span>
+													</button>
                                                 </div>
                                             </form>
                                         </div>

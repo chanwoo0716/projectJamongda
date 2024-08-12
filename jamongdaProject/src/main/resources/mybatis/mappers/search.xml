@@ -56,6 +56,19 @@
        <result property="acc_image" column="acc_image"/>
        <result property="ro_price" column="ro_price"/>
     </resultMap>
+    
+	<resultMap id="bookingResult" type="bookingDTO">
+		<result property="bo_number" column="bo_number" />
+		<result property="bo_name" column="bo_name" />
+		<result property="bo_tel" column="bo_tel" />
+		<result property="bo_checkIn" column="bo_checkIn" />
+		<result property="bo_checkOut" column="bo_checkOut" />
+		<result property="payDate" column="payDate" />
+		<result property="bo_payment" column="bo_payment" />
+		<result property="bo_price" column="bo_price" />
+		<result property="ro_id" column="ro_id" />
+		<result property="email" column="email" />
+	</resultMap>
 
     <select id="selectAllAccsList" resultMap="accResult">
         select * from accommodation
@@ -140,13 +153,17 @@
 	<!-- acc_id에 해당하는 숙소 가져오기 -->
     <select id="selectAcc" resultMap="accResult" parameterType="int">
        <![CDATA[
-          select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck from accommodation where acc_id=#{acc_id};
+          select acc_id, acc_name, acc_type, acc_area, acc_tel, acc_address, acc_info, email, regCheck
+          from accommodation
+          where acc_id=#{acc_id};
        ]]>
     </select> 
    <!-- acc_id에 해당하는 객실 정보 가져오기 -->
     <select id="selectRo" resultMap="roResult" parameterType="int">
        <![CDATA[
-          select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id from room where acc_id=#{acc_id} order by ro_id DESC;
+          select ro_id, ro_name, ro_min, ro_max, ro_info, ro_amenities, ro_price, ro_checkIn, ro_checkOut, acc_id
+          from room
+          where acc_id=#{acc_id} order by ro_id DESC;
        ]]>
     </select>
     <!-- acc_id에 해당하는 숙소 이미지 파일 이름 가져오기 -->
@@ -174,4 +191,14 @@
         WHERE a.acc_id = #{acc_id}
     </select>
 
+	<!-- 예약 상태를 확인하는 쿼리 -->
+	<select id="checkRoomAvailability" parameterType="SearchDTO" resultMap="bookingResult">
+	    <![CDATA[
+	        SELECT b.*
+	        FROM booking b
+	        JOIN room r ON b.ro_id = r.ro_id
+	        WHERE r.acc_id = #{acc_id}
+	        AND (b.bo_checkIn < #{checkOut} AND b.bo_checkOut > #{checkIn})
+	    ]]>
+	</select>
  </mapper>
