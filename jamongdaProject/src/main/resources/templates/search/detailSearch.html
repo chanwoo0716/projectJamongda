@@ -30,6 +30,7 @@
 						<!--숙소-->
 						<div class="inputWrap">
 							<i class="fas fa-search" aria-hidden="true"></i>
+							<input type="hidden" id="acc_id" th:value="${detailAccRoMap.acc_id}">
 							<input type="search" id="acc_name" name="acc_name" placeholder="숙소명을 입력해주세요.">
 						</div>
 
@@ -107,7 +108,11 @@
                                                 <input type="hidden" name="checkOut"
                                                     th:value="${detailAccRoMap.bo_checkOut}" />
                                                 <div class="res_button">
-													<button type="submit">
+													<button type="submit" 
+													        th:data-room-id="${room.ro_id}"
+															class="room-button"
+													        th:disabled="${!detailAccRoMap.roomAvailability[room.ro_id]}"
+													        th:classappend="${!detailAccRoMap.roomAvailability[room.ro_id] ? 'disabled-button' : ''}">
 													    <span th:text="${detailAccRoMap.roomAvailability[room.ro_id] ? '객실 예약' : '예약 마감'}"></span>
 													</button>
                                                 </div>
