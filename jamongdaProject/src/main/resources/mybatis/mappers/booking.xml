@@ -11,6 +11,7 @@
 		<result property="payDate" column="payDate" />
 		<result property="bo_payment" column="bo_payment" />
 		<result property="bo_price" column="bo_price" />
+		<result property="imp_uid" column="imp_uid" />
 		<result property="ro_id" column="ro_id" />
 		<result property="email" column="email" />
 	</resultMap>
@@ -21,7 +22,7 @@
     </select>
 	
 	<insert id="insertBoInfo" parameterType="bookingDTO">
-		insert into booking values(#{bo_number}, #{bo_name}, #{bo_tel}, #{bo_checkIn}, #{bo_checkOut}, #{payDate}, #{bo_payment}, #{bo_price}, #{ro_id}, #{email})
+		insert into booking values(#{bo_number}, #{bo_name}, #{bo_tel}, #{bo_checkIn}, #{bo_checkOut}, #{payDate}, #{bo_payment}, #{bo_price}, #{imp_uid}, #{ro_id}, #{email})
 	</insert>
 	
 	<!-- 예약번호 중복 확인 -->
@@ -40,4 +41,8 @@
 	<select id="showRoInfo" resultType="roomDTO" parameterType="int">
 		select * from room where ro_id = #{ro_id}
 	</select>
+	
+	<delete id="cancelBooking" parameterType="Long">
+	    delete from booking where bo_number = #{bo_number}
+	</delete>
 </mapper>

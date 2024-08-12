@@ -12,7 +12,6 @@ $(function() {
             format: 'YYYY-MM-DD'
         }
     }, function(start, end) {
-		console.log('날짜 선택됨:', start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD')); // 날짜 로그 추가
         // 선택된 날짜 범위를 로컬 저장소에 저장
         localStorage.setItem('startDate', start.format('YYYY-MM-DD'));
         localStorage.setItem('endDate', end.format('YYYY-MM-DD'));
@@ -32,11 +31,6 @@ $(function() {
 	// 예약 가능 여부 확인을 위한 AJAX 함수
 	function checkRoomAvailability(checkIn, checkOut) {
 		var accId = $('#acc_id').val(); // acc_id 값 가져오기
-		console.log('AJAX 호출 준비:', {
-		    aid: accId,
-		    checkIn: checkIn,
-		    checkOut: checkOut
-		});
 		$.ajax({
 		    url: '/search/check-roomAvailability',
 		    method: 'GET',
@@ -61,12 +55,9 @@ $(function() {
 	
 	// 예약 가능 여부에 따라 버튼 상태 업데이트
 	function updateRoomAvailability(data) {
-	    console.log('업데이트할 예약 가능 여부 데이터:', data);
-
 	    // 모든 버튼을 찾기
 	    $('.room-button').each(function() {
 	        var roomId = $(this).data('room-id'); // 버튼의 data-room-id 속성 값 가져오기
-			console.log('room ID ', roomId)
 	        if (data[roomId] !== undefined) { // 예약 가능 여부가 데이터에 있는지 확인
 	            if (data[roomId]) {
 	                $(this).prop('disabled', false).removeClass('disabled-button');

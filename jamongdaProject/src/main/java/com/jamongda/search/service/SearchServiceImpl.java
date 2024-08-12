@@ -108,8 +108,6 @@ public class SearchServiceImpl implements SearchService {
 	            roomAvailability.put(room.getRo_id(), isAvailable);
 	        }
 	    }
-	    // 디버깅을 위한 로그 출력
-	    System.out.println("객실 가용성 확인:"+ roomAvailability);
 	    detailAccRoMap.put("roomAvailability", roomAvailability);
 
 	    return detailAccRoMap;

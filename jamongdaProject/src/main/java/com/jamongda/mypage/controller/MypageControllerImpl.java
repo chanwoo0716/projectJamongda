@@ -28,126 +28,146 @@ import jakarta.servlet.http.HttpSession;
 @Controller("mypageControllerImpl")
 public class MypageControllerImpl implements MypageController {
 
-    @Autowired
-    MypageService mypageService;
-    
-    @Autowired
-    SearchService searchService;
+	@Autowired
+	MypageService mypageService;
 
-    @Override
-    @GetMapping("/mypage/mypage.do")
-    public ModelAndView mypageForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView();
+	@Autowired
+	SearchService searchService;
 
-        HttpSession session = request.getSession();
-        MemberDTO guest = (MemberDTO) session.getAttribute("guest");
+	@Override
+	@GetMapping("/mypage/mypage.do")
+	public ModelAndView mypageForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
 
-        Map<String, Object> latestBooking = mypageService.getLatestBoInfoByEmail(guest.getEmail());
+		HttpSession session = request.getSession();
+		MemberDTO guest = (MemberDTO) session.getAttribute("guest");
 
-        boolean isPastCheckout = false;
-        if (latestBooking != null && latestBooking.get("bo_checkOut") != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date checkOutDate = sdf.parse((String) latestBooking.get("bo_checkOut"));
-            Date now = new Date();
-            isPastCheckout = checkOutDate.before(now);
-        }
+		Map<String, Object> latestBooking = mypageService.getLatestBoInfoByEmail(guest.getEmail());
 
-        mav.addObject("guest", guest);
-        mav.addObject("latestBooking", latestBooking);
-        mav.addObject("isPastCheckout", isPastCheckout);
-        mav.setViewName("mypage/mypage");
+		// 체크아웃날짜가 지나면 리뷰등록 가능
+		boolean isPastCheckout = false;
+		if (latestBooking != null && latestBooking.get("bo_checkOut") != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date checkOutDate = sdf.parse((String) latestBooking.get("bo_checkOut"));
+			Date now = new Date();
+			isPastCheckout = checkOutDate.before(now);
+		}
+		
+		// 체크인날짜 전이면 환불 가능
+		boolean isAvailableRefund = false;
+		if (latestBooking != null && latestBooking.get("bo_checkIn") != null) {
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    Date checkInDate = sdf.parse((String) latestBooking.get("bo_checkIn"));
+		    Date now = new Date();
+		    isAvailableRefund = checkInDate.after(now); // 체크인 날짜가 현재 날짜보다 이후일 때 환불 가능
+		}
 
-        return mav;
-    }
+		mav.addObject("guest", guest);
+		mav.addObject("latestBooking", latestBooking);
+		mav.addObject("isPastCheckout", isPastCheckout);
+		mav.addObject("isAvailableRefund", isAvailableRefund);
+		mav.setViewName("mypage/mypage");
 
-    @Override
-    @GetMapping("/mypage/allBookings.do")
-    public ModelAndView allBookings(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView();
+		return mav;
+	}
 
-        HttpSession session = request.getSession();
-        MemberDTO guest = (MemberDTO) session.getAttribute("guest");
+	@Override
+	@GetMapping("/mypage/allBookings.do")
+	public ModelAndView allBookings(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
 
-        List<Map<String, Object>> bookingList = mypageService.getAllBoInfoByEmail(guest.getEmail());
+		HttpSession session = request.getSession();
+		MemberDTO guest = (MemberDTO) session.getAttribute("guest");
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date now = new Date();
+		List<Map<String, Object>> bookingList = mypageService.getAllBoInfoByEmail(guest.getEmail());
 
-        for (Map<String, Object> booking : bookingList) {
-            if (booking.get("bo_checkOut") != null) {
-                Date checkOutDate = sdf.parse((String) booking.get("bo_checkOut"));
-                boolean isPastCheckout = checkOutDate.before(now);
-                booking.put("isPastCheckout", isPastCheckout);
-            } else {
-                booking.put("isPastCheckout", false);
-            }
-        }
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date now = new Date();
 
-        mav.addObject("guest", guest);
-        mav.addObject("bookingList", bookingList);
-        mav.setViewName("mypage/myBookingList");
+		for (Map<String, Object> booking : bookingList) {
+			if (booking.get("bo_checkOut") != null) {
+				Date checkOutDate = sdf.parse((String) booking.get("bo_checkOut"));
+				boolean isPastCheckout = checkOutDate.before(now);
+				booking.put("isPastCheckout", isPastCheckout);
+			} else {
+				booking.put("isPastCheckout", false);
+			}
+		}
+		
+		for (Map<String, Object> booking : bookingList) {
+			if (booking.get("bo_checkIn") != null) {
+				Date checkInDate = sdf.parse((String) booking.get("bo_checkIn"));
+				boolean isAvailableRefund = checkInDate.after(now);
+				booking.put("isAvailableRefund", isAvailableRefund);
+			} else {
+				booking.put("isAvailableRefund", false);
+			}
+		}
 
-        return mav;
-    }
+		mav.addObject("guest", guest);
+		mav.addObject("bookingList", bookingList);
+		mav.setViewName("mypage/myBookingList");
 
-    @Override
-    @GetMapping("/mypage/myBookingDetails.do")
-    public ModelAndView myBookingDetails(@RequestParam("number") Long bo_number, HttpServletRequest request,
-            HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView();
+		return mav;
+	}
 
-        Map<String, Object> myBookingDetails = mypageService.myBookingDetails(bo_number);
+	@Override
+	@GetMapping("/mypage/myBookingDetails.do")
+	public ModelAndView myBookingDetails(@RequestParam("number") Long bo_number, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
 
-        mav.addObject("myBookingDetails", myBookingDetails);
-        mav.setViewName("mypage/myBookingDetails");
-        return mav;
-    }
+		Map<String, Object> myBookingDetails = mypageService.myBookingDetails(bo_number);
 
-    @Override
-    @PostMapping("/mypage/myReviews.do")
-    public ModelAndView getMyReviews(@Param("email") String email,
-                                      @RequestParam(value = "page", defaultValue = "1") int page,
-                                      @RequestParam(value = "size", defaultValue = "5") int size,
-                                      HttpServletRequest request, HttpServletResponse response) throws Exception {
-        ModelAndView mav = new ModelAndView("mypage/myReviews");
-        HttpSession session = request.getSession();
-        MemberDTO guest = (MemberDTO) session.getAttribute("guest");
-        try {
-            List<ReviewDTO> reviews = mypageService.getReviewsWithImagesByEmail(email, page, size);
+		mav.addObject("myBookingDetails", myBookingDetails);
+		mav.setViewName("mypage/myBookingDetails");
+		return mav;
+	}
 
-            for (ReviewDTO review : reviews) {
-                String ro_name = mypageService.getRoomNameById(review.getRo_id());
-                review.setRo_name(ro_name);
-            }
+	@Override
+	@PostMapping("/mypage/myReviews.do")
+	public ModelAndView getMyReviews(@Param("email") String email,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "5") int size, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView("mypage/myReviews");
+		HttpSession session = request.getSession();
+		MemberDTO guest = (MemberDTO) session.getAttribute("guest");
+		try {
+			List<ReviewDTO> reviews = mypageService.getReviewsWithImagesByEmail(email, page, size);
 
-            mav.addObject("guest", guest);
-            mav.addObject("reviews", reviews);
-            mav.addObject("currentPage", page);
-            mav.addObject("pageSize", size);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return mav;
-    }
+			for (ReviewDTO review : reviews) {
+				String ro_name = mypageService.getRoomNameById(review.getRo_id());
+				review.setRo_name(ro_name);
+			}
 
-    @PostMapping("/mypage/getReviewsAjax")
-    public ResponseEntity<List<ReviewDTO>> getReviewsAjax(@RequestParam("email") String email,
-                                                          @RequestParam(value = "page", defaultValue = "1") int page,
-                                                          @RequestParam(value = "size", defaultValue = "5") int size) {
-        try {
-            int offset = (page - 1) * size;
-            Map<String, Object> params = new HashMap<>();
-            params.put("email", email);
-            params.put("offset", offset);
-            params.put("size", size);
+			mav.addObject("guest", guest);
+			mav.addObject("reviews", reviews);
+			mav.addObject("currentPage", page);
+			mav.addObject("pageSize", size);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
 
-            List<ReviewDTO> reviews = mypageService.getReviewsWithImagesByEmail(email, page, size);
-            return ResponseEntity.ok(reviews);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-    }
+	@PostMapping("/mypage/getReviewsAjax")
+	public ResponseEntity<List<ReviewDTO>> getReviewsAjax(@RequestParam("email") String email,
+			@RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "size", defaultValue = "5") int size) {
+		try {
+			int offset = (page - 1) * size;
+			Map<String, Object> params = new HashMap<>();
+			params.put("email", email);
+			params.put("offset", offset);
+			params.put("size", size);
 
+			List<ReviewDTO> reviews = mypageService.getReviewsWithImagesByEmail(email, page, size);
+			return ResponseEntity.ok(reviews);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+		}
+	}
 
 }
