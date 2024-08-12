@@ -1,9 +1,13 @@
 package com.jamongda.search.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -59,7 +63,6 @@ public class SearchControllerImpl implements SearchController {
 			HttpServletResponse response) throws Exception {
 
 		List accList = searchService.selectAll(); // 숙소 전체 리스트
-		// System.out.println(acc_type);
 		List accListType = searchService.searchType(acc);// 숙소 검색 리스트(타입)
 
 		ModelAndView mav = new ModelAndView();
@@ -68,7 +71,6 @@ public class SearchControllerImpl implements SearchController {
 		mav.addObject("accListType", accListType);
 		mav.addObject("bo_checkIn", bo_checkIn);
 		mav.addObject("bo_checkOut", bo_checkOut);
-		// mav.addObject("accImageList",accImageList);
 		return mav;
 	}
 
@@ -100,7 +102,6 @@ public class SearchControllerImpl implements SearchController {
 		mav.addObject("accRangePrice", accRangePrice);
 		mav.addObject("bo_checkIn", bo_checkIn);
 		mav.addObject("bo_checkOut", bo_checkOut);
-		// mav.addObject("accImageList",accImageList);
 		return mav;
 	}
 
@@ -124,11 +125,30 @@ public class SearchControllerImpl implements SearchController {
 		// 요청에 포함된 체크인/체크아웃 날짜 추가
 		detailAccRoMap.put("bo_checkIn", bo_checkIn);
 		detailAccRoMap.put("bo_checkOut", bo_checkOut);
-
-		System.out.println("DetailAccRoMap: " + detailAccRoMap);
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("detailAccRoMap", detailAccRoMap);
 		mav.setViewName("search/detailSearch");
 		return mav;
+	}
+	
+	@GetMapping("/search/check-roomAvailability")
+	public ResponseEntity<Map<Integer, Boolean>> checkRoomAvailability(
+	        @RequestParam("aid") int acc_id,
+	        @RequestParam("checkIn") String bo_checkIn,
+	        @RequestParam("checkOut") String bo_checkOut) {
+	    try {
+	        Map<String, Object> detailAccRoMap = searchService.detailAccRo(acc_id, bo_checkIn, bo_checkOut);
+	        @SuppressWarnings("unchecked")
+	        Map<Integer, Boolean> roomAvailability = (Map<Integer, Boolean>) detailAccRoMap.get("roomAvailability");
+	        if (roomAvailability == null) {
+	            roomAvailability = new HashMap<>(); // 빈 객체로 초기화
+	        }
+	        System.out.println("Room Availability: " + roomAvailability); // 디버깅 로그 추가
+	        return ResponseEntity.ok(roomAvailability);
+	    } catch (DataAccessException e) {
+	        e.printStackTrace(); // 에러 로그 추가
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
 	}
 }
