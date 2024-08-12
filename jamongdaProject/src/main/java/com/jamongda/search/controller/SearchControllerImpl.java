@@ -113,7 +113,7 @@ public class SearchControllerImpl implements SearchController {
 			HttpServletResponse response) throws Exception {
 
 		// acc_id인 숙소 및 객실들
-		Map detailAccRoMap = searchService.detailAccRo(acc_id);
+		Map<String, Object> detailAccRoMap = searchService.detailAccRo(acc_id, bo_checkIn, bo_checkOut);
 
 		// 대표자명, 사업자번호 추가
 		Map<String, Object> hostInfo = searchService.getHostInfo(acc_id);
@@ -121,9 +121,11 @@ public class SearchControllerImpl implements SearchController {
 		detailAccRoMap.put("regNumber", hostInfo.get("regNumber"));
 
 		detailAccRoMap.put("acc_id", acc_id);
+		// 요청에 포함된 체크인/체크아웃 날짜 추가
 		detailAccRoMap.put("bo_checkIn", bo_checkIn);
 		detailAccRoMap.put("bo_checkOut", bo_checkOut);
 
+		System.out.println("DetailAccRoMap: " + detailAccRoMap);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("detailAccRoMap", detailAccRoMap);
 		mav.setViewName("search/detailSearch");
