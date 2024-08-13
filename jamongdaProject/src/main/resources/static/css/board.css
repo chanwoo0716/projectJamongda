@@ -1,29 +1,6 @@
 @charset "utf-8";
-* {
-  margin: 0;
-}
-html,
-body {
-  position: relative;
-  min-width: 600px;
-  max-width: 1920px;
-  margin: 0 auto;
-}
 
-body {
-  background: rgb(252, 252, 252);
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:link {
-  text-decoration: none;
-}
+/*공지사항 안에서만 사용할 기본 설정*/
 a:visited, a:active {
   color: black;
 }
@@ -35,27 +12,20 @@ span {
   font-weight: bold;
 }
 
-/* 전체 기본 설정 */
-ul, ul > li {
-  list-style: none;
-}
-
 /*boardList 영역*/
 /*전체 화면*/
 #boardcontent {
   width: 100%;
-  min-height: 630px;
+  height: 100%;
   border-top: 0.1em solid rgb(255, 111, 97);
 }
 
-/*오른쪽 View 화면*/
+/* 공지사항 목록 화면*/
 .board {
   width: 60%;
   margin: 0 auto;
 }
 .board > h1 {
-  margin-top: 4%;
-  margin-bottom: 1%;
   color: #ff6f61;
   text-decoration: underline;
   text-underline-offset: 8px;
@@ -64,14 +34,14 @@ ul, ul > li {
 
 .board > p {
   color: #666;
-  margin-bottom: 2%;
   text-align: center;
-  margin-bottom: 5%;
+  
+  margin-top: 2%;
 }
 
 .board > table {
   table-layout: auto;
-  width: 60%;
+  width: 100%;
   border-bottom: 1px solid #ccc;
   border-collapse: collapse;
   margin-top: 3%;
@@ -80,11 +50,11 @@ ul, ul > li {
 
 .board td {
   border-bottom: 1px solid lightgray;
-  padding: 2%;
+  
+  font-size: 1.1em;
 }
 
 .board td:first-child {
-  width: 10%;
   text-align: center;
   font-weight: bold;
   color: #ff6f61;
@@ -106,14 +76,10 @@ ul, ul > li {
 }
 
 .board td:nth-child(4) {
-  width: 10%;
   text-align: center;
 }
 
 /*하단 페이징 영역*/
-#list_paging {
-  margin-top: 3%;
-}
 
 #list_paging .noLine:hover {
   color: lightgray;
@@ -142,6 +108,84 @@ ul, ul > li {
 .write > a:hover {
   color: #ff6f61;
 }
+
+/* 미디어 쿼리 */
+@media (min-width: 344px) {
+	
+	.board > h1 {
+	  margin-top: 10%;
+	}
+	
+	.board > p {
+	  margin-bottom: 10%;
+	}
+	
+	.board td {
+	  padding: 5%;
+	}
+	
+	.board td:first-child {
+	  width: 13%;
+	}
+	
+	.board td:nth-child(4) {
+	  width: 19%;
+	}
+	
+	#list_paging {
+	  margin-top: 8%;
+	}
+}
+
+@media (min-width: 768px) {
+  
+}
+
+@media (min-width: 820px){
+	
+	.board > p {
+	  margin-bottom: 15%;
+	}
+		
+	.board td:nth-child(4) {
+	  width: 20%;
+	}
+	
+	.board td {
+	  padding: 4%;
+	}
+	
+	#list_paging {
+	  margin-top: 10%;
+	}
+}
+
+@media (min-width: 1200px) {
+	.board > h1 {
+	  margin-top: 6%;
+	}
+	
+	.board > p {
+	  margin-bottom: 5%;
+	}
+	
+	.board td {
+	  padding: 2%;
+	}
+	
+	.board td:first-child {
+	  width: 10%;
+	}
+	
+	.board td:nth-child(4) {
+	  width: 12%;
+	}
+	
+	#list_paging {
+	  margin-top: 5%;
+	}
+}
+
 
 /*boardForm css 영역*/
 #boardForm {
@@ -196,61 +240,6 @@ textarea#editorTxt {
     height: 200px;
 }
 
-/* 반응형 스타일 */
-@media (max-width: 1280px) {
-    div#smartEditor {
-        width: 70%;
-        margin-left: 18%;
-    }
-	
-	.top {
-	  width: 100%;
-	  text-align: center;
-	}
-}
-
-@media (max-width: 992px) {
-    div#smartEditor {
-        width: 90%;
-        margin-left: 5%;
-    }
-	
-	.top {
-		  width: 100%;
-		  margin: 2% 0;
-		  text-align: center;
-		}
-}
-
-@media (max-width: 768px) {
-    div#smartEditor {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    textarea#editorTxt {
-        height: 150px;
-    }
-	
-	.top {
-	  width: 100%;
-	  margin: 2% 0;
-	  text-align: center;
-	}
-}
-
-@media (max-width: 576px) {
-    textarea#editorTxt {
-        height: 100px;
-    }
-	
-	.top {
-	  width	: 100%;
-	  margin: 2% 0;
-	  text-align: center;
-	}
-}
-
 /*등록하기 버튼*/
 .form_btn > input {
   float: right;
@@ -271,7 +260,6 @@ textarea#editorTxt {
 
 /*viewBoard css 영역*/
 #view_board {
-  width: 60%;
   min-height: 630px;
   margin: 0 auto;
   padding-top: 1%;
@@ -279,13 +267,15 @@ textarea#editorTxt {
   border-top: 1px solid #ff6f61;
 }
 
-#view_board i {
+.fa-chevron-left{
   float: left;
   font-size: 1.3em;
   color: #ff6f61;
-  opacity: 0.8;
+  opacity: 1;
   margin-top: 3%;
   margin-left: 18%;
+  
+  font-size: 2em;
 }
 
 #view_board .view_category {
@@ -365,82 +355,4 @@ textarea#editorTxt {
 
 .modView_btn > input:hover {
   text-shadow: rgb(237, 93, 75) 1px 0px 20px;
-}
-
-/* 미디어 쿼리 */
-@media screen and (max-width: 1200px) {
-  .board {
-    width: 70%;
-  }
-
-  #boardForm, #view_board {
-    width: 90%;
-  }
-
-  .top > #category, .top > .title {
-    width: auto;
-    margin-right: 0;
-  }
-
-  #view_board a {
-    font-size: 2em;
-    margin-top: 5%;
-    margin-left: 0;
-    text-align: center;
-    width: 100%;
-  }
-
-  #view_board .view_category {
-    width: auto;
-    margin-top: 2%;
-    margin-left: 0;
-    text-align: center;
-  }
-
-  #boardView {
-    width: 100%;
-    margin-left: 0;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  body {
-    font-size: 12px;
-  }
-
-  .board {
-    width: 100%;
-  }
-
-  #boardForm, #view_board {
-    width: 100%;
-  }
-
-  #view_board a {
-    font-size: 1.5em;
-  }
-
-  .view_btn {
-    margin-right: 0;
-  }
-
-  .view_btn > input {
-    float: none;
-    display: block;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width: 1920px) {
-  .board {
-    width: 100%;
-  }
-
-  #boardForm, #view_board {
-    width: 100%;
-  }
-
-  #view_board a {
-    font-size: 1.2em;
-  }
 }
