@@ -1,4 +1,21 @@
 @charset "utf-8";
+/*font영역*/
+/*일반 폰트에 사용*/
+@font-face{
+	font-family: 'GothicA1-Medium';
+    src: url('/fonts/GothicA1-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+/*굵은 폰트에 사용*/
+@font-face{
+	font-family: 'GothicA1-Bold';
+    src: url('/fonts/GothicA1-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
 /*전체 영역*/
 *{
     margin: 0;
@@ -13,8 +30,8 @@ body {
 
 body {
   background: rgb(252, 252, 252);
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: GothicA1-Medium, sans-serif;
+  font-size: 12px;
   color: #000;
   margin: 0;
   padding: 0;
@@ -31,8 +48,20 @@ a {
   color: #000;
 }
 
+a:link {
+  text-decoration: none;
+}
+
 input:focus {
   outline: none;
+}
+
+p, span{
+	font-family: GothicA1-Medium, sans-serif;
+}
+
+h1, h2{
+	font-family: GothicA1-Bold, sans-serif;
 }
 
 /*header 영역*/
@@ -50,15 +79,12 @@ input:focus {
 
 /*알림영역*/
 .header_notice {
-  width: 10%;
   display: inline-block;
   vertical-align: middle;
-  margin-left: 7%;
 }
 
 /*로고 영역*/
 .header_logo {
-  width: 65%;
   display: inline-block;
   vertical-align: middle;
 }
@@ -160,7 +186,7 @@ footer {
   text-align: center;
   border-top: 0.1em solid rgb(255, 111, 97);
   font-size: 1em;
-  margin-top: 3%;
+  margin-top: 5%;
   
   position: relative;
   transform: translatY(-100%);
@@ -176,7 +202,7 @@ footer {
 }
 
 .jamongda_info > h3 {
-  margin-top: 2%;
+  margin-top: 5%;
   margin-bottom: 0;
 }
 
@@ -213,7 +239,7 @@ footer {
 }
 
 .support_info > h3 {
-  margin-top: 5.5%;
+  margin-top: 10%;
   margin-bottom: 0;
 }
 
@@ -249,7 +275,7 @@ footer {
 @media (min-width: 344px) {
 	/*header*/
 	#header{
-		padding-top: 3%;
+		padding-top: 2%;
 	}
 	.header_notice{
 		width: 10%;
@@ -288,9 +314,6 @@ footer {
 }
 
 @media (min-width: 768px) {
-	#header{
-		padding-top: 3%;
-	}
 	.header_notice{
 		width: 10%;
 		margin-left: 0;
@@ -363,7 +386,7 @@ footer {
 	}
 	.header_notice{
 		width: 7%;
-		margin-left: 0;
+		margin-left: 2%;
 	}
 	.header_logo{
 		width: 60%;
