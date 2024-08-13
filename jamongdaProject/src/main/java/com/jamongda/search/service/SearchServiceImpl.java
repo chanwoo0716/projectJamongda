@@ -93,7 +93,6 @@ public class SearchServiceImpl implements SearchService {
 	    searchDTO.setCheckIn(bo_checkIn);
 	    searchDTO.setCheckOut(bo_checkOut);
 	    List<BookingDTO> bookings = searchDAO.checkRoomAvailability(searchDTO);
-	    System.out.println("Bookings: " + bookings);  // 로그 확인용
 	    
 	    // 객실 가용성 확인
 	    Map<Integer, Boolean> roomAvailability = new HashMap<>();
@@ -113,8 +112,6 @@ public class SearchServiceImpl implements SearchService {
 
 	    return detailAccRoMap;
 	}
-
-
 
 	// 대표자명, 사업자번호 추가
 	@Override

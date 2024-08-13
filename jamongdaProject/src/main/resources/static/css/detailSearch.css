@@ -161,10 +161,10 @@ a {
 
 /* 검색 버튼 */
 .search_btn {
-  position: relative; /* 검색 버튼을 다른 요소와 일렬로 배치하기 위해 상대 위치 설정 */
-  float: left; /* 검색 필드와 일렬로 배치 */
-  max-width: 10%; /* 검색 버튼의 최대 너비 설정 */
-  height: 50px; /* 다른 입력 필드와 동일한 높이 설정 */
+  position: relative;
+  float: left;
+  max-width: 10%;
+  height: 50px;
   background: none;
   border: none;
   font-size: 1em;
@@ -173,7 +173,7 @@ a {
   cursor: pointer;
   text-align: center;
   padding: 0;
-  margin-top: 0; /* 상단 마진 제거 */
+  margin-top: 0;
   margin-left: 2%;
 }
 
@@ -238,7 +238,6 @@ a {
 	display: block;
 }
 
-/*규림이 지도*/
 .aside_map {
 	width: 370px;
 }
@@ -259,7 +258,6 @@ a {
 .room_image {
 	border-radius: 10px;
 	width: 30%;
-	/*이미지 영역 크기 수정*/
 }
 
 .room_image img{
@@ -408,31 +406,22 @@ a {
 .popup {
 	font-size: 0.8em;
 	display: none;
-	/* 기본적으로 숨김 */
 	position: fixed;
-	/* 고정 위치 */
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.5);
-	/* 반투명 배경 */
 	justify-content: center;
 	align-items: center;
-
 	opacity: 0;
-	/* 초기 상태 투명 */
 	transition: opacity 0.2s ease;
-	/* 투명도 변화 애니메이션 */
 	z-index: 9999;
-	/* 팝업이 최상단에 오도록 z-index 설정 */
 }
 
 .popup.show {
 	display: flex;
-	/* 보이게 하기 */
 	opacity: 1;
-	/* 불투명 */
 }
 
 .popup h3 {
@@ -446,45 +435,35 @@ a {
 	padding: 40px;
 	border-radius: 12px;
 	text-align: left;
-	/* 글씨를 왼쪽으로 배치 */
 	width: 600px;
 	height: auto;
 	max-height: 500px;
 	margin: auto;
 	position: relative;
 	overflow-y: auto;
-
 	transform: scale(0.8);
-	/* 축소된 상태에서 시작 */
 	transition: transform 0.3s ease;
-	/* 크기 변화 애니메이션 */
 	z-index: 9999;
 }
 
 .popup.show .popup-content {
 	transform: scale(1);
-	/* 원래 크기 */
 }
 
 .popup-content::-webkit-scrollbar {
 	width: 10px;
-	/* 스크롤바의 너비 */
 	margin-right: 5px;
 }
 
 .popup-content::-webkit-scrollbar-thumb {
 	height: 30%;
-	/* 스크롤바의 길이 */
 	background: #EBEBEB;
-	/* 스크롤바의 색상 */
 	border-radius: 10px;
 }
 
 .popup-title {
 	text-align: center;
-	/* 제목은 가운데 정렬 */
 	margin-bottom: 20px;
-	/* 아래 여백 추가 */
 }
 
 .close {
@@ -497,52 +476,40 @@ a {
 
 .popup-section {
 	border-bottom: 1px solid #EBEBEB;
-	/* 구분을 위한 아래 경계선 */
 	padding-bottom: 20px;
 	margin-top: 10px;
 }
 
 .room-info-list {
 	list-style-type: none;
-	/* 기본 리스트 스타일 제거 */
 	padding: 0;
 	margin: 0;
 }
 
 .room-info-list li {
 	margin-bottom: 10px;
-	/* 항목 간의 간격 조정 */
 }
 
 #CancleRefundReg {
 	border: 1px solid #FFF6F6;
-	/* 10px로 설정하면 너무 두꺼울 수 있어 1px로 설정 */
 	background-color: #FFF6F6;
-	/* 배경색 설정 */
 	padding: 10px;
-	/* 내부 여백 추가 */
 }
 
 #CancleRefundReg h3 {
 	color: #F45858;
-	/* 글씨 색상 변경 */
 }
 
 #CancleRefundReg ul {
 	list-style-type: none;
-	/* 기본 리스트 스타일 제거 */
 	padding: 0;
 	margin: 0;
 }
 
 #CancleRefundReg ul li {
 	color: #F45858;
-	/* 글씨 색상 변경 */
 	margin-bottom: 10px;
-	/* 항목 간의 간격 조정 */
 }
-
-/* 규림추가 삭제하지마!!!!! ajax 리뷰영역이야!!!!*/
 
 .review_imagesbox {
 	display: flex;
@@ -560,12 +527,10 @@ a {
 .review_user {
 	display: flex;
 	flex-direction: column;
-	/* 세로로 배치 */
 }
 
 .user_email {
 	margin-bottom: 5px;
-	/* 이메일과 날짜 간의 간격 조정 */
 }
 
 .review_date {
@@ -574,28 +539,27 @@ a {
 }
 
 .review_text {
-    margin-bottom: 15px; /* 리뷰 내용 위쪽 여백 */
+    margin-bottom: 15px;
 }
 
 .review_text .preview_content,
 .review_text .full_content {
-    white-space: pre-wrap; /* 공백과 줄바꿈 유지 */
-    display: inline; /* 텍스트와 버튼이 같은 라인에 있도록 */
+    white-space: pre-wrap;
+    display: inline;
 }
 
 .review_text .full_content {
-    display: none; /* 기본적으로 숨김 */
+    display: none;
 }
 
 .more {
-    display: inline; /* 버튼을 텍스트와 같은 라인에 배치 */
+    display: inline;
     color: rgb(0, 0, 0);
     cursor: pointer;
     font-weight: bold;
-    margin-left: 10px; /* 텍스트와 버튼 사이의 여백 */
+    margin-left: 10px;
 }
 
-/* 규림추가 삭제하지마!!!! 객실 이미지 팝업창!!!*/
 .swiper {
 	width: 80%;
 	height: 80%;
@@ -620,26 +584,19 @@ a {
 .swiper-button-next,
 .swiper-button-prev {
 	width: 50px !important;
-	/* 버튼 너비 조정 */
 	height: 40px !important;
-	/* 버튼 높이 조정 */
 }
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
 	font-size: 50px !important;
-	/* 아이콘 크기 조정 */
 	font-weight: bold !important;
-	/* 아이콘 두께 조정 */
 	color: rgb(255, 255, 255) !important;
-	/* 아이콘 색상 */
 }
 
 .swiper-pagination {
 	color: #EBEBEB !important;
-	/* 페이지네이션 색상 조정 */
 	font-size: 2em !important;
-	/* 페이지네이션 글자 크기 조정 */
 }
 
 #imgPopupContainer {
@@ -680,8 +637,6 @@ a {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* 규림추가 삭제하지마!!!! 지도 관련 css*/
-/* 지도 컨테이너의 스타일 */
 .aside_map {
 	padding: 20px;
 	border: 1px solid #ddd;
@@ -689,60 +644,43 @@ a {
 	margin-top: 100px;
 }
 
-/* 지도 제목 스타일 */
 .aside_map h2 {
 	font-size: 18px;
 	margin-bottom: 10px;
 	color: #333;
 }
 
-/* 지도의 스타일 */
 #map {
 	border-radius: 8px;
 	overflow: hidden;
 }
 
-/* 주소 텍스트 스타일 */
 .aside_map p {
 	font-size: 17px;
 	color: #555;
 	margin: 10px 0;
 }
 
-/* 버튼의 스타일 */
-/* 버튼과 주소를 나란히 배치할 컨테이너의 스타일 */
 .routeButton-container {
 	display: flex;
 	align-items: center;
-	/* 세로 중앙 정렬 */
 	flex-wrap: wrap;
-	/* 주소가 길어질 경우 다음 줄로 넘어가도록 설정 */
 	gap: 10px;
-	/* 주소와 버튼 사이의 간격 */
 	margin-top: 20px;
 }
 
-/* 주소 텍스트의 스타일 */
 .routeButton-container p {
 	font-size: 17px;
-	/* 폰트 사이즈 */
 	color: #555;
-	/* 텍스트 색상 */
 	margin: 0;
-	/* 마진을 0으로 설정하여 버튼과의 간격을 조정합니다 */
 	padding-right: 10px;
-	/* 버튼과의 간격을 위한 패딩 추가 */
 	flex: 1;
-	/* 주소 텍스트가 가능한 공간을 차지하도록 합니다 */
 	word-break: break-word;
-	/* 긴 주소가 박스를 넘어가지 않도록 합니다 */
 }
 
 #routeButton {
 	width: 50px;
-	/* 버튼의 너비 */
 	height: 50px;
-	/* 버튼의 높이 */
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -751,42 +689,37 @@ a {
 	background-color: #fff;
 	border: 1px solid #ccc;
 	border-radius: 50%;
-	/* 동그란 모양 */
 	cursor: pointer;
 	text-decoration: none;
 	transition: background-color 0.3s ease;
 	margin-left: 10px;
-	/* 주소와의 간격 */
 }
 
 #routeButton img {
 	width: 30px;
-	/* 아이콘 이미지의 너비 */
 	height: 30px;
-	/* 아이콘 이미지의 높이 */
 }
 
 #routeButton:hover {
 	background-color: rgb(238, 238, 238);
 }
 
-/* 주소 텍스트의 스타일 */
 #addressText {
 	display: inline-block;
 	font-size: 14px;
 	color: #555;
 	margin-right: 10px;
-	/* 버튼과의 간격 */
 	max-width: calc(100% - 70px);
-	/* 버튼 너비를 제외한 최대 너비 */
 	overflow-wrap: break-word;
-	/* 자동 줄바꿈 */
 }
 
-/* 버튼과 텍스트를 나란히 배치할 컨테이너의 스타일 */
 .routeButton-container {
 	display: flex;
 	align-items: center;
-	/* 세로 중앙 정렬 */
 	margin-top: 20px;
+}
+
+.disabled-button {
+    background-color: gray !important;
+    cursor: not-allowed !important;
 }

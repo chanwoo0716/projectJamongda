@@ -24,4 +24,7 @@ public interface BookingDAO {
 	
 	// ro_id 로 객실정보 조회
 	public RoomDTO showRoInfo(int ro_id) throws DataAccessException;
+	
+	// 예약 취소
+	public boolean cancelBooking(Long bo_number) throws DataAccessException;
 }

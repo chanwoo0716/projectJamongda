@@ -19,4 +19,10 @@ public interface BookingService {
 	
 	// ro_id로 객실 정보 조회하기
 	public RoomDTO showRoInfo(int ro_id)throws Exception;
+	
+	// 환불 처리
+	public boolean refundPayment(String imp_uid, int bo_price) throws Exception;
+
+	// 환불 처리
+	public boolean cancelBooking(Long bo_number) throws Exception;
 }

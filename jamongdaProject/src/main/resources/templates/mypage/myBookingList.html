@@ -37,7 +37,12 @@
 			                </div>
 			            </div>
 			            <div class="review-booking-btn">
-							<a id="review-button" th:href="@{/review/reviewForm.do(number=${booking.bo_number},rid=${booking.ro_id},aname=${booking.acc_name},rname=${booking.ro_name})}" class="review-link" th:if="${booking.isPastCheckout}">리뷰 등록</a>
+							<a th:href="@{/review/reviewForm.do(number=${booking.bo_number},rid=${booking.ro_id},aname=${booking.acc_name},rname=${booking.ro_name})}"
+									class="review-link" th:if="${booking.isPastCheckout}"id="review-button" >리뷰 등록</a>
+							<a th:href="@{/booking/refundBooking.do}" class="refund-link" th:if="${booking.isAvailableRefund}"
+									th:data-imp_uid="${booking.imp_uid}"
+									th:data-bo_number="${booking.bo_number}"
+									th:data-bo_price="${booking.bo_price}">예약 취소</a>									
 							<a th:href="@{/search/detailSearch.do(aid=${booking.acc_id})}" class="reBooking-link">다시 예약</a>
 			            </div>
 			        </div>
