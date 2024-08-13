@@ -103,19 +103,18 @@ public class BookingControllerImpl implements BookingController {
 
 		return mav;
 	}
-
+	
+	// 아임포트 API를 통해 환불 처리
 	@GetMapping("/booking/refundBooking.do")
 	public ResponseEntity<String> refundBooking(@RequestParam("impNumber") String imp_uid,
 			@RequestParam("number") Long bo_number, @RequestParam("price") int bo_price) {
 		try {
+
 			boolean paymentRefunded = bookingService.refundPayment(imp_uid, bo_price);
 
-			System.out.println("Payment Refunded: " + paymentRefunded);
-
 			if (paymentRefunded) {
-				boolean bookingCancelled = bookingService.cancelBooking(bo_number);
 
-				System.out.println("Booking Cancelled: " + bookingCancelled);
+				boolean bookingCancelled = bookingService.cancelBooking(bo_number);
 
 				if (bookingCancelled) {
 					return ResponseEntity.ok("예약이 취소되었습니다.");
@@ -130,5 +129,4 @@ public class BookingControllerImpl implements BookingController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류가 발생했습니다: " + e.getMessage());
 		}
 	}
-
 }

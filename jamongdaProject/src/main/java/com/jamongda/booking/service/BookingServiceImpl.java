@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -27,6 +28,15 @@ import com.jamongda.booking.dto.BookingDTO;
 public class BookingServiceImpl implements BookingService {
 	@Autowired
 	BookingDAO bookingDAO;
+	
+	@Value("${imp.api.key}")
+    private String IMP_API_KEY;
+	
+	@Value("${imp.api.secret}")
+    private  String IMP_API_SECRET;
+	
+	private static final String IMP_API_URL = "https://api.iamport.kr";
+    private String authToken;
 
 	@Override
 	public Long createBoNumber() throws Exception {
@@ -70,12 +80,6 @@ public class BookingServiceImpl implements BookingService {
 		RoomDTO roomDTO = bookingDAO.showRoInfo(ro_id);
 		return roomDTO;
 	}
-	
-	// 환불 처리
-	private static final String IMP_API_URL = "https://api.iamport.kr";
-    private static final String IMP_API_KEY = "3412245855314472";
-    private static final String IMP_API_SECRET = "UjOAlFD4CGtejQmw3GPWmD4TCxA5R98ek95NaqtCA7jzv59cWJyZVNrmmZmfobeDBeXqG4crs1XiWTca";
-    private String authToken;
 
     public boolean refundPayment(String imp_uid, int amount) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
@@ -87,13 +91,8 @@ public class BookingServiceImpl implements BookingService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + getAuthToken());
-
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
-
         ResponseEntity<String> response = restTemplate.postForEntity(IMP_API_URL + "/payments/cancel", request, String.class);
-
-        System.out.println("API Response Status: " + response.getStatusCode());
-        System.out.println("API Response Body: " + response.getBody());
 
         return response.getStatusCode().is2xxSuccessful() && response.getBody().contains("\"status\":\"cancelled\"");
     }
@@ -112,23 +111,16 @@ public class BookingServiceImpl implements BookingService {
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-
             HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
-
             ResponseEntity<String> response = restTemplate.postForEntity(IMP_API_URL + "/users/getToken", request, String.class);
-
-            System.out.println("Token API Response Status: " + response.getStatusCode());
-            System.out.println("Token API Response Body: " + response.getBody());
 
             if (response.getStatusCode().is2xxSuccessful()) {
                 String responseBody = response.getBody();
                 authToken = parseTokenFromResponse(responseBody);
-                System.err.println(authToken);
             } else {
                 throw new Exception("Failed to get auth token. Response: " + response.getBody());
             }
         }
-
         return authToken;
     }
 
