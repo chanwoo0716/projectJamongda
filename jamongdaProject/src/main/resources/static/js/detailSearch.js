@@ -1,40 +1,97 @@
 $(function() {
-	// 로컬 저장소에서 날짜 값 가져오기
-	var startDate = localStorage.getItem('startDate');
-	var endDate = localStorage.getItem('endDate');
+    // 로컬 저장소에서 날짜 값 가져오기
+    var startDate = localStorage.getItem('startDate');
+    var endDate = localStorage.getItem('endDate');
 
-	$('#bo_checkIn').daterangepicker({
-		timePicker: false,
-		startDate: startDate ? moment(startDate) : moment().startOf('day'),
-		endDate: endDate ? moment(endDate) : moment().startOf('day').add(7, 'days'),
-		minDate: moment().startOf('day'),
-		locale: {
-			format: 'YYYY-MM-DD'
-		}
-	}, function(start, end) {
-		// 선택된 날짜 범위를 로컬 저장소에 저장
-		localStorage.setItem('startDate', start.format('YYYY-MM-DD'));
-		localStorage.setItem('endDate', end.format('YYYY-MM-DD'));
-		$('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
-		$('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
-	});
+    $('#bo_checkIn').daterangepicker({
+        timePicker: false,
+        startDate: startDate ? moment(startDate) : moment().startOf('day'),
+        endDate: endDate ? moment(endDate) : moment().startOf('day').add(7, 'days'),
+        minDate: moment().startOf('day'),
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
+    }, function(start, end) {
+        // 선택된 날짜 범위를 로컬 저장소에 저장
+        localStorage.setItem('startDate', start.format('YYYY-MM-DD'));
+        localStorage.setItem('endDate', end.format('YYYY-MM-DD'));
+        $('input[name="checkIn"]').val(start.format('YYYY-MM-DD'));
+        $('input[name="checkOut"]').val(end.format('YYYY-MM-DD'));
 
+        // URL 파라미터로 상태 유지
+        var currentUrl = window.location.href;
+        var newUrl = updateUrlParameter(currentUrl, 'checkIn', start.format('YYYY-MM-DD'));
+        newUrl = updateUrlParameter(newUrl, 'checkOut', end.format('YYYY-MM-DD'));
+        history.replaceState(null, '', newUrl);
+		
+		// 날짜가 변경될 때마다 AJAX 호출로 예약 가능 여부를 확인
+		checkRoomAvailability(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
+    });
+	
+	// 예약 가능 여부 확인을 위한 AJAX 함수
+	function checkRoomAvailability(checkIn, checkOut) {
+		var accId = $('#acc_id').val(); // acc_id 값 가져오기
+		$.ajax({
+		    url: '/search/check-roomAvailability',
+		    method: 'GET',
+		    data: {
+		        aid: accId,
+		        checkIn: checkIn,
+		        checkOut: checkOut
+		    },
+		    success: function(response) {
+		        console.log('서버 응답:', response); // 응답 데이터 로그 추가
+		        if (response && typeof response === 'object') {
+		            updateRoomAvailability(response);
+		        } else {
+		            console.warn('서버에서 빈 응답 수신');
+		        }
+		    },
+		    error: function(error) {
+		        console.error('예약 가능 여부를 가져오는 중 오류 발생:', error);
+		    }
+		});
+	}
+	
+	// 예약 가능 여부에 따라 버튼 상태 업데이트
+	function updateRoomAvailability(data) {
+	    // 모든 버튼을 찾기
+	    $('.room-button').each(function() {
+	        var roomId = $(this).data('room-id'); // 버튼의 data-room-id 속성 값 가져오기
+	        if (data[roomId] !== undefined) { // 예약 가능 여부가 데이터에 있는지 확인
+	            if (data[roomId]) {
+	                $(this).prop('disabled', false).removeClass('disabled-button');
+	                $(this).find('span').text('객실 예약');
+	            } else {
+	                $(this).prop('disabled', true).addClass('disabled-button');
+	                $(this).find('span').text('예약 마감');
+	            }
+	        }
+	    });
+	}
 
-	$('#form3').on('submit', function(event) {
-		// 로컬 저장소에 저장된 데이터를 클리어하지 않도록 주의
-		var acc_name = document.getElementById('acc_name').value;
-		var acc_area = document.getElementById('acc_area').value;
-		localStorage.setItem('acc_name', acc_name);
-		localStorage.setItem('acc_area', acc_area);
-		localStorage.setItem('startDate', $('#bo_checkIn').data('daterangepicker').startDate.format('YYYY-MM-DD'));
-		localStorage.setItem('endDate', $('#bo_checkIn').data('daterangepicker').endDate.format('YYYY-MM-DD'));
-	});
+    $('#form3').on('submit', function(event) {
+        // 로컬 저장소에 저장된 데이터를 클리어하지 않도록 주의
+        var acc_name = document.getElementById('acc_name').value;
+        var acc_area = document.getElementById('acc_area').value;
+        localStorage.setItem('acc_name', acc_name);
+        localStorage.setItem('acc_area', acc_area);
+        localStorage.setItem('startDate', $('#bo_checkIn').data('daterangepicker').startDate.format('YYYY-MM-DD'));
+        localStorage.setItem('endDate', $('#bo_checkIn').data('daterangepicker').endDate.format('YYYY-MM-DD'));
+    });
 
-	// 초기 값 설정 (필요시)
-	var initialStartDate = $('input[name="datetimes"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
-	var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
-	$('input[name="checkIn"]').val(initialStartDate);
-	$('input[name="checkOut"]').val(initialEndDate);
+    // 초기 값 설정 (필요시)
+    var initialStartDate = $('input[name="datetimes"]').data('daterangepicker').startDate.format('YYYY-MM-DD');
+    var initialEndDate = $('input[name="datetimes"]').data('daterangepicker').endDate.format('YYYY-MM-DD');
+    $('input[name="checkIn"]').val(initialStartDate);
+    $('input[name="checkOut"]').val(initialEndDate);
+
+    // URL 파라미터 업데이트 함수
+    function updateUrlParameter(url, param, paramValue) {
+        var newUrl = new URL(url);
+        newUrl.searchParams.set(param, paramValue);
+        return newUrl.toString();
+    }
 });
 
 $(document).ready(function() {
@@ -100,7 +157,6 @@ $(document).ready(function() {
 	const pageSize = 10; // 페이지 당 리뷰 수
 
 	function loadReviews() {
-		console.log('AJAX 요청을 보내는 acc_id:', acc_id);
 		$.ajax({
 			url: '/search/reviews',
 			method: 'GET',

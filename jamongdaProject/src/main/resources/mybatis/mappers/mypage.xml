@@ -35,8 +35,7 @@
     
     <!-- 가장 최근 예약 정보 조회 -->
     <select id="getLatestBoInfoByEmail" parameterType="String" resultMap="bookingResultMap">
-        SELECT b.bo_number, b.email, b.bo_checkIn, b.bo_checkOut, b.payDate, r.ro_id,
-               r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name, a.acc_id
+        SELECT b.*, r.ro_id, r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name, a.acc_id
         FROM booking b
         JOIN room r ON b.ro_id = r.ro_id
         JOIN accommodation a ON r.acc_id = a.acc_id
@@ -47,8 +46,7 @@
 
     <!-- 모든 예약 정보 조회 -->
     <select id="getAllBoInfoByEmail" parameterType="String" resultMap="bookingResultMap">
-        SELECT b.bo_number, b.email, b.bo_checkIn, b.bo_checkOut, b.payDate, r.ro_id,
-               r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name, a.acc_id
+        SELECT b.*, r.ro_id, r.ro_name, r.ro_checkIn, r.ro_checkOut, r.ro_price, a.acc_name, a.acc_id
         FROM booking b
         JOIN room r ON b.ro_id = r.ro_id
         JOIN accommodation a ON r.acc_id = a.acc_id

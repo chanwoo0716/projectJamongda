@@ -149,7 +149,8 @@ $(document).ready(function() {
 	                bo_payment: "카카오페이",
 	                bo_price: parseInt(totalPrice, 10), // 문자열을 숫자로 변환
 	                ro_id: $('#ro_id').val(),
-	                email: $('#email').val()
+	                email: $('#email').val(),
+					imp_uid: rsp.imp_uid // 결제 고유 ID를 추가
 	            };
 
 	            $.ajax({
