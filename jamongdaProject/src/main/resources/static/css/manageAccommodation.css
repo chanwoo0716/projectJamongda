@@ -1,20 +1,4 @@
 @charset "UTF-8";
-html,
-body {
-  position: relative;
-  min-width: 1250px;
-  max-width: 1920px;
-  margin: 0 auto;
-}
-
-body {
-  background: rgb(252, 252, 252);
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  margin: 0 auto;
-  padding: 0 auto;
-}
 .acc-h2 {
     margin-right: 20px; /* h2와 div 사이에 여유 공간 추가 */
    text-align:left;

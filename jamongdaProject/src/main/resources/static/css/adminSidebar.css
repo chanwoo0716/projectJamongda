@@ -1,37 +1,30 @@
 @charset "uft-8";
 #adminSidebar {
-   position : absolute;
-   top: 150px;
-   left: 50px;
+   position : sticky;
+   bottom: 550px;
+   left: 6%;
    display: inline-block;
-    width: 15%; /* 사이드바의 너비 */
-    background-color: white; /* 배경색 */
-   border : 1px solid #dedede;
-    border-radius: 15px; /* 모서리를 둥글게 */
+	width: 12%; /* 사이드바의 너비 */
+   background-color: rgb(232, 233, 238);
 }
 #adminSidebar h3 {
-    margin: 20px 0; /* 제목 사이의 여백 */
-    font-size: 1.2em; /* 글자 크기 */
-    text-align: center; /* 텍스트 가운데 정렬 */
-   border-bottom : 1px solid #dedede;
-   padding-bottom: 20px; /* 아래쪽 여백 */
+	justify-content: center;
+	font-size: 1.2em;
+	text-align: center;
 }
 #adminSidebar h3:last-child {
     border-bottom: none; /* 마지막 h3의 border-bottom 제거 */
    padding-bottom: 0;
 }
 #adminSidebar a {
-    text-decoration: none; /* 링크 밑줄 제거 */
-    color: #333333; /* 링크 색상 */
-    display: block; /* 블록 요소로 설정 */
-    padding: 0 10%; /* 내부 여백 */
-    border-radius: 4px; /* 링크의 모서리를 둥글게 */
-    transition: background-color 0.1s ease; /* 배경색 전환 효과 */
-}
-#adminSidebar a:visited{
-   color: #333333;
+	color: rgb(164, 164, 164);
+	display: block;
+	padding: 10%;
 }
 
 #adminSidebar a.active {
     color: #FF6F61; /* 클릭된 앵커의 색상 */
+	background-color: white;
+	
+	border : 1px solid #dedede;
 }

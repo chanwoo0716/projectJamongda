@@ -8,20 +8,19 @@ a:visited, a:active{
 }
 
 #boardSidebar {
-	position: absolute;
-	top: 20%;
+	position: sticky;
+	bottom: 550px;
 	left: 3%;
 	display: inline-block;
-	width: 12%;/* 사이드바의 너비 */
-	background-color: white;/* 배경색 */
+	width: 12%;
+	background-color: rgb(232, 233, 238);
 	border: 1px solid #dedede;
-	border-radius: 15px;/* 모서리를 둥글게 */
 }
 
 #boardSidebar h3 {
 	justify-content: center;
-	font-size: 1.2em;/* 글자 크기 */
-	text-align: center;/* 텍스트 가운데 정렬 */
+	font-size: 1.2em;
+	text-align: center;
 	border-bottom: 1px solid rgb(222, 222, 222);
 }
 
@@ -32,19 +31,13 @@ a:visited, a:active{
 }
 
 #boardSidebar a {
-	color: black;
-	/* 링크 색상 */
+	color: rgb(164, 164, 164);
 	display: block;
-	/* 블록 요소로 설정 */
 	padding: 10%;
-	/* 내부 여백 */
-}
-
-#boardSidebar a:hover {
-   color: #FF6F61;
 }
 
 #boardSidebar a.active {
 	color: #FF6F61;
 	/* 클릭된 앵커의 색상 */
+	background-color: white;
 }
