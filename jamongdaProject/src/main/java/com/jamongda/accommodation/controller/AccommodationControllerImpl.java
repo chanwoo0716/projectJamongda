@@ -126,9 +126,27 @@ public class AccommodationControllerImpl implements AccommodationController {
 	@Override
 	@GetMapping("/accommodation/manageReview.do")
 	public ModelAndView manageReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		// 로그인한 사업자의 정보만 보여줘야하므로 세션에서 그 사람의 email꺼내기
+		HttpSession session = request.getSession();
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("host");
+
+		// 로그인 여부 확인
+		if (memberDTO == null) {
+			// 로그인이 되어 있지 않으면 /main.do로 보내기
+			response.sendRedirect("/main.do");
+			session.invalidate();
+			return null;
+		}
+		String email = memberDTO.getEmail();
+		
+		
+		
+		
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("accommodation/manageReview");
-		mav.addObject("sidebar", "accommodation/hostSidebar");
+		mav.addObject("hostSidebar", "accommodation/hostSidebar");
 		return mav;
 	}
 
