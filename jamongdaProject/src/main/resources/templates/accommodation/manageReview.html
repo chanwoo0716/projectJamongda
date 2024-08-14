@@ -4,22 +4,47 @@
 	  layout:decorate="layout/layout">
 <head>
 <meta charset="UTF-8">
-<title>JAMONGDA : 회원예약관리</title>
-<style>
-	
-</style>
+<title>JAMONGDA : 리뷰관리</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/manageReview.css}" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-	
-</script>
+<script th:src="@{/js/manageReview.js}"></script>
 </head>
 <body>
-	<div th:include="hostSidebar :: sidebar"></div>
-	<!---->
 	<th:block layout:fragment="content">
-		<div>
-			와하하 여긴 리뷰 관리 페이지
-		</div>	
+		<h2>리뷰목록</h2>
+		<div class="table-container">
+		    <table class="table-style">
+		        <thead>
+		            <tr class="tr-style">
+						<th class="th-sytle">
+							<input type="checkbox" id="selectAll">
+						</th>
+		                <th class="th-style">숙소</th>
+		                <th class="th-style">객실</th>
+		                <th class="th-style">제목</th>
+		                <th class="th-style">작성일</th>
+		                <th class="th-style">작성자</th>
+		                <th class="th-style">✏️✍️댓글</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <!--<tr th:each="member : ${membersList}" th:class="'member-row role-' + ${member.role}">-->
+					<tr>
+						<td class="td-style">
+						    <input type="checkbox" class="rowCheckbox">
+						</td>
+		                <td class="td-style"></td>	<!--acc_name-->
+	                	<td class="td-style"></td>	<!--ro_name-->
+	                	<td class="td-style"></td>	<!--rev_content-->
+		                <td class="td-style"></td>	<!--rev_date-->
+		                <td class="td-style"></td>	<!--email-->
+		                <td class="td-style">작성</td>
+		            </tr>
+		        </tbody>
+		    </table>
+			<button id="delReviewBtn">선택 삭제</button>
+			<div class="pagination"></div>
+		</div>
 	</th:block>
 </body>
 </html>
