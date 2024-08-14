@@ -17,16 +17,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jamongda.accommodation.dto.AccommodationDTO;
+import com.jamongda.member.dto.MemberDTO;
 import com.jamongda.search.dto.SearchDTO;
 import com.jamongda.search.service.SearchService;
+import com.jamongda.wishlist.dao.WishlistDAO;
+import com.jamongda.wishlist.service.WishlistService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller("searchController")
 public class SearchControllerImpl implements SearchController {
 	@Autowired
 	private SearchService searchService;
+	
+	@Autowired
+	private WishlistDAO wishlistDAO;
 
 	@Override
 	@GetMapping("/search/selectSearch.do")
@@ -112,7 +119,23 @@ public class SearchControllerImpl implements SearchController {
 			@RequestParam(value = "checkIn", required = false) String bo_checkIn,
 			@RequestParam(value = "checkOut", required = false) String bo_checkOut, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+	    HttpSession session = request.getSession(false);
+	    MemberDTO member = null;
+	    
+	    if (session != null) {
+	        member = (MemberDTO) session.getAttribute("guest");
+	        if (member == null) {
+	            member = (MemberDTO) session.getAttribute("member");
+	        }
+	    }
 
+	    if (member != null) {
+	        String email = member.getEmail();
+	        boolean isWishlisted = wishlistDAO.checkWishlist(email, acc_id) > 0;
+	        mav.addObject("isWishlisted",isWishlisted);
+	    }		
 		// acc_id인 숙소 및 객실들
 		Map<String, Object> detailAccRoMap = searchService.detailAccRo(acc_id, bo_checkIn, bo_checkOut);
 
@@ -126,7 +149,6 @@ public class SearchControllerImpl implements SearchController {
 		detailAccRoMap.put("bo_checkIn", bo_checkIn);
 		detailAccRoMap.put("bo_checkOut", bo_checkOut);
 		
-		ModelAndView mav = new ModelAndView();
 		mav.addObject("detailAccRoMap", detailAccRoMap);
 		mav.setViewName("search/detailSearch");
 		return mav;

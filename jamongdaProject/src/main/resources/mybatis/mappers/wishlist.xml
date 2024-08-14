@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jamongda.wishlist.dao.WishlistDAO">
+	<resultMap id="wishResult" type="wishlistDTO">
+		<result property="wish_id" column="wish_id"/>
+		<result property="email" column="email"/>
+		<result property="acc_id" column="acc_id"/>
+	</resultMap>
+	
+	<!-- 찜목록에 있으면 삭제, 없으면 추가 -->
+    <select id="checkWishlist" resultType="int">
+        SELECT COUNT(*) FROM wishlist WHERE email = #{email} AND acc_id = #{acc_id}
+    </select>
+
+    <!-- 찜 추가 -->
+    <insert id="addToWishlist">
+        INSERT INTO wishlist (email, acc_id) VALUES (#{email}, #{acc_id})
+    </insert>
+
+    <!-- 찜 삭제 -->
+    <delete id="deleteWishlist">
+        DELETE FROM wishlist WHERE email = #{email} AND acc_id = #{acc_id}
+    </delete>
+</mapper>

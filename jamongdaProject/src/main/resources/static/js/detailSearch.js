@@ -143,6 +143,64 @@ $(document).ready(function() {
 			window.open(kakaoMapUrl, '_blank');
 		});
 	});
+	
+	// 모든 찜 버튼에 대해
+	$('.wishlist-button').each(function() {
+	    var button = $(this);
+	    var acc_id = button.data('acc_id');
+	    var icon = button.find('.wishlist-icon');
+
+	    // 서버에서 전달된 isWishlisted 값을 사용
+	    if (isWishlisted) {
+	        icon.removeClass('fa-regular fa-heart').addClass('fa-solid fa-heart');
+	    } else {
+	        icon.removeClass('fa-solid fa-heart').addClass('fa-regular fa-heart');
+	    }
+	});
+	
+	// 찜 버튼 클릭 이벤트 처리
+	$(document).on('click', '.wishlist-button', function() {
+	    var button = $(this);
+	    var acc_id = button.data('acc_id');
+	    var icon = button.find('.wishlist-icon'); // 클래스 선택자 확인
+	    console.log(icon); // 아이콘 요소 확인
+	    $.ajax({
+	        type: 'POST',
+	        url: '/wishlist/toggleWish',
+	        data: { aid: acc_id },
+	        dataType: 'json',
+	        success: function(response) {
+	            console.log(response); // 응답 데이터 확인
+	            if (response.success) {
+	                if (response.added) {
+	                    icon.removeClass('fa-regular fa-heart').addClass('fa-solid fa-heart');
+	                } else {
+	                    icon.removeClass('fa-solid fa-heart').addClass('fa-regular fa-heart');
+	                }
+	            } else {
+	                alert(response.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            if (xhr.status === 401) {
+	                var redirectUrl = xhr.responseJSON.redirectUrl;
+	                if (redirectUrl) {
+	                    window.location.href = redirectUrl;
+	                } else {
+	                    alert("로그인이 필요한 기능입니다.");
+	                }
+	            } else {
+	                console.error("오류 세부 사항:", status, error);
+	                alert('서버 요청에 실패했습니다. 오류: ' + error);
+	            }
+	        }
+	    });
+	});
+
+
+
+
+
 
 	// 회원 이메일 마스킹
 	function maskEmail(email) {
@@ -224,7 +282,6 @@ $(document).ready(function() {
 	$('#loadMore').on('click', function() {
 		loadReviews();
 	});
-
 });
 
 function showRoomImages(ro_id) {
