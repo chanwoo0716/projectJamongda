@@ -52,7 +52,18 @@
 		<result property="ro_id" column="ro_id" />
 		<result property="email" column="email" />
 	</resultMap>
- 	
+	<!--
+	<resultMap id="reviewWithDetailsResultMap" type="com.jamongda.review.dto.ReviewDTO">
+	    <id property="rev_id" column="rev_id"/>
+	    <result property="rev_content" column="rev_content"/>
+	    <result property="rev_date" column="rev_date"/>
+	    <result property="rev_comment" column="rev_comment"/>
+	    <result property="email" column="email"/>
+	    <result property="ro_id" column="ro_id"/>
+	    <result property="ro_name" column="ro_name"/>
+	    <result property="acc_name" column="acc_name"/>
+	</resultMap>
+ 	-->
  	<!--숙소 고유 ID 생성(acc_id)-->
     <select id="getNewAccId" resultType="int">
        <![CDATA[
@@ -161,7 +172,22 @@
         <foreach item="item" index="index" collection="roIds" open="(" separator="," close=")">
             #{item}
         </foreach>
-    </select>   
+    </select>
     
+    <!-- 리뷰 데이터 가져오기(acc_name, ro_name, rev_content, rev_date, email) -->
+    <!--<select id="selectReviewsByHostEmail" parameterType="String" resultMap="reviewWithDetailsResultMap">-->
+	<select id="selectReviewsByHostEmail" parameterType="String" resultType="java.util.Map">
+	    SELECT r.rev_id, r.rev_content, r.rev_date, r.rev_comment, r.email, r.ro_id, rm.ro_name, ac.acc_name
+	    FROM review r
+	    JOIN room rm ON r.ro_id = rm.ro_id
+	    JOIN accommodation ac ON rm.acc_id = ac.acc_id
+	    WHERE ac.email = #{email}
+	    ORDER BY r.rev_date DESC
+	</select>
+
+	<!-- 리뷰 등록하기 -->
+	<update id="updateReviewComment">
+	    UPDATE review SET rev_comment = #{rev_comment} WHERE rev_id = #{rev_id}
+	</update>
 
  </mapper>

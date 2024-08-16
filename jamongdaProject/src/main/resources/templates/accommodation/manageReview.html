@@ -6,11 +6,27 @@
 <meta charset="UTF-8">
 <title>JAMONGDA : 리뷰관리</title>
 <link rel="stylesheet" type="text/css" th:href="@{/css/manageReview.css}" />
+<script>
+    const email = "[[${email}]]";
+    console.log("Host Email:", email);
+</script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script th:src="@{/js/manageReview.js}"></script>
 </head>
 <body>
 	<th:block layout:fragment="content">
+		<!--팝업창 영역-->
+		<div class="overlay"></div>
+		<div class="popup">
+		    <h2>댓글 작성 <span class="close">&times;</span></h2>
+		    <textarea id="commentText" placeholder="댓글을 입력해주세요."></textarea>
+		    <div class="btn-group">
+		        <button id="saveComment">저장</button>
+		        <button id="closePopup">닫기</button>
+		    </div>
+		</div>
+		<!--팝업창 영역 종료-->
+	
 		<h2>리뷰목록</h2>
 		<div class="table-container">
 		    <table class="table-style">
@@ -24,25 +40,18 @@
 		                <th class="th-style">제목</th>
 		                <th class="th-style">작성일</th>
 		                <th class="th-style">작성자</th>
-		                <th class="th-style">✏️✍️댓글</th>
+						<th class="th-style">댓글 여부</th>
+		                <th class="th-style">댓글쓰기✏️</th>
 		            </tr>
 		        </thead>
 		        <tbody>
-		            <!--<tr th:each="member : ${membersList}" th:class="'member-row role-' + ${member.role}">-->
-					<tr>
-						<td class="td-style">
-						    <input type="checkbox" class="rowCheckbox">
-						</td>
-		                <td class="td-style"></td>	<!--acc_name-->
-	                	<td class="td-style"></td>	<!--ro_name-->
-	                	<td class="td-style"></td>	<!--rev_content-->
-		                <td class="td-style"></td>	<!--rev_date-->
-		                <td class="td-style"></td>	<!--email-->
-		                <td class="td-style">작성</td>
-		            </tr>
+					<!--에이잭스로 불러오는 영역~-->
 		        </tbody>
 		    </table>
-			<button id="delReviewBtn">선택 삭제</button>
+			<div>
+				<button id="delReviewBtn">선택 삭제</button>
+				<button id="delReviewBtn">일괄 댓글</button>
+			</div>
 			<div class="pagination"></div>
 		</div>
 	</th:block>
