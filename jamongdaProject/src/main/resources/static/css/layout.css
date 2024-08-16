@@ -1,422 +1,461 @@
 @charset "utf-8";
+
 /*font영역*/
 /*일반 폰트에 사용*/
-@font-face{
+@font-face {
 	font-family: 'GothicA1-Medium';
-    src: url('/fonts/GothicA1-Medium.ttf') format('truetype');
-    font-weight: 500;
-    font-style: normal;
+	src: url('/fonts/GothicA1-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
 }
 
 /*굵은 폰트에 사용*/
-@font-face{
+@font-face {
 	font-family: 'GothicA1-Bold';
-    src: url('/fonts/GothicA1-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
+	src: url('/fonts/GothicA1-Bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
 }
 
 /*전체 영역*/
-*{
-    margin: 0;
+* {
+	margin: 0;
 }
+
 html,
 body {
-  position: relative;
-  min-width: 600px;
-  max-width: 1920px;
-  height: 100%;
+	position: relative;
+	min-width: 600px;
+	max-width: 1920px;
+	height: 100%;
 }
 
 body {
-  background: rgb(252, 252, 252);
-  font-family: GothicA1-Medium, sans-serif;
-  font-size: 12px;
-  color: #000;
-  margin: 0;
-  padding: 0;
+	background: rgb(252, 252, 252);
+	font-family: GothicA1-Medium, sans-serif;
+	font-size: 12px;
+	color: #000;
+	margin: 0;
+	padding: 0;
 }
 
-ul,li{
-   list-style: none;
-   margin: 0;
-   padding: 0;
+ul,
+li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 a {
-  text-decoration: none;
-  color: #000;
+	text-decoration: none;
+	color: #000;
 }
 
 a:link {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 input:focus {
-  outline: none;
+	outline: none;
 }
 
-p, span{
+p,
+span {
 	font-family: GothicA1-Medium, sans-serif;
 }
 
-h1, h2, h3{
+h1,
+h2,
+h3 {
 	font-family: GothicA1-Bold, sans-serif;
 }
 
 /*header 영역*/
 #header {
-  width: 100%;
-  height: 90px;
-  padding: 1%;
-  background-color: rgb(252, 252, 252);
-  overflow: hidden;
-  box-sizing: border-box;
-  text-align: center;
-  font-size: 1.1em;
-  white-space: nowrap;
+	width: 100%;
+	height: 90px;
+	padding: 1%;
+	background-color: rgb(252, 252, 252);
+	overflow: hidden;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 1.1em;
+	white-space: nowrap;
 }
 
 /*알림영역*/
 .header_notice {
-  display: inline-block;
-  vertical-align: middle;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 /*로고 영역*/
 .header_logo {
-  display: inline-block;
-  vertical-align: middle;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 /*로그인/회원가입/마이페이지 영역*/
 .header_userinfo {
-  display: inline-block;
-  vertical-align: middle;
-  text-align: right;
-  margin-right: 10%;
-  font-size: 1.1em;
-  
+	display: inline-block;
+	vertical-align: middle;
+	text-align: right;
+	margin-right: 10%;
+	font-size: 1.1em;
+
 }
 
 /*누구누구님 영역*/
 .header_name {
-  text-align: left;
-  display: inline-block;
+	text-align: left;
+	display: inline-block;
 }
 
-.header_name >h3{
+.header_name>h3 {
 	float: left;
 	display: inline-block;
 }
 
 /*마이페이지 영역*/
-.header_mypage > i {
-  font-weight: bold;
-  font-size: 1.3em;
-  color: black;
-  display: inline-block;
-  margin-top: 1%;
-  margin-left: 10%;
+.header_mypage>i {
+	font-weight: bold;
+	font-size: 1.3em;
+	color: black;
+	display: inline-block;
+	margin-top: 1%;
+	margin-left: 10%;
 }
 
-.header_mypage>a{
+.header_mypage>a {
 	font-weight: bold;
 	font-size: 1.2em;
 	padding-left: 5%;
 }
 
-.mypage_list{
-	width: 10%;
+.mypage_list {
 	visibility: hidden;
 	position: absolute;
 	z-index: 100000;
 	margin-top: 0.5%;
-	
+
 	text-align: center;
 	background-color: rgb(252, 252, 252);
 	border-radius: 15px;
 	border: 1px solid #ccc;
 	margin-top: 1%;
 	margin-right: 10%;
-	
-	transform: translateY(-7px); /* 위에서 아래로 이동하는 효과를 위해 초기 위치를 위로 설정합니다 */
-    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease; /* 전환 효과를 설정합니다 */
+
+	transform: translateY(-7px);
+	/* 위에서 아래로 이동하는 효과를 위해 초기 위치를 위로 설정합니다 */
+	transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
+	/* 전환 효과를 설정합니다 */
 }
 
 .header_mypage:hover .mypage_list {
-    visibility: visible; /* 보이게 설정합니다 */
-	transform: translateY(0); /* 원래 위치로 이동시킵니다 */
+	visibility: visible;
+	/* 보이게 설정합니다 */
+	transform: translateY(0);
+	/* 원래 위치로 이동시킵니다 */
 }
 
-.mypage_list > li {
+.mypage_list>li {
 	font-size: 1em;
 	font-weight: 500;
 	padding: 5%;
+
+	box-sizing: border-box;
+	width: 30%;
 }
 
-.mypage_list > li > a:hover{
+.mypage_list>li>a {
+	letter-spacing: 3px;
+	font-family: monospace;
+}
+
+.mypage_list>li>a:hover {
 	color: #FF6F61;
 }
 
 /*로그인/회원가입 영역*/
 .header_login {
-  font-weight: bold;
-  font-size: 1em;
-  display: inline-block;
-  margin-right: 40%;
+	font-weight: bold;
+	font-size: 1em;
+	display: inline-block;
+	margin-right: 40%;
 }
 
 #content {
-  width: 75%;
-  height: 100%;
-  min-height: 100%;
-  padding: 5px;
-  margin-right: 5px;
-  float: right;
-  position: relative;
+	width: 75%;
+	height: 100%;
+	min-height: 100%;
+	padding: 5px;
+	margin-right: 5px;
+	float: right;
+	position: relative;
 }
 
 /*footer 영역*/
 footer {
 	width: 100%;
 	height: 120px;
-  clear: both;
-  background-color: rgb(252, 252, 252);
-  text-align: center;
-  border-top: 0.1em solid rgb(255, 111, 97);
-  font-size: 1em;
-  margin-top: 5%;
-  
-  position: relative;
-  transform: translatY(-100%);
+	clear: both;
+	background-color: rgb(252, 252, 252);
+	text-align: center;
+	border-top: 0.1em solid rgb(255, 111, 97);
+	font-size: 1em;
+	margin-top: 5%;
+
+	position: relative;
+	transform: translatY(-100%);
 }
 
 
 
 .footer_jamongda {
-  text-align: left;
-  display: inline-block;
-  vertical-align: top;
-  width: 45%;
+	text-align: left;
+	display: inline-block;
+	vertical-align: top;
+	width: 45%;
 }
 
-.jamongda_info > h3 {
-  margin-top: 5%;
-  margin-bottom: 0;
+.jamongda_info>h3 {
+	margin-top: 5%;
+	margin-bottom: 0;
 }
 
-.jamongda_info > p {
-  margin: 2% 0;
+.jamongda_info>p {
+	margin: 2% 0;
 }
 
-.user_info > p {
-  float: left;
-  margin-right: 2%;
+.user_info>p {
+	float: left;
+	margin-right: 2%;
 }
 
-.user_info > p:nth-child(2) {
-  font-weight: bold;
+.user_info>p:nth-child(2) {
+	font-weight: bold;
 }
 
-.user_info > p > a:hover {
-  color: #ccc;
+.user_info>p>a:hover {
+	color: #ccc;
 }
 
-.user_info > p > a {
-  text-decoration-line: underline;
+.user_info>p>a {
+	text-decoration-line: underline;
 }
 
 .footer_support {
-  text-align: right;
-  display: inline-block;
-  vertical-align: top;
-  width: 50%;
+	text-align: right;
+	display: inline-block;
+	vertical-align: top;
+	width: 50%;
 }
 
-.footer_support > .support_info {
-  display: inline-block;
+.footer_support>.support_info {
+	display: inline-block;
 }
 
-.support_info > h3 {
-  margin-top: 10%;
-  margin-bottom: 0;
+.support_info>h3 {
+	margin-top: 10%;
+	margin-bottom: 0;
 }
 
-.support_info > p {
-  margin: 5% 0;
+.support_info>p {
+	margin: 5% 0;
 }
 
-.support_btn > button {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background: rgba(255, 111, 97, 0.5);
-  border: none;
-  padding: 0;
-  margin: 0;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-  border-radius: 10px;
-  padding: 1%;
-  margin-top: 1.5%;
+.support_btn>button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	background: rgba(255, 111, 97, 0.5);
+	border: none;
+	padding: 0;
+	margin: 0;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+	border-radius: 10px;
+	padding: 1%;
+	margin-top: 1.5%;
 }
 
-.support_btn > button:first-child {
-  margin-right: 1%;
+.support_btn>button:first-child {
+	margin-right: 1%;
 }
 
-.support_btn > button:active {
-  color: #ccc;
+.support_btn>button:active {
+	color: #ccc;
 }
 
 /* 미디어 쿼리 */
 @media (min-width: 344px) {
+
 	/*header*/
-	#header{
+	#header {
 		padding-top: 2%;
 	}
-	.header_notice{
+
+	.header_notice {
 		width: 10%;
 		margin-left: 0;
 	}
-	.header_logo{
+
+	.header_logo {
 		width: 55%;
 		margin-left: 5%;
 	}
-	.header_login{
+
+	.header_login {
 		font-size: 0.8em;
 		margin-right: 0;
 	}
-	.header_userinfo{
+
+	.header_userinfo {
 		margin-right: 3.5%;
 		margin-top: 1%;
 	}
-	.mypage_list{
+
+	.mypage_list {
 		width: 18%;
 		margin-right: 10%;
 	}
-	
+
 	/*footer*/
-	footer{
+	footer {
 		font-size: 1em;
 	}
-	#footer_info{
+
+	#footer_info {
 		width: 100%;
 		padding-bottom: 2%;
 	}
-	
-	.user_info > p{
+
+	.user_info>p {
 		font-size: 0.5em;
 	}
-	
+
 }
 
 @media (min-width: 768px) {
-	.header_notice{
+	.header_notice {
 		width: 10%;
 		margin-left: 0;
 	}
-	.header_logo{
+
+	.header_logo {
 		width: 60%;
-		margin-left:0;
+		margin-left: 0;
 	}
-	.header_login{
+
+	.header_login {
 		font-size: 0.8em;
 		margin-right: 0;
 	}
-	.header_userinfo{
+
+	.header_userinfo {
 		margin-right: 1%;
 		margin-top: 0;
 	}
-	.mypage_list{
+
+	.mypage_list {
 		width: 18%;
 		margin-right: 10%;
 	}
+
 	#footer_info {
-	  margin: 0 auto;
-	  width: 80%;
-	  display: inline-block;
-	  text-align: center;
-	  
-	  padding-bottom: 2%;
+		margin: 0 auto;
+		width: 80%;
+		display: inline-block;
+		text-align: center;
+
+		padding-bottom: 2%;
 	}
 }
 
 @media (min-width: 1024px) {
-	#header{
-		padding-top:2%;
+	#header {
+		padding-top: 2%;
 	}
-	.header_notice{
+
+	.header_notice {
 		width: 10%;
 		margin-left: 0;
 	}
-	.header_logo{
+
+	.header_logo {
 		width: 60%;
 		margin-left: 0;
 	}
-	.header_login{
+
+	.header_login {
 		font-size: 0.8em;
 		margin-right: 0;
 	}
-	.header_userinfo{
+
+	.header_userinfo {
 		margin-right: 2%;
-		
+
 		font-size: 1.2em;
 	}
-	.mypage_list{
+
+	.mypage_list {
 		width: 18%;
 		margin-right: 8%;
 	}
-	
+
 	/*footer*/
-	.user_info > p{
+	.user_info>p {
 		font-size: 0.7em;
 	}
-	
-	#footer_info{
+
+	#footer_info {
 		padding-bottom: 2%;
 	}
 }
 
 @media (min-width: 1200px) {
-	#header{
+	#header {
 		padding-top: 1%;
 	}
-	.header_notice{
+
+	.header_notice {
 		width: 7%;
 		margin-left: 2%;
 	}
-	.header_logo{
+
+	.header_logo {
 		width: 60%;
 		margin-left: 0;
 		margin-right: 2%;
 	}
-	.header_login{
+
+	.header_login {
 		font-size: 1.2em;
 		margin-right: 0;
 		font-size: 1em;
 	}
-	.header_userinfo{
+
+	.header_userinfo {
 		margin-right: 0;
 	}
-	.mypage_list{
+
+	.mypage_list {
 		width: 10%;
 		margin-right: 8%;
 	}
-	
+
 	/*footer*/
-	.user_info > p{
+	.user_info>p {
 		font-size: 1em;
 	}
-	
+
 	#footer_info {
-	  margin: 0 auto;
-	  width: 80%;
-	  display: inline-block;
-	  text-align: center;
-	  
-	  padding-bottom: 2%;
+		margin: 0 auto;
+		width: 80%;
+		display: inline-block;
+		text-align: center;
+
+		padding-bottom: 2%;
 	}
 }
