@@ -28,7 +28,11 @@
 		        <div class="reviews">
 					<form action="/mypage/myReviews.do" method="post" id="myReviews">
 					    <input type="hidden" name="email" th:value="${guest.email}">
-					    <button type="submit" class="myReviews-btn">내가 작성한 리뷰 보러가기 <i class="fa-solid fa-pen"></i> </button>
+					    <button type="submit" class="myReviews-btn"><i class="fa-solid fa-pen"></i>&nbsp;&nbsp; 내가 작성한 리뷰 보러가기</button>
+					</form>
+					<form action="/wishlist/myWishlistPage.do" method="post" id="myWishlists">
+					    <input type="hidden" name="email" th:value="${guest.email}">
+					    <button type="submit" class="myWishlist-btn"><i class="fa-solid fa-heart"></i>&nbsp;&nbsp; 찜한 숙소 보러가기</button>
 					</form>
 		        </div>
 				

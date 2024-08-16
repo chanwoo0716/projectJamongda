@@ -197,11 +197,6 @@ $(document).ready(function() {
 	    });
 	});
 
-
-
-
-
-
 	// 회원 이메일 마스킹
 	function maskEmail(email) {
 		let [local, domain] = email.split('@');

@@ -3,13 +3,11 @@ $(document).ready(function() {
     const pageSize = 10; // 페이지당 리뷰 수
 
     function loadReviews() {
-        console.log('Loading reviews for page:', page);
         $.ajax({
             url: '/mypage/getReviewsAjax',
             method: 'POST',
             data: { email: email, page: page, size: pageSize },
             success: function(data) {
-                console.log('Data received:', data);
                 if (data && data.length > 0) {
                     let existingIds = $('#reviews .review').map(function() {
                         return $(this).data('rev_id');
@@ -17,7 +15,6 @@ $(document).ready(function() {
                     
                     let reviewsHtml = '';
                     data.forEach(review => {
-                        console.log('Review ID:', review.rev_id, 'Images:', review.images.length);
                         if (!existingIds.includes(review.rev_id)) {
                             reviewsHtml += `
                                 <div class="review" data-rev_id="${review.rev_id}">

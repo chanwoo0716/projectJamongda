@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/layout">
+<head>
+<meta charset="UTF-8">
+<title>찜한 숙소 페이지</title>
+<link rel="stylesheet" th:href="@{/css/myWishlist.css}" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/myWishlist.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const email = /*[[${email}]]*/ 'default@example.com';
+	var isWishlisted = /*[[${isWishlisted}]]*/ '';
+    /*]]>*/
+</script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div class="myWishlist-container">
+            <div id="myWish">
+                <!-- 찜한 숙소 AJAX -->
+            </div>
+            <button id="loadMore" class="load-more-btn">▼더보기</button>
+        </div>
+    </th:block>
+</body>
+</html>

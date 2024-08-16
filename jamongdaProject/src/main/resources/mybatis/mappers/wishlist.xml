@@ -8,6 +8,16 @@
 		<result property="acc_id" column="acc_id"/>
 	</resultMap>
 	
+    <!-- 결과를 매핑할 DTO 클래스 정의 -->
+    <resultMap id="WishlistResultMap" type="java.util.HashMap">
+        <result property="wish_id" column="wish_id"/>
+        <result property="email" column="email"/>
+        <result property="acc_id" column="acc_id"/>
+        <result property="acc_name" column="acc_name"/>
+        <result property="acc_type" column="acc_type"/>
+        <result property="acc_image" column="acc_image"/>
+    </resultMap>
+	
 	<!-- 찜목록에 있으면 삭제, 없으면 추가 -->
     <select id="checkWishlist" resultType="int">
         SELECT COUNT(*) FROM wishlist WHERE email = #{email} AND acc_id = #{acc_id}
@@ -22,4 +32,26 @@
     <delete id="deleteWishlist">
         DELETE FROM wishlist WHERE email = #{email} AND acc_id = #{acc_id}
     </delete>
+
+    <!-- 사용자의 찜 목록 조회, 페이징 처리 -->
+	<select id="selectWishlistByUser" resultMap="WishlistResultMap">
+	    SELECT
+	        w.wish_id, 
+	        w.email, 
+	        a.acc_id, 
+	        a.acc_name, 
+	        a.acc_type, 
+	        MIN(i.acc_image) AS acc_image
+	    FROM
+	        wishlist w
+	    JOIN
+	        accommodation a ON w.acc_id = a.acc_id
+	    JOIN
+	        acc_image i ON w.acc_id = i.acc_id
+	    WHERE
+	        w.email = #{email}
+	    GROUP BY
+	        w.wish_id, w.email, a.acc_id, a.acc_name, a.acc_type
+	    LIMIT #{pageSize} OFFSET #{offset}
+	</select>
 </mapper>
