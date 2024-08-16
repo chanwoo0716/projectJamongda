@@ -105,14 +105,15 @@
 	border-bottom: 1px dotted #ccc;
 }
 
-.myReviews-btn {
+.myReviews-btn,
+.myWishlist-btn {
 	width: 95%;
 	padding: 10px;
 	margin-left: 2%;
 	border: 1px solid #ddd;
 	border-radius: 5px;
 	background-color: #fafafa;
-	margin-bottom: 6%;
+	margin-bottom: 2%;
 	cursor: pointer;
 	text-align: left;
 }
@@ -143,7 +144,8 @@
 
 .myInfo-btn:hover,
 .details-link:hover,
-.myReviews-btn:hover {
+.myReviews-btn:hover,
+.myWishlist-btn:hover {
 	color: #666;
 }
 

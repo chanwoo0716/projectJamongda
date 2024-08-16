@@ -1,5 +1,8 @@
 package com.jamongda.wishlist.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -29,5 +32,9 @@ public class WishlistServiceImpl implements WishlistService{
 	        throw new RuntimeException("데이터베이스 오류 발생", e);
 	    }
 	}
+	
+    public List<Map<String, Object>> getWishlistByUser(String email, int pageSize, int offset) throws DataAccessException {
+        return wishlistDAO.selectWishlistByUser(email, pageSize, offset);
+    }
 
 }
