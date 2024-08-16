@@ -15,6 +15,7 @@ import com.jamongda.accommodation.dto.AccommodationImageDTO;
 import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.accommodation.dto.RoomImageDTO;
 import com.jamongda.booking.dto.BookingDTO;
+import com.jamongda.review.dto.ReviewDTO;
 
 @Service("accommodationService")
 public class AccommodationServiceImpl implements AccommodationService {
@@ -189,4 +190,16 @@ public class AccommodationServiceImpl implements AccommodationService {
 		return reservationList;
 	}
 
+	//리뷰 데이터 가져오기(acc_name, ro_name, rev_content, rev_date, email)
+	@Override
+	public List<Map<String, Object>> getReviewsByHostEmail(String email) throws DataAccessException {
+		return accDAO.selectReviewsByHostEmail(email);
+	}
+	//리뷰 등록하기
+	@Override
+	public void updateReviewComment(int rev_id, String rev_comment) throws DataAccessException {
+		accDAO.updateReviewComment(rev_id, rev_comment);
+	}
+	
+	
 }

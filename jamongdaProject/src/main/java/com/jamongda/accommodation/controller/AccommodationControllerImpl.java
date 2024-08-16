@@ -10,16 +10,22 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jamongda.accommodation.dto.AccommodationImageDTO;
 import com.jamongda.accommodation.service.AccommodationService;
 import com.jamongda.member.dto.MemberDTO;
+import com.jamongda.review.dto.ReviewDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -128,7 +134,7 @@ public class AccommodationControllerImpl implements AccommodationController {
 	public ModelAndView manageReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		// 로그인한 사업자의 정보만 보여줘야하므로 세션에서 그 사람의 email꺼내기
-		HttpSession session = request.getSession();
+		HttpSession session = request.getSession(); 
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("host");
 
 		// 로그인 여부 확인
@@ -140,13 +146,56 @@ public class AccommodationControllerImpl implements AccommodationController {
 		}
 		String email = memberDTO.getEmail();
 		
-		
-		
-		
-		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("accommodation/manageReview");
 		mav.addObject("hostSidebar", "accommodation/hostSidebar");
+		mav.addObject("email", email);  // 사업자의 이메일을 뷰로 전달(ajax로 리뷰 데이터 불러와야함)
+		return mav;
+	}
+	//리뷰 불러오기
+	@GetMapping("/accommodation/getReviews")
+	@ResponseBody
+	public List<Map<String, Object>> getReviews(@RequestParam("email") String email) {
+	    try {
+	        List<Map<String, Object>> reviews = accommodationService.getReviewsByHostEmail(email);
+
+	        /* 리뷰 데이터 확인
+	        for (Map<String, Object> review : reviews) {
+	            System.out.println("Review:");
+	            for (Map.Entry<String, Object> entry : review.entrySet()) {
+	                System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+	            }
+	        }
+	        */
+	        return reviews;
+	    } catch (DataAccessException e) {
+	        // 데이터베이스 관련 예외 처리
+	        e.printStackTrace();
+	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Database error occurred", e);
+	    } catch (Exception e) {
+	        // 일반적인 예외 처리
+	        e.printStackTrace();
+	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unknown error occurred", e);
+	    }
+	}
+	//리뷰 등록하기
+	@Override
+	@PostMapping("/accommodation/updateReviews")
+	public ModelAndView updateReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    // POST 요청에서 파라미터로 넘어온 rev_id와 rev_comment를 받음
+	    int rev_id = Integer.parseInt(request.getParameter("rev_id"));
+	    String rev_comment = request.getParameter("rev_comment");
+	    
+	    // 전달 확인하기
+	    System.out.println("rev_id="+rev_id);
+	    System.out.println("rev_comment"+rev_comment);
+	    
+	    // 서비스로 rev_id와 rev_comment를 전달하여 업데이트 수행
+	    accommodationService.updateReviewComment(rev_id, rev_comment);
+	    
+	    System.out.println("리뷰 등록 성공!!");
+		
+		ModelAndView mav = new ModelAndView("redirect:/accommodation/manageReview.do");
 		return mav;
 	}
 
@@ -355,4 +404,5 @@ public class AccommodationControllerImpl implements AccommodationController {
 		}
 		return roImageMap;
 	}
+
 }

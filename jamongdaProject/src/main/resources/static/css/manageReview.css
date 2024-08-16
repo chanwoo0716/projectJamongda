@@ -1,8 +1,121 @@
+@charset "utf-8";
+h2 {
+    text-align: center;
+    margin-top: 20px;
+}
 .table-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
     overflow-x: auto;
-    margin: 20px auto;
+    margin: 0px auto;
+	width: 100%;
+}
+.table-style {
+    border-collapse: collapse;
+
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	font-size:0.85em;
+}
+
+.th-style, .td-style {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+.th-style {
+    background-color: #FF6F61;
+    color: white;
+}
+.td-style {
+	height: 4em; /* 높이를 두 배로 설정 */
+	vertical-align: middle; /* 텍스트를 세로 가운데 정렬 */
+    overflow: hidden;              /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis;       /* 넘치는 텍스트에 '...' 표시 */
+    max-width: 100px;              /* 필요한 경우 최대 너비를 설정 */
+}
+
+.tr-style:hover {
+    background-color: #f1f1f1;
+}
+
+
+
+/* 페이징관련CSS */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    color: black;
+	background-color: rgb(252, 252, 252);
+    border: none;
+    cursor: pointer;
+	font-weight:bold;
+}
+
+.pagination button.active {
+    color: #FF6F61;
+}
+
+/* 팝업창(댓글작성)관련 CSS */
+.popup {
+    display: none; /* 기본적으로 팝업을 숨김 */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.popup h2 {
+    margin: 0;
+    display: inline-block;
+}
+
+.popup .close {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.popup textarea {
+    width: 100%;
+    height: 100px;
+    resize: none; /* 길이 조절 비활성화 */
+    outline: none; /* 빨간 밑줄 비활성화 */
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+.popup .btn-group {
+    text-align: right;
+}
+
+.popup .btn-group button {
+    margin-left: 10px;
+    padding: 5px 10px;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
