@@ -17,7 +17,7 @@
 <script type="text/javascript" th:src="@{/js/selectSearch.js}"></script>
 </head>
 <body>
-	<th:block layout:fragment="content">
+	<div layout:fragment="content">
 		<div id="select_search">
 			<section class="sct1">
 				<div class="wrapper sct1_wrap">
@@ -57,25 +57,35 @@
 						<form th:action="@{/search/selectRadio.do}" method="get" name="frmRadio">
 							<input type="hidden" name="action" value="searchRadio">
 							
-							<input type="radio" name="acc_type" value="" th:checked="${acc_type == ''}"
-							   onchange="this.form.submit()">
-							<span>전체</span><br>
+							<div class="radio-item">
+								<input type="radio" name="acc_type" value="" th:checked="${acc_type == ''}"
+								   onchange="this.form.submit()">
+								<span>전체</span>
+							</div>
 							
-							<input type="radio" name="acc_type" value="모텔" th:checked="${acc_type == '모텔'}"
-								onchange="this.form.submit()">
-							<span>모텔</span><br>
+							<div class="radio-item">
+								<input type="radio" name="acc_type" value="모텔" th:checked="${acc_type == '모텔'}"
+									onchange="this.form.submit()">
+								<span>모텔</span>
+							</div>
 	
-							<input type="radio" name="acc_type" value="호텔/리조트" th:checked="${acc_type == '호텔/리조트'}"
-								onchange="this.form.submit()">
-							<span>호텔/리조트</span><br>
+							<div class="radio-item">
+								<input type="radio" name="acc_type" value="호텔/리조트" th:checked="${acc_type == '호텔/리조트'}"
+									onchange="this.form.submit()">
+								<span>호텔/리조트</span>
+							</div>
 	
-							<input type="radio" name="acc_type" value="펜션" th:checked="${acc_type == '펜션'}"
-								onchange="this.form.submit()">
-							<span>펜션</span><br>
+							<div class="radio-item">
+								<input type="radio" name="acc_type" value="펜션" th:checked="${acc_type == '펜션'}"
+									onchange="this.form.submit()">
+								<span>펜션</span>
+							</div>
 	
-							<input type="radio" name="acc_type" value="글램핑" th:checked="${acc_type == '글램핑'}"
-								onchange="this.form.submit()">
-							<span>글램핑</span><br>
+							<div class="radio-item">
+								<input type="radio" name="acc_type" value="글램핑" th:checked="${acc_type == '글램핑'}"
+									onchange="this.form.submit()">
+								<span>글램핑</span>
+							</div>
 
 							<input type="hidden" name="checkIn">
 							<input type="hidden" name="checkOut">
@@ -196,6 +206,6 @@
 				</section>
 			</div>
 		</div>
-	</th:block>
+	</div>
 </body>
 </html>
