@@ -250,7 +250,7 @@ aside {
 	font-size: 1.2em;
 }
 
-#acc_filter input[type="radio"] {
+.radio-item>input[type="radio"] {
 	appearance: none;
 	box-shadow: 0 0 0 1px #ddd;
 	border: 4px solid #fff;
@@ -262,13 +262,13 @@ aside {
 	transform: scale(1.3);
 }
 
-#acc_filter input[type="radio"]:checked {
+.radio-item>input[type="radio"]:checked {
 	box-shadow: 0 0 0 1px #ff6f61;
 	border: 4px solid #fff;
-	background-color: #ff6f61;
+	
 }
 
-#acc_filter span {
+.radio-item>span {
 	margin-bottom: 10px;
 	
 }

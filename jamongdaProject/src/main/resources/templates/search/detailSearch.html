@@ -23,7 +23,7 @@
 </script>
 </head>
 <body>
-    <th:block layout:fragment="content">
+    <div layout:fragment="content">
         <section class="sct1">
             <div class="wrapper sct1_wrap">
                 <div class="search_wrap">
@@ -84,7 +84,7 @@
 								<div class="room_image">
 									<a href="#" th:attr="onclick='showRoomImages(' + ${room.ro_id} + ')'">
 									    <img th:src="@{/roDownload.do(ro_id=${room.ro_id}, ro_image=${detailAccRoMap.get('roThumbnail').get(room.ro_id)})}" width="224px", height="126px" alt="객실 대표 이미지">
-										<i class="fa-regular fa-images" style="color: #858585;"></i>
+										<i class="fa-regular fa-images" style="color: white;"></i>
 									</a>
 					            </div>
                                 <!--객실 정보 영역-->
@@ -233,6 +233,6 @@
         </section>
 		
 		<script type="text/javascript" th:src="@{/js/detailSearch.js}"></script>
-    </th:block>
+    </div>
 </body>
 </html>

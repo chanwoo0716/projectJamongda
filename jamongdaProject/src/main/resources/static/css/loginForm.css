@@ -70,15 +70,15 @@
     color: #FF6F61;
 }
 
-.submit_block a {
+.submit_block>a {
     padding: 10px 20px;
-	
-    color: #333;
-	font-weight: bold;
+	font-size: 14px;
+    color: black;
+	font-weight: 900;
     text-decoration: none;
 }
 
-.submit_block a:hover {
+.submit_block>a:hover {
     color: #FF6F61;
 }
 
