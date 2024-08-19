@@ -50,7 +50,10 @@
 						</li>
 						
 						<li>
-							<a th:href="@{/board/boardList.do}">찜내역</a>
+							<form id="wishlistForm" action="/wishlist/myWishlistPage.do" method="post">
+								<input type="hidden" id="emailInput" name="email" value="[[${session.guest}]]">
+							    <button type="submit">찜내역</button>
+							</form>
 						</li>
 						
 						<li>

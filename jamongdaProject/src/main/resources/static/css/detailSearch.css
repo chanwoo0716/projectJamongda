@@ -53,16 +53,17 @@ a {
 }
 
 
-#form2 {
+#form3 {
   width: 100%;
   margin: 0 auto;
   top: 68%;
   left: 6%;
 
-  padding: 1% 2% 1% 4%;
+  padding: 1% 2% 0 4%;
   border-radius: 20px;
   overflow: hidden;
   box-sizing: border-box;
+  font-size: 1.3em;
 }
 
 /* 숙소 검색 영역 */
@@ -167,7 +168,7 @@ a {
   height: 50px;
   background: none;
   border: none;
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: bold;
   color: black;
   cursor: pointer;

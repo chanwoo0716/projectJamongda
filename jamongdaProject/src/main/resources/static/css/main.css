@@ -38,6 +38,7 @@ input{
   border-radius: 20px;
   overflow: hidden;
   box-sizing: border-box;
+  font-size: 1.2em;
 }
 
 /* 숙소 검색 영역 */
@@ -133,7 +134,7 @@ input{
   height: 70px; /* 다른 입력 필드와 동일한 높이 설정 */
   background: none;
   border: none;
-  font-size: 1.4em;
+  font-size: 1em;
   font-weight: bold;
   color: black;
   cursor: pointer;
@@ -439,7 +440,7 @@ input{
 	  height: 70px; /* 다른 입력 필드와 동일한 높이 설정 */
 	  background: none;
 	  border: none;
-	  font-size: 2em;
+	  font-size: 1.5em;
 	  font-weight: bold;
 	  color: black;
 	  cursor: pointer;

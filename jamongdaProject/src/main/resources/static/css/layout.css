@@ -122,7 +122,6 @@ h3 {
 	font-size: 1.3em;
 	color: black;
 	display: inline-block;
-	margin-top: 1%;
 	margin-left: 10%;
 }
 
@@ -162,17 +161,28 @@ h3 {
 	font-size: 1em;
 	font-weight: 500;
 	padding: 5%;
-
+	
 	box-sizing: border-box;
-	width: 30%;
-}
-
-.mypage_list>li>a {
-	letter-spacing: 3px;
-	font-family: monospace;
+	width: 100%;
 }
 
 .mypage_list>li>a:hover {
+	color: #FF6F61;
+}
+
+/*마이페이지에 있는 찜내역 탭*/
+#wishlistForm>button{
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	
+	font-size: 1.1em;
+	font-weight: 500;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+#wishlistForm>button:hover{
 	color: #FF6F61;
 }
 
@@ -441,7 +451,7 @@ footer {
 	}
 
 	.mypage_list {
-		width: 10%;
+		width: 8%;
 		margin-right: 8%;
 	}
 
