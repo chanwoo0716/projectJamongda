@@ -15,18 +15,51 @@
 </head>
 <body>
 	<th:block layout:fragment="content">
-		<!--팝업창 영역-->
-		<div class="overlay"></div>
-		<div class="popup">
+		<!-- 일반 댓글 작성 팝업 -->
+		<div id="singleCommentPopup" class="popup">
 		    <h2>댓글 작성 <span class="close">&times;</span></h2>
-		    <textarea id="commentText" placeholder="댓글을 입력해주세요."></textarea>
+		    <textarea id="singleCommentText" placeholder="댓글을 입력해주세요."></textarea>
 		    <div class="btn-group">
-		        <button id="saveComment">저장</button>
-		        <button id="closePopup">닫기</button>
+		        <button id="saveSingleComment">저장</button>
+		        <button id="closeSinglePopup">닫기</button>
 		    </div>
 		</div>
-		<!--팝업창 영역 종료-->
-	
+		<!-- 일반 댓글 작성 팝업 종료 -->
+		
+		<!-- 일괄 댓글, 스마트 일괄 댓글 작성 팝업 -->
+		<div id="batchCommentPopup" class="popup">
+		    <h2>
+		        <a href="#" id="batchCommentLink" class="active">일괄 댓글 작성</a>
+		        <a href="#" id="smartCommentLink">스마트 댓글</a>
+		        <span class="close">&times;</span>
+		    </h2>
+		    <textarea id="batchCommentText" placeholder="일괄 댓글을 입력해주세요."></textarea>
+		    
+		    <!-- 스마트 댓글 템플릿 영역 -->
+		    <div id="smartCommentTemplate" style="display: none; margin-top: 10px;">
+				<p>템플릿</p>
+				<div>
+				    <p>안녕하세요 [이메일] 님. [숙소명]를 이용해주셔서 감사합니다. 더 좋은 서비스로 보답하겠습니다.</p>
+				    <button class="applyTemplate" data-template="template1">적용</button>
+				</div>
+				<div>
+				    <p>감사합니다 [이메일]님! [객실명]은 잘 이용하셨나요? 다음에는 더 나은 [숙소명]이 되도록 하겠습니다!</p>
+				    <button class="applyTemplate" data-template="template2">적용</button>
+				</div>
+				<div>
+				    <p>리뷰 작성 감사합니다 [이메일] 님. 좋은 하루 되세요.</p>
+				    <button class="applyTemplate" data-template="template3">적용</button>
+				</div>
+		    </div>
+		    
+		    <div class="btn-group">
+		        <button id="saveBatchComment">저장</button>
+		        <button id="saveSmartBatchComment" style="display: none;">스마트 댓글 저장</button>
+		        <button id="closeBatchPopup">닫기</button>
+		    </div>
+		</div>
+		<!-- 일괄 댓글, 스마트 일괄 댓글 작성 팝업 종료 -->
+		
 		<h2>리뷰목록</h2>
 		<div class="table-container">
 		    <table class="table-style">
@@ -50,7 +83,7 @@
 		    </table>
 			<div>
 				<button id="delReviewBtn">선택 삭제</button>
-				<button id="delReviewBtn">일괄 댓글</button>
+				<button id="batchCommentBtn">일괄 댓글</button>
 			</div>
 			<div class="pagination"></div>
 		</div>

@@ -185,7 +185,7 @@
 	    ORDER BY r.rev_date DESC
 	</select>
 
-	<!-- 리뷰 등록하기 -->
+	<!-- 리뷰 등록하기(일괄등록 포함) -->
 	<update id="updateReviewComment">
 	    UPDATE review SET rev_comment = #{rev_comment} WHERE rev_id = #{rev_id}
 	</update>
