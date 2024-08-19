@@ -16,24 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 $(document).ready(function() {
-    // 전체 선택/해제
-    $('#selectAll').on('click', function() {
-        $('.rowCheckbox').prop('checked', this.checked);
-    });
-
-    // 선택 삭제
-    $('#delReviewBtn').on('click', function() {
-        if ($('.rowCheckbox:checked').length > 0) {
-            if (confirm('리뷰를 삭제하시겠습니까?')) {
-                $('.rowCheckbox:checked').closest('tr').remove();
-            }
-        } else {
-            alert('삭제할 리뷰를 선택하세요.');
-        }
-    });
-});
-
-$(document).ready(function() {
 	// 팝업 열기
 	$(document).on('click', '.td-style button', function() {
 	    const reviewId = $(this).data('review-id'); // 리뷰 ID 가져오기
@@ -106,6 +88,46 @@ $(document).ready(function() {
         },
         error: function(error) {
             console.error("Error fetching reviews:", error);
+        }
+    });
+});
+
+$(document).ready(function() {
+    // 전체 선택/해제
+    $('#selectAll').on('click', function() {
+        $('.rowCheckbox').prop('checked', this.checked);
+    });
+
+    // 선택 삭제
+    $('#delReviewBtn').on('click', function() {
+        let selectedReviews = [];
+        $('.rowCheckbox:checked').each(function() {
+            selectedReviews.push($(this).closest('tr').find('button').data('review-id'));
+        });
+
+        if (selectedReviews.length > 0) {
+            if (confirm('선택한 리뷰를 삭제하시겠습니까?')) {
+                $.ajax({
+                    url: '/accommodation/delReview',
+                    type: 'POST',
+                    data: JSON.stringify({ reviewIds: selectedReviews }),
+                    contentType: 'application/json',
+                    success: function(response) {
+                        if (response.success) {
+                            $('.rowCheckbox:checked').closest('tr').remove();
+                            alert('선택한 리뷰가 삭제되었습니다.');
+                        } else {
+                            alert('리뷰 삭제에 실패했습니다.');
+                        }
+                    },
+                    error: function(error) {
+                        console.error("Error deleting reviews:", error);
+                        alert('리뷰 삭제 중 오류가 발생했습니다.');
+                    }
+                });
+            }
+        } else {
+            alert('삭제할 리뷰를 선택하세요.');
         }
     });
 });
