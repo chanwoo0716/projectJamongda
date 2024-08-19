@@ -23,6 +23,9 @@ public interface AccommodationController {
 	//리뷰 등록하기
 	public ModelAndView updateReview(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+	//리뷰 일괄등록하기
+	//public ModelAndView batchUpdateReview(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
 	// 숙소/객실 등록하기(regAccommodation.html에서 "등록"눌렀을 때 DB에 insert 수행 후 manageAccommodation.html로..)
 	public ModelAndView addAccommodation(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
 

@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+//리뷰 불러오기/작성하기
 $(document).ready(function() {
 	// 팝업 열기
 	$(document).on('click', '.td-style button', function() {
@@ -92,6 +93,61 @@ $(document).ready(function() {
     });
 });
 
+//리뷰 일괄등록하기
+$(document).ready(function() {
+    // 팝업 열기 (일괄 댓글)
+    $('#batchCommentBtn').on('click', function() {
+        let selectedReviews = [];
+        $('.rowCheckbox:checked').each(function() {
+            selectedReviews.push($(this).closest('tr').find('button').data('review-id'));
+        });
+
+        if (selectedReviews.length > 0) {
+            $('#saveComment').data('review-ids', selectedReviews); // 저장 버튼에 리뷰 ID들 설정
+            console.log("팝업 열림: 리뷰 IDs", selectedReviews);
+            $('.overlay').show();
+            $('.popup').show();
+        } else {
+            alert('일괄 댓글을 작성할 리뷰를 선택하세요.');
+        }
+    });
+
+    // 팝업 닫기
+    $('.close, #closePopup').on('click', function() {
+        $('.popup').hide();
+        $('.overlay').hide();
+    });
+
+    // 저장 버튼 클릭 이벤트 (일괄 댓글 등록)
+    $('#saveComment').on('click', function() {
+        const rev_comment = $('#commentText').val();
+        const reviewIds = $(this).data('review-ids'); // 설정된 리뷰 ID들 가져오기
+
+        // 확인용
+        console.log("reviewIds:", reviewIds);
+        console.log("rev_comment:", rev_comment);
+        
+        $.ajax({
+            url: '/accommodation/batchUpdateReviews',
+            type: 'POST',
+            data: JSON.stringify({ reviewIds: reviewIds, rev_comment: rev_comment }),
+            contentType: 'application/json',
+            success: function(response) {
+                alert('댓글이 일괄 등록되었습니다.');
+                $('.popup').hide();
+                $('.overlay').hide();
+                location.reload(); // 페이지를 리로드하여 변경 사항을 반영
+            },
+            error: function(error) {
+                console.error("Error saving comments:", error);
+                alert('댓글 일괄 등록 중 오류가 발생했습니다.');
+            }
+        });
+    });
+});
+
+
+//리뷰 삭제하기
 $(document).ready(function() {
     // 전체 선택/해제
     $('#selectAll').on('click', function() {

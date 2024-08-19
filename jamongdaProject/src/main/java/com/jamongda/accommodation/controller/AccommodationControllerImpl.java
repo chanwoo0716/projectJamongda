@@ -199,6 +199,30 @@ public class AccommodationControllerImpl implements AccommodationController {
 		ModelAndView mav = new ModelAndView("redirect:/accommodation/manageReview.do");
 		return mav;
 	}
+	//리뷰 일괄등록하기
+	/*
+	@Override
+	@PostMapping("/accommodation/batchUpdateReviews")
+	public ModelAndView batchUpdateReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    // POST 요청에서 파라미터로 넘어온 reviewIds와 rev_comment를 받음
+		List<Integer> reviewIds = request.get("reviewIds");
+	    String rev_comment = request.getParameter("rev_comment");
+	    
+	    // 전달 확인하기
+	    System.out.println("reviewIds="+reviewIds);
+	    System.out.println("rev_comment"+rev_comment);
+	    
+	    // 서비스로 reviewIds와 rev_comment를 전달하여 업데이트 수행
+	    for(int rev_id : reviewIds) {
+	    	accommodationService.batchUpdateReviewComment(rev_id, rev_comment);
+	    }
+	    
+	    System.out.println("리뷰 일괄 등록 성공!!");
+		
+		ModelAndView mav = new ModelAndView("redirect:/accommodation/manageReview.do");
+		return mav;
+	}
+	*/
 	//리뷰 삭제하기
 	@PostMapping("/accommodation/delReview")
 	@ResponseBody
