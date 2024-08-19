@@ -222,6 +222,12 @@ a {
 
 .acc_title>h1{
 	font-size: 2em;
+	float: left;
+	margin-right: 0.5%;
+}
+
+.wishlist-icon{
+	font-size: 2em;
 }
 .acc_content .content_box {
 	margin: 0 auto;
@@ -258,10 +264,27 @@ a {
 .room_image {
 	border-radius: 10px;
 	width: 30%;
+	
+	position: relative;
 }
 
 .room_image img{
 	margin: 5%;
+}
+
+.fa-images{
+	position: absolute;
+	top: 73%;
+	right: 18%;
+	display: inline-flex; /* 아이콘과 +를 함께 보이게 함 */
+    align-items: center; /* 세로 정렬 */
+	
+	font-size: 1.5em;
+}
+
+.fa-images::after{
+	content: "+"; /* + 기호 추가 */
+   margin-left: 5px; /* 아이콘과 + 사이 간격 조절 */
 }
 
 .room_contents {
@@ -351,6 +374,8 @@ a {
 	padding-top: 30px;
 	padding-bottom: 30px;
 	border-bottom: 1px solid #ddd;
+	
+	font-size: 1.2em;
 }
 
 .review_title {
@@ -540,6 +565,16 @@ a {
 
 .review_text {
     margin-bottom: 15px;
+}
+
+.review_text>div:first-child{
+	font-size: 1.3em;
+	font-weight: bold;
+	line-height: 50px;
+}
+
+.preview_content{
+	color: #555;
 }
 
 .review_text .preview_content,
