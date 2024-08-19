@@ -200,6 +200,15 @@ public class AccommodationServiceImpl implements AccommodationService {
 	public void updateReviewComment(int rev_id, String rev_comment) throws DataAccessException {
 		accDAO.updateReviewComment(rev_id, rev_comment);
 	}
-	
-	
+	//리뷰 이미지 삭제하기
+	@Override
+	public void delReviewImage(int rev_id) throws DataAccessException {
+		accDAO.delReviewImage(rev_id);
+	}	
+	//리뷰 삭제하기
+	@Override
+	public void delReview(int rev_id) throws DataAccessException {
+		accDAO.delReview(rev_id);
+	}
+
 }

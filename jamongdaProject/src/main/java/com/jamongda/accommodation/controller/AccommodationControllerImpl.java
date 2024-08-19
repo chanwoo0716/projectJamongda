@@ -12,9 +12,11 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,8 +36,8 @@ import jakarta.servlet.http.HttpSession;
 @Controller("accommodationController")
 public class AccommodationControllerImpl implements AccommodationController {
 
-	private static String ACCOMMODATION_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadAcc";
-	private static String ROOM_IMAGE_REPO = "C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadRo";
+	private static String ACCOMMODATION_IMAGE_REPO = "D:\\Hwang\\FileuploadAcc";
+	private static String ROOM_IMAGE_REPO = "D:\\Hwang\\FileuploadRo";
 
 	@Autowired
 	private AccommodationService accommodationService;
@@ -158,7 +160,6 @@ public class AccommodationControllerImpl implements AccommodationController {
 	public List<Map<String, Object>> getReviews(@RequestParam("email") String email) {
 	    try {
 	        List<Map<String, Object>> reviews = accommodationService.getReviewsByHostEmail(email);
-
 	        /* 리뷰 데이터 확인
 	        for (Map<String, Object> review : reviews) {
 	            System.out.println("Review:");
@@ -198,7 +199,56 @@ public class AccommodationControllerImpl implements AccommodationController {
 		ModelAndView mav = new ModelAndView("redirect:/accommodation/manageReview.do");
 		return mav;
 	}
+	//리뷰 일괄등록하기
+	/*
+	@Override
+	@PostMapping("/accommodation/batchUpdateReviews")
+	public ModelAndView batchUpdateReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	    // POST 요청에서 파라미터로 넘어온 reviewIds와 rev_comment를 받음
+		List<Integer> reviewIds = request.get("reviewIds");
+	    String rev_comment = request.getParameter("rev_comment");
+	    
+	    // 전달 확인하기
+	    System.out.println("reviewIds="+reviewIds);
+	    System.out.println("rev_comment"+rev_comment);
+	    
+	    // 서비스로 reviewIds와 rev_comment를 전달하여 업데이트 수행
+	    for(int rev_id : reviewIds) {
+	    	accommodationService.batchUpdateReviewComment(rev_id, rev_comment);
+	    }
+	    
+	    System.out.println("리뷰 일괄 등록 성공!!");
+		
+		ModelAndView mav = new ModelAndView("redirect:/accommodation/manageReview.do");
+		return mav;
+	}
+	*/
+	//리뷰 삭제하기
+	@PostMapping("/accommodation/delReview")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> delReview(@RequestBody Map<String, List<Integer>> requestData) {
+	    Map<String, Object> response = new HashMap<>();
+	    
+	    try {
+	        List<Integer> reviewIds = requestData.get("reviewIds");
 
+	        if (reviewIds != null && !reviewIds.isEmpty()) {
+	            for (int rev_id : reviewIds) {
+	                accommodationService.delReview(rev_id);
+	            }
+	            response.put("success", true);
+	        } else {
+	            response.put("success", false);
+	            response.put("error", "No review IDs provided.");
+	        }
+	    } catch (Exception e) {
+	        response.put("success", false);
+	        response.put("error", e.getMessage());
+	    }
+	    
+	    return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
 	// 숙소/객실등록에서 "등록하기" 눌렀을 때
 	@Override
 	@PostMapping("/accommodation/addAccommodation.do")

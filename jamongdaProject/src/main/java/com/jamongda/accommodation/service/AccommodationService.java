@@ -26,4 +26,10 @@ public interface AccommodationService {
 	
 	//리뷰 등록하기
 	public void updateReviewComment(int rev_id, String rev_comment) throws DataAccessException;
+	
+	//리뷰 이미지 삭제하기
+	public void delReviewImage(int rev_id) throws DataAccessException;
+	
+	//리뷰 삭제하기
+	public void delReview(int rev_id) throws DataAccessException;
 }

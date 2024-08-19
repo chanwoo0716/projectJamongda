@@ -61,5 +61,10 @@ public interface AccommodationDAO {
 	
 	//리뷰 등록하기
 	public void updateReviewComment(@Param("rev_id") int rev_id, @Param("rev_comment") String rev_comment) throws DataAccessException;
-
+	
+	//리뷰 이미지 삭제하기
+	public void delReviewImage(int rev_id) throws DataAccessException;
+	
+	//리뷰 삭제하기
+	public void delReview(@Param("rev_id") int rev_id) throws DataAccessException;
 }
