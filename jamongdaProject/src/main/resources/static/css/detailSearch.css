@@ -179,7 +179,7 @@ a {
 }
 
 .deatail-room{
-	min-width: 800px;
+	width: 800px;
 }
 
 .search_btn:hover{
@@ -214,7 +214,6 @@ a {
 	margin: 0 auto;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
 }
 
 .acc_title{
@@ -245,21 +244,19 @@ a {
 	display: block;
 }
 
-.aside_map {
-	width: 370px;
-}
-
 .map_box2 {
 	height: 135px;
 	border-radius: 10px;
 }
 
 .room_box {
-	width: 970px;
+	width: 100%;
 	border: 1px solid #ddd;
 	border-radius: 10px;
 	display: flex;
 	padding: 2%;
+	
+	gap: 20px;
 }
 
 .room_image {
@@ -270,13 +267,15 @@ a {
 }
 
 .room_image img{
-	margin: 5%;
+	margin: 2%;
+	width: 100%;
+	height: 150px;
 }
 
 .fa-images{
 	position: absolute;
-	top: 73%;
-	right: 18%;
+	top: 79%;
+	right: 2%;
 	display: inline-flex; /* 아이콘과 +를 함께 보이게 함 */
     align-items: center; /* 세로 정렬 */
 	
@@ -289,16 +288,18 @@ a {
 }
 
 .room_contents {
-	margin-left: 2%;
 	width: 65%;
 	display: flex;
 	flex-direction: column;
 	border-radius: 10px;
+	gap: 3px;
+	
+	justify-content: center;
 }
 
 .room_more {
-	width: 40%;
-	text-align: right;
+	width: 15%;
+	text-align: center;
 }
 
 .roomList {
@@ -374,6 +375,7 @@ a {
 	flex-wrap: wrap;
 	padding-top: 30px;
 	padding-bottom: 30px;
+	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 	
 	font-size: 1.2em;
@@ -382,7 +384,6 @@ a {
 .review_title {
 	width: 1200px;
 	padding: 10px 0;
-	border-bottom: 1px solid #ddd;
 }
 
 .review_user {
@@ -526,15 +527,16 @@ a {
 	color: #F45858;
 }
 
-#CancleRefundReg ul {
+#CancleRefundReg>ul {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
 }
 
-#CancleRefundReg ul li {
+#CancleRefundReg>ul>li {
 	color: #F45858;
 	margin-bottom: 10px;
+	margin-left: 20px;
 }
 
 .review_imagesbox {
@@ -555,27 +557,42 @@ a {
 	flex-direction: column;
 }
 
-.user_email {
-	margin-bottom: 5px;
+.room_title{
+	font-size: 1.15em;
+	font-weight: bold;
+	line-height: 30px;
+}
+
+.fa-circle-user{
+	margin-right: 1%;
+}
+
+.user_email{
+	color: black;
+	margin-bottom: 1%;
 }
 
 .review_date {
-	color: #777;
+	color: #666;
 	font-size: 12px;
 }
 
 .review_text {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
-.review_text>div:first-child{
-	font-size: 1.3em;
+.user_title>p{
+	font-size: 1em;
 	font-weight: bold;
-	line-height: 50px;
+	
+	color: #49627A;
+	
 }
 
-.preview_content{
-	color: #555;
+.preview_content, .full_content{
+	font-size: 1.05em;
+	line-height: 25px;
+	color: black;
 }
 
 .review_text .preview_content,
@@ -677,7 +694,9 @@ a {
 	padding: 20px;
 	border: 1px solid #ddd;
 	border-radius: 8px;
-	margin-top: 100px;
+	margin-top: 17%;
+	margin-left: 10%;
+	width: 90%;
 }
 
 .aside_map h2 {

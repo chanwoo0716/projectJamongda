@@ -224,7 +224,8 @@ $(document).ready(function() {
 
 						let reviewHtml = `
 							<div class="review_user">
-								<div class="user_email"><strong>${maskEmail(review.email)}</strong></div>
+								
+								<div class="user_email"><i class="fa-sharp-duotone fa-solid fa-circle-user"></i><strong>${maskEmail(review.email)}</strong></div>
 							    <div class="review_date">${review.rev_date}</div>
 							</div>
                             <div class="review_content">
@@ -233,7 +234,7 @@ $(document).ready(function() {
 							`<div class="review_image"><img src="/review/downloadImage?rev_image=${image.rev_image}" alt="Review Image"/></div>`).join('')}
                             </div>
 							<div class="review_text">
-								<div>${review.ro_name}</div>	
+								<div class="user_title"><p>이용 객실 : ${review.ro_name}</p></div>
 								<div class="preview_content">${previewContent}</div>
 								    ${fullContent ? `<div class="full_content">${fullContent}</div>` : ''}
 								    ${fullContent ? '<a href="#" class="more"><strong>더보기</strong></a>' : ''}
