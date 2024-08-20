@@ -65,6 +65,10 @@ $(document).ready(function() {
 	    $('#smartCommentTemplate').hide();
 	    $('#saveBatchComment').show();
 	    $('#saveSmartBatchComment').hide();
+		
+		// 닫기 버튼 제어
+		$('#closeBatchPopup').eq(0).show();  // 첫 번째 닫기 버튼 보이기
+		$('#closeBatchPopup').eq(1).hide();  // 두 번째 닫기 버튼 숨기기
 	});
 	// 스마트 일괄 댓글 작성 탭
 	$('#smartCommentLink').on('click', function(e) {
@@ -77,6 +81,10 @@ $(document).ready(function() {
 	    $('#smartCommentTemplate').show();
 	    $('#saveBatchComment').hide();
 	    $('#saveSmartBatchComment').show();
+		
+		// 닫기 버튼 제어
+		$('#closeBatchPopup').eq(0).hide();  // 첫 번째 닫기 버튼 숨기기
+		$('#closeBatchPopup').eq(1).show();  // 두 번째 닫기 버튼 보이기
 	});
 	
     // 팝업 열기 (개별 댓글 작성)
@@ -118,16 +126,20 @@ $(document).ready(function() {
 
 	    // 각 리뷰마다 개별적으로 템플릿을 적용한 댓글을 생성
 	    const generatedComments = selectedReviews.map(review => {
+			// 이메일에서 앞 세 글자만 남기고 나머지는 *로 대체
+			const emailParts = review.email.split('@');
+			const emailMasked = emailParts[0].slice(0, 3) + '*'.repeat(emailParts[0].length - 3) + '@' + emailParts[1];
+			
 	        let comment = "";
 	        switch (selectedTemplate) {
 	            case 'template1':
-	                comment = `안녕하세요 ${review.email} 님. ${review.acc_name}를 이용해주셔서 감사합니다. 더 좋은 서비스로 보답하겠습니다.`;
+	                comment = `안녕하세요 ${emailMasked} 님. ${review.acc_name}를 이용해주셔서 감사합니다. 더 좋은 서비스로 보답하겠습니다.`;
 	                break;
 	            case 'template2':
-	                comment = `감사합니다 ${review.email}님! ${review.ro_name}은 잘 이용하셨나요? 다음에는 더 나은 ${review.acc_name}이 되도록 하겠습니다!`;
+	                comment = `감사합니다 ${emailMasked}님! ${review.ro_name}은 잘 이용하셨나요? 다음에는 더 나은 ${review.acc_name}이 되도록 하겠습니다!`;
 	                break;
 	            case 'template3':
-	                comment = `리뷰 작성 감사합니다 ${review.email} 님. 좋은 하루 되세요.`;
+	                comment = `리뷰 작성 감사합니다 ${emailMasked} 님. 좋은 하루 되세요.`;
 	                break;
 	        }
 	        return { id: review.id, comment: comment };

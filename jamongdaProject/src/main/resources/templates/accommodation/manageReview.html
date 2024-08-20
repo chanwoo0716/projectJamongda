@@ -28,39 +28,49 @@
 		
 		<!-- 일괄 댓글, 스마트 일괄 댓글 작성 팝업 -->
 		<div id="batchCommentPopup" class="popup">
-		    <h2>
-		        <a href="#" id="batchCommentLink" class="active">일괄 댓글 작성</a>
+		    <h2>일괄 댓글 작성</h2>
+		    <div class="tab-menu">
+		        <a href="#" id="batchCommentLink" class="active">직접 댓글</a>
 		        <a href="#" id="smartCommentLink">스마트 댓글</a>
 		        <span class="close">&times;</span>
-		    </h2>
-		    <textarea id="batchCommentText" placeholder="일괄 댓글을 입력해주세요."></textarea>
-		    
-		    <!-- 스마트 댓글 템플릿 영역 -->
+		    </div>
+
+		    <!-- 직접 댓글 작성 -->
+		    <div id="batchCommentSection">
+		        <textarea id="batchCommentText" placeholder="일괄 댓글을 입력해주세요."></textarea>
+		        <div class="btn-group">
+		            <button id="saveBatchComment">저장</button>
+					<button id="closeBatchPopup" class="btn-close">닫기</button>
+		        </div>
+		    </div>
+
+		    <!-- 스마트 댓글 작성 -->
 		    <div id="smartCommentTemplate" style="display: none; margin-top: 10px;">
-				<p>템플릿</p>
-				<div>
-				    <p>안녕하세요 [이메일] 님. [숙소명]를 이용해주셔서 감사합니다. 더 좋은 서비스로 보답하겠습니다.</p>
-				    <button class="applyTemplate" data-template="template1">적용</button>
-				</div>
-				<div>
-				    <p>감사합니다 [이메일]님! [객실명]은 잘 이용하셨나요? 다음에는 더 나은 [숙소명]이 되도록 하겠습니다!</p>
-				    <button class="applyTemplate" data-template="template2">적용</button>
-				</div>
-				<div>
-				    <p>리뷰 작성 감사합니다 [이메일] 님. 좋은 하루 되세요.</p>
-				    <button class="applyTemplate" data-template="template3">적용</button>
-				</div>
+		        <div>
+		            <h3>템플릿</h3>
+		            <div class="template-item">
+		                <p>안녕하세요 [이메일] 님. [숙소명]를 이용해주셔서 감사합니다. 더 좋은 서비스로 보답하겠습니다.</p>
+		                <button class="applyTemplate" data-template="template1">적용</button>
+		            </div>
+		            <div class="template-item">
+		                <p>감사합니다 [이메일]님! [객실명]은 잘 이용하셨나요? 다음에는 더 나은 [숙소명]이 되도록 하겠습니다!</p>
+		                <button class="applyTemplate" data-template="template2">적용</button>
+		            </div>
+		            <div class="template-item">
+		                <p>리뷰 작성 감사합니다 [이메일] 님. 좋은 하루 되세요.</p>
+		                <button class="applyTemplate" data-template="template3">적용</button>
+		            </div>
+		        </div>
+		        <div class="btn-group">
+		            <button id="saveSmartBatchComment">저장</button>
+					<button id="closeBatchPopup" class="btn-close">닫기</button>
+		        </div>
 		    </div>
-		    
-		    <div class="btn-group">
-		        <button id="saveBatchComment">저장</button>
-		        <button id="saveSmartBatchComment" style="display: none;">스마트 댓글 저장</button>
-		        <button id="closeBatchPopup">닫기</button>
-		    </div>
+		    <!--<button id="closeBatchPopup" class="btn-close">닫기</button>-->
 		</div>
 		<!-- 일괄 댓글, 스마트 일괄 댓글 작성 팝업 종료 -->
 		
-		<h2>리뷰목록</h2>
+		<!--<h2>리뷰목록</h2>-->
 		<div class="table-container">
 		    <table class="table-style">
 		        <thead>
@@ -81,7 +91,7 @@
 					<!--Ajax로 불러오는 영역~-->
 		        </tbody>
 		    </table>
-			<div>
+			<div id="manageReviewBtn">
 				<button id="delReviewBtn">선택 삭제</button>
 				<button id="batchCommentBtn">일괄 댓글</button>
 			</div>
