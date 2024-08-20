@@ -28,6 +28,7 @@ import com.jamongda.accommodation.dto.AccommodationImageDTO;
 import com.jamongda.accommodation.service.AccommodationService;
 import com.jamongda.member.dto.MemberDTO;
 import com.jamongda.review.dto.ReviewDTO;
+import com.jamongda.review.dto.ReviewImageDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -258,6 +259,25 @@ public class AccommodationControllerImpl implements AccommodationController {
 	    response.put("success", true);
 	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	//리뷰 상세보기(제목 클릭 이벤트임)
+    @GetMapping("/accommodation/getReviewDetails")
+    @ResponseBody
+    public Map<String, Object> getReviewDetails(@RequestParam("rev_id") Long revId) throws Exception {
+        // 클릭한 리뷰 내용 가져오기
+        ReviewDTO review = accommodationService.getReviewById(revId);
+        // 클릭한 리뷰 이미지 가져오기
+        List<ReviewImageDTO> reviewImages = accommodationService.getReviewImagesByReviewId(revId);
+
+        // JSON으로 반환할 데이터를 Map에 담음
+        Map<String, Object> response = new HashMap<>();
+        response.put("rev_content", review.getRev_content());
+        response.put("rev_date", review.getRev_date());
+        response.put("rev_images", reviewImages);
+        response.put("email", review.getEmail());
+        response.put("rev_comment", review.getRev_comment());
+
+        return response;
+    }
 	
 	//리뷰 삭제하기
 	@PostMapping("/accommodation/delReview")

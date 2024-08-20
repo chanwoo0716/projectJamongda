@@ -246,5 +246,56 @@ h2 {
     border-radius: 2px;
     cursor: pointer;
     white-space: nowrap;
-	
+}
+
+/* 팝업 내부 요소 간 간격 조정 */
+#reviewDetailPopup #reviewImages {
+    margin-bottom: 20px; /* 이미지와 다음 요소 사이의 간격 */
+}
+
+#reviewDetailPopup p {
+    margin-bottom: 20px; /* 리뷰 내용, 작성일자 사이의 간격 */
+}
+
+#reviewDetailPopup .btn-group {
+    margin-top: 20px; /* 버튼과 이전 요소 사이의 간격 */
+}
+
+/* 이미지 스타일 */
+.review-image {
+    width: 150px;          /* 정사각형의 너비 설정 */
+    height: 150px;         /* 정사각형의 높이 설정 */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;    /* 이미지 간 간격 */
+    object-fit: cover;     /* 이미지를 정사각형에 맞게 자르기 */
+    
+}
+
+/* 팝업 타이틀 스타일 */
+#reviewDetailPopup h2 {
+    margin-bottom: 20px; /* 제목과 첫 번째 요소 사이의 간격 */
+}
+
+/* 리뷰 댓글 영역 스타일 */
+#reviewCommentSection {
+    background-color: #f9f9f9;  /* 연한 배경색 */
+    border-left: 4px solid #FF6F61;  /* 좌측에 강조되는 테두리 */
+    padding: 15px;  /* 내부 여백 */
+    margin-top: 20px;  /* 다른 요소와의 간격 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* 약간의 그림자 효과 */
+    border-radius: 5px;  /* 둥근 모서리 */
+}
+
+/* 댓글 제목 스타일 */
+#reviewCommentSection h3 {
+    margin-top: 0;
+    color: #333;  /* 진한 텍스트 색상 */
+}
+
+/* 댓글 내용 스타일 */
+#reviewCommentSection p {
+    margin: 10px 0 0 0;
+    font-size: 1.1em;
+    color: #555;  /* 회색 텍스트 */
 }

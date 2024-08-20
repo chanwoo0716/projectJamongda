@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-//리뷰 데이터 불러오기
+//리뷰 불러오기, 상세정보 불러오기
 $(document).ready(function() {
     $.ajax({
         url: '/accommodation/getReviews',
@@ -36,7 +36,9 @@ $(document).ready(function() {
                         </td>
                         <td class="td-style">${review.acc_name}</td>
                         <td class="td-style">${review.ro_name}</td>
-                        <td class="td-style">${review.rev_content}</td>
+						<td class="td-style">
+						    <a href="#" class="review-title" data-review-id="${review.rev_id}">${review.rev_content}</a>
+						</td>
                         <td class="td-style">${review.rev_date}</td>
                         <td class="td-style">${review.email}</td>
 						<td class="td-style">${revComment}</td>
@@ -44,12 +46,50 @@ $(document).ready(function() {
                     </tr>
                 `;
                 tbody.append(row);
+				
+				// 리뷰 제목 클릭 이벤트
+				$('.review-title').on('click', function(e) {
+				    e.preventDefault();
+				    const reviewId = $(this).data('review-id');
+				    fetchReviewDetails(reviewId);
+				});
             });
         },
         error: function(error) {
             console.error("Error fetching reviews:", error);
         }
     });
+	
+	// 리뷰 상세 정보 가져오기
+	function fetchReviewDetails(reviewId) {
+	    $.ajax({
+	        url: `/accommodation/getReviewDetails`,
+	        type: 'GET',
+	        data: { rev_id: reviewId },
+	        success: function(data) {
+				// 이미지와 리뷰 내용을 팝업창에 표시
+				let imagesHtml = data.rev_images.map(image => {
+				    // 이미지 다운로드 URL을 사용하여 이미지를 표시
+				    let imageUrl = `/review/downloadImage?rev_image=${encodeURIComponent(image.rev_image)}`;
+				    return `<img src="${imageUrl}" alt="리뷰 이미지" class="review-image">`;
+				}).join('');
+
+				$('#reviewImages').html(imagesHtml);
+				$('#reviewContent').text(data.rev_content);
+				$('#reviewDate').text(data.rev_date);
+				$('#reviewEmail').text(data.email);
+				$('#reviewComment').text(data.rev_comment);
+
+	            // 팝업 열기
+	            $('#reviewDetailPopup').show();
+	            $('.overlay').show();
+	        },
+	        error: function(error) {
+	            console.error("Error fetching review details:", error);
+	        }
+	    });
+	}
+	
 });
 
 //리뷰 등록하기
@@ -166,6 +206,12 @@ $(document).ready(function() {
         $('.overlay').hide();
     });
 
+	// 리뷰 상세 팝업 닫기 기능 추가
+	$('#closeReviewPopup, #closeReviewPopupBtn').on('click', function() {
+	    $('#reviewDetailPopup').hide();
+	    $('.overlay').hide();
+	});
+	
     // 저장 버튼 클릭 이벤트 (개별 댓글 작성)
     $('#saveSingleComment').on('click', function() {
         const rev_comment = $('#singleCommentText').val();
