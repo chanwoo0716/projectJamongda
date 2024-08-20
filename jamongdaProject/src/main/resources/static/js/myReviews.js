@@ -17,6 +17,7 @@ $(document).ready(function() {
                     data.forEach(review => {
                         if (!existingIds.includes(review.rev_id)) {
                             reviewsHtml += `
+								<a class="go-back" href="/mypage/mypage.do"><i class="fa-solid fa-arrow-left fa-xl"></i></a>
                                 <div class="review" data-rev_id="${review.rev_id}">
                                     <p class="rev_header">
                                         <span>작성일자 : ${review.rev_date}</span>
@@ -38,6 +39,9 @@ $(document).ready(function() {
                     $('#reviews').append(reviewsHtml);
                     page++;
                 } else {
+					if ($('#reviews').children().length === 0) {
+					    $('#reviews').html('<a class="go-back" href="/mypage/mypage.do"><i class="fa-solid fa-arrow-left fa-xl"></i></a><div class="no-reviews">작성한 리뷰가 없습니다.</div>');
+					}
                     $('#loadMore').hide();
                 }
             },

@@ -51,6 +51,7 @@
 	background-color: #fafafa;
 	padding: 20px;
 	margin-bottom: 7%;
+	margin: 2%;
 }
 
 .booking-header {
@@ -66,6 +67,21 @@
 .booking-header .booking-number {
 	font-size: 14px;
 	color: #777;
+}
+
+.no-booking {
+	height: 120px;
+	font-size: 1.2em;
+	line-height: 40px;
+	align-items: center;
+}
+
+.no-booking>a {
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+.no-booking>a:hover {
+	background-color: rgb(190, 190, 190);
 }
 
 .details-link {

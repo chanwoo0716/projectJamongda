@@ -92,11 +92,16 @@ public class WishlistControllerImpl implements WishlistController {
 	    int offset = (page - 1) * pageSize;
 	    List<Map<String, Object>> items = wishlistService.getWishlistByUser(email, pageSize, offset);
 
-	    boolean isLastPage = items.size() < pageSize;
-
 	    Map<String, Object> response = new HashMap<>();
-	    response.put("data", items);
-	    response.put("isLastPage", isLastPage);
+
+	    if(items == null || items.isEmpty()) {
+	    	response.put("message","찜한 내역이 없습니다.");
+	    	response.put("isLastPage", true); // 데이터 없어서 
+	    }else {
+		    boolean isLastPage = items.size() < pageSize;	    
+		    response.put("data", items);
+		    response.put("isLastPage", isLastPage);
+	    }
 	    
 	    return response;
 	}

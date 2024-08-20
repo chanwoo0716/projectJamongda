@@ -11,13 +11,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-    <th:block layout:fragment="content">
+    <div layout:fragment="content">
 		<div id="booking-top">
 			<div class="mypage-container">
 			    <div class="header">
 			        <h1>예약 내역</h1>
-					<input type="checkbox" id="showCompleted" class="showComplete-btn"/>
-					<label for="showCompleted">이용완료 내역 보기</label>
+					<input type="checkbox" id="showCompleted" class="showComplete-btn" th:if="${bookingList != null}"/>
+					<label for="showCompleted" th:if="${bookingList != null}">이용완료 내역 보기</label>
 			    </div>
 			    <div id="booking-history" class="booking-history">
 			        <div class="booking-card" th:each="booking : ${bookingList}">
@@ -48,7 +48,7 @@
 			        </div>
 			    </div>
 			</div>
-		</div>
-    </th:block>
+		</div>a
+    </div>
 </body>
 </html>

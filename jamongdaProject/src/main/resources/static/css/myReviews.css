@@ -138,3 +138,20 @@ body {
 	display: flex;
 	justify-content: space-between;
 }
+
+.no-reviews {
+	margin: 10% 0;
+	display: block;
+    font-size: 1.2em;
+    color: #666;
+    text-align: center;
+    padding: 10px;
+}
+
+.go-back {
+	font-size: 1.1em;  /* 폰트 크기 */
+	color: #666;      /* 글자 색상 */
+	text-align: center; /* 텍스트 정렬 */
+	margin: 20px 0;  /* 상하 여백 */
+	padding: 10px;   /* 내측 여백 */
+}
