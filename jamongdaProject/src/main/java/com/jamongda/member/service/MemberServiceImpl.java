@@ -42,4 +42,5 @@ public class MemberServiceImpl implements MemberService {
     public MemberDTO getMemberByEmail(String email) throws DataAccessException {
         return memberDAO.getMemberByEmail(email);
     }
+    
 }

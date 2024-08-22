@@ -11,15 +11,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
-    <th:block layout:fragment="content">
+    <div layout:fragment="content">
 		<div id="mypage-top">
 			<div class="mypage-container">
 			    <div class="header">
 					<div class="header-content">
+					    <!-- guest 객체가 null이 아닐 때만 출력 -->
 					    <p class="hello" th:text="${guest.name} + '님'"></p>
 					    <form action="/member/updateMemberForm.do" method="post" id="updateMemberForm">
-					        <input type="hidden" name="email" th:value="${guest.email}">
-					        <input type="hidden" name="ro_id" th:value="${latestBooking.ro_id}">
+					        <input type="hidden" th:if="${guest != null}" name="email" th:value="${guest.email}">
+					        <input type="hidden" th:if="${latestBooking != null}" name="ro_id" th:value="${latestBooking.ro_id}">
 					        <button type="submit" class="myInfo-btn">내 정보 관리 ></button>
 					    </form>
 					</div>
@@ -38,13 +39,15 @@
 				
 			    <div class="booking-history">
 			    	<div>
-				        <h2><i class="fa-solid fa-check"></i> 예약내역 <a href="/mypage/allBookings.do" class="details-link">전체 내역보기</a></h2>
+				        <h2><i class="fa-solid fa-check"></i> 예약내역 <a href="/mypage/allBookings.do" class="details-link" th:if="${latestBooking != null}">전체 내역보기</a></h2>
 			    	</div>
+					
+					<!-- latestBooking이 null이 아닐 때만 출력 -->
 					<div class="booking-card" th:if="${latestBooking != null}">
 					    <div class="booking-header">
 					        <span class="booking-number" th:text="'예약번호 : ' + ${latestBooking['bo_number']}"></span>
 					        <span class="booking-date" th:text="'결제일자 : ' + ${latestBooking['payDate']}"></span>
-							<a href="#" class="details-link" th:attr="onclick='openPopup(' + ${latestBooking['bo_number']} + ')'">상세보기</a>						
+							<a href="#" class="details-link" th:attr="onclick='openPopup(' + ${latestBooking['bo_number']} + ')'">상세보기</a>
 					    </div>
 					    <div class="booking-content">
 					        <div class="hotel-info">
@@ -58,12 +61,19 @@
 						<div class="review-booking-btn">
 							<a th:href="@{/review/reviewForm.do(number=${latestBooking.bo_number},aname=${latestBooking.acc_name},rid=${latestBooking.ro_id},rname=${latestBooking.ro_name})}"
 									class="review-link" th:if="${isPastCheckout}">리뷰 등록</a>
-							<a th:href="@{/booking/refundBooking.do}" class="refund-link" th:if="${isAvailableRefund}"
-									th:data-imp_uid="${latestBooking.imp_uid}"
-									th:data-bo_number="${latestBooking.bo_number}"
-									th:data-bo_price="${latestBooking.bo_price}">예약 취소</a>
+							<a class="refund-link" th:if="${isAvailableRefund}"
+								   th:data-imp_uid="${latestBooking.imp_uid}"
+								   th:data-bo_number="${latestBooking.bo_number}"
+								   th:data-bo_price="${latestBooking.bo_price}">예약 취소</a>
 							<a th:href="@{/search/detailSearch.do(aid=${latestBooking.acc_id})}" class="reBooking-link">다시 예약</a>
 						</div>
+					</div>
+					
+					<!-- 예약 내역이 없는 경우 메시지 출력 -->
+					<div class="booking-card no-booking" th:if="${latestBooking == null}">
+						<p>예약된 내역이 없습니다.</p>
+						<p>지금 새로운 예약을 진행해보세요.</p>
+						<a th:href="@{/main.do}"><i class="fa-solid fa-plane-departure"></i> 여행지 찾으러 가기</a>
 					</div>
 			    </div>
 				
@@ -89,6 +99,6 @@
 				</div>
 			</div>
 		</div>
-    </th:block>
+    </div>
 </body>
 </html>

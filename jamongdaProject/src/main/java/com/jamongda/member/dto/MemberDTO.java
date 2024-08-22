@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component("memberDTO")
 public class MemberDTO {
 
-	private String email;
+	private String email; // pk
 	private String name;
 	private String pwd;
 	private String tel;
@@ -13,11 +13,17 @@ public class MemberDTO {
 	private String birth;
 	private String regNumber;
 	private String joinDate;
-	private String role;
+	private String role;	
 	
 	public MemberDTO() {
 	
 	}
+	
+    // kakao - 매개변수를 받는 생성자 추가
+    public MemberDTO(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 	
 	public String getEmail() {
 		return email;
@@ -73,4 +79,5 @@ public class MemberDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
+
 }

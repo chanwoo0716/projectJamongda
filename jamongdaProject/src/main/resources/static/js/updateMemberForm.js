@@ -3,18 +3,19 @@ let pwdCheck=true;
 let addressCheck=true;
 
 function updatePwd() {
-	upCheck=true;
+    upCheck = true;
     let pwd = document.querySelector("#pwd");
     let pwdChk = document.querySelector("#pwdChk");
     let pwdChk2 = document.querySelector("#pwdChk2");
-	let submitPwd = document.querySelector("#submitPwd");
-	let resetPwd = document.querySelector("#resetPwd");
-    pwd.disabled = false;
+    let submitPwd = document.querySelector("#submitPwd");
+    let resetPwd = document.querySelector("#resetPwd");
+
+    pwd.readOnly = false; // readonly 속성 제거
     pwdChk.hidden = false;
     pwdChk2.hidden = false;
     submitPwd.hidden = false;
     resetPwd.hidden = false;
-	pwdCheck=false; //비밀번호 변경 버튼 누르면 확인 누르기 전까지 X
+    pwdCheck = false; // 비밀번호 변경 버튼 누르면 확인 누르기 전까지 비활성화
 }
 
 function pwd_Chk() {

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jamongda.accommodation.dto.RoomDTO;
@@ -23,6 +24,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+@RestController
 @Controller("bookingController")
 public class BookingControllerImpl implements BookingController {
 	@Autowired
@@ -104,29 +106,31 @@ public class BookingControllerImpl implements BookingController {
 		return mav;
 	}
 	
-	// 아임포트 API를 통해 환불 처리
-	@GetMapping("/booking/refundBooking.do")
-	public ResponseEntity<String> refundBooking(@RequestParam("impNumber") String imp_uid,
-			@RequestParam("number") Long bo_number, @RequestParam("price") int bo_price) {
-		try {
+	@PostMapping("/booking/refundBooking")
+	public ResponseEntity<String> refundBooking(@RequestBody Map<String, Object> requestBody) {
+	    try {
+	        String impUid = (String) requestBody.get("imp_uid");
+	        Long number = Long.valueOf(requestBody.get("number").toString());
+	        Integer amount = Integer.valueOf(requestBody.get("amount").toString());
 
-			boolean paymentRefunded = bookingService.refundPayment(imp_uid, bo_price);
+	        boolean paymentRefunded = bookingService.refundPayment(impUid, amount);
 
-			if (paymentRefunded) {
+	        if (paymentRefunded) {
+	            boolean bookingCancelled = bookingService.cancelBooking(number);
 
-				boolean bookingCancelled = bookingService.cancelBooking(bo_number);
-
-				if (bookingCancelled) {
-					return ResponseEntity.ok("예약이 취소되었습니다.");
-				} else {
-					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("예약 취소에 실패했습니다.");
-				}
-			} else {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("결제 취소에 실패했습니다.");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류가 발생했습니다: " + e.getMessage());
-		}
+	            if (bookingCancelled) {
+	                return ResponseEntity.ok("예약이 취소되었습니다.");
+	            } else {
+	                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("예약 취소에 실패했습니다.");
+	            }
+	        } else {
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("결제 취소에 실패했습니다.");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류가 발생했습니다: " + e.getMessage());
+	    }
 	}
+
+
 }
