@@ -9,11 +9,19 @@ h2 {
     align-items: center;
     overflow-x: auto;
     margin: 0px auto;
+	margin-top: 80px;
+	margin-left:50px;
 	width: 100%;
+}
+.table-container button{
+	background-color: white;
+	color: #FF6F61;
+	border: 1px solid #FF6F61;
+	border-radius: 2px;
+	cursor: pointer;
 }
 .table-style {
     border-collapse: collapse;
-
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 	font-size:0.85em;
@@ -65,41 +73,95 @@ h2 {
     color: #FF6F61;
 }
 
+#manageReviewBtn {
+	margin-top: 30px;
+}
+#manageReviewBtn>button {
+	display: inline-block;
+	/*padding: 3% 5%;*/
+	padding : 5px 5px;
+	border: none;
+	background-color: #49627A;
+	color: white;
+	font-weight : bold;
+	border-radius: 6px;
+	cursor: pointer;
+	margin-left: 10px;
+	font-size: 15px; /* 글자 크기 설정 */	
+}
+
 /* 팝업창(댓글작성)관련 CSS */
 .popup {
-    display: none; /* 기본적으로 팝업을 숨김 */
+    display: none;
     position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
-    padding: 20px;
+    width: 550px;
+    padding: 25px;
     background-color: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    border-radius: 10px; /* 둥근 모서리 */
 }
 
 .popup h2 {
-    margin: 0;
-    display: inline-block;
+    margin: 0 0 20px 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.popup .tab-menu {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.popup .tab-menu a {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.popup .tab-menu a.active {
+    background-color: #FF6F61; /* 활성화된 탭 배경색 */
+    color: white;
+    border: 1px solid #E36356;
+}
+
+.popup .tab-menu a:last-child {
+    margin-right: 0;
 }
 
 .popup .close {
-    position:absolute;
-	top:20px;
-	right:20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
     cursor: pointer;
     font-size: 25px;
+    color: #888;
 }
 
 .popup textarea {
-    width: 100%;
-    height: 100px;
-    resize: none; /* 길이 조절 비활성화 */
-    outline: none; /* 빨간 밑줄 비활성화 */
-	margin-top: 30px;
-	margin-bottom: 20px;
+    width: 95%;
+    height: 170px;
+    resize: none;
+    outline: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
     border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.1em;
 }
 
 .popup .btn-group {
@@ -107,24 +169,37 @@ h2 {
 }
 
 .popup .btn-group button {
-    margin-left: 0px;
-    padding: 3px 10px;
-	font-size:1.1em;
-	cursor:pointer;
-	border-radius:3px;
-}
-.popup .btn-group #saveComment {
-    background-color: #FF6F61; /* 파란색 배경 */
-    color: white; /* 흰색 글씨 */
-	border: 1px solid #E36356;
-}
-
-.popup .btn-group #closePopup {
-    background-color: white; /* 흰색 배경 */
-    color: black; /* 검은색 글씨 */
-    border: 1px solid #ccc; /* 닫기 버튼의 경계선 */
+	padding : 5px 15px;
+	border: none;
+	background-color: #49627A;
+	color: white;
+	font-weight : bold;
+	border-radius: 6px;
+	cursor: pointer;
+	margin-left: 10px;
+	font-size: 15px; /* 글자 크기 설정 */
 }
 
+/*
+.popup .btn-group #saveBatchComment,
+.popup .btn-group #saveSmartBatchComment {
+    background-color: #FF6F61;
+    color: white;
+    border: 1px solid #E36356;
+}
+*/
+
+.popup .btn-close {
+	padding : 5px 15px;
+	border: none;
+	background-color: #49627A;
+	color: white;
+	font-weight : bold;
+	border-radius: 6px;
+	cursor: pointer;
+	margin-left: 10px;
+	font-size: 15px; /* 글자 크기 설정 */
+}
 .overlay {
     display: none;
     position: fixed;
@@ -134,4 +209,93 @@ h2 {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
+}
+#smartCommentTemplate>div {
+	margin-bottom:20px;
+}
+
+#smartCommentTemplate h3 {
+	font-size:1.2em;
+	margin-top:40px;
+	margin-bottom:20px;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 10px;
+}
+.popup .template-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+	border-bottom: 1px solid #ccc;
+	
+}
+
+.popup .template-item p {
+    flex: 1;
+	margin-bottom: 15px;
+	
+}
+
+.popup .template-item button {
+    margin-left: 30px;
+	margin-bottom: 10px;
+    padding: 5px 10px;
+    background-color: white;
+    color: #FF6F61;
+    border: 1px solid #FF6F61;
+    border-radius: 2px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* 팝업 내부 요소 간 간격 조정 */
+#reviewDetailPopup #reviewImages {
+    margin-bottom: 20px; /* 이미지와 다음 요소 사이의 간격 */
+}
+
+#reviewDetailPopup p {
+    margin-bottom: 20px; /* 리뷰 내용, 작성일자 사이의 간격 */
+}
+
+#reviewDetailPopup .btn-group {
+    margin-top: 20px; /* 버튼과 이전 요소 사이의 간격 */
+}
+
+/* 이미지 스타일 */
+.review-image {
+    width: 150px;          /* 정사각형의 너비 설정 */
+    height: 150px;         /* 정사각형의 높이 설정 */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-right: 10px;    /* 이미지 간 간격 */
+    object-fit: cover;     /* 이미지를 정사각형에 맞게 자르기 */
+    
+}
+
+/* 팝업 타이틀 스타일 */
+#reviewDetailPopup h2 {
+    margin-bottom: 20px; /* 제목과 첫 번째 요소 사이의 간격 */
+}
+
+/* 리뷰 댓글 영역 스타일 */
+#reviewCommentSection {
+    background-color: #f9f9f9;  /* 연한 배경색 */
+    border-left: 4px solid #FF6F61;  /* 좌측에 강조되는 테두리 */
+    padding: 15px;  /* 내부 여백 */
+    margin-top: 20px;  /* 다른 요소와의 간격 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* 약간의 그림자 효과 */
+    border-radius: 5px;  /* 둥근 모서리 */
+}
+
+/* 댓글 제목 스타일 */
+#reviewCommentSection h3 {
+    margin-top: 0;
+    color: #333;  /* 진한 텍스트 색상 */
+}
+
+/* 댓글 내용 스타일 */
+#reviewCommentSection p {
+    margin: 10px 0 0 0;
+    font-size: 1.1em;
+    color: #555;  /* 회색 텍스트 */
 }

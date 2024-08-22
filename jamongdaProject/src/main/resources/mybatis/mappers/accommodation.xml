@@ -185,7 +185,7 @@
 	    ORDER BY r.rev_date DESC
 	</select>
 
-	<!-- 리뷰 등록하기 -->
+	<!-- 리뷰 등록하기(일괄등록 포함) -->
 	<update id="updateReviewComment">
 	    UPDATE review SET rev_comment = #{rev_comment} WHERE rev_id = #{rev_id}
 	</update>
@@ -199,4 +199,14 @@
 	<delete id="delReview" parameterType="int">
 		delete from review where rev_id=#{rev_id}
 	</delete>
+	
+    <!-- 리뷰를 ID로 조회 -->
+    <select id="findReviewById" resultType="com.jamongda.review.dto.ReviewDTO">
+        SELECT rev_id, rev_content, rev_date, rev_comment, email, ro_id FROM review WHERE rev_id = #{revId}  
+    </select>
+
+    <!-- 리뷰 ID에 따른 리뷰 이미지 조회 -->
+    <select id="findReviewImagesByReviewId" resultType="com.jamongda.review.dto.ReviewImageDTO">
+        SELECT rev_image_id, rev_image, rev_id FROM review_image WHERE rev_id = #{revId}
+    </select>
  </mapper>

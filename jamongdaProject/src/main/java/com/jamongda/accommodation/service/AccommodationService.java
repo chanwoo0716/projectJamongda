@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.dao.DataAccessException;
 
 import com.jamongda.review.dto.ReviewDTO;
+import com.jamongda.review.dto.ReviewImageDTO;
 
 public interface AccommodationService {
 
@@ -32,4 +33,11 @@ public interface AccommodationService {
 	
 	//리뷰 삭제하기
 	public void delReview(int rev_id) throws DataAccessException;
+	
+	//리뷰 상세보기 내용가져오기
+    public ReviewDTO getReviewById(Long revId) throws DataAccessException;
+    
+    //리뷰 상세보기 이미지가져오기
+    public List<ReviewImageDTO> getReviewImagesByReviewId(Long revId) throws DataAccessException;
+	
 }

@@ -7,6 +7,7 @@ public class ReviewDTO {
     private int rev_id;
     private String rev_content;
     private Date rev_date;
+    private String rev_comment;
     private String email;
     private int ro_id;
     private String ro_name;
@@ -35,6 +36,14 @@ public class ReviewDTO {
 
     public void setRev_date(Date rev_date) {
         this.rev_date = rev_date;
+    }
+    
+    public String getRev_comment() {
+        return rev_comment;
+    }
+
+    public void setRev_comment(String rev_comment) {
+        this.rev_comment = rev_comment;
     }
 
     public String getEmail() {

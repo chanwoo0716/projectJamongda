@@ -14,6 +14,7 @@ import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.accommodation.dto.RoomImageDTO;
 import com.jamongda.booking.dto.BookingDTO;
 import com.jamongda.review.dto.ReviewDTO;
+import com.jamongda.review.dto.ReviewImageDTO;
 
 @Mapper
 @Repository("accommodationDAO")
@@ -67,4 +68,11 @@ public interface AccommodationDAO {
 	
 	//리뷰 삭제하기
 	public void delReview(@Param("rev_id") int rev_id) throws DataAccessException;
+	
+	//리뷰 상세보기 내용가져오기
+    public ReviewDTO findReviewById(Long revId) throws DataAccessException;
+    
+    //리뷰 상세보기 이미지가져오기
+    public List<ReviewImageDTO> findReviewImagesByReviewId(Long revId) throws DataAccessException;
+	
 }

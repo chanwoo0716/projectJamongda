@@ -28,6 +28,7 @@ import com.jamongda.accommodation.dto.AccommodationImageDTO;
 import com.jamongda.accommodation.service.AccommodationService;
 import com.jamongda.member.dto.MemberDTO;
 import com.jamongda.review.dto.ReviewDTO;
+import com.jamongda.review.dto.ReviewImageDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -179,50 +180,105 @@ public class AccommodationControllerImpl implements AccommodationController {
 	        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unknown error occurred", e);
 	    }
 	}
-	//리뷰 등록하기
-	@Override
+	//리뷰 댓글등록하기
 	@PostMapping("/accommodation/updateReviews")
-	public ModelAndView updateReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    // POST 요청에서 파라미터로 넘어온 rev_id와 rev_comment를 받음
-	    int rev_id = Integer.parseInt(request.getParameter("rev_id"));
-	    String rev_comment = request.getParameter("rev_comment");
-	    
-	    // 전달 확인하기
-	    System.out.println("rev_id="+rev_id);
-	    System.out.println("rev_comment"+rev_comment);
-	    
-	    // 서비스로 rev_id와 rev_comment를 전달하여 업데이트 수행
-	    accommodationService.updateReviewComment(rev_id, rev_comment);
-	    
-	    System.out.println("리뷰 등록 성공!!");
-		
-		ModelAndView mav = new ModelAndView("redirect:/accommodation/manageReview.do");
-		return mav;
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> updateReview(HttpServletRequest request) {
+	    Map<String, Object> response = new HashMap<>();
+
+	    try {
+	        int rev_id = Integer.parseInt(request.getParameter("rev_id"));
+	        String rev_comment = request.getParameter("rev_comment");
+
+	        // 전달 확인하기
+	        System.out.println("rev_id=" + rev_id);
+	        System.out.println("rev_comment=" + rev_comment);
+
+	        // 서비스로 rev_id와 rev_comment를 전달하여 업데이트 수행
+	        accommodationService.updateReviewComment(rev_id, rev_comment);
+
+	        System.out.println("리뷰 등록 성공!!");
+	        response.put("success", true);
+	    } catch (Exception e) {
+	        System.out.println("리뷰 등록 실패: " + e.getMessage());
+	        response.put("success", false);
+	        response.put("error", e.getMessage());
+	    }
+
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	//리뷰 일괄등록하기
-	/*
-	@Override
+	//리뷰 댓글일괄등록하기(rev_id를 리스트로 받음, rev_comment는 동일함(String으로 받음))
 	@PostMapping("/accommodation/batchUpdateReviews")
-	public ModelAndView batchUpdateReview(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	    // POST 요청에서 파라미터로 넘어온 reviewIds와 rev_comment를 받음
-		List<Integer> reviewIds = request.get("reviewIds");
-	    String rev_comment = request.getParameter("rev_comment");
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> batchUpdateReview(@RequestBody Map<String, Object> requestData) throws Exception {
+	    List<Integer> reviewIds = (List<Integer>) requestData.get("reviewIds");
+	    String rev_comment = (String) requestData.get("rev_comment");
 	    
 	    // 전달 확인하기
-	    System.out.println("reviewIds="+reviewIds);
-	    System.out.println("rev_comment"+rev_comment);
+	    System.out.println("reviewIds=" + reviewIds);
+	    System.out.println("rev_comment=" + rev_comment);
 	    
 	    // 서비스로 reviewIds와 rev_comment를 전달하여 업데이트 수행
-	    for(int rev_id : reviewIds) {
-	    	accommodationService.batchUpdateReviewComment(rev_id, rev_comment);
+	    for (int rev_id : reviewIds) {
+	        accommodationService.updateReviewComment(rev_id, rev_comment);
 	    }
 	    
 	    System.out.println("리뷰 일괄 등록 성공!!");
-		
-		ModelAndView mav = new ModelAndView("redirect:/accommodation/manageReview.do");
-		return mav;
+	    
+	    // 성공 여부를 담아 반환할 Map 객체 생성
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("success", true);
+	    return new ResponseEntity<>(response, HttpStatus.OK);
 	}
-	*/
+	//리뷰 스마트 댓글 일괄 등록하기(rev_id를 리스트로 받음, rev_comment도 리스트로 받음(각 rev_id별로 다른 값이므로))
+	@PostMapping("/accommodation/smartBatchUpdateReviews")
+	@ResponseBody
+	public ResponseEntity<Map<String, Object>> smartBatchUpdateReview(@RequestBody Map<String, Object> requestData) throws Exception {
+
+	    List<Map<String, Object>> reviews = (List<Map<String, Object>>) requestData.get("reviews");
+	    if (reviews != null) {
+	        for (Map<String, Object> review : reviews) {
+	            // rev_id는 int 형으로 받음
+	            int rev_id = (int) review.get("rev_id");
+	            String rev_comment = (String) review.get("rev_comment");
+
+	            System.out.println("rev_id=" + rev_id);
+	            System.out.println("rev_comment=" + rev_comment);
+
+	            // 서비스로 rev_id와 rev_comment를 전달하여 업데이트 수행
+	            accommodationService.updateReviewComment(rev_id, rev_comment);
+	        }
+
+	        System.out.println("스마트 댓글 일괄 등록 성공!!");
+	    } else {
+	        System.out.println("수신된 reviews 데이터가 null입니다.");
+	    }
+
+	    // 성공 여부를 담아 반환할 Map 객체 생성
+	    Map<String, Object> response = new HashMap<>();
+	    response.put("success", true);
+	    return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	//리뷰 상세보기(제목 클릭 이벤트임)
+    @GetMapping("/accommodation/getReviewDetails")
+    @ResponseBody
+    public Map<String, Object> getReviewDetails(@RequestParam("rev_id") Long revId) throws Exception {
+        // 클릭한 리뷰 내용 가져오기
+        ReviewDTO review = accommodationService.getReviewById(revId);
+        // 클릭한 리뷰 이미지 가져오기
+        List<ReviewImageDTO> reviewImages = accommodationService.getReviewImagesByReviewId(revId);
+
+        // JSON으로 반환할 데이터를 Map에 담음
+        Map<String, Object> response = new HashMap<>();
+        response.put("rev_content", review.getRev_content());
+        response.put("rev_date", review.getRev_date());
+        response.put("rev_images", reviewImages);
+        response.put("email", review.getEmail());
+        response.put("rev_comment", review.getRev_comment());
+
+        return response;
+    }
+	
 	//리뷰 삭제하기
 	@PostMapping("/accommodation/delReview")
 	@ResponseBody

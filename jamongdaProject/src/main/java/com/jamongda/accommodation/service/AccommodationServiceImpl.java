@@ -16,6 +16,7 @@ import com.jamongda.accommodation.dto.RoomDTO;
 import com.jamongda.accommodation.dto.RoomImageDTO;
 import com.jamongda.booking.dto.BookingDTO;
 import com.jamongda.review.dto.ReviewDTO;
+import com.jamongda.review.dto.ReviewImageDTO;
 
 @Service("accommodationService")
 public class AccommodationServiceImpl implements AccommodationService {
@@ -209,6 +210,16 @@ public class AccommodationServiceImpl implements AccommodationService {
 	@Override
 	public void delReview(int rev_id) throws DataAccessException {
 		accDAO.delReview(rev_id);
+	}
+	//리뷰 상세보기 내용가져오기
+	@Override
+	public ReviewDTO getReviewById(Long revId) throws DataAccessException {
+		return accDAO.findReviewById(revId);
+	}
+	//리뷰 상세보기 이미지가져오기
+	@Override
+	public List<ReviewImageDTO> getReviewImagesByReviewId(Long revId) throws DataAccessException {
+		return accDAO.findReviewImagesByReviewId(revId);
 	}
 
 }
