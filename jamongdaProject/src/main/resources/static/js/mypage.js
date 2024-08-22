@@ -1,19 +1,25 @@
 $(document).ready(function() {
     $('.refund-link').on('click', function(event) {
-        event.preventDefault();
+        event.preventDefault(); // 링크 기본 동작 방지
 
         var bookingNumber = $(this).data('bo_number'); // 예약 번호
         var imp_uid = $(this).data('imp_uid'); // 결제 ID
         var bo_price = $(this).data('bo_price'); // 결제 금액
-        var refundUrl = $(this).attr('href'); // 결제 취소 요청 URL
+        var refundUrl = '/booking/refundBooking'; // 직접 URL 설정
 
-        // AJAX 요청
+        var requestData = JSON.stringify({
+            imp_uid: imp_uid,
+            number: bookingNumber,
+            amount: bo_price
+        });
+
         $.ajax({
             url: refundUrl,
-            type: 'GET',
-            data: { impNumber: imp_uid, number: bookingNumber, price: bo_price },
+            method: 'POST',
+            contentType: 'application/json',
+            data: requestData,
             success: function(response) {
-                console.log('Response:', response); // 응답 로그
+                console.log('Response:', response);
                 alert('예약이 취소되었습니다.');
                 window.location.reload();
             },
@@ -27,6 +33,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 function openPopup(boNumber) {
     var url = '/mypage/myBookingDetails.do?number=' + encodeURIComponent(boNumber);

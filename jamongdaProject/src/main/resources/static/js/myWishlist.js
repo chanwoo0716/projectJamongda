@@ -36,21 +36,23 @@ $(document).ready(function() {
 	                $('#loadMore').hide(); // 더보기 버튼 숨김
 	            } else if (response.data && Array.isArray(response.data)) {
 	                response.data.forEach(item => {
-	                    if (!seenAccIds.has(item.acc_id)) {
-	                        seenAccIds.add(item.acc_id);
-	                        const itemElement = `
-	                            <div class="wishlist-item" data-acc-id="${item.acc_id}">
-	                                <img src="/accDownload.do?acc_id=${item.acc_id}&acc_image=${item.acc_image}" alt="${item.acc_name}" />
-	                                <h2>${item.acc_name}</h2>
-	                                <p>${item.acc_type}</p>
-	                                <button class="wishlist-button" data-acc_id="${item.acc_id}">
-	                                    <i class="wishlist-icon fa-solid fa-heart" style="color: #ff6f61;"></i>
-	                                </button>
-	                                <a href="/search/detailSearch.do?aid=${item.acc_id}" class="detailAcc-link">자세히 보기</a>
-	                            </div>
-	                        `;
-	                        container.append(itemElement);
-	                    }
+						if (!seenAccIds.has(item.acc_id)) {
+						    seenAccIds.add(item.acc_id);
+						    const itemElement = `
+						        <div class="wishlist-item" data-acc-id="${item.acc_id}">
+						            <div class="image-container">
+						                <img src="/accDownload.do?acc_id=${item.acc_id}&acc_image=${item.acc_image}" alt="${item.acc_name}" />
+						                <button class="wishlist-button" data-acc_id="${item.acc_id}">
+						                    <i class="wishlist-icon fa-solid fa-heart fa-xl"></i>
+						                </button>
+						            </div>
+						            <h2>${item.acc_name}</h2>
+						            <p>${item.acc_type}</p>
+						            <a href="/search/detailSearch.do?aid=${item.acc_id}" class="detailAcc-link">자세히 보기</a>
+						        </div>
+						    `;
+						    container.append(itemElement);
+						}
 	                });
 
                     // 버튼 숨김 및 표시

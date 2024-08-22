@@ -22,4 +22,5 @@ public interface MemberService {
 	
 	// 로그인 시도 시 DB 정보 확인
 	public MemberDTO getMemberByEmail(String email) throws DataAccessException;
+	
 }

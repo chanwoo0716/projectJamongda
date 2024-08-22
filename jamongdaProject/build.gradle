@@ -34,6 +34,7 @@ dependencies {
    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.5'
    implementation 'commons-io:commons-io:2.16.1'
+
     /* 규림 추가 (이메일, 휴대폰인증)*/
     implementation 'org.springframework.boot:spring-boot-starter-mail'
     implementation 'jakarta.mail:jakarta.mail-api:2.0.1'
