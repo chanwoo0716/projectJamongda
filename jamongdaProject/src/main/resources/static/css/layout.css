@@ -122,7 +122,6 @@ h3 {
 	font-size: 1.3em;
 	color: black;
 	display: inline-block;
-	margin-top: 1%;
 	margin-left: 10%;
 }
 
@@ -138,12 +137,12 @@ h3 {
 	z-index: 100000;
 	margin-top: 0.5%;
 
-	text-align: center;
+	text-align: left;
 	background-color: rgb(252, 252, 252);
 	border-radius: 15px;
 	border: 1px solid #ccc;
-	margin-top: 1%;
 	margin-right: 10%;
+	padding: 0.5% 0 0.3% 0.5%;
 
 	transform: translateY(-7px);
 	/* 위에서 아래로 이동하는 효과를 위해 초기 위치를 위로 설정합니다 */
@@ -162,17 +161,31 @@ h3 {
 	font-size: 1em;
 	font-weight: 500;
 	padding: 5%;
-
+	
+	font-weight: bold;
 	box-sizing: border-box;
-	width: 30%;
-}
-
-.mypage_list>li>a {
-	letter-spacing: 3px;
-	font-family: monospace;
+	width: 100%;
 }
 
 .mypage_list>li>a:hover {
+	color: #FF6F61;
+}
+
+/*마이페이지에 있는 찜내역 탭*/
+#wishlistForm>button{
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+	
+	padding: 0;
+	text-align: left;
+	font-size: 1.1em;
+	font-weight: 500;
+	box-sizing: border-box;
+	width: 100%;
+}
+
+#wishlistForm>button:hover{
 	color: #FF6F61;
 }
 
@@ -441,8 +454,7 @@ footer {
 	}
 
 	.mypage_list {
-		width: 10%;
-		margin-right: 8%;
+		width: 9%;
 	}
 
 	/*footer*/
