@@ -24,7 +24,6 @@ a {
 .wrapper {
 	width: 80%;
 	margin: 0 auto;
-	padding: 20px 0;
 }
 
 .hidden {
@@ -179,7 +178,7 @@ a {
 }
 
 .deatail-room{
-	width: 800px;
+	width: 850px;
 }
 
 .search_btn:hover{
@@ -214,6 +213,7 @@ a {
 	margin: 0 auto;
 	display: flex;
 	flex-direction: row;
+	gap: 20px;
 }
 
 .acc_title{
@@ -230,7 +230,7 @@ a {
 	font-size: 2em;
 }
 .acc_content .content_box {
-	margin: 0 auto;
+	margin: 3% auto;
 }
 
 .review {
@@ -298,8 +298,8 @@ a {
 }
 
 .room_more {
-	width: 15%;
 	text-align: center;
+	padding: 1.5% 2%;
 }
 
 .roomList {
@@ -309,7 +309,7 @@ a {
 .roomList .contente_box1 {
 	display: flex;
 	justify-content: space-between;
-	margin-bottom: 2%;
+	margin-bottom: 3%;
 }
 
 .roomList .contente_box2 {
@@ -317,10 +317,14 @@ a {
 	justify-content: space-between;
 }
 
+.ro_res{
+	width: 70px;
+}
 
 .room_price {
 	display: inline;
 	font-size: 1.5em;
+	font-weight: bold;
 }
 
 .res_button>button {
@@ -344,11 +348,13 @@ a {
 
 .use_caution {
 	border-top: 1px solid #ccc;
-	margin: 10% 0;
+	margin: 3% 0;
 }
 
 .use_caution h2 {
-	margin-top: 10%;
+	margin-top: 5%;
+	
+	font-size: 1.7em;
 }
 
 .use_caution p,
@@ -357,7 +363,8 @@ a {
 }
 
 .use_caution ul {
-	font-weight: 700;
+	font-size: 1.3em;
+	padding: 5% 1%;
 }
 
 .use_caution li {
@@ -366,8 +373,9 @@ a {
 }
 .use_caution > p {
 	border-bottom: 1px solid #ccc;
-	margin: 5% 0;
-	padding-bottom: 10%;
+	padding: 5% 1%;
+	
+	font-size: 1.3em;
 }
 
 .review_box {
@@ -694,9 +702,9 @@ a {
 	padding: 20px;
 	border: 1px solid #ddd;
 	border-radius: 8px;
-	margin-top: 17%;
+	margin-top: 85px;
 	margin-left: 10%;
-	width: 90%;
+	width: 100%;
 }
 
 .aside_map h2 {
