@@ -13,6 +13,8 @@
 		<result property="regNumber" column="regNumber" />
 		<result property="joinDate" column="joinDate" />
 		<result property="role" column="role" />
+		<result property="kakaoId" column="kakaoId" />
+		<result property="provider" column="provider" />
 	</resultMap>
 	
 	<!--insert guest정보-->
@@ -29,7 +31,7 @@
     </select>
 	
 	<insert id="insertMember" parameterType="memberDTO">
-	    insert into member (email, name, pwd, tel, 
+	    insert into member (email, name, pwd, tel,
 	    <if test="regNumber != null">
 	        regNumber, joinDate, role
 	    </if>

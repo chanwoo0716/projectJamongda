@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller("accFileDownload")
 public class AccFileDownloadController {
-   private static String ACCOMMODATION_IMAGE_REPO="/Users/frozen-ji/Desktop/images/FileuploadAcc";
+   private static String ACCOMMODATION_IMAGE_REPO="C:\\Users\\lynli\\OneDrive\\바탕 화면\\project\\fileupload\\FileuploadAcc";
    
    @GetMapping("accDownload.do")
    public void fileDown(@RequestParam("acc_id") String acc_id,
@@ -26,7 +26,7 @@ public class AccFileDownloadController {
       response.setContentType("text/html;charset=utf-8");
       
       OutputStream outs = response.getOutputStream();   //input은 이미지 읽어오는 클래스, output은 읽어서 클라이언트에게 보내주는 클래스
-      String path = ACCOMMODATION_IMAGE_REPO + "/" + acc_id + "/" + acc_image;
+      String path = ACCOMMODATION_IMAGE_REPO + "\\" + acc_id + "\\" + acc_image;
       File imageFile = new File(path);
       response.setHeader("Cache-Control", "no-cache");   //캐시 사용 안한다.
       

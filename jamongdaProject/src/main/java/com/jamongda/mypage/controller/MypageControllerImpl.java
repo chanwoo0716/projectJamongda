@@ -52,20 +52,26 @@ public class MypageControllerImpl implements MypageController {
 			Date now = new Date();
 			isPastCheckout = checkOutDate.before(now);
 		}
-		
+
 		// 체크인날짜 전이면 환불 가능
 		boolean isAvailableRefund = false;
 		if (latestBooking != null && latestBooking.get("bo_checkIn") != null) {
-		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		    Date checkInDate = sdf.parse((String) latestBooking.get("bo_checkIn"));
-		    Date now = new Date();
-		    isAvailableRefund = checkInDate.after(now); // 체크인 날짜가 현재 날짜보다 이후일 때 환불 가능
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date checkInDate = sdf.parse((String) latestBooking.get("bo_checkIn"));
+			Date now = new Date();
+			isAvailableRefund = checkInDate.after(now); // 체크인 날짜가 현재 날짜보다 이후일 때 환불 가능
+		}
+
+		// 최신 예약 내역을 `latestBooking`이 null이 아닐 때만 처리
+		if (latestBooking == null) {
+			mav.addObject("latestBooking", null); // 빈 Map 객체를 전달
+		} else {
+			mav.addObject("latestBooking", latestBooking);
+			mav.addObject("isPastCheckout", isPastCheckout);
+			mav.addObject("isAvailableRefund", isAvailableRefund);
 		}
 
 		mav.addObject("guest", guest);
-		mav.addObject("latestBooking", latestBooking);
-		mav.addObject("isPastCheckout", isPastCheckout);
-		mav.addObject("isAvailableRefund", isAvailableRefund);
 		mav.setViewName("mypage/mypage");
 
 		return mav;
@@ -93,7 +99,7 @@ public class MypageControllerImpl implements MypageController {
 				booking.put("isPastCheckout", false);
 			}
 		}
-		
+
 		for (Map<String, Object> booking : bookingList) {
 			if (booking.get("bo_checkIn") != null) {
 				Date checkInDate = sdf.parse((String) booking.get("bo_checkIn"));
@@ -105,7 +111,7 @@ public class MypageControllerImpl implements MypageController {
 		}
 
 		mav.addObject("guest", guest);
-		mav.addObject("bookingList", bookingList);
+		mav.addObject("bookingList", bookingList);			
 		mav.setViewName("mypage/myBookingList");
 
 		return mav;

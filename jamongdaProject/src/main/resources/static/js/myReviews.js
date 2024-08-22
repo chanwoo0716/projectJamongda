@@ -38,6 +38,9 @@ $(document).ready(function() {
                     $('#reviews').append(reviewsHtml);
                     page++;
                 } else {
+					if ($('#reviews').children().length === 0) {
+					    $('#reviews').html('<a class="go-back" href="/mypage/mypage.do"><i class="fa-solid fa-arrow-left fa-xl"></i></a><div class="no-reviews">작성한 리뷰가 없습니다.</div>');
+					}
                     $('#loadMore').hide();
                 }
             },
