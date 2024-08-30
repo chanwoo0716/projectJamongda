@@ -231,14 +231,26 @@ $(document).ready(function() {
                             <div class="review_content">
                                 <div class="review_imagesbox">
                                     ${review.images.map(image =>
-							`<div class="review_image"><img src="/review/downloadImage?rev_image=${image.rev_image}" alt="Review Image"/></div>`).join('')}
-                            </div>
-							<div class="review_text">
-								<div class="user_title"><p>이용 객실 : ${review.ro_name}</p></div>
-								<div class="preview_content">${previewContent}</div>
-								    ${fullContent ? `<div class="full_content">${fullContent}</div>` : ''}
-								    ${fullContent ? '<a href="#" class="more"><strong>더보기</strong></a>' : ''}
+									`<div class="review_image"><img src="/review/downloadImage?rev_image=${image.rev_image}" alt="Review Image"/></div>`).join('')}
+                            	</div>
+								<div class="review_text">
+									<div class="user_title"><p>이용 객실 : ${review.ro_name}</p></div>
+									<div class="preview_content">${previewContent}</div>
+									    ${fullContent ? `<div class="full_content">${fullContent}</div>` : ''}
+									    ${fullContent ? '<a href="#" class="more"><strong>더보기</strong></a>' : ''}
 								</div>
+								
+								${review.rev_comment ? `
+								<div class="review_comment">
+									<div class="review_comment_box">
+										<div class="review_comment_flex">
+											<h3><strong>제휴점 답변</strong></h3>
+											<div class="review_comment_content">
+												<p>${review.rev_comment}</p>
+											</div>
+										</div>
+									</div>
+								</div>` : ''}
                             </div>
 						`;
 						$('#review').append(reviewHtml);

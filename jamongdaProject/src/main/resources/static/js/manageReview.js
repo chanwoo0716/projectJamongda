@@ -73,12 +73,15 @@ $(document).ready(function() {
 				    let imageUrl = `/review/downloadImage?rev_image=${encodeURIComponent(image.rev_image)}`;
 				    return `<img src="${imageUrl}" alt="리뷰 이미지" class="review-image">`;
 				}).join('');
+				
+				// rev_comment가 null이거나 빈 문자열일 경우 "없음"으로 설정
+				let rev_comment = data.rev_comment ? data.rev_comment : "없음";
 
 				$('#reviewImages').html(imagesHtml);
 				$('#reviewContent').text(data.rev_content);
 				$('#reviewDate').text(data.rev_date);
 				$('#reviewEmail').text(data.email);
-				$('#reviewComment').text(data.rev_comment);
+				$('#reviewComment').text(rev_comment);
 
 	            // 팝업 열기
 	            $('#reviewDetailPopup').show();
@@ -164,6 +167,11 @@ $(document).ready(function() {
 	    const selectedReviews = $('#saveSmartBatchComment').data('selected-reviews');
 	    const selectedTemplate = $(this).data('template');
 
+		// 기존에 선택된 템플릿의 색상 원상복구
+		$('.template-item p').css('color', ''); //색상 기본값으로 되돌림
+		// 현재 선택된 템플릿에 색상 적용
+		$(this).siblings('p').css('color', '#1E90FF');
+		
 	    // 각 리뷰마다 개별적으로 템플릿을 적용한 댓글을 생성
 	    const generatedComments = selectedReviews.map(review => {
 			// 이메일에서 앞 세 글자만 남기고 나머지는 *로 대체

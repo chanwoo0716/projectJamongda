@@ -45,7 +45,7 @@
 	<!-- 숙소 ID로 작성한 리뷰와 이미지를 조인하여 가져오기 -->
     <!-- 숙소 ID로 작성한 리뷰 리스트 가져오기 -->
 	<select id="getReviewsByAccId" parameterType="map" resultMap="revResult">
-	    SELECT r.rev_id, r.rev_content, r.rev_date, r.email, r.ro_id
+	    SELECT r.rev_id, r.rev_content, r.rev_date, r.rev_comment, r.email, r.ro_id
 	    FROM review r
 	    JOIN room ro ON r.ro_id = ro.ro_id
 	    JOIN accommodation a ON ro.acc_id = a.acc_id
