@@ -158,3 +158,18 @@
 .hotel-info .check-in-out {
     margin-bottom: 5px;
 }
+
+.reservation-checkbox {
+	text-align:center;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.2em;
+	margin-bottom: 10px;
+}
+.reservation-checkbox > div {
+    margin-right: 20px; /* 두 체크박스-레이블 그룹 간의 간격 */
+}
+.reservation-checkbox input[type="checkbox"] {
+    margin-right: 5px; /* 체크박스와 해당 레이블 간의 간격을 작게 유지 */
+}

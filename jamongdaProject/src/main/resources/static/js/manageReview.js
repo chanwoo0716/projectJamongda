@@ -236,7 +236,10 @@ $(document).ready(function() {
                 alert('댓글이 저장되었습니다.');
                 $('#singleCommentPopup').hide();
                 $('.overlay').hide();
-                location.reload();
+                //location.reload();
+				
+				// 새로고침 없이 댓글 내용을 페이지에 반영(ajax이점 살리기 위함)
+				$(`[data-review-id="${rev_id}"]`).closest('tr').find('td:eq(6)').text(rev_comment);
             },
             error: function(error) {
                 console.error("Error saving comment:", error);
@@ -261,7 +264,12 @@ $(document).ready(function() {
                 alert('댓글이 일괄 등록되었습니다.');
                 $('#batchCommentPopup').hide();
                 $('.overlay').hide();
-                location.reload();
+                //location.reload();
+				
+				// 새로고침 없이 댓글 내용을 페이지에 반영(ajax이점 살리기 위함)
+				reviewIds.forEach(function(rev_id) {
+				    $(`[data-review-id="${rev_id}"]`).closest('tr').find('td:eq(6)').text(rev_comment);
+				});
             },
             error: function(error) {
                 console.error("Error saving comments:", error);
@@ -291,7 +299,12 @@ $(document).ready(function() {
 	            alert('스마트 댓글이 일괄 등록되었습니다.');
 	            $('#batchCommentPopup').hide();
 	            $('.overlay').hide();
-	            location.reload();
+	            //location.reload();
+				
+				// 새로고침 없이 댓글 내용을 페이지에 반영(ajax이점 살리기 위함)
+				reviewData.forEach(function(review) {
+				    $(`[data-review-id="${review.rev_id}"]`).closest('tr').find('td:eq(6)').text(review.rev_comment);
+				});
 	        },
 	        error: function(error) {
 	            console.error("Error saving comments:", error);

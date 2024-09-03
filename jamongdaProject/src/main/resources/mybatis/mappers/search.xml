@@ -71,31 +71,30 @@
 	</resultMap>
 
     <select id="selectAllAccsList" resultMap="accResult">
-        select * from accommodation
+        select * from accommodation  
     </select>
 
     <select id="searchAccList" parameterType="SearchDTO" resultMap="searchResult">
-		<![CDATA[
-			SELECT a.*, ai.acc_image, r.ro_price
-			FROM accommodation a
-			LEFT JOIN (
-				SELECT ai1.acc_id, ai1.acc_image
-				FROM acc_image ai1
-			JOIN (
-				SELECT acc_id, MIN(acc_image) AS acc_image
-				FROM acc_image
-				GROUP BY acc_id
-			) ai2 ON ai1.acc_id = ai2.acc_id AND ai1.acc_image = ai2.acc_image
-			) ai ON a.acc_id = ai.acc_id
-			LEFT JOIN (
-				SELECT r1.acc_id, MIN(r1.ro_price) AS ro_price
-				FROM room r1
-				GROUP BY r1.acc_id
-			) r ON a.acc_id = r.acc_id
-			WHERE regCheck LIKE CONCAT('%', 'Y', '%')
-            AND acc_area LIKE CONCAT('%', #{acc_area}, '%')
-            AND acc_name LIKE CONCAT('%', #{acc_name}, '%') 
-          ]]>
+    	/* searchAccList */
+		SELECT a.*, ai.acc_image, r.ro_price
+		FROM accommodation a
+		LEFT JOIN (
+			SELECT ai1.acc_id, ai1.acc_image
+			FROM acc_image ai1
+		JOIN (
+			SELECT acc_id, MIN(acc_image) AS acc_image
+			FROM acc_image
+			GROUP BY acc_id
+		) ai2 ON ai1.acc_id = ai2.acc_id AND ai1.acc_image = ai2.acc_image
+		) ai ON a.acc_id = ai.acc_id
+		LEFT JOIN (
+			SELECT r1.acc_id, MIN(r1.ro_price) AS ro_price
+			FROM room r1
+			GROUP BY r1.acc_id
+		) r ON a.acc_id = r.acc_id
+		WHERE regCheck LIKE CONCAT('%', 'Y', '%')
+        AND acc_area LIKE CONCAT('%', #{acc_area}, '%')
+        AND acc_name LIKE CONCAT('%', #{acc_name}, '%') 
     </select>
     
     <select id="searchAccType" parameterType="SearchDTO" resultMap="searchResult">
